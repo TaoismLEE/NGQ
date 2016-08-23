@@ -1,0 +1,4 @@
+﻿option explicit
+
+Environment("OrCoreDllPath") = Environment("TestDir") & "\..\..\libs\OrCore.Common.dll"
+'Environment("OrCoreDllPath") = Environment("TestDir") & "C:\ngq-demo-develop\libs\OrCore.Common.dll"

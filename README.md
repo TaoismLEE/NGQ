@@ -1,2 +1,1 @@
-# NGQ
-NGQ Test Repository
+# ngq-demo

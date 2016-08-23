@@ -1,0 +1,1466 @@
+﻿option explicit
+
+'==================================================
+' BEGIN Quote
+'==================================================
+sub Quote_Add()
+	Browser("NGQ").Page("Quote").WebElement("Add").Click
+end sub
+
+sub Quote_AddProductOrOption()
+	'Browser("NGQ").Page("Quote").WebElement("Add").ScrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
+	UFT.ReplayType = intOriginalReplayType
+end sub
+
+
+Sub uploadConfigFile(strPath)
+	Browser("NGQ").Page("Upload Config").Frame("ConfigFrame").WebEdit("UploadConfigFile").Set strPath
+End Sub
+
+Sub Quote_UploadConfig(strPath)
+	Browser("NGQ").Page("Quote").WebElement("Upload").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("UploadConfig").Click
+	UFT.ReplayType = intOriginalReplayType
+	uploadConfigFile strPath
+End Sub
+
+sub Quote_AdditionalDataTab()
+	Browser("NGQ").Page("Quote").WebElement("Additional Data Tab").Click
+	Wait 1
+end sub
+
+sub Quote_CustomerDataTab()
+	'Browser("NGQ").Page("Quote").WebElement("Customer Data Tab").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customer Data","xpath:=//SECTION[@id=""customerDataSection""]/EXPANDCOLLAPSE[1]/DIV[1]/DIV[1]/SPAN[2]").Click
+	Wait 1
+end sub
+
+sub Quote_OpportunityAndQuoteInfoTab()
+	Browser("NGQ").Page("Quote").WebElement("Opportunity and Quote Info Tab").Click
+	Wait 1
+end sub
+
+sub Quote_ShippingDataTab()
+	Browser("NGQ").Page("Quote").WebElement("Shipping Data Tab").Click
+	Wait 1
+end sub
+
+Sub Quote_PricingTermsTab()
+	Browser("NGQ").Page("Quote").WebElement("PricingTermsTab").Click
+	Wait 1
+End Sub
+
+Function Quote_currentlySelectedTab(strQuoteTabSelected)
+	'validating currently selected quote tab
+	Dim strSelectedTab : strSelectedTab = Browser("NGQ").Page("Quote").WebElement("Quote_CurrentlySelectedTab").GetROProperty("innertext")
+	if  strSelectedTab = strQuoteTabSelected Then
+		Reporter.ReportEvent micPass, "Validate currently selected quote tab","Correct Quote Tab is selected"
+	else
+		Reporter.ReportEvent micFail, "Validate currently selected quote tab","Incorrect Quote Tab is selected: " + strSelectedTab
+	End if
+End Function
+
+Sub Quote_save()
+	'save quote
+	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
+		Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
+	else
+		Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
+	End if
+End Sub
+
+Sub Quote_save_unverified()
+	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+End Sub
+
+Function Quote_get_quoteNumber()
+	Dim quoteID : quoteID = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")
+	If quoteID <> "New Quote" Then
+		Quote_get_quoteNumber = quoteID
+		Reporter.ReportEvent micPass, "Get Quote ID", "Successfully Extracted Quote ID"
+	else
+		Reporter.ReportEvent micWarning, "Get Quote ID", "New Quote has no ID"
+	End If
+End Function
+
+Sub Quote_refreshPricing()
+	Utils_scroll_to_refreshPricing
+	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
+	if Browser("NGQ").Page("Quote").WebElement("RefreshPricingMessage").GetROProperty("innertext") = "Refresh Pricing complete" then
+		Reporter.ReportEvent micPass, "Refresh Pricing", "Successfully Refreshed Pricing for this Quote"
+		Reporter.ReportEvent micFail, "Refresh Pricing","Failed to Refresh Pricing for this Quote"
+	End if
+End Sub
+
+Sub Utils_scroll_to_refreshPricing()
+	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Object.scrollIntoView
+End Sub
+
+'==================================================
+' END Quote
+'==================================================
+' BEGIN New Quote - Empty fields validations 
+'==================================================
+function NewQuote_ValideEmptyQuote(strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate)
+	' Validating Quote Number
+	strQuoteNumberID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quoteId""]").GetROProperty("innertext")
+	If strQuoteNumberID = "New Quote" Then
+		Reporter.ReportEvent micPass, "Valide empty quote number","New Quote is not generated"
+	Else
+		Reporter.ReportEvent micFail, "Valide empty quote number","New Quote is not empty"
+	End If
+	' Validating Quote Version
+	strQuoteVersion = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
+	If strQuoteVersion = "1" Then
+		Reporter.ReportEvent micPass, "Valide version 1","New quote version is 1"
+	Else
+		Reporter.ReportEvent micFail, "Valide version 1","New quote version is not 1"
+	End If
+	' Validating Quote Name
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quotenamespanSecond""]").Exist Then
+		Reporter.ReportEvent micPass, "Valide quate name","Quote Name is empty and pencil icon indicating it is editable"	
+	Else
+		Reporter.ReportEvent micFail, "Valide quate name","Quote Name is not empty and pencil icon indicating it is editable"
+	End If	
+	' Validating Quote Status
+	strQuoteStatus = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
+	If strQuoteStatus = "Quote/Configuration Created" Then
+		Reporter.ReportEvent micPass, "Valide quote status","Quote Status is Quote/Configuration Created"
+	Else
+		Reporter.ReportEvent micFail, "Valide quote status","Quote Status is not Quote/Configuration Created"
+	End If	
+	' Validating Quote Start Date
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[2]/SPAN[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide start date","Start Date is visible"	
+	Else
+		Reporter.ReportEvent micFail, "Valide start date","Start Date is not visible"
+	End If		
+	' Validating Quote End Date
+	strQuoteEndDate = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""expiryTsSpan""]/SPAN[1]").GetROProperty ("innertext")
+	If strQuoteEndDate = "(Need Pricing Call)" Then
+		Reporter.ReportEvent micPass, "Valide end date","End Date is not pulled out. It says - Need Pricing Call -"
+	Else
+		Reporter.ReportEvent micFail, "Valide end date","End Date is pulled out"
+	End If
+End function	
+'==================================================
+' END New Quote - Empty fields validations 
+'==================================================
+' BEGIN Quote - Edit quote name
+'==================================================
+function Quote_EditQuoteName(strQuoteName)
+	Browser("name:=Home.*").Page("title:=Home.*").Image("xpath:=//IMG[@id=""editquotename""]").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id=""quotename""]").Set strQuoteName
+End function
+'==================================================
+' END Quote - Edit quote name
+'==================================================
+' BEGIN Quote - Additional Data
+'==================================================
+function AdditionalData_GetReceiptDate()
+	AdditionalData_GetReceiptDate = Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Value
+end function
+
+sub AdditionalData_SetReceiptDate(strValue)
+	'yyyy-MM-dd HH:mm
+	Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Set strValue
+	'TODO: datepicker
+end sub
+
+sub AdditionalData_SetReceiptDateNow()
+	Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Click
+	Browser("NGQ").Page("DateTime Picker").WebButton("Now").Click
+	Browser("NGQ").Page("DateTime Picker").WebButton("Done").Click
+end sub
+'==================================================
+' END Quote - Additional Data
+'==================================================
+' BEGIN Quote - Customer Data
+'==================================================
+sub CustomerData_BillToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Bill To Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_SalesContactsTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Sales Contacts Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_ShipToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Ship To Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_SoldToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Sold To Tab").Click
+	Wait 1
+end sub
+'==================================================
+' END Quote - Customer Data
+'==================================================
+' BEGIN Quote - Customer Data - Bill To
+'==================================================
+sub CustomerDataBillTo_DeselectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").UncheckBox
+end sub
+
+function CustomerDataBillTo_SameAsSoldToAddressIsSelected()
+	CustomerDataShipTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").IsChecked
+end function
+
+sub CustomerDataBillTo_SelectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").CheckBox
+end sub
+'==================================================
+' END Quote - Customer Data - Bill To
+'==================================================
+' BEGIN Quote - Customer Data - Ship To
+'==================================================
+sub CustomerDataShipTo_DeselectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").UncheckBox
+end sub
+
+function CustomerDataShipTo_SameAsSoldToAddressIsSelected()
+	CustomerDataShipTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").IsChecked
+end function
+
+sub CustomerDataShipTo_SelectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").CheckBox
+end sub
+'==================================================
+' END Quote - Customer Data - Ship To
+'==================================================
+' BEGIN Quote - LineItemDetails
+'==================================================
+Sub AddProductsFromTable
+	Dim row, rowcount, Iterator
+	rowcount = DataTable.GetRowCount
+	For Iterator = 1 To rowcount Step 1
+		row = DataTable.GetCurrentRow
+		LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global")
+	Next
+End Sub
+
+Sub LineItemDetails_AddProductByNumber (productNum)
+	' Get column header table'
+	'dim dynCol : dyncol = findTableColumn("ProductNumber")
+	'dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynCol &"')])[2]//input"
+	'add product button
+	Quote_AddProductOrOption
+
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+
+	'LineItemDetails_SetProductNumber productNum
+	'LineItemDetails_SetProductQuantity productQty
+	
+	'Quote_save_unverified
+	'wait 5
+	
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Set productNum
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").SendKeys "~" 
+	'add product number
+	'Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productNum
+	'Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).SendKeys "~"
+	UFT.ReplayType = intOriginalReplayType
+End Sub
+
+Sub LineItemDetails_SetProductNumber(strValue)
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").HoverTap
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
+	wait 1
+	If not Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Exist Then
+		Quote_AddProductOrOption
+		Utils_scrollToBottom_lineItemAdd
+		Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
+	End If
+End Sub
+Sub LineItemDetails_SetProductQuantity(strValue)
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").Set strValue
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").SendKeys "~"
+End Sub
+
+Sub Utils_scrollToBottom_lineItemAdd()
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Object.scrollIntoView
+End Sub
+
+
+'==================================================
+' END Quote - LineItemDetails
+'==================================================
+' BEGIN Quote - "+ Add" button options validation 
+'==================================================
+function Quote_ValideAddButtonOptions()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/A[1]").MouseOver
+	' Validating Add Line
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[1]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide - Add Line","Add Line option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Valide - Add Line","Add Line option is not displayed"
+	End If
+	' Validating Add Product or Option
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[2]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide - Add Product or Option","Add Product or Option option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Valide - Add Product or Option","Add Product or Option option is not displayed"
+	End If
+	' Validating Add Bundle
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[3]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide -Add Bundle","Add Bundle option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Valide - Add Bundle","Add Bundle option is not displayed"
+	End If	
+	' Add Config from OCS
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[4]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide - Add Config from OCS","Add Config from OCS option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Add Config from OCS","Add Config from OCS option is not displayed"
+	End If	
+	' Search Product(s)
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide - Search Product(s)","Search Product(s) option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search Product(s) option is not displayed"
+	End If	
+	' Quick Add
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[6]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Valide - Quick Add","Quick Add option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Quick Add","Quick Add option is not displayed"
+	End If		
+end function
+'==================================================
+' END Quote - "+ Add" button options validation 
+'==================================================
+' BEGIN Quote - OpportunityAndQuoteInfo
+'==================================================
+function OpportunityAndQuoteInfo_GetOpportunityId()
+	OpportunityAndQuoteInfo_GetOpportunityId = Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID").Value
+end function
+
+sub OpportunityAndQuoteInfo_Import()
+	Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebElement("Import").Click
+end sub
+
+sub OpportunityAndQuoteInfo_ImportOpportunityId(strValue) 
+	OpportunityAndQuoteInfo_SetOpportunityId strValue
+	OpportunityAndQuoteInfo_Import
+	Wait 3	
+	'Need time to get information
+	'TODO: extra syncing?
+end sub
+
+sub OpportunityAndQuoteInfo_SetOpportunityId(strValue)
+	Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID").Set strValue
+end sub
+'==================================================
+' END Quote - OpportunityAndQuoteInfo
+'==================================================
+' BEGIN Quote - ShippingData
+'==================================================
+function ShippingData_GetDeliverySpeed()
+	ShippingData_GetDeliverySpeed = Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").Value
+end function
+
+function ShippingData_GetTermsOfDelivery()
+	ShippingData_GetTermsOfDelivery = Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").Value
+end function
+
+sub ShippingData_SetDeliverySpeed(strValue)
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").SelectByText strValue
+end sub
+
+sub ShippingData_SetTermsOfDelivery(strValue)
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").SelectByText strValue
+end sub
+'==================================================
+' END Quote - ShippingData
+'==================================================
+' BEGIN Quote - Search
+'==================================================
+function AdvancedSearch(strQuoteNumber)
+	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""Form""]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+end function
+
+function QuickSearch(strQuoteNumber)
+	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[1]/NGQ-INPUT-TEXT[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+end function
+
+sub QuickSearch_Search()
+	Browser("name:=Home").Page("title:=Home").WebElement("innerText:=Search", "xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[2]/DIV[1]/NGQ-PRIMARY-BUTTON[1]/A[1]").Click
+end sub
+
+sub SelectResult_Search(strQuoteNumber)
+	Browser("name:=Home").Page("title:=Home").Link("innertext:="&strQuoteNumber).Click
+	wait 4
+end sub
+'==================================================
+' END Quote - Search
+'==================================================
+' BEGIN QuoteServices - Options
+'==================================================
+	' BEGIN QuoteServices - Options - Claim
+	'==================================================
+	function QuoteServices_Claim()
+		'Use this function if you'll work with QuoteNumber = NI00147520
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
+		wait 3
+	end function
+	'==================================================
+	' END QuoteServices - Options - Claim	
+	'==================================================	
+	' BEGIN QuoteServices - Options - CustomGroup
+	'==================================================
+	function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
+		'Add Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
+		'Complete form to add
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
+		'Save Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
+		Else
+			Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
+		End If		
+	end function
+	
+	sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
+		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
+		'Edit Custom Group Information
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
+		'Update Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
+		Else
+			Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
+		End If
+	end sub
+	
+	sub QuoteServices_RemoveCustomGroup()
+		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
+		Else
+			Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
+		End If 		
+		'Close Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
+	end sub	
+	'==================================================	
+	' END QuoteServices - Options - CustomGroup
+	'==================================================
+	' BEGIN Quotes  - Pricing and Terms Tab
+	'==================================================
+	Sub verify_price_quality_band()
+		If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").Exist Then
+			Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Bands exist"
+		else
+			Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Bands failed to load"
+		End If
+	End Sub
+	
+	Sub applyEmpowerment(eType)
+	Dim row, actual, rowcount, Iterator, xpath, index, dynCol
+	Select Case eType
+		Case "Preferred"
+			reset_DataTable
+			Browser("NGQ").Page("Pricing and Terms").WebElement("ApplyPreferredEmpower").Click
+			If Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Exist Then
+				Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Click
+			End If
+			rowcount = DataTable.GetRowCount
+			For Iterator = 1 To rowcount Step 1
+				row = DataTable.GetCurrentRow
+				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
+				index = Iterator + 1
+				dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
+				If actual = DataTable("Preferred") Then
+					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
+				else
+					Reporter.ReportEvent micFail, "Verify Updated Empowerment Pricing", "Incorrect Empowerment Discount " & actual & " returned"
+				End If
+				row = DataTable.SetNextRow
+			Next
+		Case "Personal"
+			reset_DataTable
+			Browser("NGQ").Page("Pricing and Terms").WebElement("ApplyPersonalEmpowerment").Click
+			If Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Exist Then
+				Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Click
+			End If
+			rowcount = DataTable.GetRowCount
+			For Iterator = 1 To rowcount Step 1
+				row = DataTable.GetCurrentRow
+				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
+				index = Iterator + 1
+				dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
+				If actual = DataTable("Personal") Then
+					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
+				else
+					Reporter.ReportEvent micFail, "Verify Updated Empowerment Pricing", "Incorrect Empowerment Discount " & actual & " returned"
+				End If
+				row = DataTable.SetNextRow
+			Next
+		Case "Manager"
+			reset_DataTable
+			Browser("NGQ").Page("Pricing and Terms").WebElement("ApplyManagerEmpowerment").Click
+			If Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Exist Then
+				Browser("NGQ").Page("Pricing and Terms").WebElement("ExistingDealRemoveAlert").Click
+			End If
+			rowcount = DataTable.GetRowCount
+			For Iterator = 1 To rowcount Step 1
+				row = DataTable.GetCurrentRow
+				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
+				index = Iterator + 1
+				dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
+				If actual = DataTable("Manager") Then
+					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
+				else
+					Reporter.ReportEvent micFail, "Verify Updated Empowerment Pricing", "Incorrect Empowerment Discount " & actual & " returned"
+				End If
+				row = DataTable.SetNextRow
+			Next
+		Case "MCC"
+			reset_DataTable
+			rowcount = DataTable.GetRowCount
+			For Iterator = 1 To rowcount Step 1
+				row = DataTable.GetCurrentRow
+				index = Iterator + 1
+				dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
+				If actual = DataTable("MCCDiscount") Then
+					Reporter.ReportEvent micPass, "Verify Updated MCC Pricing", "Verified Correct MCC Discount"
+				else
+					Reporter.ReportEvent micFail, "Verify Updated MCC Pricing", "Incorrect MCC Discount " & actual & " returned"
+				End If
+				row = DataTable.SetNextRow
+			Next
+	End Select
+End Sub
+
+Function findTableColumn(strColumnName)
+	dim findCol : findCol = Browser("NGQ").Page("Quote - Line Item Details").WebElement(strColumnName).GetROProperty("class")
+	dim matches : set matches = RegexGetMatches(findCol, "\s{1}(col[0-9]+)\s{1}", false)
+	if matches.Count = 0 then
+	    'we failed poi~
+	    print "failed"
+	end if
+	findTableColumn = Trim(matches(0).Value)
+End Function
+
+Sub reset_DataTable()
+	Dim it, curRow, numRow
+	numRow = DataTable.GetRowCount
+	For it = numRow To 1 Step -1
+		DataTable.SetPrevRow
+	Next
+End Sub
+
+Sub lineItemDetails_addColumn(optColumn)
+	Utils_scrollToBottom_lineItemAddColumn
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailsAddColumns").Click
+	Dim index
+	Select Case optColumn
+		Case "Pricing_Source"
+			index = "34"
+		Case "Source_ID"
+			index = "36"
+	End Select
+	Dim xpath : xpath = "xpath:=//input[@id='SHM" & index & "']"
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Click
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailsAddColumns").Click
+End Sub
+
+Sub lineItemDetails_verifyPricingSource()
+	reset_DataTable
+	Utils_scrollRight_lineItemTableColumn
+	dim rowcount : rowcount = DataTable.GetRowCount
+	Dim Iterator,xpath,actual, row, index
+	For Iterator = 1 To rowcount Step 1
+		row = DataTable.GetCurrentRow
+		index = Iterator + 1
+		actual = Trim(Browser("NGQ").Page("Pricing and Terms").WebElement("xpath:=//div[contains(concat(' ',@class,' '),' ngCell ') and contains(concat(' ',@class,' '),' colt34 ')]").UpdateIndex(Iterator).InnerText)
+		If actual = DataTable("Pricing_Source") Then
+			Reporter.ReportEvent micPass, "Verify Pricing_Source", "Verified Correct Pricing_Source"
+		else
+			Reporter.ReportEvent micFail, "Verify Pricing_Source", "Incorrect Pricing_Source " & actual & " returned"
+		End If
+		row = DataTable.SetNextRow
+	Next
+End Sub
+
+Sub Utils_scrollToBottom_lineItemAddColumn()
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailsAddColumns").Object.scrollIntoView
+End Sub
+
+Sub Utils_scrollRight_lineItemTableColumn()
+	dim myElement : Set myElement = Description.Create
+	myElement("micclass").value = "WebElement"
+	myElement("class").Value = "col"
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailTableHeader").ChildObjects(myElement).Count
+End Sub
+
+Sub requestOPDisc_MCC(strMCCDisc)
+	Browser("NGQ").Page("Pricing and Terms").WebList("ReqOpDiscMCC").Select strMCCDisc
+End Sub
+
+Sub requestOPDisc_OffApp(boolapproval)
+	If boolapproval Then
+		Browser("NGQ").Page("Pricing and Terms").WebElement("ReqOpDiscOffAppTrue").Click
+	else
+		'Browser("NGQ").Page("Pricing and Terms").WebElement("ReqOpDiscOffAppFalse").Click
+		'Javascript hack because UFT is unable to click the No radio button, it will always click Yes.
+		Browser("NGQ").Page("Pricing and Terms").RunScript "document.getElementsByName('mccCode72')[1].click()"
+	End If
+	
+End Sub
+
+Sub requestOPDisc_discType(strDiscType)
+	Browser("NGQ").Page("Pricing and Terms").WebList("ReqOpDiscType").Select strDiscType
+End Sub
+
+Sub requestOPDisc_valueType(strValueType)
+	Browser("NGQ").Page("Pricing and Terms").WebList("ReqOpDiscValueType").Select strValueType
+End Sub
+
+Sub RequestOPDisc_percentage(strPercentage)
+	Browser("NGQ").Page("Pricing and Terms").WebList("ReqOpDiscPercent").Select strPercentage
+End Sub
+
+Sub RequestOPDisc_amount(strAmount)
+	Browser("NGQ").Page("Pricing and Terms").WebEdit("ReqOpDiscAmt").Set strAmount
+End Sub
+
+Sub RequestOPDisc_Submit()
+	Browser("NGQ").Page("Pricing and Terms").WebElement("ReqOpDiscSubmit").Click
+End Sub
+
+Sub RequestOPDisc(strMCCType, boolAppType, strDiscType, strValueType, strPercentage, strAmount, strMCCNum)
+	Utils_scrollToBottom_lineItemAddColumn
+	requestOPDisc_MCC strMCCType
+	requestOPDisc_OffApp boolAppType
+	requestOPDisc_discType strDiscType
+	requestOPDisc_valueType strValueType
+	RequestOPDisc_percentage strPercentage
+	RequestOPDisc_amount strAmount
+	RequestOPDisc_Submit
+	MCC_success_message strMCCNum
+End Sub
+
+Sub MCC_success_message(strMCCNum)
+	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Mcc " & strMCCNum & " added. This removed all other mccs from line items. Please request special price." then
+		Reporter.ReportEvent micPass, "Save Operator Discount Request","Operator Discount Request Successfully Saved"
+	else
+		Reporter.ReportEvent micFail, "Save Operator Discount Request","Operator Discount Request didn't save"
+	End if
+End Sub
+
+Function get_grand_total()
+	get_grand_total = Browser("NGQ").Page("Quote").WebElement("GrandTotal").GetROProperty("innertext")
+End Function
+
+'=====================================================================
+'LV Add
+'======================================================================
+sub Quote_AddBundle()
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+    Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+    Browser("NGQ").Page("Quote").Link("Add Bundle").Click
+    
+end sub
+
+
+sub Quote_PopulateBundle(strBundleProductNumber, intQuantity)
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]").Click	                                                                                               
+    Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]","index:=0").Set strBundleProductNumber
+    
+    'Hide the click if successful. 
+ 	Dim intOriginalFilter : intOriginalFilter = Logger.SetReporterFilter(rfEnableErrorsOnly) 
+ 	Browser("NGQ").Page("Footer").WebElement("Grand Total Label").Click 
+ 	Logger.SetReporterFilter intOriginalFilter
+end Sub
+
+
+sub Quote_PopulateProduct(strPopulateStandaloneProduct, intQuantity)
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]").Click	                                                                                               
+    Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]","index:=0").Set strPopulateStandaloneProduct
+    
+    'Hide the click if successful. 
+ 	Dim intOriginalFilter : intOriginalFilter = Logger.SetReporterFilter(rfEnableErrorsOnly) 
+ 	Browser("NGQ").Page("Footer").WebElement("Grand Total Label").Click 
+ 	Logger.SetReporterFilter intOriginalFilter
+end Sub
+
+sub Quote_CustomerDatatab()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SECTION[@id=""customerDataSection""]/EXPANDCOLLAPSE[1]/DIV[1]/DIV[1]/SPAN[2]").Click
+end Sub
+
+sub Quote_ShiptoTab()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""shipToCustomerTab""]").Click
+end Sub
+
+sub Quote_ShiptoAddress()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""shiptongq""]/DIV[1]/INPUT[1]").Click
+end Sub
+	
+sub Quote_Shipdata()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""SHP_DATA""]").Click
+end Sub
+
+Sub Quote_DeliverySpeed(strDeliverySpeed)
+	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[1]/DIV[1]/LABEL[1]/SELECT[1]").Click
+    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[1]/DIV[1]/LABEL[1]/SELECT[1]").Select strDeliverySpeed
+End Sub
+
+Sub Quote_TermsofDelivery(strTermsOfDelivery)
+	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[2]/DIV[1]/LABEL[1]/SELECT[1]").Click
+    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[2]/DIV[1]/LABEL[1]/SELECT[1]").Select strTermsOfDelivery
+End Sub
+
+Sub Quote_AdditionalDataTab()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""ADDL_DATA""]").Click
+End Sub
+
+Sub Quote_RefreshPricng()
+	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
+	if Browser("NGQ").Page("Quote").WebElement("RefreshPricingMessage").GetROProperty("innertext") = "Refresh Pricing completed" then
+		Reporter.ReportEvent micPass, "Refresh Pricing", "Successfully Refreshed Pricing for this Quote"
+	else
+		Reporter.ReportEvent micFail, "Refresh Pricing","Failed to Refresh Pricing for this Quote"
+	End if
+End Sub
+
+Sub Quote_ClickFooter()
+	Dim intOriginalFilter : intOriginalFilter = Logger.SetReporterFilter(rfEnableErrorsOnly) 
+ 	Browser("NGQ").Page("Footer").WebElement("Grand Total Label").Click 
+ 	Logger.SetReporterFilter intOriginalFilter
+End Sub
+
+
+'Sub Quote_PricingTerms()
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""PRCNG_TERMS""]").Click
+'End Sub
+
+
+Sub Quote_PricingBand()
+	
+	If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").Exist Then
+			If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").GetROProperty("visible") Then 
+				Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Bands exist"
+			else
+				Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Bands failed to load"
+			End If	
+	else
+			Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Bands failed to load"
+	End If
+	'verify_price_quality_band	
+		
+End Sub
+
+Sub Quote_SaveButton()
+	'save quote
+	'The Quote_save and Savebutton were both in object repo. Savebutton was retained in repo as they both had same xpath. Only one has to be retained.
+	'Browser("NGQ").Page("Quote").WebElement("Quote_Save").Click
+	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
+		Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
+	else
+		Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
+	End if
+End Sub
+
+Sub Quote_DealId()
+
+	Dim strDealId 
+	
+	If Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").Exist Then
+		
+		strDealId = Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").GetROProperty("innertext")
+		if  strDealId <>  "" Then
+			Reporter.ReportEvent micPass, "Products under bundle with valid Deal Id","Products under T bundles have Deal Id displayed"
+		else
+			Reporter.ReportEvent micFail, "Products under bundle with valid Deal Id","Products under T bundles have Deal Id is Empty"
+		End if
+	
+	else
+		Reporter.ReportEvent micWarning, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
+	End if
+
+	
+End Sub
+
+sub LineItemDetails_AddProductOrOption(strProductNumber, strQuantity) 
+ 	Quote_AddProductOption 
+ 	Quote_PopulateProduct strProductNumber, strQuantity
+end sub 
+
+sub LineItemDetails_AddBundleProduct(strProductNumber, strQuantity)
+	Quote_AddBundle
+	Quote_PopulateBundle strProductNumber, strQuantity
+end sub
+ 
+ 
+sub LineItemDetails_SetProductNumber(strValue) 
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue 
+end sub 
+ 
+ 
+ sub LineItemDetails_SetQuantity(intQuantity) 
+ 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").Set intQuantity 
+ end sub 
+ '================================================== 
+ ' END Quote - LineItemDetails 
+ '================================================== 
+ 
+Sub Quote_SearchProduct()
+
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/A[1]").MouseOver
+	Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Click
+	
+End Sub
+
+Sub Quote_SelectBundle()
+		
+	Browser("NGQ").Page("Quote").Link("Search Product(s)").Click
+	Browser("NGQ").Page("Quote - Search Product").WebRadioGroup("ProductSearchType").Select "Bundle"
+	
+End Sub
+
+
+sub Quote_AddProductOption()
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
+End sub
+
+Sub Quote_CaptureDealId()
+	Dim strDealId 
+	
+	If Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").Exist Then
+	
+	    strDealId = Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").GetROProperty("innertext")
+		Datatable.GetSheet ("Global").AddParameter "DealId_Output", strDealId
+	else
+		Reporter.ReportEvent micWarning, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
+	End if
+
+End Sub
+
+Sub Quote_BundleIdCheck()
+
+ Dim strBundleId
+ Dim strxPath
+ strxPath = "xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/DIV[1]/SPAN[1]"
+ If Browser("name:=Home.*").Page("title:=Home.*").WebElement(strxPath).Exist Then
+ 
+      strBundleId = Browser("name:=Home.*").Page("title:=Home.*").WebElement(strxPath).GetROProperty("innertext")
+      if  strBundleId <>  "" Then
+		Reporter.ReportEvent micPass, "Valid Bundle Id","Bundle ID displayed"
+	else
+		Reporter.ReportEvent micFail, "Bundle Id empty","Bundle ID cannot be Empty"
+	End if
+else
+	Reporter.ReportEvent micWarning, "Bundle Id Display Check","Bundle ID not displayed, Please contact SA"
+End if
+
+End Sub
+
+Sub Quote_AddBundleToQuote( strBundleId )
+  Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Click
+  Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Set strBundleId
+  Browser("NGQ").Page("Quote - Search Product").WebElement("Bundle Search").Click
+  Browser("NGQ").Page("Quote - Search Product").WebRadioGroup("SelectedBundle").Select strBundleId
+  Browser("NGQ").Page("Quote - Search Product").WebElement("AddBundleToQuote").Click
+End Sub
+
+Sub Quote_QtyUpdate( intBundleQty)
+  Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+  Browser("NGQ").Page("Quote - Line Item Details").Image("Edit").Click
+  'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("ProductQtyHdr").Click
+  'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("ProductQtyHdr").Set intBundleQty
+  Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Click
+  Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Set intBundleQty
+  
+End Sub
+
+Sub Quote_OutputTab()
+	Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
+    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//SELECT[@id=""optypeselect""]","index:=0").Select "Extended Net Price by item with estimated delivery"
+    
+End Sub
+
+Sub Quote_PreviewButton()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""previewBtn""]").Click
+End Sub
+
+
+Sub Quote_SaveFromDownloadBar()
+
+	Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("WinButton").Click
+    Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("Save").Click
+
+End Sub
+
+Sub Quote_PreProcessDownload(strDownloadDir,strSearchFileName)
+	Dim fso
+	
+	'Save writes to a file with quote number
+  	strSearchFileName = Datatable.GetSheet ("Global").GetParameter("QuoteNumber_Output").Value
+  	
+  	Set fso = CreateObject("Scripting.FileSystemObject") 
+	
+	If fso.FileExists(strDownloadDir + strSearchFileName + ".pdf") Then
+		fso.DeleteFile strDownloadDir + strSearchFileName + ".pdf"
+  	End If
+  		
+End Sub
+
+
+
+Sub Quote_ProcessDownload(strDownloadDir,strSearchFileName)
+	Dim fso
+	
+	'Save writes to a file with quote number
+  	strSearchFileName = Datatable.GetSheet ("Global").GetParameter("QuoteNumber_Output").Value
+  	
+  	Set fso = CreateObject("Scripting.FileSystemObject") 
+	
+	fso.CopyFile strDownloadDir + strSearchFileName + ".pdf" , Environment.Value("ResultDir") + "\" + strSearchFileName + ".pdf", True
+  	  	
+  	If fso.FileExists(strDownloadDir + strSearchFileName + ".pdf") Then
+		fso.DeleteFile strDownloadDir + strSearchFileName + ".pdf"
+  	End If
+  	Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("Close").Click
+
+End Sub
+
+Sub Quote_FileContentPriceCheck
+	FileContent("To be assigned.pdf").Check CheckPoint("To be assigned.pdf")
+
+End Sub
+
+
+
+sub Quote_SelectIncludeCoverPage()
+	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[1]/INPUT[1]").CheckBox
+end sub
+
+sub Quote_DeSelectIncludeCoverPage()
+	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[1]/INPUT[1]").UnCheckBox
+end sub
+
+
+sub Quote_SelectCustomGroupView()
+	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[2]/INPUT[1]").CheckBox
+end sub
+
+sub Quote_DeSelectCustomGroupView()
+	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[2]/INPUT[1]").UnCheckBox
+end sub
+
+Sub Quote_CheckPricingBandNotDisplayed()
+	
+	If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").Exist Then
+			If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").GetROProperty("visible") Then 
+				Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Band exist, Check Failed"
+			else
+				Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Band is Not Displayed - Validation Passed"
+			End If	
+	else
+			Reporter.ReportEvent micPass, "Price Quality Band", "Price Quality Band is Not Displayed - Validation Passed"
+	End If
+	'verify_price_quality_band	
+		
+End Sub
+
+Sub Quote_CaptureQuoteNumber()
+	Dim quoteID : quoteID = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext") 
+	Datatable.GetSheet ("Global").AddParameter "QuoteNumber_Output", quoteID
+End Sub
+
+
+'=====================================================================
+'LV End
+'=====================================================================
+
+'=====================================================================
+'PRE VALIDATE START
+'=====================================================================
+Sub select_preValidate_link()
+	Browser("NGQ").Page("Quote").WebElement("ExtraMenuButton").Click
+	Browser("NGQ").Page("Quote").WebElement("PreValidateDropdownSelect").Click
+End Sub
+
+Sub PreValidateQuote()
+	Browser("NGQ").Page("PreValidate").WebElement("CLICButton").Click
+	Browser("NGQ").Page("PreValidate").WebElement("PriceButton").Click
+	Browser("NGQ").Page("PreValidate").WebElement("BundleButton").Click
+	Browser("NGQ").Page("PreValidate").WebElement("CompleteQuoteButton").Click
+End Sub
+
+Sub PreValidateQuote_success()
+    Dim regEx, Match, Matches   ' Create variable.
+    Set regEx = New RegExp   ' Create a regular expression.
+    regEx.Pattern = "Deal \d{9}, Version 1 successfully created.QUOTE SUCESSFULLY UPDATED INTO IDS DB"  ' Set pattern.
+    regEx.IgnoreCase = True   ' Set case insensitivity.
+    regEx.Global = True   ' Set global applicability.
+	If regEx.Test(Browser("NGQ").Page("PreValidate").WebElement("QuoteValidatedResult").GetROProperty("innertext")) Then
+		Reporter.ReportEvent micPass, "Verify Quote Successfully Validated","Quote Successfully Saved/Validated"
+	else
+		Reporter.ReportEvent micFail, "Verify Quote Successfully Validated","Quote did not Save/Validate"
+	End if
+End Sub
+'=====================================================================
+'PRE VALIDATE END
+'=====================================================================
+'====================================
+' Author: Reese Childers
+' Purpose: Functions for refreshing prices,
+' interacting with product select.
+'====================================
+
+' Clicks the line item search option for search product
+Sub click_lineitem_add_product_search()
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("SearchProduct").Click
+End Sub
+
+' Clicks the product list button in new configuration
+Sub select_product()
+	browser("NGQ").Page("New Configuration").WebElement("ProductList").Click
+End Sub
+
+' Clicks the save button on the new quote screen
+Sub click_save_button()
+	browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+	
+	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Successfully Saved Quote!" then
+        Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
+    else
+        Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
+    End if
+End Sub
+
+'Sets the product number and searches ( can only search one product )
+Sub set_product_number(strNum)
+	browser("NGQ").Page("Quote - Search Product").WebEdit("ProductNumber").Set strNum
+	browser("NGQ").Page("Quote - Search Product").WebElement("ProductSearch").Click
+End Sub
+
+' Sets the quantity for the first item to 1
+Sub set_quantity()
+	browser("NGQ").Page("Quote - Search Product").WebEdit("ChangeQuantity").Set "1"
+	browser("NGQ").Page("Quote - Search Product").WebElement("addToCart").Click
+End Sub
+
+' Clicks the add to quote button
+Sub add_to_quote()
+	browser("NGQ").Page("Quote - Search Product").WebElement("addToQuote").Click
+	
+	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Products added." then
+        Reporter.ReportEvent micPass, "Quote Add","Product Successfully Added to Quote"
+    else
+        Reporter.ReportEvent micFail, "Quote Add","Products Were Not Added"
+    End if
+	
+End Sub
+
+' Clicks the refresh pricing button
+Sub click_refresh_pricing()
+	browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
+	
+	if browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext") = "Refresh Pricing completed More" then
+        Reporter.ReportEvent micPass, "Refresh Pricing Pass","Pricing Successfully Refreshed"
+    else
+        Reporter.ReportEvent micFail, "Refresh Pricing Fail","Pricing Refresh Failed"
+    End if
+End Sub
+
+
+Sub validate_product_number_line_item(strName)
+	Dim goodPath : goodPath = "xpath:=(//span[contains(text(),'"
+	goodPath = goodPath + strName + "')])[1]"
+	
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).Exist then
+		Reporter.ReportEvent micPass, "Validate Variable Success", strName
+	Else
+		Reporter.ReportEvent micFail, "Validate Variable Fail", strName
+	End If	
+	
+End Sub
+
+'Adds an item from ocs config
+Sub click_lineitem_add_ocs()
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	browser("NGQ").Page("OCS Config").WebElement("ProductList").Click
+	Browser("NGQ").Page("OCS Config").WebEdit("InputField").Set "752426-B21"
+	Browser("NGQ").Page("OCS Config").WebElement("SearchButton").Click
+	Browser("NGQ").Page("OCS Config").WebEdit("SetQuantity").Set "1"
+	Browser("NGQ").Page("OCS Config").WebElement("Go2Bom").Click
+	Browser("NGQ").Page("OCS Config").WebElement("SaveOCSConfig").Click
+	Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote").Click
+End Sub
+
+'================================
+' End of Reese's functions
+'================================
+
+Sub Quote_create_newVersion(strSource, strReason, strComment)
+	Browser("NGQ").Page("Quote").WebElement("NewVersion").Click
+	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource").Select strSource
+	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason").Select strReason
+	Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment").Set strComment
+	Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit").Click
+End Sub
+
+Sub quote_newVersion(oldQuoteID)
+	Quote_create_NewVersion DataTable.Value("versionSource", "Global"), DataTable.Value("versionReason", "Global"), DataTable.Value("versionComment", "Global")
+	verify_newVersion_message
+	Verify_quoteID oldQuoteID
+	Dim temp : temp = DataTable.Value("quoteVersion", "Global")
+	temp = temp - 1
+	If temp < 10 Then
+		Verify_quoteName "New Version of " & oldQuoteID & "-0" & temp
+	else
+		Verify_quoteName "New Version of " & oldQuoteID & "-" & temp
+	End If
+	Verify_quoteVersion "To be assigned"
+	Quote_save
+	Verify_quoteVersion	DataTable.Value("quoteVersion", "Global")	
+End Sub
+
+Sub verify_newVersion_message()
+	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "New version number will be generated upon save." then
+		Reporter.ReportEvent micPass, "New Version of Quote Created","New Version successfully created"
+	else
+		Reporter.ReportEvent micFail, "New Version of Quote Created","New Version failed to create"
+	End if
+End Sub
+
+Sub Verify_quoteID(strQuoteID)
+	If Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext") = strQuoteID Then
+		Reporter.ReportEvent micPass, "QuoteID Comparison","Quote ID Valid"
+	else
+		Reporter.ReportEvent micFail, "QuoteID Comparison","Quote ID NOT Valid"
+	End If
+End Sub
+
+Sub Verify_quoteVersion(strVersionID)
+	If Browser("NGQ").Page("Quote").WebElement("quoteVersion").GetROProperty("innertext") = strVersionID Then
+		Reporter.ReportEvent micPass, "Quote Version Comparison","Quote Version Valid"
+	else
+		Reporter.ReportEvent micFail, "Quote Version Comparison","Quote Version NOT Valid"
+	End If
+End Sub
+
+Sub Verify_quoteName(strQuoteName)
+	If Browser("NGQ").Page("Quote").WebElement("quoteName").GetROProperty("innertext") = strQuoteName Then
+		Reporter.ReportEvent micPass, "Quote Name Comparison","Quote Name Valid"
+	else
+		Reporter.ReportEvent micFail, "Quote Name Comparison","Quote Name NOT Valid, Received " & Browser("NGQ").Page("Quote").WebElement("quoteName").GetROProperty("innertext")
+	End If
+End Sub
+
+Sub Quote_GrandTotal_Changed(strGrandTotal)
+	If get_grand_total = Browser("NGQ").Page("Quote").WebElement("GrandTotal").GetROProperty("innertext") <> strGrandTotal Then
+		Reporter.ReportEvent micPass, "Grand Total Changed", "Grand Total successfully changed"
+	else
+		Reporter.ReportEvent micPass, "Grand Total Changed", "Grand Total failed to change"
+	End If
+End Sub
+
+Sub verify_advSearch_versions(strVersion, intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("VersionHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	If actual = strVersion Then
+		Reporter.ReportEvent micPass, "Verify Version", "Verified matching version"
+	else
+		Reporter.ReportEvent micFail, "Verify Version", "Incorrect version found"
+	End If
+End Sub
+
+Sub verify_advSearch_quoteID(strQuoteID, intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a/span"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	If actual = strQuoteID Then
+		Reporter.ReportEvent micPass, "Verify Quote Number", "Verified matching Quote Number"
+	else
+		Reporter.ReportEvent micFail, "Verify Quote Number", "Incorrect Quote Number found"
+	End If
+End Sub
+	
+Function getAdvSearchColumn(strColumnName)
+	dim findCol : findCol = Browser("NGQ").Page("AdvancedSearch").WebElement(strColumnName).GetROProperty("class")
+	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\d{4})", false)
+	if matches.Count = 0 then
+	    'we failed poi~
+	    print "failed"
+	end if
+	'reporter.ReportEvent micWarning, "regex match", Trim(matches(0).value)
+	getAdvSearchColumn = Trim(matches(0).Value)
+End Function
+
+Sub verify_advSearch_table(strQuoteID)
+	Dim it, numRow, version, counter
+	counter = 2
+	'numRow = DataTable.GetRowCount
+	'awful hack because this for loop will run 11 times for 3 line datatable due to DataTable.GetRowCount returning a long
+	numRow = DataTable.Value("AdvSearchIt", "Global")
+	For it = 1 To numRow Step 1
+		version = DataTable.Value("quoteVersion", "Global")
+		verify_advSearch_quoteID strQuoteID, counter
+		verify_advSearch_versions version, counter
+		DataTable.SetPrevRow
+		counter = counter + 1
+	Next
+	'Always do version 01 at the end
+	verify_advSearch_quoteID strQuoteID, counter
+	verify_advSearch_versions "01", counter
+End Sub
+
+'===========================================================
+'PoiDFParser
+'===========================================================
+Class pdfParserObj
+	public pdfObj
+	
+	Public Default Function Init(pathToPdf)
+    	SystemUtil.Run "cmd", "/c java -jar pdfbox.jar" + pathToPDF,""
+		dim strDLLPath : strDllPath = Environment.Value("TestDir") & "\..\..\libs\" & "pdfParserWrapper.dll"
+		Dim wrapper : Set wrapper = Dotnetfactory.CreateInstance("pdfParserWrapper.pdfParserWrapper", strDLLPath)
+		wrapper.deserializeObject()
+		Set pdfObj = wrapper.getpdfObj()
+		Set Init = Me
+ 	End Function
+ 	
+ 	Public Function getSoldToAddress()
+ 		getSoldToAddress = pdfObj.soldToAddress
+ 	End Function
+ 	
+ 	Public Function compareSoldToAddress(strSoldAddress)
+ 		If Instr(strSoldAddress, getSoldTOAddress) <> 0 Or Instr(getSoldTOAddress, strSoldAddress) <> 0 then
+ 			compareSoldToAddress = True
+ 		else
+ 			compareSoldToAddress = False
+ 		End if
+ 	End Function
+ 	
+ 	Public Function getShipToAddress()
+ 		getShipToAddress = pdfObj.shipToAddress
+ 	End Function
+ 	
+ 	Public Function compareShipToAddress(strShipAddress)
+ 		If Instr(strShipAddress, getShipTOAddress) <> 0 Or Instr(getShipTOAddress, strShipAddress) <> 0 then
+ 			compareShipToAddress = True
+ 		else
+ 			compareShipToAddress = False
+ 		End if
+ 	End Function 	
+ 	
+ 	Public Function getQuoteExpire()
+ 		getQuoteExpire = pdfObj.quoteExpire
+ 	End Function
+ 	
+ 	Public Function compareQuoteExpire(strQuoteExpire)
+ 		If Instr(strQuoteExpire, getQuoteExpire) <> 0 Or Instr(getQuoteExpire, strQuoteExpire) <> 0 then
+ 			compareQuoteExpire = True
+ 		else
+ 			compareQuoteExpire = False
+ 		End if
+ 	End Function 	
+ 	
+ 	Public Function getQuoteNumber()
+ 		getQuoteNumber = pdfObj.quoteNum
+ 	End Function
+ 	
+ 	Public Function compareQuoteNumber(strQuoteNum)
+ 		If Instr(strQuoteNum, getQuoteNumber) <> 0 Or Instr(getQuoteNumber, strQuoteNum) <> 0 then
+ 			compareQuoteNumber = True
+ 		else
+ 			compareQuoteNumber = False
+ 		End if
+ 	End Function 	
+ 	
+ 	Public Function getSalesContact()
+ 		getSalesContact = pdfObj.salesContact
+ 	End Function
+ 	
+ 	Public Function compareSalesContact(strSalesContact)
+ 		If Instr(strSalesContact, getSalesContact) <> 0 Or Instr(getSalesContact, strSalesContact) <> 0 then
+ 			compareSalesContact = True
+ 		else
+ 			compareSalesContact = False
+ 		End if
+ 	End Function 	
+ 	
+ 	Public Function getCommentsBlock()
+ 		getCommentsBlock = pdfObj.CommentsBlock
+ 	End Function
+ 	
+ 	Public Function compareCommentsBlock(strCommentsBlock)
+ 		If Instr(strCommentsBlock, getCommentsBlock) <> 0 Or Instr(getCommentsBlock, strCommentsBlock) <> 0 then
+ 			compareCommentsBlock = True
+ 		else
+ 			compareCommentsBlock = False
+ 		End if
+ 	End Function 
+ 	
+ 	Public Function getSubTotal()
+ 		getSubTotal = pdfObj.subTotal
+ 	End Function
+ 	
+ 	Public Function compareSubTotal(strSubTotal)
+ 		If Instr(strSubTotal, getSubTotal) <> 0 Or Instr(getSubTotal, strSubTotal) <> 0 then
+ 			compareSubTotal = True
+ 		else
+ 			compareSubTotal = False
+ 		End if
+ 	End Function
+ 	
+ 	Public Function getQuoteCreate()
+ 		getQuoteCreate = pdfObj.quoteHeader
+ 	End Function
+ 	
+ 	Public Function compareQuoteCreate(strQuoteCreate)
+ 		If Instr(strQuoteCreate, getQuoteCreate) <> 0 Or Instr(getQuoteCreate, strQuoteCreate) <> 0 then
+ 			compareQuoteCreate = True
+ 		else
+ 			compareQuoteCreate = False
+ 		End if
+ 	End Function
+ 	
+ 	Public Function getQuoteHeader()
+ 		getQuoteHeader = pdfObj.quoteCreate
+ 	End Function
+ 	
+ 	Public Function compareQuoteHeader(strQuoteHeader)
+ 		If Instr(strQuoteHeader, getQuoteHeader) <> 0 Or Instr(getQuoteHeader, strQuoteHeader) <> 0 then
+ 			compareQuoteHeader = True
+ 		else
+ 			compareQuoteHeader = False
+ 		End if
+ 	End Function
+ 	
+ 	Public Function getTotalsGrandTotal()
+ 		getTotalsGrandTotal = pdfObj.TotalsTable.Item(0).Grand_total
+ 	End Function
+ 	
+ 	Public Function getTotalsSubTotal()
+ 		getTotalsSubTotal = pdfObj.TotalsTable.Item(0).Sub_Total
+ 	End Function
+ 	
+ 	Public Function getTotalsOther()
+ 		getTotalsOther = pdfObj.TotalsTable.Item(0).Other
+ 	End Function
+ 	
+ 	Public Function compareTotalsTable(strGrandTotal, strSubTotal, strOther)
+ 		Dim boolGrandTable, boolSubTotal, boolOther
+ 		If Instr(strGrandTotal, getTotalsGrandTotal) <> 0 Or Instr(getTotalsGrandTotal, strGrandTotal) <> 0  Or (Len(strGrandTotal) = 0 And Len(getTotalsGrandTotal) = 0) then
+ 			boolGrandTable = True
+ 		else
+ 			boolGrandTable = False
+ 		End if
+ 		If Instr(strSubTotal, getTotalsSubTotal) <> 0 Or Instr(getTotalsSubTotal, strSubTotal) <> 0 Or (Len(strSubTotal) = 0 And Len(getTotalsSubTotal) = 0) then
+ 			boolSubTotal = True
+ 		else
+ 			boolSubTotal = False
+ 		End if
+ 		If Instr(strOther, getTotalsOther) <> 0 Or Instr(getTotalsOther, strOther) <> 0 Or (Len(strOther) = 0 And Len(getTotalsOther) = 0) then
+ 			boolOther = True
+ 		else
+ 			boolOther = False
+ 		End if
+ 		compareTotalsTable = boolGrandTable And boolSubTotal And boolOther
+ 	End Function
+ 	
+ 	Public Function getProductsNo(intRowNum)
+ 		getProductsNo = pdfObj.ProductTable.Item(intRowNum-1).No
+ 	End Function
+ 	
+ 	Public Function getProductsDescription(intRowNum)
+ 		getProductsDescription = pdfObj.ProductTable.Item(intRowNum-1).productDescription
+ 	End Function
+ 	
+ 	Public Function getProductsEDT(intRowNum)
+ 		getProductsEDT = pdfObj.ProductTable.Item(intRowNum-1).EDT
+ 	End Function
+ 	
+ 	Public Function getProductsQty(intRowNum)
+ 		getProductsQty = pdfObj.ProductTable.Item(intRowNum-1).Qty
+ 	End Function
+ 	
+ 	Public Function getProductsProduct(intRowNum)
+ 		getProductsProduct = pdfObj.ProductTable.Item(intRowNum-1).Product
+ 	End Function
+ 	
+ 	Public Function getProductsExtNetPrice(intRowNum)
+ 		getProductsExtNetPrice = pdfObj.ProductTable.Item(intRowNum-1).ExtNetPrice
+ 	End Function
+ 	
+ 	Public Function compareProductsTable(intRowNum, strNo, strQty, strProduct, strDesc, strExt, strEDT)
+ 		Dim boolNo, boolQty, boolProduct, boolDesc, boolExt, boolEDT
+ 		If Instr(strNo, getProductsNo(intRowNum)) <> 0 Or Instr(getProductsNo(intRowNum), strNo) <> 0 Or (Len(strNo) = 0 And Len(getProductsNo(intRowNum)) = 0) then
+ 			boolNo = True
+ 		else
+ 			boolNo = False
+ 		End if
+ 		If Instr(strQty, getProductsQty(intRowNum)) <> 0 Or Instr(getProductsQty(intRowNum), strQty) <> 0 Or (Len(strQty) = 0 And Len(getProductsQty(intRowNum)) = 0) then
+ 			boolQty = True
+ 		else
+ 			boolQty = False
+ 		End if
+ 		If Instr(strProduct, getProductsProduct(intRowNum)) <> 0 Or Instr(getProductsProduct(intRowNum), strProduct) <> 0 Or (Len(strProduct) = 0 And Len(getProductsProduct(intRowNum)) = 0) then
+ 			boolProduct = True
+ 		else
+ 			boolProduct = False
+ 		End if
+ 		If Instr(strDesc, getProductsDescription(intRowNum)) <> 0 Or Instr(getProductsDescription(intRowNum), strDesc) <> 0 Or (Len(strDesc) = 0 And Len(getProductsDescription(intRowNum)) = 0) then
+ 			boolDesc = True
+ 		else
+ 			boolDesc = False
+ 		End if
+ 		If Instr(strExt, getProductsExtNetPrice(intRowNum)) <> 0 Or Instr(getProductsExtNetPrice(intRowNum), strExt) <> 0 Or (Len(strExt) = 0 And Len(getProductsExtNetPrice(intRowNum)) = 0) then
+ 			boolExt = True
+ 		else
+ 			boolExt = False
+ 		End if
+ 		If Instr(strEDT, getProductsEDT(intRowNum)) <> 0 Or Instr(getProductsEDT(intRowNum), strEDT) <> 0 Or (Len(strEDT) = 0 And Len(getProductsEDT(intRowNum)) = 0) then
+ 			boolEDT = True
+ 		else
+ 			boolEDT = False
+ 		End if
+ 		compareProductsTable = boolNo And boolQty And boolProduct And boolDesc And boolExt And boolEDT
+ 	End Function
+End Class
+

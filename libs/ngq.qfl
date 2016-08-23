@@ -1,0 +1,238 @@
+﻿option explicit
+
+const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/"
+
+function GetNgqUrl(byval strEnvironment)
+	dim strUrl
+	select case strEnvironment
+		case "ITG"
+			strUrl = strItgUrl
+		case else
+			strUrl = strEnvironment
+			Logger.Report micDoneWithoutScreen, "NGQ environment URL override", "User-specified NGQ URL added: " & strUrl
+	end select
+	GetNgqUrl = strUrl
+end function
+
+sub InitializeTest(browserFamily)
+	'Configure standard UFT settings.
+	UFT.ReplayType = 1
+	UFT.ObjectSyncTimeout = 20000
+	UFT.BrowserNavigationTimeout = 60000
+	UFT.App.Test.Settings.Run.DisableSmartIdentification = true
+	UFT.App.Test.Settings.Run.IterationMode = "oneIteration"
+	UFT.App.Test.Settings.Run.OnError = "Dialog"
+	UFT.Minimize
+	If browserFamily <> "" Then
+		BrowserStore.FamilyCode = browserFamily
+	else
+		BrowserStore.FamilyCode = TestArgs("BrowserFamily")
+	End If
+	set BrowserStore.OrBrowser = Browser("NGQ")
+	OrCore.SetOnBrowserSyncMethodName "NgqBrowserSync"
+	
+	'Load external data.
+	'TODO
+end sub
+
+sub FinalizeTest()
+	Logger.Report micPassWithoutScreen, "Script complete", "The script ran until the end successfully."
+end sub
+
+function OpenNewBrowser()
+	dim strGuid : strGuid = GenerateGuid()
+	BrowserStore.AddNewBrowser strGuid
+	BrowserStore.SetCurrentBrowser strGuid
+	Browser("NGQ").DeleteCookies
+	OpenNewBrowser = strGuid
+end function
+
+function OpenNgq(objRealUser)
+	dim strBrowserName : strBrowserName = OpenNewBrowser
+	
+	with Browser("NGQ")
+	OrCore.AdvancedWebSyncRedirectDelay = 1000
+	.Navigate GetNgqUrl(TestArgs("NgqEnvironment"))
+	OrCore.AdvancedWebSyncRedirectDelay = 0
+	
+	'if not(.Page("HP Log on - Email & Computer Password").WebElement("Use your e-mail address").Exist(1)) then
+	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
+	'end if
+end with
+	LoginNGQ objRealUser
+	OpenNgq = strBrowserName
+end function
+
+Function LoginNGQ(objRealUser)
+	'Pulled out login so we can just use it as a function if we need it
+	'if .Page("HP Log on selector").Link("Email & Computer Password").Exist(1) then
+	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
+	'end if
+	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist Then
+		If Dialog("DigitalBadgeLogin").Exist Then
+		Dialog("DigitalBadgeLogin").Activate
+		Dialog("DigitalBadgeLogin").WinEdit("PIN").SetSecure objRealUser.EncryptedDigitalBadge
+		Dialog("DigitalBadgeLogin").WinButton("OK").Click
+		Reporter.ReportEvent micPass, "Logging into NGQ via DigitalBadge", "Logged in to NGQ via DigitalBadge"
+		Else
+			Reporter.ReportEvent micWarning, "Logging into NGQ via DigitalBadge", "DigitalBadge not required, skipping DigitalBadge Login"
+		End If
+	
+		with Browser("NGQ")
+			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist Then
+				.Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Set objRealUser.Username
+				.Page("HP Log on - Email & Computer Password").WebEdit("Password").SetSecure objRealUser.EncryptedPassword
+				.Page("HP Log on - Email & Computer Password").WebButton("Log on").Click
+				.Page("Navbar").WebElement("Welcome Msg {{innertext:email}}").UpdateInnerText(".* " & objRealUser.Username).AssertExistsEx true, false, false, false
+				Reporter.ReportEvent micPass, "Logging into NGQ via User/Pass", "Logged in to NGQ via User/Pass"
+			Else
+				Reporter.ReportEvent micWarning, "Logging into NGQ via User/Pass", "Login not required, skipping login"
+			End If
+		End with
+	End If
+End Function
+
+sub NgqBrowserSync(objBrowser, byval intElapsedTimeMs)
+	Logger.Debug "(NgqBrowserSync) enter"
+	dim syncTime : syncTime = UFT.BrowserNavigationTimeout
+	MercuryTimers("NgqTimer").Reset
+	MercuryTimers("NgqTimer").Start
+	
+	Wait 0, 100
+	
+	'NOTE: this is bad behaviour to hard-code Browser("NGQ"), but objBrowser is not behaving as expected even after objBrowser.RefreshObject and cannot detect the overlay or return values consistently.
+	do while Browser("NGQ").Page("Overlays").WebElement("Loading").Exist(0)
+		Logger.Debug "(NgqBrowserSync) Loading overlay detected"
+		if MercuryTimers("NgqTimer").ElapsedTime > syncTime then
+			Logger.FrameworkReportEx micPageTimeout, "Timeout", CsString.Format("Browser Sync Failure - the page failed to finish loading after {0} seconds. Continuing script.", Array(UFT.BrowserNavigationTimeout / 1000)), objBrowser, null, null
+			exit do
+		end if
+		
+		Wait 0, 300
+	loop
+	MercuryTimers("NgqTimer").Stop
+	Logger.Debug "(NgqBrowserSync) exit"
+end sub
+
+'==================================================
+' BEGIN User classes
+'==================================================
+class RealUser
+	private m_encryptedPassword
+	private m_username
+	Private m_encryptedDigitalBadge
+	
+	private sub Class_Initialize()
+	end sub
+	
+	private sub Class_Terminate()
+	end sub
+	
+	public property get EncryptedPassword
+		EncryptedPassword = m_encryptedPassword
+	end property
+	
+	Public Property get EncryptedDigitalBadge
+		EncryptedDigitalBadge = m_encryptedDigitalBadge
+	End Property
+	
+	public sub Init(byval strUsername, byval strEncryptedPassword, strEncryptedDigitalBadge)
+		'TODO: type checking
+		m_username = strUsername
+		m_encryptedPassword = strEncryptedPassword
+		m_encryptedDigitalBadge = strEncryptedDigitalBadge
+	end sub
+	
+	public property get Username
+		Username = m_username
+	end property
+end class
+function NewRealUser(byval strUsername, byval strEncryptedPassword, byval strEncryptedDigitalBadge)
+	dim u : set u = new RealUser
+	u.Init strUsername, strEncryptedPassword, strEncryptedDigitalBadge
+	set NewRealUser = u
+end function
+'==================================================
+' END User classes
+'==================================================
+' BEGIN Date and Time pickers
+'==================================================
+'sub DatePicker_Set(strDate)
+'	'Parse input string. Function accepts "yyyy-MM-dd" format.
+'	dim dt : set dt = CsDateTimeOffset.ParseExact(strDate, "yyyy-MM-dd")
+'	with Browser("NGQ")
+'	.Page("Date Picker").WebList("Year").SelectByValue CStr(dt.Year)
+'	.Page("Date Picker").WebList("Month").SelectByValue CStr(dt.Month - 1) 'Month in date picker is 0-based.
+'	.Page("Date Picker").Link("Day {{text}}").UpdateText(CStr(dt.Day)).Click
+'	end with
+'end sub
+'==================================================
+' END Date and Time pickers
+'==================================================
+' BEGIN Navbar
+'==================================================
+sub Navbar_CreateNewQuote()
+	Navbar_ShowNewQuoteList()
+	Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote").Click
+end sub
+
+sub Navbar_Home()
+	Browser("NGQ").Page("Navbar").Link("Home").Click
+end sub
+
+function Navbar_HomeExists(intTimeoutSecs)
+	Navbar_HomeExists = Browser("NGQ").Page("Navbar").Link("Home").Exist(intTimeoutSecs)
+end function
+
+sub Navbar_Logout()
+	Browser("NGQ").Page("Navbar").Link("Logout").Click
+end sub
+
+sub Navbar_ShowNewQuoteList()
+	Browser("NGQ").Page("Navbar").Link("New Quote").MouseOver
+end sub
+
+sub Navbar_AdvancedSearch()
+	Browser("name:=Home").Page("title:=Home").Link("innerhtml:=Advanced Search").Click
+end sub
+
+Sub Navbar_QuickSearch(strQuoteNmbr)
+	Browser("NGQ").Page("Home").WebEdit("QuickSearch").Set strQuoteNmbr
+	Browser("NGQ").Page("Home").WebElement("QuickSearchButton").Click
+End Sub
+'==================================================
+' END Navbar
+'==================================================
+' BEGIN QuoteServices_Selection
+'==================================================
+function QuoteServices_SelectOption (strQuotaSelection_Selector)
+	SELECT CASE (strQuotaSelection_Selector)
+	'   CASE ("Export")
+	'      PropertyValue = "Export"
+	'   CASE ("New Version")
+	'      PropertyValue = "New Version"
+	'   CASE ("Clone")
+	'      PropertyValue = "Clone"
+	    CASE ("Refresh Pricing")
+			Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//A[@id=""refreshPriceId""]").Click
+			Wait 3			
+		CASE ("Claim")
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[4]").Click	
+	'   CASE ("Request Special Pricing")
+	'      PropertyValue = "Request Special Pricing"
+	'   CASE ("Transfer ownership")
+	'      PropertyValue = "Transfer ownership"
+	'   CASE ("Pre-Validate")
+	'      PropertyValue = "Pre-Validate"
+		CASE ("Custom Group")
+			Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[11]/SPAN[1]").Click
+	'   CASE ("CLIC Call")
+	'      PropertyValue = "CLIC Call"
+		CASE ("Save")
+	      Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//SPAN[@id=""ngqsavebtn""]").Click
+	      Wait 3
+	END SELECT
+end function
+'==================================================
+' END QuoteServices_Selection
+'==================================================

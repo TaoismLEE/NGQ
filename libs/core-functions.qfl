@@ -1,0 +1,1178 @@
+﻿option explicit
+'=================================================================
+' OrCore UFT Framework v2.3.0 ALPHA
+' core-functions.qfl (requires OrCore.Common.dll)
+' Written by Richard Barrett (rbarrett@hpe.com)
+' © Copyright 2012-2016 Hewlett Packard Enterprise Development LP
+'=================================================================
+
+'====================================================================================================
+'GLOBAL CONSTANTS/STRUCTURES
+
+class [Static|UFT]
+	private m_contextManagerDllPath
+	private m_dotNetExtensionDllPath
+	private m_scriptId
+	private m_uftApp
+	private m_uftHelper
+
+	private sub Class_Initialize
+		m_contextManagerDllPath = Environment("ProductDir") & "\bin\ContextManager.dll"
+		
+		if EnvironmentVarExists("OrCoreDllPath") then
+			m_dotNetExtensionDllPath = Environment("OrCoreDllPath")
+		else
+			m_dotNetExtensionDllPath = Environment("ProductDir") & "\bin\OrCore.Common.dll"
+		end if
+		
+		m_scriptId = Environment.Value("TestName")
+		set m_uftApp = GetObject("","QuickTest.Application")
+		set m_uftHelper = DotNetFactory.CreateInstance("OrCore.Common.Uft", m_dotNetExtensionDllPath)
+		'Setting.WebPackage("ReplayType") = 1 'Event.
+		'Setting.WebPackage("ReplayType") = 2 'Mouse.
+	end sub
+
+	public property get App
+		set App = m_uftApp
+	end property
+
+	public property get BrowserNavigationTimeout
+		BrowserNavigationTimeout = m_uftApp.Test.Settings.Web.BrowserNavigationTimeout 'BrowserNavigationTimeout is in milliseconds
+	end property
+	
+	public property let BrowserNavigationTimeout(intTimeoutMs)
+		if not IsInt16Or32(intTimeoutMs) then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.BrowserNavigationTimeout) intTimeoutMs is invalid. Must be an Integer or Long."
+			ExitTest
+		elseif intTimeoutMs < 0 then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.BrowserNavigationTimeout) intTimeoutMs is invalid. Must be an Integer or Long greater than 0."
+			ExitTest
+		end if
+		m_uftApp.Test.Settings.Web.BrowserNavigationTimeout = intTimeoutMs
+	end property
+
+	public property get ContextManagerDllPath
+		ContextManagerDllPath = m_contextManagerDllPath
+	end property
+	
+	public property get DotNetExtensionDllPath
+		DotNetExtensionDllPath = m_dotNetExtensionDllPath
+	end property
+	
+	public sub Minimize
+		m_uftApp.WindowState = "Minimized"
+	end sub
+	
+	public property get ObjectSyncTimeout
+		ObjectSyncTimeout = m_uftApp.Test.Settings.Run.ObjectSyncTimeout 'ObjectSyncTimeout is in milliseconds
+	end property
+	
+	public property let ObjectSyncTimeout(intTimeoutMs)
+		if not IsInt16Or32(intTimeoutMs) then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.ObjectSyncTimeout) intTimeoutMs is invalid. Must be an Integer or Long."
+			ExitTest
+		elseif intTimeoutMs < 0 then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.ObjectSyncTimeout) intTimeoutMs is invalid. Must be an Integer or Long greater than 0."
+			ExitTest
+		end if
+		m_uftApp.Test.Settings.Run.ObjectSyncTimeout = intTimeoutMs
+	end property
+	
+	public property get ReplayType
+	 	ReplayType = Setting.WebPackage("ReplayType")
+	end property
+	
+	public property let ReplayType(intReplayType)
+		if not IsInt16Or32(intReplayType) then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.ReplayType) intReplayType is invalid. Must be an Integer or Long."
+			ExitTest
+		elseif (intReplayType < 1) or (intReplayType > 2) then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.ReplayType) intReplayType is invalid. Must be 1 (Event) or 2 (Mouse)."
+			ExitTest
+		end if
+	 	Setting.WebPackage("ReplayType") = intReplayType
+	end property
+
+	public property get ScriptId
+	 	ScriptId = m_scriptId
+	end property
+	
+	public sub Sleep(intMilliseconds)
+		if not IsInt16Or32(intMilliseconds) then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.Sleep) intMilliseconds is invalid. Must be an Integer or Long."
+			ExitTest
+		elseif intMilliseconds < 0 then
+			'Using standard Reporter here to avoid bi-directional dependency on Logger during Logger initialization.
+			Reporter.Filter = rfEnableAll
+			Reporter.ReportEvent micFail, "Script Error", "(UFT.Sleep) intMilliseconds is invalid. Must be >= 0."
+			ExitTest
+		end if
+		m_uftHelper.Sleep intMilliseconds
+	end sub
+end class
+dim UFT : set UFT = new [Static|UFT]
+dim Qtp : set Qtp = new [Static|UFT] 'Backward compatibility for v1.0-2.0.
+
+function EnvironmentVarExists(strName)
+	on error resume next : Err.Clear
+	dim val : val = Environment(strName)
+	EnvironmentVarExists = (Err.Number = 0)
+	Err.Clear
+	on error goto 0
+end function
+
+'END OF GLOBAL CONSTANTS/STRUCTURES
+'====================================================================================================
+
+function CChar(chaInput)
+	if not IsString(chaInput) then
+		Err.Raise vbObjectError + 1, "CChar", "chaInput is not a valid char"
+	elseif Len(chaInput) <> 1 then
+		Err.Raise vbObjectError + 1, "CChar", "chaInput is not a valid char"
+	else
+		CChar = chaInput
+	end if
+end function
+
+' IIF recreated for VBscript
+function IIF(expression, ifTrue, ifFalse)
+	if expression then
+		IIF = ifTrue
+	else
+		IIF = ifFalse
+	end if
+end function
+
+function IsBool(input)
+	IsBool = IIF((TypeName(input) = "Boolean"), true, false)
+end function
+
+function IsChar(input)
+	IsChar = IIF(IsString(input), (Len(input) = 1), false)
+end function
+
+function IsDouble(input)
+	IsDouble = IIF((TypeName(input) = "Double"), true, false)
+end function
+
+function IsInt16(input)
+	IsInt16 = IIF((TypeName(input) = "Integer"), true, false)
+end function
+
+function IsInt32(input)
+	IsInt32 = IIF((TypeName(input) = "Long"), true, false)
+end function
+
+function IsInt16Or32(input)
+	dim t : t = TypeName(input)
+	IsInt16Or32 = IIF((t = "Integer" or t = "Long"), true, false)
+end function
+
+function IsString(input)
+	IsString = IIF((TypeName(input) = "String"), true, false)
+end function
+
+function IsNothing(obj)
+	if obj is nothing then
+		IsNothing = true
+	else
+		IsNothing = false
+	end if
+end function
+
+'===================
+'= Array functions =
+'===================
+
+function ArrayContains(value, array)
+	dim i, blnFound
+	for i = 0 To UBound(array)
+		if value = array(i) then
+			ArrayContains = true
+			exit function
+		end if
+	next
+	ArrayContains = false
+end function
+
+function ReverseArray(oldArr)
+	dim intUB : intUB = UBound(oldArr)
+	dim newArr() : redim newArr(intUB)
+	dim i
+	for i = 0 to intUB
+		newArr(intUB - i) = oldArr(i)
+	next
+	ReverseArray = newArr
+end function
+
+sub ReverseOriginalArray(byref arr)
+	dim intUB	: intUB = UBound(arr)
+	dim intMid	: intMid = Int(intUB / 2)
+
+	dim i, objTemp
+	for i = 0 to intMid
+		objTemp = arr(i)
+		arr(i) = arr(intUB - i)
+		arr(intUB-i) = objTemp
+	next
+end sub
+
+function SortStringArray(byval arrSrc)
+	dim i, j, temp
+
+	for i = (UBound(arrSrc) - 1) to 0 step -1
+		for j = 0 to i
+			if UCase(arrSrc(j)) > UCase(arrSrc(j + 1)) then
+				temp = arrSrc(j + 1)
+				arrSrc(j + 1) = arrSrc(j)
+				arrSrc(j) = temp
+			end if
+		next
+	next
+	
+	SortStringArray = arrSrc
+end function
+
+'=====================
+'= Numeric functions =
+'=====================
+
+function RoundUp(byval val)
+	dim result
+	result = Int(val)
+	if result < val then
+		result = result + 1
+	end if
+	RoundUp = result
+end function
+
+function GenerateGuid
+	dim typeLib : set typeLib = CreateObject("Scriptlet.TypeLib")
+	GenerateGuid = Replace(Mid(typeLib.Guid, 2, 36), "-", "")
+end function
+
+function GetTimestamp
+	'returns a timestamp string in the form of yyyyMMddhhmmss
+	dim strYear, strMonth, strDay, strHour, strMinute, strSecond
+	strYear = Right("0000" & CStr(Year(Date)), 4)
+	strMonth = Right("00" & CStr(Month(Date)), 2)
+	strDay = Right("00" & CStr(Day(Date)), 2)
+	strHour = Right("00" & CStr(Hour(FormatDateTime(Time, 4))), 2)
+	strMinute = Right("00" & CStr(Minute(Time)), 2)
+	strSecond = Right("00" & CStr(Second(Time)), 2)
+	GetTimestamp = strYear & strMonth & strDay & strHour & strMinute & strSecond
+end function
+
+'http://www.aspnut.com/reference/encoding.asp
+function UrlDecode(strSource)
+	if IsNull(strSource) then
+		UrlDecode = ""
+		exit function
+	end if
+	
+	'Convert all plusses to spaces.
+	dim output : output = replace(strSource, "+", " ")
+	
+	'Convert %hexdigits to the character.
+	dim arr : arr = Split(output, "%")
+	
+	if IsArray(arr) then
+		output = arr(0)
+		dim i
+		for i = 0 to UBound(arr) - 1
+			output = output & Chr("&H" & Left(arr(i + 1), 2)) & Right(arr(i + 1), Len(arr(i + 1)) - 2)
+		next
+	end if
+	
+	UrlDecode = output
+end function
+
+function RegexGetMatches(strSource, strPattern, blnGlobal)
+	dim rgx : set rgx = new RegExp
+	rgx.Pattern = strPattern
+	rgx.IgnoreCase = true
+	rgx.Global = blnGlobal
+	set RegexGetMatches = rgx.Execute(strSource)
+end function
+
+function RegexTest(strSource, strPattern)
+	dim rgx : set rgx = new RegExp
+	rgx.Pattern = strPattern
+	rgx.IgnoreCase = true
+	RegexTest = rgx.Test(strSource)
+end function
+
+'====================================================================================
+
+function NewVbsDictionary
+	set NewVbsDictionary = CreateObject("Scripting.Dictionary")
+end function
+
+function VBScriptJoin(stringArray, strDelimiter) 'Used for wrapping [System.String].Join.
+	VBScriptJoin = Join(stringArray, CStr(strDelimiter))
+end function
+
+function VBScriptSplit(strExpression, strDelimiter, lngStringCount, intCompare) 'Used for wrapping [System.String].Split.
+	VBScriptSplit = Split(CStr(strExpression), CStr(strDelimiter), CLng(lngStringCount), CInt(intCompare))
+end function
+
+'dataType is the full name fo the C# type to be used in the array.
+'E.g. "System.Int32", "System.String", etc.
+function VbsArrayToCsArray(vbsArray, dataType)
+	dim SystemType : set SystemType = DotNetFactory.CreateInstance("System.Type")
+	dim SystemArray : set SystemArray = DotNetFactory.CreateInstance("System.Array")
+	dim csArray : set csArray = SystemArray.CreateInstance(SystemType.GetType(dataType), UBound(vbsArray)+1)
+	dim index
+	for index = CLng(0) to CLng(UBound(vbsArray))
+		csArray.SetValue vbsArray(index), index
+	next
+	set VbsArrayToCsArray = csArray
+end function
+
+'function CsArrayToVbsArray(csArray)
+'	dim vbsArray() : redim vbsArray(csArray.Length - 1)
+'	dim index
+'	for index = CLng(0) to CLng(csArray.Length - 1)
+'		vbsArray(index) = csArray.GetValue(index)
+'	next
+'	CsArrayToVbsArray = vbsArray
+'end function
+
+'typeConverter should be one of the VBScript cast functions passed as a string.
+'E.g. "CDbl", "CLng", "CStr", etc.
+function CsArrayToVbsArray(csArray, typeConverter)
+	dim vbsArray() : redim vbsArray(csArray.Length - 1)
+	dim index
+	for index = CLng(0) to CLng(csArray.Length - 1)
+		Execute("vbsArray(index) = " & typeConverter & "(csArray.GetValue(index))")
+	next
+	CsArrayToVbsArray = vbsArray
+end function
+
+class [Static|System.Boolean]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.Boolean", "System", "true")
+	end sub
+
+	public function Parse(strInput)
+		Parse = CBool(m_value.Parse(CStr(strInput)))
+	end function
+
+	public property get TrueString
+		TrueString = ""
+	end property
+
+	public function TryParse(strInput, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		out = CBool(m_value.Parse(CStr(strInput)))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+end class
+dim CsBoolean : set CsBoolean = new [Static|System.Boolean]
+
+class [Static|System.String]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("OrCore.Common.Wrappers.StringWrapper", UFT.DotNetExtensionDllPath)
+	end sub
+
+	public function Compare(strSource, strValue, blnCaseSensitive)
+		dim cmp : cmp = IIF(blnCaseSensitive, 0, 1)
+		Compare = StrComp(CStr(strSource), CStr(strValue), cmp)
+	end function
+
+	public function Contains(strSource, strValue, blnCaseSensitive)
+		dim cmp : cmp = IIF(blnCaseSensitive, 0, 1)
+		Contains = (InStr(1, CStr(strSource), CStr(strValue), cmp) > 0)
+	end function
+
+	public function EndsWith(strSource, strValue, blnCaseSensitive)
+		dim a : a = IIF(blnCaseSensitive, CStr(strSource), ToUpperInvariant(CStr(strSource)))
+		dim b : b = IIF(blnCaseSensitive, CStr(strValue), ToUpperInvariant(CStr(strValue)))
+		EndsWith = (Right(a, Len(b)) = b)
+	end function
+
+	public function Equals(strSource, strValue, blnCaseSensitive)
+		dim cmp : cmp = IIF(blnCaseSensitive, 0, 1)
+		Equals = (StrComp(CStr(strSource), CStr(strValue), cmp) = 0)
+	end function
+
+	public function EqualsInvariant(strSource, strValue, blnCaseSensitive)
+		dim ret : ret = m_value.EqualsInvariant(CStr(strSource), CStr(strValue), blnCaseSensitive)
+		EqualsInvariant = IIF((ret = "True"), true, false)
+	end function
+
+	public function Format(strFormat, argsArray)
+		Format = m_value.Format(CStr(strFormat), argsArray)
+	end function
+
+	public function IndexOf(strSource, strValue)
+		IndexOf = CLng(m_value.IndexOf(CStr(strSource), CStr(strValue)))
+	end function
+
+	public function IndexOf2(strSource, strValue, lngStartIndex)
+		IndexOf2 = CLng(m_value.IndexOf(CStr(strSource), CStr(strValue), CLng(lngStartIndex)))
+	end function
+
+	public function IndexOf3(strSource, strValue, lngStartIndex, lngNumChars)
+		IndexOf3 = CLng(m_value.IndexOf(CStr(strSource), CStr(strValue), CLng(lngStartIndex), CLng(lngNumChars)))
+	end function
+
+	public function IndexOfAny(strInput, charArray)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		IndexOfAny = CLng(m_value.IndexOfAny(CStr(strInput), csArray))
+	end function
+
+	public function IndexOfAny2(strInput, charArray, lngStartIndex)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		IndexOfAny2 = CLng(m_value.IndexOfAny(CStr(strInput), csArray, CLng(lngStartIndex)))
+	end function
+
+	public function IndexOfAny3(strInput, charArray, lngStartIndex, lngNumChars)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		IndexOfAny3 = CLng(m_value.IndexOfAny(CStr(strInput), csArray, CLng(lngStartIndex), CLng(lngNumChars)))
+	end function
+
+	public function Insert(strInput, lngStartIndex, strValue)
+		Insert = m_value.Insert(CStr(strInput), CLng(lngStartIndex), CStr(strValue))
+	end function
+
+	public function [Join](chaSeparator, stringArray)
+		dim csArray : set csArray = VbsArrayToCsArray(stringArray, "System.String")
+		[Join] = m_value.Join(CStr(chaSeparator), csArray)
+	end function
+
+'	public function JoinSubset(separator, stringArray, startIndex, numStrings)
+'		dim index
+'		dim subIndex : subIndex = 0
+'		dim subArray() : redim subArray(numStrings-1)
+'		for index = startIndex to (startIndex + numStrings) - 1 step 1
+'			subArray(subIndex) = stringArray(index)
+'			subIndex = subIndex + 1
+'		next
+'		JoinSubset = VBScriptJoin(subArray, separator)
+'	end function
+
+	public function JoinSubset(chaSeparator, stringArray, lngStartIndex, lngNumStrings)
+		dim csArray : set csArray = VbsArrayToCsArray(stringArray, "System.String")
+		JoinSubset = m_value.Join(CStr(chaSeparator), csArray, CLng(lngStartIndex), CLng(lngNumStrings))
+	end function
+
+	public function LastIndexOf(strSource, strValue)
+		LastIndexOf = CLng(m_value.LastIndexOf(CStr(strSource), CStr(strValue)))
+	end function
+
+	public function LastIndexOf2(strSource, strValue, lngStartIndex)
+		LastIndexOf2 = CLng(m_value.LastIndexOf(CStr(strSource), CStr(strValue), CLng(lngStartIndex)))
+	end function
+
+	public function LastIndexOf3(strSource, strValue, lngStartIndex, lngNumChars)
+		LastIndexOf3 = CLng(m_value.LastIndexOf(CStr(strSource), CStr(strValue), CLng(lngStartIndex), CLng(lngNumChars)))
+	end function
+
+	public function LastIndexOfAny(strInput, charArray)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		LastIndexOfAny = CLng(m_value.LastIndexOfAny(CStr(strInput), csArray))
+	end function
+
+	public function LastIndexOfAny2(strInput, charArray, lngStartIndex)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		LastIndexOfAny2 = CLng(m_value.LastIndexOfAny(CStr(strInput), csArray, CLng(lngStartIndex)))
+	end function
+
+	public function LastIndexOfAny3(strInput, charArray, lngStartIndex, lngNumChars)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		LastIndexOfAny3 = CLng(m_value.LastIndexOfAny(CStr(strInput), csArray, CLng(lngStartIndex), CLng(lngNumChars)))
+	end function
+
+	public function PadLeft(strInput, lngTotalLength, chaPaddingChar)
+		PadLeft = m_value.PadLeft(CStr(strInput), CLng(lngTotalLength), CStr(chaPaddingChar))
+	end function
+
+	public function PadLeftWithSpaces(strInput, lngTotalLength)
+		PadLeftWithSpaces = m_value.PadLeft(CStr(strInput), CLng(lngTotalLength))
+	end function
+
+	public function PadRight(strInput, lngTotalLength, chaPaddingChar)
+		PadRight = m_value.PadRight(CStr(strInput), CLng(lngTotalLength), CStr(chaPaddingChar))
+	end function
+
+	public function PadRightWithSpaces(strInput, lngTotalLength)
+		PadRightWithSpaces = m_value.PadRight(CStr(strInput), CLng(lngTotalLength))
+	end function
+
+	public function [Remove](strInput, lngStartIndex, lngNumChars)
+		[Remove] = m_value.Remove(CStr(strInput), CLng(lngStartIndex), CLng(lngNumChars))
+	end function
+
+	public function RemoveToEnd(strInput, lngStartIndex)
+		RemoveToEnd = m_value.Remove(CStr(strInput), CLng(lngStartIndex))
+	end function
+
+	public function [Replace](strSource, strOldValue, strNewValue)
+		[Replace] = m_value.Replace(CStr(strSource), CStr(strOldValue), CStr(strNewValue))
+	end function
+
+	public function [Split](strInput, separatorArray)
+		dim separators : set separators = VbsArrayToCsArray(separatorArray, "System.String")
+		dim csArray : set csArray = m_value.Split(CStr(strInput), separators)
+		[Split] = CsArrayToVbsArray(csArray, "CStr")
+	end function
+
+	public function StartsWith(strSource, strValue, blnCaseSensitive)
+		dim a : a = IIF(blnCaseSensitive, CStr(strSource), ToUpperInvariant(strSource))
+		dim b : b = IIF(blnCaseSensitive, CStr(strValue), ToUpperInvariant(strValue))
+		StartsWith = (Left(a, Len(b)) = b)
+	end function
+
+	public function Substring(strValue, lngStartIndex)
+		Substring = m_value.Substring(CStr(strValue), CLng(lngStartIndex))
+	end function
+
+	public function SubstringWithLength(strInput, lngStartIndex, lngStringLength)
+		SubstringWithLength = m_value.Substring(CStr(strInput), CLng(lngStartIndex), CLng(lngStringLength))
+	end function
+
+	public function ToCharArray(strInput)
+		dim csArray : set csArray = m_value.ToCharArray(CStr(strInput))
+		ToCharArray = CsArrayToVbsArray(csArray, "CStr")
+	end function
+
+	public function ToLowerInvariant(strInput)
+		ToLowerInvariant = m_value.ToLowerInvariant(CStr(strInput))
+	end function
+
+	public function ToUpperInvariant(strInput)
+		ToUpperInvariant = m_value.ToUpperInvariant(CStr(strInput))
+	end function
+
+	public function [Trim](strInput)
+		[Trim] = m_value.Trim(CStr(strInput))
+	end function
+
+	public function TrimChars(strInput, charArray)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		TrimChars = m_value.Trim(CStr(strInput), csArray)
+	end function
+
+	public function TrimEnd(strInput, charArray)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		TrimEnd = m_value.TrimEnd(CStr(strInput), csArray)
+	end function
+
+	public function TrimStart(strInput, charArray)
+		dim csArray : set csArray = VbsArrayToCsArray(charArray, "System.String")
+		TrimStart = m_value.TrimStart(CStr(strInput), csArray)
+	end function
+end class
+dim CsString : set CsString = new [Static|System.String]
+
+class [Static|System.Int32]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.Int32")
+	end sub
+
+	public function Parse(strInput)
+		Parse = CLng(m_value.Parse(CStr(strInput)))
+	end function
+
+	public function TryParse(strInput, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		out = CLng(m_value.Parse(CStr(strInput)))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+end class
+dim CsInt32 : set CsInt32 = new [Static|System.Int32]
+
+class [Static|System.Double]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.Double")
+	end sub
+
+	public function Parse(strInput)
+		Parse = CDbl(m_value.Parse(CStr(strInput)))
+	end function
+
+	public function TryParse(strInput, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		out = CDbl(m_value.Parse(CStr(strInput)))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+end class
+dim CsDouble : set CsDouble = new [Static|System.Double]
+
+class [Static|System.DateTimeOffset]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.DateTimeOffset")
+	end sub
+
+	public function Compare(vbsDateTimeOffsetA, vbsDateTimeOffsetB)
+		Compare = CLng(m_value.Compare(vbsDateTimeOffsetA.InternalValue, vbsDateTimeOffsetB.InternalValue))
+	end function
+
+	public function Equals(vbsDateTimeOffsetA, vbsDateTimeOffsetB)
+		Equals = IIF(m_value.Equals(vbsDateTimeOffsetA.InternalValue, vbsDateTimeOffsetB.InternalValue) = "True", true, false)
+	end function
+
+	public property get [Now]
+		set [Now] = NewDateTimeOffset1(m_value.Now)
+	end property
+
+	public property get UtcNow
+		set UtcNow = NewDateTimeOffset1(m_value.UtcNow)
+	end property
+
+	public function Parse(strInput)
+		set Parse = NewDateTimeOffset1(m_value.Parse(CStr(strInput)))
+	end function
+
+	public function ParseExact(strInput, strFormat)
+		set ParseExact = NewDateTimeOffset1(m_value.ParseExact(CStr(strInput), CStr(strFormat), Nothing))
+	end function
+
+	public function TryParse(strInput, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		set out = NewDateTimeOffset1(m_value.Parse(CStr(strInput)))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+
+	public function TryParseExact(strInput, strFormat, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		set out = NewDateTimeOffset1(m_value.ParseExact(CStr(strInput), CStr(strFormat), Nothing))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+end class
+dim CsDateTimeOffset : set CsDateTimeOffset = new [Static|System.DateTimeOffset]
+
+class [System.DateTimeOffset]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.DateTimeOffset")
+	end sub
+
+	public function [Add](vbsTimeSpan)
+		set [Add] = NewDateTimeOffset1(m_value.Add(vbsTimeSpan.InternalValue))
+	end function
+
+	public function AddDays(dblDays)
+		set AddDays = NewDateTimeOffset1(m_value.AddDays(CDbl(dblDays)))
+	end function
+
+	public function AddHours(dblHours)
+		set AddHours = NewDateTimeOffset1(m_value.AddHours(CDbl(dblHours)))
+	end function
+
+	public function AddMilliseconds(dblMilliseconds)
+		set AddMilliseconds = NewDateTimeOffset1(m_value.AddMilliseconds(CDbl(dblMilliseconds)))
+	end function
+
+	public function AddMinutes(dblMinutes)
+		set AddMinutes = NewDateTimeOffset1(m_value.AddMinutes(CDbl(dblMinutes)))
+	end function
+
+	public function AddMonths(lngMonths)
+		set AddMonths = NewDateTimeOffset1(m_value.AddMonths(CLng(lngMonths)))
+	end function
+
+	public function AddSeconds(dblSeconds)
+		set AddSeconds = NewDateTimeOffset1(m_value.AddSeconds(CDbl(dblSeconds)))
+	end function
+
+	public function AddTicks(dblTicks)
+		set AddTicks = NewDateTimeOffset1(m_value.AddTicks(CLng(dblTicks)))
+	end function
+
+	public function AddYears(lngYears)
+		set AddYears = NewDateTimeOffset1(m_value.AddYears(CLng(lngYears)))
+	end function
+
+	public function CompareTo(vbsDateTimeOffset)
+		CompareTo = CLng(m_value.CompareTo(vbsDateTimeOffset.InternalValue))
+	end function
+
+	public property get [Day]
+		[Day] = CLng(m_value.Day)
+	end property
+
+	public property get DayOfWeek
+		DayOfWeek = m_value.DayOfWeek
+	end property
+
+	public property get DayOfYear
+		DayOfYear = CLng(m_value.DayOfYear)
+	end property
+
+	public function Equals(vbsDateTimeOffset)
+		Equals = IIF(m_value.Equals(vbsDateTimeOffset.InternalValue) = "True", true, false)
+	end function
+
+	public property get [Hour]
+		[Hour] = CLng(m_value.Hour)
+	end property
+
+	public property get InternalValue
+		set InternalValue = m_value
+	end property
+	public property set InternalValue(csDateTimeOffset)
+		set m_value = csDateTimeOffset
+	end property
+
+	public property get Millisecond
+		Millisecond = CLng(m_value.Millisecond)
+	end property
+
+	public property get [Minute]
+		[Minute] = CLng(m_value.Minute)
+	end property
+
+	public property get [Month]
+		[Month] = CLng(m_value.Month)
+	end property
+
+	public property get Offset
+		set Offset = NewTimeSpan1(m_value.Offset)
+	end property
+
+	public property get [Second]
+		[Second] = CLng(m_value.Second)
+	end property
+
+	public function SubtractOffset(vbsDateTimeOffset)
+		set SubtractOffset = NewTimeSpan1(m_value.Subtract(vbsDateTimeOffset.InternalValue))
+	end function
+
+	public function SubtractTimeSpan(vbsTimeSpan)
+		set SubtractTimeSpan = NewDateTimeOffset1(m_value.Subtract(vbsTimeSpan.InternalValue))
+	end function
+
+	public property get Ticks
+		Ticks = CDbl(m_value.Ticks)
+	end property
+
+	public property get TimeOfDay
+		set TimeOfDay = NewTimeSpan1(m_value.TimeOfDay)
+	end property
+
+	public function ToString
+		ToString = m_Value.ToString
+	end function
+
+	public function ToStringFormatted(strFormat)
+		ToStringFormatted = m_Value.ToString(CStr(strFormat))
+	end function
+
+	public property get UtcTicks
+		UtcTicks = CDbl(m_value.UtcTicks)
+	end property
+
+	public property get [Year]
+		[Year] = CLng(m_value.Year)
+	end property
+end class
+function NewDateTimeOffset1(csDateTimeOffset)
+	dim dt : set dt = new [System.DateTimeOffset]
+	set dt.InternalValue = csDateTimeOffset
+	set NewDateTimeOffset1 = dt
+end function
+function NewDateTimeOffset2(lngYears, lngMonths, lngDays, lngHours, lngMinutes, lngSeconds, lngMilliseconds, timespanOffset)
+	dim dt : set dt = new [System.DateTimeOffset]
+	set dt.InternalValue = DotNetFactory.CreateInstance("System.DateTimeOffset", "System", CLng(lngYears), CLng(lngMonths), CLng(lngDays), CLng(lngHours), CLng(lngMinutes), CLng(lngSeconds), CLng(lngMilliseconds), timespanOffset)
+	set NewDateTimeOffset2 = dt
+end function
+
+class [Static|System.TimeSpan]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.TimeSpan")
+	end sub
+
+	public function Compare(vbsTimeSpanA, vbsTimeSpanB)
+		Compare = CLng(m_value.Compare(vbsTimeSpanA.InternalValue, vbsTimeSpanB.InternalValue))
+	end function
+
+	public function Equals(vbsTimeSpanA, vbsTimeSpanB)
+		Equals = IIF(m_value.Equals(vbsTimeSpanA.InternalValue, vbsTimeSpanB.InternalValue) = "True", true, false)
+	end function
+
+	public function FromDays(dblDays)
+		set FromDays = NewTimeSpan1(m_value.FromDays(CDbl(dblDays)))
+	end function
+
+	public function FromHours(dblHours)
+		set FromHours = NewTimeSpan1(m_value.FromHours(CDbl(dblHours)))
+	end function
+
+	public function FromMilliseconds(dblMilliseconds)
+		set FromMilliseconds = NewTimeSpan1(m_value.FromMilliseconds(CDbl(dblMilliseconds)))
+	end function
+
+	public function FromMinutes(dblMinutes)
+		set FromMinutes = NewTimeSpan1(m_value.FromMinutes(CDbl(dblMinutes)))
+	end function
+
+	public function FromSeconds(dblSeconds)
+		set FromSeconds = NewTimeSpan1(m_value.FromSeconds(CDbl(dblSeconds)))
+	end function
+
+	public function FromTicks(dblTicks)
+		set FromTicks = NewTimeSpan1(m_value.FromTicks(CLng(dblTicks)))
+	end function
+
+	public function Parse(strInput)
+		set Parse = NewTimeSpan1(m_value.Parse(CStr(strInput)))
+	end function
+
+'	public function ParseExact(strInput, strFormat) 'Requires .NET 4
+'		dim csTS : set csTS = m_value.ParseExact(CStr(strInput), CStr(strFormat), Nothing)
+'		set ParseExact = NewTimeSpan1(csTS)
+'	end function
+
+	public function TryParse(strInput, byref out)
+		on error resume next : Err.Clear
+		out = Empty
+		set out = NewTimeSpan1(m_value.Parse(CStr(strInput)))
+		TryParse = IIF((Err.Number = 0), true, false)
+	end function
+
+'	public function TryParseExact(strInput, strFormat, byref out) 'Requires .NET 4
+'		on error resume next : Err.Clear
+'		out = Empty
+'		set out = NewTimeSpan1(m_value.ParseExact(CStr(strInput), CStr(strFormat), Nothing))
+'		TryParse = IIF((Err.Number = 0), true, false)
+'	end function
+end class
+dim CsTimeSpan : set csTimeSpan = new [Static|System.TimeSpan]
+
+class [System.TimeSpan]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.TimeSpan")
+	end sub
+
+	public function [Add](vbsTimeSpan)
+		set [Add] = NewTimeSpan1(m_value.Add(vbsTimeSpan.InternalValue))
+	end function
+
+	public function CompareTo(vbsTimeSpan)
+		CompareTo = CLng(m_value.CompareTo(vbsTimeSpan.InternalValue))
+	end function
+
+	public function Duration()
+		set Duration = NewTimeSpan1(m_value.Duration())
+	end function
+
+	public function Equals(vbsTimeSpan)
+		Equals = IIF(m_value.Equals(vbsTimeSpan.InternalValue) = "True", true, false)
+	end function
+
+	public property get InternalValue
+		set InternalValue = m_value
+	end property
+	public property set InternalValue(csDateTimeOffset)
+		set m_value = csDateTimeOffset
+	end property
+
+	public function Negate()
+		set Negate = NewTimeSpan1(m_value.Negate())
+	end function
+
+	public function Subtract(vbsTimeSpan)
+		set Subtract = NewTimeSpan1(m_value.Subtract(vbsTimeSpan.InternalValue))
+	end function
+
+	public function ToString
+		ToString = m_value.ToString
+	end function
+
+	'public function ToStringFormatted(strFormat) 'Requires .NET 4
+	'	ToStringFormatted = m_value.ToString(strFormat)
+	'end function
+end class
+function NewTimeSpan1(csTimeSpan)
+	dim ts : set ts = new [System.TimeSpan]
+	set ts.InternalValue = csTimeSpan
+	set NewTimeSpan1 = ts
+end function
+function NewTimeSpan2(lngHours, lngMinutes, lngSeconds)
+	dim ts : set ts = new [System.TimeSpan]
+	set ts.InternalValue = DotNetFactory.CreateInstance("System.TimeSpan", "System", CLng(lngHours), CLng(lngMinutes), CLng(lngSeconds))
+	set NewTimeSpan2 = ts
+end function
+function NewTimeSpan3(lngDays, lngHours, lngMinutes, lngSeconds, lngMilliseconds)
+   	dim ts : set ts = new [System.TimeSpan]
+	set ts.InternalValue = DotNetFactory.CreateInstance("System.TimeSpan", "System", CLng(lngDays), CLng(lngHours), CLng(lngMinutes), CLng(lngSeconds), CLng(lngMilliseconds))
+	set NewTimeSpan3 = ts
+end function
+
+class [System.Text.StringBuilder]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.Text.StringBuilder", "System")
+	end sub
+
+	public function Append(strValue)
+		m_value.Append CStr(strValue)
+		set Append = Me
+	end function
+
+	public function AppendFormat(strValue, argsArray)
+		m_value.AppendFormat CStr(strValue), argsArray
+		set AppendFormat = Me
+	end function
+
+	public function AppendLine(strValue)
+		m_value.AppendLine CStr(strValue)
+		set AppendLine = Me
+	end function
+
+	public function AppendSubstring(strValue, lngStartIndex, lngCount)
+		m_value.Append CStr(strValue), CLng(lngStartIndex), CLng(lngCount)
+		set AppendSubstring = Me
+	end function
+
+	public property get Capacity
+		Capacity = CLng(m_value.Capacity)
+	end property
+
+	public property let Capacity(lngCapacity)
+		m_value.Capacity = CLng(lngCapacity)
+	end property
+
+'	public function [Clear] 'Requires .NET 4
+'		m_value.Clear
+'		set [Clear] = Me
+'	end function
+
+	public function EnsureCapacity(lngCapacity)
+		EnsureCapacity = CLng(m_value.EnsureCapacity(CLng(lngCapacity)))
+	end function
+
+	public function GetChar(lngIndex)
+		GetChar = m_value.Chars(CLng(lngIndex))
+	end function
+	public sub SetChar(lngIndex, strChar)
+		'Currently can't access the .NET setter, so doing an Insert followed by a Remove to provide same behaviour.
+		m_value.Insert CLng(lngIndex), CStr(strChar)
+		m_value.Remove CLng(lngIndex)+1, CLng(1)
+	end sub
+
+	public function Insert(lngIndex, strValue)
+		m_value.Insert CLng(lngIndex), CStr(strValue)
+		set Insert = Me
+	end function
+
+	public function InsertMultiple(lngIndex, strValue, lngCount)
+		m_value.Insert CLng(lngIndex), CStr(strValue), CLng(lngCount)
+		set InsertMultiple = Me
+	end function
+
+	public property get [Length]
+		[Length] = CLng(m_value.Length)
+	end property
+
+	public property let [Length](lngLength)
+		m_value.Length = CLng(lngLength)
+	end property
+
+	public property get MaxCapacity
+		MaxCapacity = CLng(m_value.MaxCapacity)
+	end property
+
+	public function [Remove](lngStartIndex, lngLength)
+		m_value.Remove CLng(lngStartIndex), CLng(lngLength)
+		set [Remove] = Me
+	end function
+
+	public function [Replace](strOldValue, strNewValue)
+		m_value.Replace CStr(strOldValue), CStr(strNewValue)
+		set [Replace] = Me
+	end function
+
+	public function ReplaceWithinSubstring(strOldValue, strNewValue, lngStartIndex, lngLength)
+		m_value.Replace CStr(strOldValue), CStr(strNewValue), CLng(lngStartIndex), CLng(lngLength)
+		set ReplaceWithinSubstring = Me
+	end function
+
+	public function ToString()
+		ToString = m_value.ToString()
+	end function
+
+	public function ToStringSubstring(lngStartIndex, lngLength)
+		ToStringSubstring = m_value.ToString(CLng(lngStartIndex), CLng(lngLength))
+	end function
+end class
+function NewStringBuilder()
+	set NewStringBuilder = new [System.Text.StringBuilder]
+end function
+
+class [Static|System.IO.Directory]
+	private m_value
+
+	private sub Class_Initialize()
+		set m_value = DotNetFactory.CreateInstance("System.IO.Directory")
+	end sub
+	
+	public function GetFiles(strPath)
+		dim csFiles : set csFiles = m_value.GetFiles(strPath)
+		GetFiles = CsArrayToVbsArray(csFiles, "CStr")
+	end function
+end class
+dim CsDirectory : set CsDirectory = new [Static|System.IO.Directory]
+
+'================
+'= HTML methods =
+'================
+
+'====================================================================================================
+'HTML FUNCTIONS
+
+function BuildHtmlTable(arrData, hasTopHeader, hasLeftHeader)
+	dim s : set s = NewStringBuilder
+	s.AppendLine "<table class='qtpTable' cellspacing='0'>"
+	dim rowNum, colNum
+	for rowNum = 0 to UBound(arrData, 1)
+		s.Append "<tr class='qtpTableRow'>"
+		for colNum = 0 to UBound(arrData, 2)
+			if hasTopHeader and rowNum = 0 then
+				if hasLeftHeader then
+					s.Append "<th class='qtpTableHead'>&nbsp;</th>"
+				else
+					s.Append "<th class='qtpTableHead'>" & arrData(rowNum, colNum) & "</th>"
+				end if
+			else
+				if hasLeftHeader then
+					s.Append "<td class='qtpTableTitle'>" & arrData(rowNum, colNum) & "</td>"
+				else
+					s.Append "<td class='qtpTableVal'>" & arrData(rowNum, colNum) & "</td>"
+				end if
+			end if
+		next
+		s.AppendLine "</tr>"
+	next
+	s.AppendLine "</table>"
+	BuildHtmlTable = s.ToString
+end function
+
+function BuildQtpDescriptionHtml(qtpDescription)
+	if qtpDescription is nothing then
+		BuildQtpDescriptionHtml = ""
+		exit function
+	end if
+
+	dim arrProperties() : redim arrProperties(qtpDescription.Count, 2)
+	arrProperties(0, 0) = "Name"
+	arrProperties(0, 1) = "Value"
+	arrProperties(0, 2) = "IsRegex"
+	dim index, qtpProperty
+	for index = 0 to qtpDescription.Count-1
+		set qtpProperty = qtpDescription(index)
+		arrProperties(index+1, 0) = qtpProperty.Name
+		arrProperties(index+1, 1) = qtpProperty.Value
+		arrProperties(index+1, 2) = qtpProperty.RegularExpression
+	next
+	BuildQtpDescriptionHtml = "<br/><div class='qtpDescription'>" & BuildHtmlTable(arrProperties, true, false) & "</div>"
+end function
+
+'function GetCollapsableHtml(showText, hideText, linkClass, innerHtml)
+'	dim functionId : functionId = "F"& GenerateGuid
+'	dim showHideDivId : showHideDivId = GenerateGuid
+'	dim switchTextId : switchTextId = GenerateGuid
+'	
+'	dim sb : set sb = NewStringBuilder
+'	sb.AppendLine "<script type=""text/javascript"">"
+'	sb.AppendLine "<!--"
+'	sb.AppendLine "function " & functionId & "(showHideDivId, switchTextId, showText, hideText)"
+'	sb.AppendLine "{"
+'	sb.AppendLine "	var ele = document.getElementById(showHideDivId);"
+'	sb.AppendLine "	var text = document.getElementById(switchTextId);"
+'	sb.AppendLine "	if(ele.style.display == ""block"")"
+'	sb.AppendLine "	{"
+'	sb.AppendLine "		ele.style.display = ""none"";"
+'	sb.AppendLine "		text.innerHTML = showText;"
+'	sb.AppendLine "	}"
+'	sb.AppendLine "	else"
+'	sb.AppendLine "	{"
+'	sb.AppendLine "		ele.style.display = ""block"";"
+'	sb.AppendLine "		text.innerHTML = hideText;"
+'	sb.AppendLine "	}"
+'	sb.AppendLine "}"
+'	sb.AppendLine "-->"
+'	sb.AppendLine "</script>"
+'	sb.AppendLine "<a class=""" & linkClass & """ href=""javascript:" & functionId & "('" & showHideDivId & "', '" & switchTextId & "', '" & showText & "', '" & hideText & "');""><span id=""" & switchTextId & """>" & showText & "</span></a>"
+'	sb.AppendLine "<div id=""" & showHideDivId & """ style=""display: none"">" & innerHtml & "</div>"
+'	GetCollapsableHtml = sb.ToString
+'end function
+
+'function GetCollapsableHtml(showText, hideText, linkClass, innerHtml)
+'	dim showHideDivId : showHideDivId = GenerateGuid
+'	dim linkId : linkId = GenerateGuid
+'	
+'	dim sb : set sb = NewStringBuilder
+'	sb.AppendLine "<a class=""" & linkClass & """ href=""#"" id=""" & linkId & """>" & showText & "</a>"
+'	sb.AppendLine "<script type=""text/javascript"">"
+''	sb.AppendLine "//<![CDATA["
+'	sb.AppendLine "document.getElementById(""" & linkId & """).onclick=function()"
+'	sb.AppendLine "{"
+'	sb.AppendLine "	var ele = document.getElementById(""" & showHideDivId & """);"
+'	sb.AppendLine "	if(ele.style.display == ""block"")"
+'	sb.AppendLine "	{"
+'	sb.AppendLine "		ele.style.display = ""none"";"
+'	sb.AppendLine "		this.innerHTML = """ & showText & """;"
+'	sb.AppendLine "	}"
+'	sb.AppendLine "	else"
+'	sb.AppendLine "	{"
+'	sb.AppendLine "		ele.style.display = ""block"";"
+'	sb.AppendLine "		this.innerHTML = """ & hideText & """;"
+'	sb.AppendLine "	}"
+'	sb.AppendLine "	return false;"
+'	sb.AppendLine "};"
+''	sb.AppendLine "//]]>"
+'	sb.AppendLine "</script>"
+'	sb.AppendLine "<div id=""" & showHideDivId & """ style=""display: none"">" & innerHtml & "</div>"
+'	GetCollapsableHtml = sb.ToString
+'end function
+
+function GetCollapsableHtml(showText, hideText, linkClass, innerHtml)
+	'Inlining javascript is considered bad practice, but as of UFT 11.50 it seems the result viewer won't accept separate script blocks.
+	dim showHideDivId : showHideDivId = GenerateGuid
+	
+	dim sb : set sb = NewStringBuilder
+	sb.AppendLine "<a class=""" & linkClass & """ href=""#"" onclick=""javascript:var ele = document.getElementById('" & showHideDivId & "');if(ele.style.display == 'block'){ele.style.display = 'none';this.innerHTML = '" & showText & "';}else{ele.style.display = 'block';this.innerHTML = '" & hideText & "';};return false;"">" & showText & "</a>"
+	sb.AppendLine "<div id=""" & showHideDivId & """ style=""display: none"">" & innerHtml & "</div>"
+	GetCollapsableHtml = sb.ToString
+end function
+
+'END OF HTML FUNCTIONS
+'====================================================================================================

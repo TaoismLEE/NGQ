@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xls',dataFileFormat:'excel',dataFileFolder:'C:\\Users\\bhanpram\\Desktop\\ngq-test-scripts\\scripts\\US9414_01\\Res1',namePairs:[]}]};
