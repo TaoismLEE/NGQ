@@ -681,6 +681,607 @@ Function get_grand_total()
 	get_grand_total = Browser("NGQ").Page("Quote").WebElement("GrandTotal").GetROProperty("innertext")
 End Function
 
+'=========ROSALES Start
+'========================
+'Start US9430_01================================================= Alejandro Rosales
+'Set Opportunity Id in QUICK SEARCH 
+sub SetOpportunityId(strOpportunityId)
+	Browser("NGQ").Page("Home").WebEdit("Quick OpportunityId").Set strOpportunityId
+End sub
+
+Sub ClickNavbarAdvancedSearch()
+	Browser("NGQ").Page("Home").WebElement("Navbar_AdvancedSearch").Click
+End Sub
+
+'validate the Opportunity Id in advanced Search 
+sub Validate_OpportunityId_AdvancedSearch(strOpportunityId)
+MoveScrollBarToRight()
+wait(2)
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("validate Opportunity Id").Exist Then
+		Dim strValidateOpportunityId : strValidateOpportunityId = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("validate Opportunity Id").GetROProperty("innertext")
+			If strValidateOpportunityId = strOpportunityId Then
+				Reporter.ReportEvent micPass, "Valide Opportunity Id","Opportunity ID(s) exist in the table"		
+			Else
+				Reporter.ReportEvent micFail, "Valide Opportunity Id","Opportunity ID(s) not exist in the table"	
+			End If
+	End If	
+MoveScrollBarToLeft()	
+End sub
+
+'Click the reset button in Advanced Search
+sub ClickResetButton_advancedSearch()
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("ResetButton").Click
+End sub
+
+'Click SearchButton in Advanced mode 
+sub ClickSearchButton_advancedSearch()
+
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("SearchButton").Click
+End sub
+
+'Function to fill Quote Number 
+sub QuoteNumber_AdvancedSearch(quoeteNumber)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number").Set quoeteNumber
+End sub
+
+'Function that verify the Quote Number
+sub Validate_QuoteNumer_AdvancedSearch(quoteNumber)
+If Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Quote Number").Exist Then
+	Dim strValidateQuoteNumber : strValidateQuoteNumber = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Quote Number").GetROProperty("innertext")
+	    If strValidateQuoteNumber = quoteNumber Then
+			Reporter.ReportEvent micPass, "Valide Quote Number","Quote(s) Number Exist in the table"				
+		Else
+			Reporter.ReportEvent micFail, "Valide Quote Number","Quote(s) Number not Exist in the table"	
+		End if
+End If
+
+
+End sub
+
+'funtion that fill the MDCP ID 
+sub MDCPIdAdvancedSearch(mdcpId)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("MDCP Id").Set mdcpId
+End sub
+
+'Make a Clean Cache Refresh
+sub RefreshPage()
+	Dim objKey
+	set objKey = CreateObject("WScript.Shell")
+	Browser("Home#/selfservicequote/createq").WinObject("Client Caption").Click
+	objKey.SendKeys "^(r)"
+
+
+End sub
+
+'Function that verify the MDCP ORG ID -Done
+sub ValidateMDCPIAdvancedSearch(MdcpId)
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate MDCP Id").Exist Then
+		Dim strValidateMdcpId :	strValidateMdcpId = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate MDCP Id").GetROProperty("innertext")
+			If strValidateMdcpId = MdcpId Then
+				Reporter.ReportEvent micPass, "Valide MDCP ID","MDCP ID(s) exist in the table"				
+		    Else
+			    Reporter.ReportEvent micFail, "Valide MDCP ID","MDCP ID(s) not exist in the table"	
+			End If
+	End If
+
+
+End sub
+
+'funtion that fill company name / account name 
+sub CompanyNameAccountName(CompanyName)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Account Name").Set CompanyName
+
+
+End sub
+
+'Function that verify the company name  / accont name
+sub ValidateCompanyName(CompanyName)
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Company Name").Exist Then
+	Dim strValidateCompanyName : strValidateCompanyName = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Company Name").GetROProperty("innertext")
+	Dim result : result = 	StrComp(CompanyName,strValidateCompanyName,1)
+		If result = 0 Then
+			Reporter.ReportEvent micPass, "Valide Account Name","Account Name(s) Exist"				
+		Else
+			Reporter.ReportEvent micFail, "Valide Account Name","Account not Name(s) Exist"
+		End If	
+	End If
+
+
+End sub
+
+'functon that fill email in advanced search
+sub LastModifedEmail(email)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Last Edited by(Email)").Set email
+
+
+End sub
+
+'Function that verify the Email
+sub ValidateLasModifedEmail(email)
+MoveScrollBarToRight()
+wait(2)
+If Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Email").Exist Then
+Dim strValidateEmail : strValidateEmail = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate Email").GetROProperty("innertext")
+	If strValidateEmail = email Then
+		Reporter.ReportEvent micPass, "Valide Last Modified Email","Email Exist"				
+	Else
+		Reporter.ReportEvent micFail, "Valide Last Modified Email","Email Not Exist"				
+	End If	
+End If	
+MoveScrollBarToLeft()
+End sub
+
+'function to set  the start date
+sub SetStartDate(strStartDate)
+
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("StartDate").Set strStartDate
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("StartDate").Click
+	EnterKey
+End sub
+
+
+'funtion to set the end date
+sub SetEndDate(strEndDate)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("EndDate").Set strEndDate
+
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("EndDate").Click
+	EnterKey
+End sub
+
+'click in a result from the date search
+sub ClickQuoteNumberResult()
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Click Quote Number Result").Click
+End sub
+
+'funtion to validate the range of the date NEED FIX!!!
+sub ValidateDateRange(StartDate,EndDate)
+	Dim NGQEndDate : NGQEndDate = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("ValidateEndDate").GetROProperty("innertext")
+	Dim NGQStartDate : NGQStartDate = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate StarDate").GetROProperty("innertext")
+	NGQEndDate = FormatDateTime(NGQEndDate,0)
+	NGQStartDate = FormatDateTime(NGQStartDate,0)
+	StartDate = FormatDateTime(StartDate,0)
+	EndDate =  FormatDateTime(EndDate,0)
+	dim StartToStart : StartToStart = DateDiff("d",StartDate,NGQStartDate)
+	Dim StartToEnd : StartToEnd = DateDiff("d",StartDate,NGQEndDate)
+	Dim EndToStart : EndToStart =  DateDiff("d",EndDate,NGQStartDate)
+	Dim EndToEnd : EndToEnd = DateDiff("d",EndDate,NGQEndDate)
+		If ( (StartToStart>=0) and (StartToEnd>0) ) Then	
+			If ( (EndToEnd<=0) and (EndToStart<0) )  Then
+				Reporter.ReportEvent micPass, "Valide Date Range","The object is between date range"
+			Else 
+
+				Reporter.ReportEvent micFail, "Valide Date Range","The object is not between date range"	
+			End If
+		End If
+End sub
+
+			'End US9430_01================================================= Alejandro Rosales
+
+
+
+			'Start US9430_02================================================= Alejandro Rosales
+'go to my dashboard
+sub ClickMyDashboard()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Click Navbar My Dashboard").Click
+End sub
+'validate if the quote tab is active/selected
+sub ValidateQuoteTab()
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Quote Tab").Exist Then
+			Reporter.ReportEvent micPass, "Valide Quote Tab","The quote tab is selected"		
+	Else 
+			Reporter.ReportEvent micFail, "Valide Quote Tab","The quote tab is Not selected"		
+	End If
+
+End sub
+
+
+'click the button auto filter
+sub ClickAutoFilter()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("BtnAutoFilter").Click
+End sub
+
+'enter and submit thequote number
+sub FillFilterQuoteNumber(quoteNumber)
+	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Set quoteNumber
+	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Click 
+	EnterKey()
+	wait(10)
+End sub
+
+		'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
+sub ValidateLastModifyBy_TS_and_OwnerHistory()
+		'Click to deploy the table of showing colums
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Colums Button").Click
+	'Validate if Last Modify by is active
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Last Modify by").Exist Then
+		Reporter.ReportEvent micPass, "Validate Last Modiy By","Last Modify By is active"
+	Else 	
+		Reporter.ReportEvent micFail, "Validate Last Modiy By","Last Modify By is noT active"
+	End If
+	
+	'Validate if Last Modify Ts is active
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Last Modifued Ts").Exist Then
+		Reporter.ReportEvent micPass, "Validate Last Modify Ts","Last Modify Ts is active"
+	Else 	
+		Reporter.ReportEvent micFail, "Validate Last Modify Ts","Last Modify Ts is not active"
+	End If
+	'Validate if Owner History is active
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Owner History").Exist Then
+		Reporter.ReportEvent micPass, "Validate Owner History","Owner History is active"
+	Else 	
+		Reporter.ReportEvent micFail, "Validate Owner History","Owner History is not active"
+	End If
+End sub
+
+'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are has a value different from null
+sub ValidateFieldsByTsOwner()
+	'Validate if Last Modify by is has a Value
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueLastModifiedBy").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Value of Last Modiy By","Last Modify By has a Value"
+	Else 	
+		Reporter.ReportEvent micFail, "Value Last Modiy By","Last Modify By is Empty"
+	End If
+	'Validate if Last Modify TS is has a Value
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueLastModifiedTs").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Value of Last Modiy Ts","Last Modify TS has a Value"
+	Else 	
+		Reporter.ReportEvent micFail, "Value Last Modiy Ts","Last Modify Ts is Empty"
+	End If
+	'Validate if Owner History is has a Value
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueOwnerHistory").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Value of Owner History","Owner History has a Value"
+	Else 	
+		Reporter.ReportEvent micFail, "Value Owner History","Owner History Ts is Empty"
+	End If
+
+
+End sub
+
+'click in the owner history link
+sub ClickOwnerHistory
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueOwnerHistory").Click
+End sub
+
+		'validate table in owner history link
+sub ValidateOwnerHistoryTable
+		'Validate if Document Type column exist
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateDocumentType").GetROProperty("innertext") <> "" Then
+
+		Reporter.ReportEvent micPass, "Column Document Type","Document Type Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Document Type","Document Type Not Column Exist"
+	End If
+	'Validate if Operation Type column exist
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateOperationType").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Column Operation Type","Operation Type Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Operation Type","Operation Type Not Column Exist"
+	End If
+	'Validate if Transaction By column exist
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTransaction By").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Column Transaction By ","Transaction By Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Transaction By ","Transaction By Not Column Exist"
+
+	End If
+	'Validate if Transaction Description column exist
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTransactionDescription").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Column Transaction Description ","Transaction Description Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Transaction Description ","Transaction Description Not Column Exist"
+	End If
+	'Validate if Transaction Time column exist
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTransactionTime").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Column Transaction Time ","Transaction Time Column Exist"
+
+
+	Else 	
+		Reporter.ReportEvent micFail, "Column Transaction Time ","Transaction Time Not Column Exist"
+
+	End If
+	'Validate if Transaction Result column exist
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTrasactionResult").GetROProperty("innertext") <> "" Then
+		Reporter.ReportEvent micPass, "Column Transaction Result ","Transaction Result Column Exist"
+
+	Else 	
+		Reporter.ReportEvent micFail, "Column Transaction Result ","Transaction ResultNot Column Exist"
+	End If
+End sub
+
+'Click quote number
+sub ClickQuoteNumber()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").Click
+End sub
+
+'click the Log History Button
+sub ClickLogHistoryButton()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickLogHistoryBtn").Click
+
+
+End sub
+
+sub ValidateLogHistory()
+'Validate information in Quote Information Tab
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Last Modifed Time").Exist Then
+		Reporter.ReportEvent micPass, "Column Last Modified Time","Last Modified Time Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Last Modified Time ","Last Modified Time Not Column Exist"
+	End If
+	
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Modified By").Exist Then
+		Reporter.ReportEvent micPass, "Column Modified By","Modified By Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Modified By","Modified By Not Column Exist"
+	End If
+	'Change to tab Line Item
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Line Item Btn").Click
+
+'Validate information in Line ItemcTab
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Last Modifed Time").Exist Then
+
+
+		Reporter.ReportEvent micPass, "Column Last Modified Time","Last Modified Time Column Exist"
+	Else 	
+		Reporter.ReportEvent micFail, "Column Last Modified Time ","Last Modified Time Not Column Exist"
+	End If
+	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Modified By").Exist Then
+
+
+		Reporter.ReportEvent micPass, "Column Modified By","Modified By Column Exist"
+
+	Else 	
+		Reporter.ReportEvent micFail, "Column Modified By","Modified By Not Column Exist"
+	End If
+'close log history
+Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Close Log History Btn").Click
+End sub
+
+'Scroll SideBar to validate fields
+sub MoveScrollBarToRight()
+	Dim Iterator : Iterator = 0
+	'Double click in a object to waranty the side scrolling
+	
+	'Asure move the side bar to the right
+	For Iterator = 1 To 7 Step 1
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Scroll Bar").DoubleClick
+		ToRight()
+	Next
+End sub
+
+sub MoveScrollBarToLeft()
+	Dim Iterator : Iterator = 0
+	'Double click in a object to waranty the side scrolling
+	
+	'Asure move the side bar to the right
+	For Iterator = 1 To 7 Step 1
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Scroll Bar").DoubleClick
+		ToLeft()
+	Next
+
+End sub
+
+'submit enter key
+Function EnterKey()
+	Dim objKey
+	set objKey = CreateObject("WScript.Shell")
+	objKey.SendKeys "{ENTER}"
+End Function
+
+
+
+
+
+'Function that submit the right arrow  -Usefully for horizontal sidebar -
+sub ToRight()
+	Dim objKey
+	set objKey = CreateObject("WScript.Shell")
+	objKey.SendKeys "{RIGHT}"
+End sub
+
+
+sub ToLeft()
+	Dim objKey
+	set objKey = CreateObject("WScript.Shell")
+	objKey.SendKeys "{LEFT}"
+End sub
+
+		'End US9430_02================================================= Alejandro Rosales
+
+
+
+		'Start US9430_03================================================= Alejandro Rosales	
+	'Go to		
+sub ClickMyGroupQuoteTab
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("My Group Quote Tab").Click
+End sub
+
+
+sub ClickMyGroupStatusCount()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("MyGroupStatus Count").Click
+End sub
+
+sub Click_Clone()
+	  Browser("NGQ").Page("Navbar - New Quote").WebElement("Quote_Clone").Click
+End sub 
+
+'save quote
+sub Quote_save()
+    Browser("NGQ").Page("Quote").WebElement("Quote_Save").Click
+    if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
+        Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
+    else
+        Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
+    End if
+End sub
+
+					'End US9430_03================================================= Alejandro Rosales
+					
+					'Start US9430_04================================================= Alejandro Rosales
+				
+	'Validate if the quote number submited is the same that the table shows
+sub ValidateQuoteNumberValue(QuoteNumber)
+	wait(3)
+	dim strtempNumber : strtempNumber = Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").GetROProperty("innertext")
+		
+	If QuoteNumber = strtempNumber Then
+		Reporter.ReportEvent micPass, "Quote Number Value","Value in tab Match with submited"
+		
+	Else 	
+		Reporter.ReportEvent micFail, "Quote Number Value","Value in tab Not Match with submited"	
+
+	End If
+End sub
+
+				'End US9430_04================================================= Alejandro Rosales
+				'Start US9597_03================================================= Alejandro Rosales
+						
+'Function to go to My preferences in Admin Tools tab
+Sub ClickAdminTools_MyPreferences()
+	Browser("NGQ").Page("Navbar-AdminTools").WebElement("My Preferences tab").Click
+End Sub
+
+	'function to set choose view name
+Sub EditChooseView(strViewName)
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebEdit("Choose View").Set strViewName
+End Sub
+
+	'Function to choose a whatever value you send from AvailableColumn/ also send it to assigned column
+Sub AvailableColumn(strLabel)
+	If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Available Column List").Exist Then
+		Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Available Column List").Select strLabel
+		MoveToRight()
+	End If
+End Sub
+
+	'Function to choose a whatever value you send from Assigned Colum List/ also send it to Available column
+Sub AssignedColumn(strLabel)
+	If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Exist then 
+		Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Select strLabel
+		MoveToLeft()
+	End If
+End Sub
+
+	'Select the assigned value inthe assigned column to move up one place by click the up button
+Sub MoveUpAssignedLabel(strLabel)
+	If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Exist Then
+		Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Select strLabel
+		MoveUp()
+	End If
+End Sub
+
+	'Select the assigned value inthe assigned column to move down one place by click the down button
+Sub MoveDownAssigendLAbel(strLabel)
+	If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Exist Then
+		Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").Select strLabel
+		MoveDown()
+	End If
+End Sub
+
+	'Click the "Set as default" checkbox
+Sub CheckSetAsDefault()
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebCheckBox("Set as default").Click
+End Sub
+
+	'Click the save button in "My preferences" in Admin Tools navbar
+Sub ClickSaveBtnMyPrecerences()
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Save btn").Click
+End Sub
+ 
+ 	'Save all the items of assigned column in an array to compare
+Function NoteDownAssignedColumn()
+	Dim ListSize : ListSize = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").GetROProperty("items count")
+
+'	Dim ListSize : ListSize = AssignedColumnItems()
+	Dim count
+	Dim LabelsArray()
+	ReDim LabelsArray(ListSize)
+	
+		For count = 1 To ListSize Step 1
+			LabelsArray(count) = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").GetItem(count)
+			'MsgBox LabelsArray(count)
+		Next
+		
+	NoteDownAssignedColumn = LabelsArray
+End Function
+
+	'Validate if the dafault Choose view in "New Quote" is the one you set in My preferences / Admin tools
+Sub ValidateChooseView(strChooseView)
+	Dim strValidate
+	strValidate = Browser("NGQ").Page("Navbar - New Quote").WebList("ChooseView").GetROProperty("selection")
+
+	If strValidate = strChooseView Then
+		Reporter.ReportEvent micPass, "Choose View","Value selected match"
+	Else 
+		Reporter.ReportEvent micFail, "Choose View","Value selected Doesn't Match"
+	End If
+End Sub
+
+	'Validate if all columns in the choose view's table are the same that created in assigned column array
+Sub ValidateAssignedList_NewQuote(listArray())
+
+	Dim intListSize : intListSize = UBound(listArray)
+	Dim iterator 
+	For Iterator = 1 To intListSize Step 1
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[@ng-click='col.sort($event)' and text()='"+listArray(Iterator)+"']").Exist Then
+	    	Reporter.ReportEvent micPass, "Templete Table", listArray(Iterator)+" Value Exist"
+	    Else 
+	    	Reporter.ReportEvent micFail, "Templete Table", listArray(Iterator)+" Value Doesn't Exist"
+     	End If
+	Next
+End Sub
+	'Click delete button for choose view
+ Sub ClickDeleteBtnChooseView()
+ 	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Delete Choose view btn").Click
+ 	EnterKey()
+ End Sub
+
+'Import the data from the exell sheet to a local array
+Function ExellToArray()
+    Dim Iterator
+	Dim strColumnLabel()
+	Dim count : count = DataTable.GetSheet(1).GetRowCount	
+	ReDim strColumnLabel(count)
+		For Iterator = 1 To count Step 1
+			DataTable.SetCurrentRow(Iterator)
+			strColumnLabel(Iterator) = DataTable("strColumnLabel",1)
+		Next
+	DataTable.SetCurrentRow(1)
+	ExellToArray=strColumnLabel
+End Function
+	'Send from Available Column to Assigned Column
+Sub MoveToRight()
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Move to Right").Click
+End Sub
+	'Send from Assigned Column to Available Column
+Sub MoveToLeft()
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Move to Left").Click
+End Sub
+	'click the move up btn for choose view
+Sub MoveUp()
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Move up").Click
+End Sub
+	'click the down up btn for choose view
+Sub MoveDown
+	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebElement("Move Down").Click
+End Sub 
+			'End US9597_03================================================= Alejandro Rosales
+		
+			'Start US9597_06================================================= Alejandro Rosales
+Sub ClickAddConfigOcs()
+	Browser("NGQ").Page("Navbar - New Quote").WebElement("Addbtn").HoverTap()
+	Browser("NGQ").Page("Navbar - New Quote").WebElement("ConfigOsc").Click
+End Sub	
+
+Sub ClickRefreshPricing()
+	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
+End Sub
+
+Sub ClickPricingTermsTab()
+	Browser("NGQ").Page("Quote").WebElement("PricingTermsTab").Click
+End Sub
+'End US9597_06================================================= Alejandro Rosales
+
+
 '=====================================================================
 'LV Add
 '======================================================================
