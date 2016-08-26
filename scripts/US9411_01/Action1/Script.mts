@@ -1,21 +1,20 @@
-﻿'================================================
-'Summary:
-'
-'Description:
-'
-'================================================
+﻿'Project Number: 205713
+'User Story: US9411_01
+'Description: Add multiple products to a quote
+'Tags:
+
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "GC"
+InitializeTest "IE"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
-Dim strOpportunityId : strOpportunityId = "OPE-0002916168"
-Dim customImagingNumber : customImagingNumber = "HA842A1"
-Dim assetTaggingNumber : assetTaggingNumber = "HA841A1"
-Dim thirdPartyNumber : thirdPartyNumber = "HA844A1"
-Dim customPackagingNumber : customPackagingNumber = "ZU706A"
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","a")
+Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
+Dim customImagingNumber : customImagingNumber = DataTable.Value("CustomImagingNumber","Global")
+Dim assetTaggingNumber : assetTaggingNumber = DataTable.Value("AssetTaggingNumber","Global")
+Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("ThirdPartyNumber","Global")
+Dim customPackagingNumber : customPackagingNumber = DataTable.Value("CustomPackingNumber","Global")
 
 'NOTE: automation API calls only here. No raw UFT calls!
 

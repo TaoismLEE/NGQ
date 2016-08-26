@@ -112,7 +112,7 @@ End Sub
 '==================================================
 function NewQuote_ValideEmptyQuote(strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate)
 	' Validating Quote Number
-	strQuoteNumberID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quoteId""]").GetROProperty("innertext")
+	strQuoteNumberID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id='quoteId']").GetROProperty("innertext")
 	If strQuoteNumberID = "New Quote" Then
 		Reporter.ReportEvent micPass, "Valide empty quote number","New Quote is not generated"
 	Else
@@ -158,8 +158,9 @@ End function
 ' BEGIN Quote - Edit quote name
 '==================================================
 function Quote_EditQuoteName(strQuoteName)
-	Browser("name:=Home.*").Page("title:=Home.*").Image("xpath:=//IMG[@id=""editquotename""]").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id=""quotename""]").Set strQuoteName
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//IMG[@id='editquotename']").Click
+	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@id='editquotename']").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id='quotename']").Set strQuoteName
 End function
 '==================================================
 ' END Quote - Edit quote name
@@ -247,32 +248,25 @@ Sub AddProductsFromTable
 	rowcount = DataTable.GetRowCount
 	For Iterator = 1 To rowcount Step 1
 		row = DataTable.GetCurrentRow
-		LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global")
+		LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global"), DataTable.Value("productQty", "Global")
 	Next
 End Sub
 
-Sub LineItemDetails_AddProductByNumber (productNum)
-	' Get column header table'
-	'dim dynCol : dyncol = findTableColumn("ProductNumber")
-	'dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynCol &"')])[2]//input"
-	'add product button
+Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	Quote_AddProductOrOption
 
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
 
-	'LineItemDetails_SetProductNumber productNum
-	'LineItemDetails_SetProductQuantity productQty
+	LineItemDetails_SetProductNumber productNum
+	LineItemDetails_SetProductQuantity productQty
 	
 	'Quote_save_unverified
 	'wait 5
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Set productNum
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").SendKeys "~" 
-	'add product number
-	'Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productNum
-	'Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).SendKeys "~"
+	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Set productNum
+	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Click
+	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").SendKeys "~" 
 	UFT.ReplayType = intOriginalReplayType
 End Sub
 
@@ -384,6 +378,7 @@ end sub
 
 sub ShippingData_SetTermsOfDelivery(strValue)
 	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").Click
 	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").SelectByText strValue
 end sub
 '==================================================
@@ -854,6 +849,12 @@ Sub Quote_SelectBundle()
 	
 End Sub
 
+Sub Quote_Button()
+
+	Browser("NGQ").Page("Search").WebRadioGroup("Product Bundle").Select "#2" 
+
+
+End Sub
 
 sub Quote_AddProductOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
@@ -1026,6 +1027,14 @@ Sub PreValidateQuote()
 	Browser("NGQ").Page("PreValidate").WebElement("CompleteQuoteButton").Click
 End Sub
 
+Sub PreValidateQuoteOverwrite()
+	Browser("NGQ").Page("PreValidate").WebElement("CLICButton").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=(//span[contains(text(), 'Override Reason:')])[1]/preceding-sibling::textarea").Set "automation"
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//i[@id='checkFanNrBtn'])[1]").Click 
+	Browser("NGQ").Page("PreValidate").WebElement("PriceButton").Click
+	Browser("NGQ").Page("PreValidate").WebElement("BundleButton").Click
+	Browser("NGQ").Page("PreValidate").WebElement("CompleteQuoteButton").Click
+End Sub
 Sub PreValidateQuote_success()
     Dim regEx, Match, Matches   ' Create variable.
     Set regEx = New RegExp   ' Create a regular expression.
@@ -1130,10 +1139,195 @@ Sub click_lineitem_add_ocs()
 	Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote").Click
 End Sub
 
+' Add product option
+Sub add_product_option(strName)
+	 wait(2)
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('contextMenu').setAttribute('style', 'left: 572px; top: 58px; display: block;');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_28').getElementsByTagName('a')[0].click()"
+	 wait(2)
+	write_product(strName)
+End Sub
+
+Sub add_product_option2(strName)
+	wait(2)
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('contextMenu').setAttribute('style', 'left: 572px; top: 58px; display: block;');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_2').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_3').getElementsByTagName('a')[0].click()"
+	 wait(2)
+	write_product(strName)
+End Sub
+
+Sub write_product(strName)
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
+End Sub
+
+Sub select_product()
+	browser("NGQ").Page("New Configuration").WebElement("ProductList").Click
+End Sub
+
+' Verifies that an obsolete message appears when an obsolete product is added
+Sub validate_obsolete_message()
+Dim compareElement : compareElement = Browser("NGQ").Page("Quote").WebElement("WarningMessage").GetROProperty("InnerText")
+	If (InStr(1, compareElement, "Obsolete") <> 0) Then
+		Reporter.ReportEvent micPass, "Obsolete Product Detected", "Obsolete Product Detected"
+	Else
+		Reporter.ReportEvent micFail, "Obsolete Product not Detected", "Obsolete Product not Detected"
+	End If
+End Sub
+
+' Hovers over a line item and check whether the object is obsolete or not. Send in
+' 1 if the item is suppsoed to be obsolete and 0 if it is not.
+Sub validate_obsolete_object(strName, valOption)
+	Dim goodPath : goodPath = "xpath:=(//span[contains(text(),'"
+	Dim validateTip, re, myMatch, obsDate, currDate
+	
+	Set re = New RegExp
+	currDate = Date 
+	
+	' Regular expression that locates EOL line
+	With re
+	  .Pattern    = "EOL=[0-9-]*"
+      .IgnoreCase = False
+      .Global     = False
+	End With
+	
+	' Building dynamic xpath
+	goodPath = goodPath + strName + "')])[1]"
+	
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).HoverTap
+	validateTip = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//div[contains(@id,'ui-tooltip')]/div)[last()]").GetROProperty("innerhtml")
+	
+	validateTip = Replace(validateTip, "<br>", "")
+	
+	Set myMatch = re.Execute(validateTip)
+	
+	validateTip = Replace(myMatch(0).Value, "EOL=", "")
+	
+	obsDate = FormatDateTime(validateTip, 2)
+	
+	' If option 1 is selected, the program will verify that the product is obsolete
+	' while any other number will verify that it is current.
+	If valOption = 1 Then
+		If (DateDiff("d", obsDate,currDate) > 0) Then
+			Reporter.ReportEvent micPass, "Item is Obsolete", ("Product Name: " + CStr(strName) + " Product Obsolete Date: " + CStr(obsDate) + " Current Date: " + CStr(currDate))
+		Else
+			Reporter.ReportEvent micFail, "Item is not Obsolete", ("Product Name: " + CStr(strName) + " Product Obsolete Date: " + CStr(obsDate) + " Current Date: " + CStr(currDate))
+		End If
+	Else
+		If (DateDiff("d", obsDate,currDate) < 0) Then
+			Reporter.ReportEvent micPass, "Item is not Obsolete", ("Product Name: " + CStr(strName) + " Product Obsolete Date: " + CStr(obsDate) + " Current Date: " + CStr(currDate))
+		Else
+			Reporter.ReportEvent micFail, "Item is Obsolete", ("Product Name: " + CStr(strName) + " Product Obsolete Date: " + CStr(obsDate) + " Current Date: " + CStr(currDate))
+		End If
+	End If
+End Sub
+
+' Validates that the obsolete product color 
+Sub validate_obsolete_color()
+	
+	if Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@class='ng-binding obsoleteColor']").Exist then
+		Reporter.ReportEvent micPass, "Obsolete Color is displayed", "The proper Obsolete color is displayed"
+	Else
+		Reporter.ReportEvent micFail, "Obsolete Color is not displayed", "The Obsolete color was not displayed"	
+	End If
+End Sub
 '================================
 ' End of Reese's functions
 '================================
 
+'Jesus stuff
+'Sub UploadProducts_VerifyProducts(strFilePath)
+'    Dim intRows, intRowIter, intColIter, strCellData, strExcelData
+'
+'    UploadProducts_VerifyHeaders
+'
+'    Dim objExcel
+'    Set objExcel = createobject("excel.application")
+'    objExcel.Workbooks.open strFilePath
+'    Dim objExSheet : Set objExSheet = objExcel.ActiveWorkbook.Worksheets("Sheet1")
+'    intRows = objExSheet.UsedRange.Rows.Count
+'    
+'    For intRowIter = 1 To intRows Step 1
+'        For intColIter = 1 To 3 Step 1
+'            If intColIter = 3 Then
+'                strCellData = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(intRowIter+2, intColIter+1)
+'            Else
+'                strCellData = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(intRowIter+2, intColIter)
+'            End If
+'            
+'            strExcelData = objExSheet.cells(intRowIter, intColIter).value
+'            If StrComp(strCellData, strExcelData, 1) <> 0 Then
+'                Reporter.ReportEvent micFail, "Upload Product Table", "There was a missmatch between the search results and product upload sheet " _
+'                                                                        & "(Row: " & intRowIter & ", Column: " & intColIter & ") NGQ Table: " _
+'                                                                        & strCellData & " Excel: " & strExcelData
+'            End If
+'        Next        
+'    Next
+'    Reporter.ReportEvent micPass, "Product Table Verified", "Products from the search results have been verified"
+'    
+'    objExcel.ActiveWorkbook.Close
+'    objExcel.Application.Quit
+'    Set objExSheet = nothing
+'    Set objExcel = nothing
+'End Sub
+'
+'Sub UploadProducts_VerifyHeaders()
+'    Dim strColOneHeader : strColOneHeader = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(1, 1)
+'    Dim strColTwoHeader : strColTwoHeader = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(1, 2)
+'    Dim strColThreeHeader : strColThreeHeader = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(1, 3)
+'    
+'    If strColOneHeader = "Quantity" Then
+'        Reporter.ReportEvent micPass, "Quantity Header", "Quantity header sucessfully labeled"
+'    Else 
+'        Reporter.ReportEvent micFail, "Quantity Header", "Incorrect Quantity header.  Expected: ""Quantity"" Actual: " & strColOneHeader
+'        ExitTest
+'    End If
+'    
+'    If strColTwoHeader = "Product Number" Then
+'        Reporter.ReportEvent micPass, "Product Number Header", "Product Number header sucessfully labeled"
+'    Else 
+'        Reporter.ReportEvent micFail, "Product Number Header", "Incorrect Product Number header.  Expected: ""Product Number"" Actual: " & strColTwoHeader
+'        ExitTest
+'    End If
+'    
+'    If strColThreeHeader = "Product Description" Then
+'        Reporter.ReportEvent micPass, "Product Description Header", "Product Description header sucessfully labeled"
+'    Else 
+'        Reporter.ReportEvent micFail, "Product Description Header", "Incorrect Product Description header.  Expected: ""Product Description"" Actual: " & strColThreeHeader
+'        ExitTest
+'    End If
+'
+'End Sub
+'
+'Sub UploadProducts_ProceedWithImport()
+'    Browser("NGQ").Page("Upload Product File").WebElement("Proceed with Import").Click
+'End Sub
+'
+'Sub UploadProducts_AddValidProducts()
+'    Browser("NGQ").Page("Upload Product File").WebElement("Add Valid Products To").Click
+'End Sub
+'
+'Sub UploadProducts_ProductsAddedMsg()
+'    If Browser("NGQ").Page("Quote").WebElement("Products added. Message").Exist Then
+'        Reporter.ReportEvent micPass, "Products Added Message", "Products added message successfully displayed"
+'    ElseIf Browser("NGQ").Page("Quote").WebElement("Obsolete Product Message").Exist Then
+'        Reporter.ReportEvent micWarning, "Obsolete Product Message", "The obsolete product message is being displayed"
+'    End If
+'End Sub
+'
+'Function QuoteOutput_ExternalComments(strExternalComments)
+'    Browser("NGQ").Page("Navbar - New Quote").Image("QuoteOutput_ExternalCommentEdit").Click
+'    Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_ExternalCommentEditBox").Set strExternalComments
+'End Function
+'
+'Sub PdfVerification(strPdfFilePath, blnSoldTo, blnShipTo, blnSalesContact, blnLineItem, blnGrandTotal, blnComment)
+'    Dim objPdfInfo : Set objPdfInfo = NewPdfInfo(blnSoldTo, blnShipTo, blnSalesContact, blnLineItem, blnGrandTotal, blnComment)    
+'    objPdfInfo.Compare(strPdfFilePath)
+'End Sub
+''end jesus
 Sub Quote_create_newVersion(strSource, strReason, strComment)
 	Browser("NGQ").Page("Quote").WebElement("NewVersion").Click
 	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource").Select strSource

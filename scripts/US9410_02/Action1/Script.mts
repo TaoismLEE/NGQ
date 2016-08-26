@@ -1,19 +1,21 @@
-﻿'================================================
-'Summary:
-'
-'Description:
-'
-'================================================
+﻿'Project Number: 205713
+'User Story: US9410_02
+'Description: Add a product to quote
+'Tags:
+
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
 InitializeTest "IE"
+DataTable.Import "..\..\data\data_US9410_02.xlsx"
+
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
-Dim strOpportunityId : strOpportunityId = "OPE-0002916168"
-Dim strProductNumber : strProductNumber = "726722-B21"
-Dim thirdPartyNumber : thirdPartyNumber = "G1S72A"
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "57aded83ac21f1ef7a7d704623a38e802dfe3c4a325e")
+Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
+Dim strProductNumber : strProductNumber = DataTable.Value("prodNumber","Global")
+Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("thirdParty","Global")
+Dim quoteName : quoteName = DataTable.Value("QuoteName","Global")
 
 'NOTE: automation API calls only here. No raw UFT calls!
 
@@ -22,13 +24,13 @@ OpenNgq objUser
 
 'Navigate to "New quote tab" and click "New Quote" and validate it is an empty quote
 Navbar_CreateNewQuote
-NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
+'NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
 
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
 ' Enter quote name and save it
-Quote_EditQuoteName "Test Name"
+Quote_EditQuoteName quoteName
 click_save_button()
 
 ' Click on Add+
