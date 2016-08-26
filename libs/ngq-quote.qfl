@@ -58,6 +58,11 @@ Sub Quote_PricingTermsTab()
 	Wait 1
 End Sub
 
+'Author Jesus:
+Sub Quote_QuoteOutputTab()
+	Browser("NGQ").Page("Quote").WebElement("Quote Output Tab").Click
+	Wait 1
+End Sub
 Function Quote_currentlySelectedTab(strQuoteTabSelected)
 	'validating currently selected quote tab
 	Dim strSelectedTab : strSelectedTab = Browser("NGQ").Page("Quote").WebElement("Quote_CurrentlySelectedTab").GetROProperty("innertext")
@@ -337,6 +342,15 @@ end function
 '==================================================
 ' END Quote - "+ Add" button options validation 
 '==================================================
+' BEGIN Quote - Add OCS
+'==================================================
+Sub click_lineitem_add_ocs()
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+End Sub
+'==================================================
+' END Quote - Add OCS 
+'==================================================
 ' BEGIN Quote - OpportunityAndQuoteInfo
 '==================================================
 function OpportunityAndQuoteInfo_GetOpportunityId()
@@ -358,6 +372,16 @@ end sub
 sub OpportunityAndQuoteInfo_SetOpportunityId(strValue)
 	Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID").Set strValue
 end sub
+'Author: Jesus
+Sub OpportunityIdIsValid()
+	'This subroutine assumes that a valid opportunity id requires the name field to be populated
+	Dim strTempContactName : strTempContactName = Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebElement("Opportunity ID Contact Name").GetROProperty("innertext")
+	If strTempContactName = "" Then
+		Reporter.ReportEvent micFail, "Invalid Opportunity ID", "Invalid Opportunity ID entered.  Fields were not populated"
+	Else
+		Reporter.ReportEvent micPass, "Valid Opportunity ID", "Valid Opportunity ID Entered"
+	End If	
+End Sub
 '==================================================
 ' END Quote - OpportunityAndQuoteInfo
 '==================================================
@@ -407,6 +431,229 @@ end sub
 '==================================================
 ' BEGIN QuoteServices - Options
 '==================================================
+' BEGIN QuoteServices - Options - Claim
+'==================================================
+function QuoteServices_Claim()
+	'Use this function if you'll work with QuoteNumber = NI00147520
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
+	wait 3
+end function
+'==================================================
+' END QuoteServices - Options - Claim	
+'==================================================	
+' BEGIN QuoteServices - Options - CustomGroup
+'==================================================
+function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
+	'Add Custom Group
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
+	'Complete form to add
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
+	'Save Custom Group
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
+	'Validation
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+		Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
+	Else
+		Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
+	End If		
+end function
+	
+sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
+	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
+	'Edit Custom Group Information
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
+	'Update Custom Group
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
+	'Validation
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+		Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
+	Else
+		Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
+	End If
+end sub
+	
+sub QuoteServices_RemoveCustomGroup()
+	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
+	'Validation
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+		Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
+	Else
+		Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
+	End If 		
+	'Close Custom Group
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
+end sub	
+'==================================================	
+' END QuoteServices - Options - CustomGroup
+'==================================================
+
+
+'==================================================
+' BEGIN ValidatePriceRefreshed
+' Author Jesus
+'==================================================
+Sub ValidatePriceRefreshed()
+	If Browser("NGQ").Page("Quote").WebElement("InfoMessage").Exist Then
+		Reporter.ReportEvent micPass, "Price refreshed successfully", "Refresh Pricing completed found"
+	Else
+		Reporter.ReportEvent micFail, "Price did not refreshed successfully", "Refresh Pricing completed not found"
+	End If
+End Sub
+'==================================================
+' END ValidatePriceRefreshed
+'==================================================
+' BEGIN SelectExtraMenu
+' Author Jesus
+'==================================================
+Sub SelectExtraMenu()
+	Browser("NGQ").Page("Quote - Extra Menu").WebElement("Triangle Hidden Menu Button").Click
+End Sub
+'==================================================
+' END SelectExtraMenu
+'==================================================
+' BEGIN SelectPreValidate
+' Author Jesus
+'==================================================
+Sub SelectPreValidate()
+	SelectExtraMenu
+
+
+
+
+	Browser("NGQ").Page("Quote - Extra Menu").WebElement("Pre-Validate").Click
+End Sub
+
+
+'==================================================
+' END SelectPreValidate
+'==================================================
+' BEGIN PreValidate_FixDataCheckErrors
+' Author Jesus
+'==================================================
+Sub PreValidate_FixDataCheckErrors()
+	Quote_AdditionalDataTab
+	AdditionalData_SetReceiptDateNow
+	
+	Quote_ShippingDataTab
+	ShippingData_SetDeliverySpeed "Standard"
+	ShippingData_SetTermsOfDelivery "Carriage Paid To"
+	
+	'Fix errors in price tab
+	Quote_CustomerDataTab
+	CustomerData_ShipToTab
+	If Not CustomerDataShipTo_SameAsSoldToAddressIsSelected Then
+		CustomerDataShipTo_SelectSameAsSoldToAddress
+	End If
+End Sub
+
+Sub PreValidate_DataCheckNoErrors()
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn")
+	PreValidate_ButtonVerification(objButton)
+End Sub
+
+Sub PreValidate_ClicNoErrors()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
+	Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
+	Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	PreValidate_ButtonVerification(objButton)
+End Sub
+
+Sub PreValidate_PriceNoErrors()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn").Click
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn")
+	PreValidate_ButtonVerification(objButton)
+End Sub
+
+Sub PreValidate_BundleNoErrors()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn").Click
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn")
+	PreValidate_ButtonVerification(objButton)
+End Sub
+
+Sub PreValidate_CloseValidationPage()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Close Validation Page Btn").Click
+End Sub
+
+Sub PreValidate_ClickCompleteQuote()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Btn").Click	
+	PreValidate_ValidateCompleteQuote
+End Sub
+
+Sub PreValidate_ButtonVerification(objButton)
+	Dim bcolor
+	Dim blnCheckMark
+
+	
+	bcolor = objButton.Object.currentStyle.backgroundColor	
+	If bcolor = "#767676" Then
+		Logger.Report micPass, "Button is gray", "The " & objButton.GetTOProperty("TestObjName") & " is gray with a value of " & bcolor
+	Else
+		Logger.Report micFail, "Button is not gray", "The " & objButton.GetTOProperty("TestObjName") & " is no gray. It has a value of " & bcolor
+		ExitTest
+	End If
+
+	
+	blnCheckMark = objButton.CheckProperty("innerhtml", MicRegExpMatch(".*class=""load_right"".*"))	
+	If blnCheckMark Then
+		Logger.Report micPass, "Button has checkmark", "The " & objButton.GetTOProperty("TestObjName") & " has a checkmark"
+	Else
+		Logger.Report micFail, "Button doe not have a checkmark", "The " & objButton.GetTOProperty("TestObjName") & " does not have a checkmark"
+		ExitTest
+	End If
+End Sub
+
+Sub PreValidate_ValidateCompleteQuote()
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Results").Exist(10) Then
+		'TODO Jesus: Verify w/ business the correct message
+		If Not Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Results").CheckProperty("innertext", MicRegExpMatch(".*QUOTE SUCESSFULLY UPDATED INTO IDS DB")) Then
+			Logger.Report micFail, "Message not Displayed", "The results section does not display ""QUOTE SUCESSFULLY UPDATED INTO INS DB"""
+			ExitTest
+		Else
+			Logger.Report micPass, "Message Displayed", "The results section displays ""QUOTE SUCESSFULLY UPDATED INTO INS DB"""
+		End If
+	Else
+		Logger.Report micFail, "Message cannot be found", "The result message in ""Complete Quote"" cannot be found"
+		ExitTest
+	End If
+End Sub
+
+Function OutputQuote_GetOutputType()
+	OutputQuote_GetOutputType = Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Value
+end Function
+
+Sub OutputQuote_SetOutputType(strValue)	
+	Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").SelectByText strValue
+end Sub
+
+Sub OutputQuote_ClickPreview
+	Browser("NGQ").Page("Quote - Output Quote").WebElement("Preview Btn").Click
+End Sub
+
+Sub OutputQuote_SaveQuotePdf(strQuoteNum)
+	Dim strSavePath
+	strSavePath = CreateSavePath(strQuoteNum)
+	SavePdfAs strSavePath
+	DataTable.GlobalSheet.AddParameter "OutputFilePath", strSavePath
+End Sub
+
+Function CreateSavePath(strQuoteNum)
+	Dim strCreatedPath
+	strCreatedPath = Environment.Value("TestDir") + "\" + strQuoteNum + ".pdf"
+	CreateSavePath = strCreatedPath
+End Function
+
+Sub SavePdfAs(strPath)
+	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
+	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
+	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
+	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
+End Sub
 	' BEGIN QuoteServices - Options - Claim
 	'==================================================
 	function QuoteServices_Claim()
@@ -3292,219 +3539,3 @@ Sub verify_advSearch_table(strQuoteID)
 	verify_advSearch_quoteID strQuoteID, counter
 	verify_advSearch_versions "01", counter
 End Sub
-
-'===========================================================
-'PoiDFParser
-'===========================================================
-Class pdfParserObj
-	public pdfObj
-	
-	Public Default Function Init(pathToPdf)
-    	SystemUtil.Run "cmd", "/c java -jar pdfbox.jar" + pathToPDF,""
-		dim strDLLPath : strDllPath = Environment.Value("TestDir") & "\..\..\libs\" & "pdfParserWrapper.dll"
-		Dim wrapper : Set wrapper = Dotnetfactory.CreateInstance("pdfParserWrapper.pdfParserWrapper", strDLLPath)
-		wrapper.deserializeObject()
-		Set pdfObj = wrapper.getpdfObj()
-		Set Init = Me
- 	End Function
- 	
- 	Public Function getSoldToAddress()
- 		getSoldToAddress = pdfObj.soldToAddress
- 	End Function
- 	
- 	Public Function compareSoldToAddress(strSoldAddress)
- 		If Instr(strSoldAddress, getSoldTOAddress) <> 0 Or Instr(getSoldTOAddress, strSoldAddress) <> 0 then
- 			compareSoldToAddress = True
- 		else
- 			compareSoldToAddress = False
- 		End if
- 	End Function
- 	
- 	Public Function getShipToAddress()
- 		getShipToAddress = pdfObj.shipToAddress
- 	End Function
- 	
- 	Public Function compareShipToAddress(strShipAddress)
- 		If Instr(strShipAddress, getShipTOAddress) <> 0 Or Instr(getShipTOAddress, strShipAddress) <> 0 then
- 			compareShipToAddress = True
- 		else
- 			compareShipToAddress = False
- 		End if
- 	End Function 	
- 	
- 	Public Function getQuoteExpire()
- 		getQuoteExpire = pdfObj.quoteExpire
- 	End Function
- 	
- 	Public Function compareQuoteExpire(strQuoteExpire)
- 		If Instr(strQuoteExpire, getQuoteExpire) <> 0 Or Instr(getQuoteExpire, strQuoteExpire) <> 0 then
- 			compareQuoteExpire = True
- 		else
- 			compareQuoteExpire = False
- 		End if
- 	End Function 	
- 	
- 	Public Function getQuoteNumber()
- 		getQuoteNumber = pdfObj.quoteNum
- 	End Function
- 	
- 	Public Function compareQuoteNumber(strQuoteNum)
- 		If Instr(strQuoteNum, getQuoteNumber) <> 0 Or Instr(getQuoteNumber, strQuoteNum) <> 0 then
- 			compareQuoteNumber = True
- 		else
- 			compareQuoteNumber = False
- 		End if
- 	End Function 	
- 	
- 	Public Function getSalesContact()
- 		getSalesContact = pdfObj.salesContact
- 	End Function
- 	
- 	Public Function compareSalesContact(strSalesContact)
- 		If Instr(strSalesContact, getSalesContact) <> 0 Or Instr(getSalesContact, strSalesContact) <> 0 then
- 			compareSalesContact = True
- 		else
- 			compareSalesContact = False
- 		End if
- 	End Function 	
- 	
- 	Public Function getCommentsBlock()
- 		getCommentsBlock = pdfObj.CommentsBlock
- 	End Function
- 	
- 	Public Function compareCommentsBlock(strCommentsBlock)
- 		If Instr(strCommentsBlock, getCommentsBlock) <> 0 Or Instr(getCommentsBlock, strCommentsBlock) <> 0 then
- 			compareCommentsBlock = True
- 		else
- 			compareCommentsBlock = False
- 		End if
- 	End Function 
- 	
- 	Public Function getSubTotal()
- 		getSubTotal = pdfObj.subTotal
- 	End Function
- 	
- 	Public Function compareSubTotal(strSubTotal)
- 		If Instr(strSubTotal, getSubTotal) <> 0 Or Instr(getSubTotal, strSubTotal) <> 0 then
- 			compareSubTotal = True
- 		else
- 			compareSubTotal = False
- 		End if
- 	End Function
- 	
- 	Public Function getQuoteCreate()
- 		getQuoteCreate = pdfObj.quoteHeader
- 	End Function
- 	
- 	Public Function compareQuoteCreate(strQuoteCreate)
- 		If Instr(strQuoteCreate, getQuoteCreate) <> 0 Or Instr(getQuoteCreate, strQuoteCreate) <> 0 then
- 			compareQuoteCreate = True
- 		else
- 			compareQuoteCreate = False
- 		End if
- 	End Function
- 	
- 	Public Function getQuoteHeader()
- 		getQuoteHeader = pdfObj.quoteCreate
- 	End Function
- 	
- 	Public Function compareQuoteHeader(strQuoteHeader)
- 		If Instr(strQuoteHeader, getQuoteHeader) <> 0 Or Instr(getQuoteHeader, strQuoteHeader) <> 0 then
- 			compareQuoteHeader = True
- 		else
- 			compareQuoteHeader = False
- 		End if
- 	End Function
- 	
- 	Public Function getTotalsGrandTotal()
- 		getTotalsGrandTotal = pdfObj.TotalsTable.Item(0).Grand_total
- 	End Function
- 	
- 	Public Function getTotalsSubTotal()
- 		getTotalsSubTotal = pdfObj.TotalsTable.Item(0).Sub_Total
- 	End Function
- 	
- 	Public Function getTotalsOther()
- 		getTotalsOther = pdfObj.TotalsTable.Item(0).Other
- 	End Function
- 	
- 	Public Function compareTotalsTable(strGrandTotal, strSubTotal, strOther)
- 		Dim boolGrandTable, boolSubTotal, boolOther
- 		If Instr(strGrandTotal, getTotalsGrandTotal) <> 0 Or Instr(getTotalsGrandTotal, strGrandTotal) <> 0  Or (Len(strGrandTotal) = 0 And Len(getTotalsGrandTotal) = 0) then
- 			boolGrandTable = True
- 		else
- 			boolGrandTable = False
- 		End if
- 		If Instr(strSubTotal, getTotalsSubTotal) <> 0 Or Instr(getTotalsSubTotal, strSubTotal) <> 0 Or (Len(strSubTotal) = 0 And Len(getTotalsSubTotal) = 0) then
- 			boolSubTotal = True
- 		else
- 			boolSubTotal = False
- 		End if
- 		If Instr(strOther, getTotalsOther) <> 0 Or Instr(getTotalsOther, strOther) <> 0 Or (Len(strOther) = 0 And Len(getTotalsOther) = 0) then
- 			boolOther = True
- 		else
- 			boolOther = False
- 		End if
- 		compareTotalsTable = boolGrandTable And boolSubTotal And boolOther
- 	End Function
- 	
- 	Public Function getProductsNo(intRowNum)
- 		getProductsNo = pdfObj.ProductTable.Item(intRowNum-1).No
- 	End Function
- 	
- 	Public Function getProductsDescription(intRowNum)
- 		getProductsDescription = pdfObj.ProductTable.Item(intRowNum-1).productDescription
- 	End Function
- 	
- 	Public Function getProductsEDT(intRowNum)
- 		getProductsEDT = pdfObj.ProductTable.Item(intRowNum-1).EDT
- 	End Function
- 	
- 	Public Function getProductsQty(intRowNum)
- 		getProductsQty = pdfObj.ProductTable.Item(intRowNum-1).Qty
- 	End Function
- 	
- 	Public Function getProductsProduct(intRowNum)
- 		getProductsProduct = pdfObj.ProductTable.Item(intRowNum-1).Product
- 	End Function
- 	
- 	Public Function getProductsExtNetPrice(intRowNum)
- 		getProductsExtNetPrice = pdfObj.ProductTable.Item(intRowNum-1).ExtNetPrice
- 	End Function
- 	
- 	Public Function compareProductsTable(intRowNum, strNo, strQty, strProduct, strDesc, strExt, strEDT)
- 		Dim boolNo, boolQty, boolProduct, boolDesc, boolExt, boolEDT
- 		If Instr(strNo, getProductsNo(intRowNum)) <> 0 Or Instr(getProductsNo(intRowNum), strNo) <> 0 Or (Len(strNo) = 0 And Len(getProductsNo(intRowNum)) = 0) then
- 			boolNo = True
- 		else
- 			boolNo = False
- 		End if
- 		If Instr(strQty, getProductsQty(intRowNum)) <> 0 Or Instr(getProductsQty(intRowNum), strQty) <> 0 Or (Len(strQty) = 0 And Len(getProductsQty(intRowNum)) = 0) then
- 			boolQty = True
- 		else
- 			boolQty = False
- 		End if
- 		If Instr(strProduct, getProductsProduct(intRowNum)) <> 0 Or Instr(getProductsProduct(intRowNum), strProduct) <> 0 Or (Len(strProduct) = 0 And Len(getProductsProduct(intRowNum)) = 0) then
- 			boolProduct = True
- 		else
- 			boolProduct = False
- 		End if
- 		If Instr(strDesc, getProductsDescription(intRowNum)) <> 0 Or Instr(getProductsDescription(intRowNum), strDesc) <> 0 Or (Len(strDesc) = 0 And Len(getProductsDescription(intRowNum)) = 0) then
- 			boolDesc = True
- 		else
- 			boolDesc = False
- 		End if
- 		If Instr(strExt, getProductsExtNetPrice(intRowNum)) <> 0 Or Instr(getProductsExtNetPrice(intRowNum), strExt) <> 0 Or (Len(strExt) = 0 And Len(getProductsExtNetPrice(intRowNum)) = 0) then
- 			boolExt = True
- 		else
- 			boolExt = False
- 		End if
- 		If Instr(strEDT, getProductsEDT(intRowNum)) <> 0 Or Instr(getProductsEDT(intRowNum), strEDT) <> 0 Or (Len(strEDT) = 0 And Len(getProductsEDT(intRowNum)) = 0) then
- 			boolEDT = True
- 		else
- 			boolEDT = False
- 		End if
- 		compareProductsTable = boolNo And boolQty And boolProduct And boolDesc And boolExt And boolEDT
- 	End Function
-End Class
-
