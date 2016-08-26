@@ -58,3 +58,5 @@ click_refresh_pricing()
 Navbar_Logout()
 
 FinalizeTest
+
+Browser("NGQ").Close
