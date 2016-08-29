@@ -1,7 +1,7 @@
 ﻿option explicit
 
-'const strItgUrl = "http://c0050564.itcs.hp.com:8880/q2cwngq/ngom#/home "
-const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
+const strItgUrl = "http://c0050564.itcs.hp.com:8880/q2cwngq/ngom#/home"
+'const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
 
 function GetNgqUrl(byval strEnvironment)
 	dim strUrl
