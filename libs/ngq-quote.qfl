@@ -1907,7 +1907,7 @@ End Sub
 
 ' Clicks the line item search option for search product
 Sub click_lineitem_add_product_search()
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	browser("NGQ").Page("Quote").WebElement("Add").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("SearchProduct").Click
 End Sub
 
@@ -1918,7 +1918,7 @@ End Sub
 
 ' Clicks the save button on the new quote screen
 Sub click_save_button()
-	browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+	browser("NGQ").Page("Quote").WebElement("Quote_Save").Click
 	
 	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Successfully Saved Quote!" then
         Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
