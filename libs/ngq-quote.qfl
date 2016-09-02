@@ -163,8 +163,8 @@ End function
 ' BEGIN Quote - Edit quote name
 '==================================================
 function Quote_EditQuoteName(strQuoteName)
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//IMG[@id='editquotename']").Click
-	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@id='editquotename']").Click
+	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//IMG[@id='editquotename']").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@id='editquotename']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id='quotename']").Set strQuoteName
 End function
 '==================================================
@@ -396,12 +396,13 @@ function ShippingData_GetTermsOfDelivery()
 end function
 
 sub ShippingData_SetDeliverySpeed(strValue)
-	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").WaitProperty "items count", micGreaterThan(1), 5000
+	'Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").Click
 	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").SelectByText strValue
 end sub
 
 sub ShippingData_SetTermsOfDelivery(strValue)
-	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").WaitProperty "items count", micGreaterThan(1), 5000
+	'Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").WaitProperty "items count", micGreaterThan(1), 5000
 	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").Click
 	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").SelectByText strValue
 end sub
@@ -735,9 +736,9 @@ End Sub
 			For Iterator = 1 To rowcount Step 1
 				row = DataTable.GetCurrentRow
 				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
-				index = Iterator + 1
-				dynCol = findTableColumn("Total Requested Discount")
-				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				'index = Iterator + 1
+				'dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("Preferred") Then
 					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
@@ -756,9 +757,9 @@ End Sub
 			For Iterator = 1 To rowcount Step 1
 				row = DataTable.GetCurrentRow
 				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
-				index = Iterator + 1
-				dynCol = findTableColumn("Total Requested Discount")
-				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				'index = Iterator + 1
+				'dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("Personal") Then
 					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
@@ -777,9 +778,9 @@ End Sub
 			For Iterator = 1 To rowcount Step 1
 				row = DataTable.GetCurrentRow
 				'actual = Browser("NGQ").Page("Pricing and Terms").WebElement("TotalRequestedDiscount","index:="&Iterator).GetROProperty("innertext")
-				index = Iterator + 1
-				dynCol = findTableColumn("Total Requested Discount")
-				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				'index = Iterator + 1
+				'dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("Manager") Then
 					Reporter.ReportEvent micPass, "Verify Updated Empowerment Pricing", "Verified Correct Empowerment Discount"
@@ -793,9 +794,9 @@ End Sub
 			rowcount = DataTable.GetRowCount
 			For Iterator = 1 To rowcount Step 1
 				row = DataTable.GetCurrentRow
-				index = Iterator + 1
-				dynCol = findTableColumn("Total Requested Discount")
-				xpath = "xpath:=(//div[@id='thresholdLocation']//div[contains(@class,' "& dynCol & "')])[" & index & "]"
+				'index = Iterator + 1
+				'dynCol = findTableColumn("Total Requested Discount")
+				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("MCCDiscount") Then
 					Reporter.ReportEvent micPass, "Verify Updated MCC Pricing", "Verified Correct MCC Discount"
@@ -859,7 +860,7 @@ Sub lineItemDetails_verifyPricingSource()
 End Sub
 
 Sub Utils_scrollToBottom_lineItemAddColumn()
-	Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailsAddColumns").Object.scrollIntoView
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("ResetGridButton").Object.scrollIntoView
 End Sub
 
 Sub Utils_scrollRight_lineItemTableColumn()
@@ -905,7 +906,7 @@ Sub RequestOPDisc_Submit()
 End Sub
 
 Sub RequestOPDisc(strMCCType, boolAppType, strDiscType, strValueType, strPercentage, strAmount, strMCCNum)
-	Utils_scrollToBottom_lineItemAddColumn
+	pageDownNewQuotePage
 	requestOPDisc_MCC strMCCType
 	requestOPDisc_OffApp boolAppType
 	requestOPDisc_discType strDiscType
