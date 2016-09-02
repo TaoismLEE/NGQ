@@ -1977,7 +1977,7 @@ End Sub
 
 'Adds an item from ocs config
 Sub click_lineitem_add_ocs()
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	browser("NGQ").Page("Quote").WebElement("Add").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 	browser("NGQ").Page("OCS Config").WebElement("ProductList").Click
 	Browser("NGQ").Page("OCS Config").WebEdit("InputField").Set "752426-B21"
