@@ -264,7 +264,7 @@ Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	UFT.ReplayType = 2
 
 	LineItemDetails_SetProductNumber productNum
-	LineItemDetails_SetProductQuantity productQty
+	'LineItemDetails_SetProductQuantity productQty
 	
 	'Quote_save_unverified
 	'wait 5
@@ -284,6 +284,7 @@ Sub LineItemDetails_SetProductNumber(strValue)
 		Utils_scrollToBottom_lineItemAdd
 		Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
 	End If
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").SendKeys "~"
 End Sub
 Sub LineItemDetails_SetProductQuantity(strValue)
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").Set strValue
@@ -1660,26 +1661,6 @@ Sub Quote_DealId()
 
 	
 End Sub
-
-sub LineItemDetails_AddProductOrOption(strProductNumber, strQuantity) 
- 	Quote_AddProductOption 
- 	Quote_PopulateProduct strProductNumber, strQuantity
-end sub 
-
-sub LineItemDetails_AddBundleProduct(strProductNumber, strQuantity)
-	Quote_AddBundle
-	Quote_PopulateBundle strProductNumber, strQuantity
-end sub
- 
- 
-sub LineItemDetails_SetProductNumber(strValue) 
-	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue 
-end sub 
- 
- 
- sub LineItemDetails_SetQuantity(intQuantity) 
- 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").Set intQuantity 
- end sub 
  '================================================== 
  ' END Quote - LineItemDetails 
  '================================================== 
@@ -3503,7 +3484,7 @@ End Sub
 
 Sub verify_advSearch_quoteID(strQuoteID, intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a/span"
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	If actual = strQuoteID Then
 		Reporter.ReportEvent micPass, "Verify Quote Number", "Verified matching Quote Number"
@@ -3514,7 +3495,7 @@ End Sub
 	
 Function getAdvSearchColumn(strColumnName)
 	dim findCol : findCol = Browser("NGQ").Page("AdvancedSearch").WebElement(strColumnName).GetROProperty("class")
-	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\d{4})", false)
+	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\w{4})", false)
 	if matches.Count = 0 then
 	    'we failed poi~
 	    print "failed"

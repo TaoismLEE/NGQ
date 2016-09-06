@@ -57,7 +57,10 @@ Dim grand_total : grand_total = get_grand_total
 
 quote_newVersion quoteID
 
-LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global")
+LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global"), 1
+
+msgbox Err.Number
+
 DataTable.SetNextRow
 Quote_refreshPricing
 Quote_GrandTotal_Changed grand_total
