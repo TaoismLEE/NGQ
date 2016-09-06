@@ -8,6 +8,9 @@ Dim al : Set al = NewActionLifetime
 
 InitializeTest "IE"
 
+' Import data from excel sheet
+DataTable.Import "..\..\data\data_file.xlsx"
+
 ' Set opportunity id and 3rd party product number
 Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
