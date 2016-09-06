@@ -2159,7 +2159,7 @@ End sub
 ' Verifies Opportunity and QuoteInfoTab Existence
 '==================================================
 Function OpportunityandQuoteInfoTabExistence()
-	IF Browser("NGQ").Page("Quote").WebElement("Opportunity and Quote InfoTab").Exist(1) THEN
+	IF Browser("NGQ").Page("Quote").WebElement("Opportunity and Quote Info Tab").Exist(1) THEN
 		Reporter.ReportEvent micPass, "Opportunity and QuoteInfoTab: ","Displayed"
 	ELSE
 		Reporter.ReportEvent micFail, "Opportunity and QuoteInfoTab: ","Not Displayed"

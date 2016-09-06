@@ -6,7 +6,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 Dim strExternalCommemnt : strExternalCommemnt = "External comment for testing"
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 Dim strQuote,strProductNumber,strQutoteNum1,strVersion1,strQuoteStatus1,strEndDate1
 Dim strVersion2,strInternalComments1,strInternalComments2, strGenOutputType,strNewVersionSource, strNewversionReason
 Dim strExternalComments,strNewVersionComments,strVersion3,strQuoteName,strNewVersionIntComments
@@ -36,7 +36,7 @@ strOutputSheet = "US9414_01_Output"
 DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
-InitializeTest 
+InitializeTest ""
 'Opens the browser and opens ngq website
 OpenNgq objUser
 
@@ -92,10 +92,13 @@ Quote_Save
 QuoteOutput_ExternalCommentCheckBox
 
 'Selects the "Add Product or Option" option
-Click_AddProdAndOption
+'Click_AddProdAndOption deleted as duplicate - JH
 
 'Set the product number and press enter key in the keyboard
-SetProductNumber strProductNumber
+'SetProductNumber strProductNumber deleted as duplicate - JH
+
+'Replaced duplicated functions to add product -JH
+LineItemDetails_AddProductByNumber strProductNumber, "1"
 
 'Selects the "Output Type" as "Extended Net Price by item with estimated delivery" under General information section
 Select_Quote_GeneraL_OutputType strGenOutputType
