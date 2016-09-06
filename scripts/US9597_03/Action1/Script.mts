@@ -7,7 +7,7 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 
 DataTable.Import "..\..\data\US9547_03.xlsx"
 Dim strChooseViewName : strChooseViewName = DataTable("strChooseViewName",1)
@@ -20,7 +20,7 @@ Dim strColumnLabel
 'array with Values in the assign column
 Dim LabelsAssignedColumn
 
-InitializeTest
+InitializeTest ""
 'Open browser and go to NGQ
 OpenNgq(objUser)
 

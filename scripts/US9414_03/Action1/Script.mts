@@ -12,7 +12,7 @@ Dim strReason
 Dim strGroup
 Dim strOutputSheet
 Dim strOutputFilePath
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 
 'Import Data
 DataTable.Import "..\..\data\US9414_03.xlsx"
@@ -26,7 +26,7 @@ strOutputSheet = "US9414_03_Output"
 DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
-InitializeTest
+InitializeTest ""
 'Opens browser and ngq website
 OpenNgq objUser
 

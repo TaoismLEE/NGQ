@@ -8,7 +8,7 @@
 '================================================
 'Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 Dim strQuote
 Dim strEmail
 
@@ -17,7 +17,7 @@ DataTable.Import "..\..\data\US9414_04.xlsx"
 strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
 strEmail = DataTable("Email", dtGlobalSheet)
 
-InitializeTest
+InitializeTest ""
 
 'Opens browser and ngq website
 OpenNgq objUser

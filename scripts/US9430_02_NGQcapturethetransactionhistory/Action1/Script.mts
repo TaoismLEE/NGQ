@@ -8,12 +8,12 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 
 DataTable.Import "..\..\data\US9430_02.xlsx"
 Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 
-InitializeTest
+InitializeTest ""
 
 'Open browser and go to My Dashboard
 OpenNgq(objUser)
