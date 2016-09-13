@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# This script runs pre-commit and is responsible 
+# for running the gitPreCommit library automatically
+# to prevent merge conflicts
+#
+#
+
+cmd.exe /c "$(pwd)\..\gitPreCommit.exe"
+git add .
