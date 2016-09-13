@@ -5,7 +5,8 @@
 # to prevent merge conflicts
 #
 #
-
+echo "Beginning gitPreCommit"
+echo "$(pwd)"
 cmd.exe /c "$(pwd)\..\gitPreCommit.exe"
 echo "gitPreCommit ran successfully"
 git add .
