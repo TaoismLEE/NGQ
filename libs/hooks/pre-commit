@@ -7,6 +7,6 @@
 #
 echo "Beginning gitPreCommit"
 echo "$(pwd)"
-cmd.exe /c "$(pwd)\..\gitPreCommit.exe"
+start "$(pwd)\libs\gitPreCommit.exe"
 echo "gitPreCommit ran successfully"
 git add .
