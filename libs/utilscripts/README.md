@@ -1,0 +1,2 @@
+#How to run the script
+To run the script on a 64-bit machine simply run *RunCreateObjectRepo.bat*.  This is because in order to run *CreateObjectRepo.vbs* correctly, cscript.exe has to be run in 32-bit mode.
