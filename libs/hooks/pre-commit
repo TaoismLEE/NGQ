@@ -5,8 +5,8 @@
 # to prevent merge conflicts
 #
 #
-echo "Beginning gitPreCommit"
-echo "$(pwd)"
 start "$(pwd)\libs\gitPreCommit.exe"
-echo "gitPreCommit ran successfully"
+echo "gitPreCommit ran successfully, starting tsr rebuild"
+start "$(pwd)\libs\utilscripts\RunCreateObjectRepo.bat"
+echo "TSR Rebuild Complete"
 git add .
