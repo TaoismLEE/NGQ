@@ -7,8 +7,8 @@ dim WshShell
 Set WshShell = WScript.CreateObject("WScript.Shell")
 
 'Gets path to ngq.xml and where we will create the object repo
-strXmlFilePath = WshShell.CurrentDirectory & "\..\ngq.xml"
-strTsrFilePath = WshShell.CurrentDirectory & "\..\ngq.tsr"
+strXmlFilePath = WshShell.CurrentDirectory & "\libs\ngq.xml"
+strTsrFilePath = WshShell.CurrentDirectory & "\libs\ngq.tsr"
 
 'The object repo object that has all its methods
 set objRepo = CreateObject("Mercury.ObjectRepositoryUtil")
