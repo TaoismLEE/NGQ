@@ -1,2 +1,2 @@
 @echo off
-%WinDir%\SysWOW64\cscript CreateObjectRepo.vbs
+%WinDir%\SysWOW64\cscript libs\utilscripts\CreateObjectRepo.vbs
