@@ -346,7 +346,7 @@ end function
 ' BEGIN Quote - Add OCS
 '==================================================
 Sub click_lineitem_add_ocs()
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 End Sub
 '==================================================
