@@ -73,15 +73,15 @@ Function Quote_currentlySelectedTab(strQuoteTabSelected)
 	End if
 End Function
 
-Sub Quote_save()
-	'save quote
-	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
-	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
-		Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
-	else
-		Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
-	End if
-End Sub
+'Sub Quote_save()
+'	'save quote
+'	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+'	if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
+'		Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
+'	else
+'		Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
+'	End if
+'End Sub
 
 Sub Quote_save_unverified()
 	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
@@ -644,11 +644,11 @@ Sub OutputQuote_SaveQuotePdf(strQuoteNum)
 	DataTable.GlobalSheet.AddParameter "OutputFilePath", strSavePath
 End Sub
 
-Function CreateSavePath(strQuoteNum)
-	Dim strCreatedPath
-	strCreatedPath = Environment.Value("TestDir") + "\" + strQuoteNum + ".pdf"
-	CreateSavePath = strCreatedPath
-End Function
+'Function CreateSavePath(strQuoteNum)
+'	Dim strCreatedPath
+'	strCreatedPath = Environment.Value("TestDir") + "\" + strQuoteNum + ".pdf"
+'	CreateSavePath = strCreatedPath
+'End Function
 
 Sub SavePdfAs(strPath)
 	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
@@ -1130,12 +1130,12 @@ sub ClickAutoFilter()
 End sub
 
 'enter and submit thequote number
-sub FillFilterQuoteNumber(quoteNumber)
-	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Set quoteNumber
-	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Click 
-	EnterKey()
-	wait(10)
-End sub
+'sub FillFilterQuoteNumber(quoteNumber)
+'	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Set quoteNumber
+'	Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Click 
+'	EnterKey()
+'	wait(10)
+'End sub
 
 		'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
 sub ValidateLastModifyBy_TS_and_OwnerHistory()
@@ -1590,9 +1590,9 @@ Sub Quote_TermsofDelivery(strTermsOfDelivery)
     Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[2]/DIV[1]/LABEL[1]/SELECT[1]").Select strTermsOfDelivery
 End Sub
 
-Sub Quote_AdditionalDataTab()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""ADDL_DATA""]").Click
-End Sub
+'Sub Quote_AdditionalDataTab()
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""ADDL_DATA""]").Click
+'End Sub
 
 Sub Quote_RefreshPricng()
 	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Object.scrollIntoView
@@ -1958,9 +1958,8 @@ Sub validate_product_number_line_item(strName)
 End Sub
 
 'Adds an item from ocs config
-Sub click_lineitem_add_ocs()
-	'browser("NGQ").Page("Quote").WebElement("Add").Click
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+Sub build_ocs_bom()
+	click_lineitem_add_ocs
 	browser("NGQ").Page("OCS Config").WebElement("ProductList").Click
 	Browser("NGQ").Page("OCS Config").WebEdit("InputField").Set "752426-B21"
 	Browser("NGQ").Page("OCS Config").WebElement("SearchButton").Click
@@ -1993,10 +1992,6 @@ Sub write_product(strName)
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
-End Sub
-
-Sub select_product()
-	browser("NGQ").Page("New Configuration").WebElement("ProductList").Click
 End Sub
 
 ' Verifies that an obsolete message appears when an obsolete product is added
@@ -2485,9 +2480,9 @@ End Function
 '==================================================================
 'Clicks the clone button on the top right corner
 '==================================================================
-Sub Click_Clone()
-	Browser("NGQ").Page("Navbar - New Quote").WebElement("Quote_Clone").Click
-End Sub
+'Sub Click_Clone()
+'	Browser("NGQ").Page("Navbar - New Quote").WebElement("Quote_Clone").Click
+'End Sub
 
 
 
@@ -2732,17 +2727,6 @@ Sub CustomerDataShipTo_SameAsSoldToAddress()
 		Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address Webcheckbox").CheckBox
 	End if
 	
-
-
-
-
-
-
-
-
-
-
-
 End Sub
 
 
@@ -2775,49 +2759,13 @@ Sub SetAutoAllocTargReqDiscPercentage(strTargReqDiscPercentage)
 End Sub
 
 
-
-
-
-
-
 '*******************************************************************************************
 'Clicks the triangle button beside the "Refresh Pricing" button 
 '*******************************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Sub click_Triangle()
 	Browser("NGQ").Page("Quote").WebElement("Triangle").Click	
 End Sub
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 '*******************************************************************************************
@@ -2832,23 +2780,9 @@ Sub Select_RequestSpecialPricing()
 	Browser("NGQ").Page("Triangle").WebElement("Request Special Pricing").Click
 End Sub
 
-
-
-
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Selects Request Eclipse Bid Desk approval and clicks cubmit
 '*******************************************************************************************
-
-
-
-
 
 'Selects Request Eclipse Bid Desk approval and clicks cubmit
 Sub Select_RequestEclipseBidDeskApproval()
@@ -2856,24 +2790,9 @@ Sub Select_RequestEclipseBidDeskApproval()
 	Browser("NGQ").Page("Triangle").WebElement("Submit Special Pricing Request").Click
 End Sub
 
-
-
-
-
-
 '*******************************************************************************************
 ' Validates special pricing in progress is visible
 '*******************************************************************************************
-
-
-
-
-
-
-
-
-
-
 
 Sub validate_SpecialPriceInProgress()
 	if Browser("NGQ").Page("Triangle").WebElement("Special Pricing In Progress").Exist(1) then
@@ -2884,16 +2803,6 @@ Sub validate_SpecialPriceInProgress()
 		
 End Sub
 
-
-
-
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Returns eclipse deal id
 '*******************************************************************************************
@@ -2902,53 +2811,18 @@ Function get_EclipseDealId()
 	Dim temp : temp = Browser("NGQ").Page("Quote").WebElement("Eclipse Deal Id").GetROProperty("innertext")
 End Function
 
-
-
-
-
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Clicks searched quote number
 '*******************************************************************************************
-
-
-
-
-
-
-
-
-
-
-
 
 Sub Click_SearchedQuoteNumber()
 	Browser("NGQ").Page("Navbar - My Dashboard").Link("Auto Filter Searched Quote Number").Click
 End Sub
 
 
-
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Selects pre-validate under triangle
 '*******************************************************************************************
-
-
-
-
-
 
 
 
@@ -2958,20 +2832,9 @@ Sub Select_Prevalidate()
 End Sub
 
 
-
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Validates the pdf contains the external comments
 '*******************************************************************************************
-
-
-
 
 
 Function validateCommentInPdf(strExternalComments)
@@ -2985,49 +2848,6 @@ If temp Then
 		Reporter.ReportEvent micFail, "PDF Compare: ", "Pdf doesn't contains External Comments"
 End If
 End Function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3049,136 +2869,37 @@ Sub Close_Browser()
 End Sub
 
 
-
-
-
-
-
-
-
 '*******************************************************************************************
 'Saves the pdf in designed path
 '*******************************************************************************************
-Sub SavePdfAs(strPath)
-	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
-	UFT.ReplayType = 1
-	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
-	UFT.ReplayType = 1
-	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
-	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
-End Sub 
+'Sub SavePdfAs(strPath)
+'	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
+'	UFT.ReplayType = 1
+'	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
+'	UFT.ReplayType = 1
+'	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
+'	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
+'End Sub 
 
 '*******************************************************************************************
 'Saves the path on the datatable
 '*******************************************************************************************
-Sub OutputQuote_SaveQuotePdf(strQuoteNum)
-	Dim strSavePath
-	strSavePath = CreateSavePath(strQuoteNum)
-	SavePdfAs strSavePath
-	DataTable.GetSheet ("Local").AddParameter "OutputFilePath", strSavePath
-End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'Sub OutputQuote_SaveQuotePdf(strQuoteNum)
+'	Dim strSavePath
+'	strSavePath = CreateSavePath(strQuoteNum)
+'	SavePdfAs strSavePath
+'	DataTable.GetSheet ("Local").AddParameter "OutputFilePath", strSavePath
+'End Sub
 
 
 '*******************************************************************************************
 'Creates a path for pdf
 '*******************************************************************************************
-Function CreateSavePath(strQuoteNum)
-	Dim strCreatedPath
-	strCreatedPath = Environment.Value("TestDir") + "\Pdf\" + strQuoteNum + ".pdf"
-	CreateSavePath = strCreatedPath
-End Function 
+'Function CreateSavePath(strQuoteNum)
+'	Dim strCreatedPath
+'	strCreatedPath = Environment.Value("TestDir") + "\Pdf\" + strQuoteNum + ".pdf"
+'	CreateSavePath = strCreatedPath
+'End Function 
 
 Sub Quote_create_newVersion(strSource, strReason, strComment)
 	Browser("NGQ").Page("Quote").WebElement("NewVersion").Click
@@ -3188,21 +2909,21 @@ Sub Quote_create_newVersion(strSource, strReason, strComment)
 	Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit").Click
 End Sub
 
-Sub quote_newVersion(oldQuoteID)
-	Quote_create_NewVersion DataTable.Value("versionSource", "Global"), DataTable.Value("versionReason", "Global"), DataTable.Value("versionComment", "Global")
-	verify_newVersion_message
-	Verify_quoteID oldQuoteID
-	Dim temp : temp = DataTable.Value("quoteVersion", "Global")
-	temp = temp - 1
-	If temp < 10 Then
-		Verify_quoteName "New Version of " & oldQuoteID & "-0" & temp
-	else
-		Verify_quoteName "New Version of " & oldQuoteID & "-" & temp
-	End If
-	Verify_quoteVersion "To be assigned"
-	Quote_save
-	Verify_quoteVersion	DataTable.Value("quoteVersion", "Global")	
-End Sub
+'Sub quote_newVersion(oldQuoteID)
+'	Quote_create_NewVersion DataTable.Value("versionSource", "Global"), DataTable.Value("versionReason", "Global"), DataTable.Value("versionComment", "Global")
+'	verify_newVersion_message
+'	Verify_quoteID oldQuoteID
+'	Dim temp : temp = DataTable.Value("quoteVersion", "Global")
+'	temp = temp - 1
+'	If temp < 10 Then
+'		Verify_quoteName "New Version of " & oldQuoteID & "-0" & temp
+'	else
+'		Verify_quoteName "New Version of " & oldQuoteID & "-" & temp
+'	End If
+'	Verify_quoteVersion "To be assigned"
+'	Quote_save
+'	Verify_quoteVersion	DataTable.Value("quoteVersion", "Global")	
+'End Sub
 
 
 
@@ -3234,80 +2955,26 @@ End Sub
 
 
 'validate if the quote tab is active/selected
-Function ValidateQuoteTab()
-    If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Quote Tab").Exist(1) Then
-            Reporter.ReportEvent micPass, "Valide Quote Tab","The quote tab is selected"        
+'Function ValidateQuoteTab()
+'    If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Quote Tab").Exist(1) Then
+'            Reporter.ReportEvent micPass, "Valide Quote Tab","The quote tab is selected"        
+'
+'
+'    Else 
+'            Reporter.ReportEvent micFail, "Valide Quote Tab","The quote tab is Not selected"        
+'    End If
 
-
-    Else 
-            Reporter.ReportEvent micFail, "Valide Quote Tab","The quote tab is Not selected"        
-    End If
-
-
-
-
-
-
-
-
-End Function
-'enter and submit th equote number in My Dashboard
-Function FillFilterQuoteNumber(quoteNumber)
+sub FillFilterQuoteNumber(quoteNumber)
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Click 
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Set quoteNumber
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").SendKeys "~"
     'EnterKeys
-End Function
+End sub
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Function ClickAutoFilter()
-    Browser("NGQ").Page("Navbar - My Dashboard").WebElement("BtnAutoFilter").Click
-End Function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'Function ClickAutoFilter()
+'    Browser("NGQ").Page("Navbar - My Dashboard").WebElement("BtnAutoFilter").Click
+'End Function
 
 
 Function EnterKeys()
@@ -3407,13 +3074,13 @@ End Function
 '    objPdfInfo.Compare(strPdfFilePath)
 'End Sub
 ''end jesus
-Sub Quote_create_newVersion(strSource, strReason, strComment)
-	Browser("NGQ").Page("Quote").WebElement("NewVersion").Click
-	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource").Select strSource
-	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason").Select strReason
-	Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment").Set strComment
-	Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit").Click
-End Sub
+'Sub Quote_create_newVersion(strSource, strReason, strComment)
+'	Browser("NGQ").Page("Quote").WebElement("NewVersion").Click
+'	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource").Select strSource
+'	Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason").Select strReason
+'	Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment").Set strComment
+'	Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit").Click
+'End Sub
 
 Sub quote_newVersion(oldQuoteID)
 	Quote_create_NewVersion DataTable.Value("versionSource", "Global"), DataTable.Value("versionReason", "Global"), DataTable.Value("versionComment", "Global")
@@ -3521,3 +3188,16 @@ Sub verify_advSearch_table(strQuoteID)
 	verify_advSearch_quoteID strQuoteID, counter
 	verify_advSearch_versions "01", counter
 End Sub
+
+'Function CreateSavePath(strQuoteNum)
+'    Dim strCreatedPath
+'    strCreatedPath = Environment.Value("TestDir") + "..\data\PDF\" + strQuoteNum + ".pdf"
+'    CreateSavePath = strCreatedPath
+'End Function
+
+Function CreateSavePath(strQuoteName)
+	Dim strCreatePath
+	strCreatePath = Environment.Value("TestDir") + "..\data\PDF\" + strQuoteName + ".pdf"
+	CreateSavePath = strCreatePath
+End Function
+
