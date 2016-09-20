@@ -2030,8 +2030,6 @@ Sub validate_obsolete_object(strName, valOption)
 	
 	validateTip = Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).GetROProperty("title")
 	
-	Reporter.ReportEvent micWarning, validateTip, validateTip
-	
 	validateTip = Replace(validateTip, "<br>", "")
 	
 	Set myMatch = re.Execute(validateTip)
