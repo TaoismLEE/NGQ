@@ -1937,10 +1937,10 @@ End Sub
 Sub click_refresh_pricing()
 	browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
 	
-	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Refresh Pricing completed" then
+	if InStr(browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext"), "Refresh Pricing completed") > 0 then
         Reporter.ReportEvent micPass, "Refresh Pricing Pass","Pricing Successfully Refreshed"
     else
-        Reporter.ReportEvent micFail, "Refresh Pricing Fail","Pricing Refresh Failed"
+        Reporter.ReportEvent micFail, browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext"),"Pricing Refresh Failed"
     End if
 End Sub
 
