@@ -13,7 +13,7 @@ Current Status: Unstable
 * US9414_02
 
 ## Broken Test Cases
-* 9412_01 - cant be fixed at the moment (bad data and context menu)
+* 9412_01 - Partially fixed. NGQ prevalidate is busted :(.
 * 9414_01 - pdf doesnt save
 * 9414_03 - bad xpath (Filter for Column)
 * 9414_04 - bad xpath (Filter for Column)
