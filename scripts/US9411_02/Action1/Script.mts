@@ -30,8 +30,8 @@ NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
-' Click on Add+
-click_lineitem_add_ocs
+' Add product from ocs config
+build_ocs_bom
 
 'add components
 add_product_option customImagingNumber
