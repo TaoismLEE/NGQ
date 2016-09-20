@@ -28,7 +28,7 @@ NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
 ' Click on Add+
-click_lineitem_add_ocs
+build_ocs_bom
 
 'add 3rd party
 add_product_option strProductNumber
