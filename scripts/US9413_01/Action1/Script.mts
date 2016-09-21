@@ -49,7 +49,7 @@ Quote_save
 
 Dim quoteID : QuoteID = Quote_get_quoteNumber
 
-click_lineitem_add_ocs
+build_ocs_bom
 
 Quote_refreshPricing
 
@@ -59,7 +59,7 @@ quote_newVersion quoteID
 
 LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global"), 1
 
-msgbox Err.Number
+'msgbox Err.Number
 
 DataTable.SetNextRow
 Quote_refreshPricing
