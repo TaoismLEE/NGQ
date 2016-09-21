@@ -2,6 +2,7 @@
 This is the TAO Test Repository for the Next Generation Quoter
 
 Current Status: Unstable
+Last Checked: 09/21/2016 3:01PM CST by Joshua Hunter
 
 ## Working Test Cases
 * US9409_10
@@ -13,8 +14,8 @@ Current Status: Unstable
 * US9414_02
 
 ## Broken Test Cases
-* 9412_01 - Partially fixed. NGQ prevalidate is busted :(.
-* 9414_01 - pdf doesnt save
+* 9412_01 - Reese will fix Success message type check
+* 9414_01 - PDFs infinite loop wait (Not working)
 * 9414_03 - bad xpath (Filter for Column)
 * 9414_04 - bad xpath (Filter for Column)
 * 9430_02 - Filter Quote Number
