@@ -6,6 +6,7 @@ Current Status: Unstable
 Last Checked: 09/21/2016 3:01PM CST by Joshua Hunter
 
 ## Working Test Cases
+* US9400_04
 * US9409_10
 * US9410_01
 * US9410_02
