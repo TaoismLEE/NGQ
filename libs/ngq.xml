@@ -876,6 +876,101 @@
 </qtpRep:Comments>
 <qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
 <qtpRep:ChildObjects>
+<qtpRep:Object Class="WebElement" Name="UploadConfigUpload">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='upload_btn']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="UploadConfigBrowse">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='upload_file']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ProceedImport">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='do_import']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="EditDataMapping">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='edit_data_mapping']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ConfigSave">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='add_config']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebEdit" Name="UploadConfigFile">
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
@@ -2497,6 +2592,44 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ProductOptionHeader">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'sortable') and .//span[.='Option']]/parent::div]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ProductNumberHeader">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'sortable') and .//span[.='Product Number']]/parent::div]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="ProductNumber_2">
 <qtpRep:Properties>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
@@ -2540,6 +2673,25 @@
 <qtpRep:Object Class="WebElement" Name="ProductNumber">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'ngHeaderCell') and contains(.,'Product Number')]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ProductDescriptionHeader">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'sortable') and .//span[.='Product Description']]/parent::div]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4027,7 +4179,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Upload">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//ul[@id='menu_nv4']/li[not(contains(@class,'ng-hide'))]/a]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@pid='QD_UPLOAD_ITEM_BTN']/button]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
