@@ -499,7 +499,7 @@ end sub
 ' Author Jesus
 '==================================================
 Sub ValidatePriceRefreshed()
-	If Browser("NGQ").Page("Quote").WebElement("SuccessMessage").CheckProperty ("innertext", MicRegExpMatch(".*Refresh Pricing completed.*")) Then
+	If Browser("NGQ").Page("Quote").WebElement("RefreshPricingMessage").CheckProperty ("innertext", MicRegExpMatch(".*Refresh Pricing completed.*")) Then
 		Reporter.ReportEvent micPass, "Price refreshed successfully", "Refresh Pricing completed found"
 	Else
 		Reporter.ReportEvent micFail, "Price did not refreshed successfully", "Refresh Pricing completed not found"
@@ -1699,14 +1699,15 @@ Sub Quote_AddBundleToQuote( strBundleId )
   Browser("NGQ").Page("Quote - Search Product").WebElement("AddBundleToQuote").Click
 End Sub
 
-Sub Quote_QtyUpdate( intBundleQty)
-  Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
-  Browser("NGQ").Page("Quote - Line Item Details").Image("Edit").Click
-  'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("ProductQtyHdr").Click
-  'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("ProductQtyHdr").Set intBundleQty
-  Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Click
-  Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Set intBundleQty
-  
+Sub Quote_QtyUpdate(intIndex, intBundleQty)
+	'refactored by JH
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("editLineItem").Click
+	intIndex = intIndex + 1
+	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//input)[1]"
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set intBundleQty
+	'bad xpath poi T_T;
+    'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Set intBundleQty
 End Sub
 
 Sub Quote_OutputTab()
@@ -1763,21 +1764,22 @@ End Sub
 
 
 sub Quote_SelectIncludeCoverPage()
-	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[1]/INPUT[1]").CheckBox
+	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("IncludeCoverPage").CheckBox
 end sub
 
 sub Quote_DeSelectIncludeCoverPage()
-	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[1]/INPUT[1]").UnCheckBox
+	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("IncludeCoverPage").UnCheckBox
 end sub
 
 sub Quote_SelectCustomGroupView()
-	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[2]/INPUT[1]").CheckBox
+	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("CustomGroupView").CheckBox
 end sub
 
 sub Quote_DeSelectCustomGroupView()
-	Browser("name:=Home.*").Page("title:=Home.*").WebCheckBox("xpath:=//DIV[@id=""rowoutputquote""]/DIV[4]/DIV[1]/DIV[2]/INPUT[1]").UnCheckBox
+	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("CustomGroupView").UnCheckBox
 end sub
 
+' Verifies that the Price Quality Band Table is not shown
 Sub Quote_CheckPricingBandNotDisplayed()	
 	If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").Exist Then
 			If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").GetROProperty("visible") Then 
@@ -1791,6 +1793,7 @@ Sub Quote_CheckPricingBandNotDisplayed()
 	'verify_price_quality_band			
 End Sub
 
+' Finds the quote id and adds it to datasheet
 Sub Quote_CaptureQuoteNumber()
 	Dim quoteID : quoteID = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext") 
 	Datatable.GetSheet ("Global").AddParameter "QuoteNumber_Output", quoteID
@@ -1882,7 +1885,10 @@ End Sub
 ' Clicks the add to quote button
 Sub add_to_quote()
 	browser("NGQ").Page("Quote - Search Product").WebElement("addToQuote").Click
-	
+End Sub
+
+' Validates quote was successfully saved
+Sub validate_products_added_to_quote()
 	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Products added." then
         Reporter.ReportEvent micPass, "Quote Add","Product Successfully Added to Quote"
     else
@@ -1914,9 +1920,10 @@ Sub validate_product_number_line_item(strName)
 End Sub
 
 'Adds an item from ocs config
-Sub click_lineitem_add_ocs()
+Sub build_ocs_bom()
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	click_lineitem_add_ocs
 	browser("NGQ").Page("OCS Config").WebElement("ProductList").Click
 	Browser("NGQ").Page("OCS Config").WebEdit("InputField").Set "752426-B21"
 	Browser("NGQ").Page("OCS Config").WebElement("SearchButton").Click
@@ -1927,8 +1934,8 @@ Sub click_lineitem_add_ocs()
 End Sub
 
 'Adds an item from ocs config
-Sub click_lineitem_add_ocs_net()
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
+Sub click_lineitem_add_ocs()
+	browser("NGQ").Page("Quote").WebElement("Add").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 End Sub
 
@@ -1974,28 +1981,82 @@ End Sub
 ' Hovers over a line item and check whether the object is obsolete or not. Send in
 ' 1 if the item is suppsoed to be obsolete and 0 if it is not.
 Sub validate_obsolete_object(strName, valOption)
-	Dim goodPath : goodPath = "xpath:=(//span[contains(text(),'"
-	Dim validateTip, re, myMatch, obsDate, currDate
+	Dim goodPath : goodPath = "xpath:=//span[contains(text(),'"
+	Dim validateTip,  myMatch, obsDate, currDate
 	
-	Set re = New RegExp
+	' Regular expressions to check for dates in tool tip
+	Dim reEOL, reAVAIL, reDISCO, reOBSOLETE
+	
+	Set reEOL = New RegExp
+	Set reAVAIL = New RegExp
+	Set reDISCO = new RegExp
+	Set reOBSOLETE = New RegExp
 	currDate = Date 
 	
-	' Regular expression that locates EOL line
-	With re
+	' Regular expression that locates EOL line and check for other expressions
+	' NOTE: if the names of the fields change, just change the regular expressions below
+	With reEOL
 	  .Pattern    = "EOL=[0-9-]*"
       .IgnoreCase = False
       .Global     = False
 	End With
 	
-	' Building dynamic xpath
-	goodPath = goodPath + strName + "')])[1]"
+	With reAVAIL
+	  .Pattern    = "AVAIL="
+      .IgnoreCase = False
+      .Global     = False
+	End With
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).HoverTap
-	validateTip = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//div[contains(@id,'ui-tooltip')]/div)[last()]").GetROProperty("innerhtml")
+	With reDISCO
+	  .Pattern    = "DISCO="
+      .IgnoreCase = False
+      .Global     = False
+	End With
+	
+	With reOBSOLETE
+	  .Pattern    = "OBSOLETE="
+      .IgnoreCase = False
+      .Global     = False
+	End With	
+		
+
+	
+	' Building dynamic xpath
+	goodPath = goodPath + strName + "') and @class='ng-binding']/parent::span"
+	
+	validateTip = Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).GetROProperty("title")
 	
 	validateTip = Replace(validateTip, "<br>", "")
 	
-	Set myMatch = re.Execute(validateTip)
+	
+	' Checking to see if custom context menu populates properly
+	If reEOL.Test(validateTip) Then
+		Reporter.ReportEvent micPass, "Validate EOL is present", "EOL is present"	
+	Else
+		Reporter.ReportEvent micFail, "Validate EOL is present", "EOL is not present"	
+	End If
+	
+	If reAVAIL.Test(validateTip) Then
+		Reporter.ReportEvent micPass, "Validate AVAIL is present", "AVAIL is present"	
+	Else
+		Reporter.ReportEvent micFail, "Validate AVAIL is present", "AVAIL is not present"	
+	End If
+	
+	If reDISCO.Test(validateTip) Then
+		Reporter.ReportEvent micPass, "Validate DISCO is present", "DISCO is present"	
+	Else
+		Reporter.ReportEvent micFail, "Validate DISCO is present", "DISCO is not present"	
+	End If
+	
+	
+	If reOBSOLETE.Test(validateTip) Then
+		Reporter.ReportEvent micPass, "Validate OBSOLETE is present", "OBSOLETE is present"	
+	Else
+		Reporter.ReportEvent micFail, "Validate OBSOLETE is present", "OBSOLETE is not present"	
+	End If
+	
+	
+	Set myMatch = reEOL.Execute(validateTip)
 	
 	validateTip = Replace(myMatch(0).Value, "EOL=", "")
 	
@@ -2038,10 +2099,11 @@ End Sub
 ' Uploads the product from the specified file path
 Sub importProductExcelSheet(strName)
 	Browser("NGQ").Dialog("Choose File to Upload").WinEdit("File name:").Set strName
-	Browser("NGQ").Dialog("Choose File to Upload_2").WinButton("Open").Click
+	Browser("NGQ").Dialog("Choose File to Upload").WinButton("Open").Click
 	UploadProducts_VerifyProducts(strName)
 	Browser("NGQ").Page("Quote").WebElement("ImportExcel").Click
 	Browser("NGQ").Page("Quote").WebElement("ImportQuote").Click
+	UploadProducts_ProductsAddedMsg()
 End Sub
 
 ' Sets the external comment for quote output
@@ -2059,10 +2121,10 @@ End Sub
 Sub Quote_SelectOutputType(strName, filePath)
 	Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Select strName
 	Browser("NGQ").Page("Quote - Output Quote").WebElement("Preview Btn").Click
-	Browser("Home#/selfservicequote/createq_1").WinObject("Notification").WinButton("WinButton").Click
-	Browser("Home#/selfservicequote/createq_1").WinMenu("ContextMenu").Select "Save as"
-	Browser("Home#/selfservicequote/createq_1").Dialog("Save As").WinEdit("File name:").Set filePath
-	Browser("Home#/selfservicequote/createq_1").Dialog("Save As").WinButton("Save").Click
+	Browser("Home").WinObject("Notification").WinButton("WinButton").Click
+	Browser("Home").WinMenu("ContextMenu").Select "Save as"
+	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set filePath
+	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
 End Sub
 
 ' sets the auto allocation target price
@@ -2074,22 +2136,18 @@ Sub Quote_SetTargReqPrice(strNum)
 End Sub
 
 ' Verifies that the table displayed in ngq was successfully transferred to the pdf properly
-Sub verifyProductInPDF(objPDF)
-	Dim expr1 : expr1 = "xpath:=//div[@class='ngCell col4 colt4 row"
-	Dim expr2 : expr2 = "']//span[contains(@class,'ng-binding')]"
-	Dim iter : iter = 0
-	Dim tableResult : tableResult = expr1 + CStr(iter) + expr2
-	
-	While Browser("name:=Home.*").Page("title:=Home.*").WebElement(tableResult).Exist
-		Dim prodName : prodName = Browser("name:=Home.*").Page("title:=Home.*").WebElement(tableResult).GetROProperty("innertext") 
-		If (prodName = objPDF.getProductsProduct((iter + 1))) Then
+Sub verifyProductInPDF(objPDF, numRows)
+	Dim i : i = 1
+	While i <> (numRows + 1)
+		Dim prodName 
+		prodName = get_product_number((i + 1))
+		If (objPDF.getProductsProduct(i) = prodName) Then
 			reporter.ReportEvent micPass, "Product In PDF", prodName
 		Else
 			reporter.ReportEvent micFail, "Product not In PDF", prodName
 		End If
 		
-		iter = iter + 1
-		tableResult = expr1 + CStr(iter) + expr2
+		i = i + 1
 	Wend
 End Sub
 
@@ -2133,24 +2191,39 @@ End Sub
 
 ' Verifies that the grand total was entered into the pdf properly
 Sub verifyGrandTotalInPDF(strName, pdfObj)
-	Dim re, myMatch
+	Dim re, myMatch, valid, totalMatch
 	
 	Set re = New RegExp
+	Set valid = New RegExp
 	
+	' xpath to extract grand total amount from string
 	With re
+	  .Pattern    = "[0-9]*[.][0-9]*"
+      .IgnoreCase = False
+      .Global     = False
+	End With
+	
+	
+	' Gets grand total from the pdf
+	Dim tot : tot = pdfObj.getTotalsGrandTotal()
+	
+	' removes any commas from the totals
+	tot = Replace(tot, "," , "")
+	strName = Replace(strName, ",", "")
+	
+	' Extracts value from provided string
+	Set myMatch = re.Execute(strName)
+	strName = myMatch(0).Value
+	
+	
+	With valid
 	  .Pattern    = strName
       .IgnoreCase = False
       .Global     = False
 	End With
 	
 	
-	Dim tot : tot = pdfObj.getTotalsGrandTotal()
-	
-	tot = Replace(tot, "," , "")
-	
-	Set myMatch = re.Execute(tot)
-	
-	If myMatch.count > 0 Then
+	If valid.Test(tot) Then
 		Reporter.ReportEvent micPass, "Grand Total Does Match In PDF", strName
 	Else
 		Reporter.ReportEvent micFail, "Grand Total Does Not Match In PDF", strName
@@ -2176,6 +2249,12 @@ Sub verifyCommentInPDF(strName, pdfObj)
 	Else
 		Reporter.ReportEvent micFail, "Comments Not Found in PDF", strName
 	End If
+End Sub
+
+' Clicks and edits the Customer Specific Quote ID
+Sub quote_editCutomerSpecQouteID(strName)
+	Browser("NGQ").Page("Quote").WebElement("CustomerSpecQuoteIDImage").Click
+    Browser("NGQ").Page("Quote").WebEdit("CustomerSpecQuoteIDBox").Set strName
 End Sub
 '================================
 ' End of Reese's functions
@@ -3007,21 +3086,21 @@ Sub UploadProducts_VerifyHeaders()
 	Dim strColTwoHeader : strColTwoHeader = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(1, 2)
 	Dim strColThreeHeader : strColThreeHeader = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").GetCellData(1, 3)
 	
-	If strColOneHeader = "Quantity" Then
+	If Trim(strColOneHeader) = "Quantity" Then
 		Reporter.ReportEvent micPass, "Quantity Header", "Quantity header sucessfully labeled"
 	Else 
 		Reporter.ReportEvent micFail, "Quantity Header", "Incorrect Quantity header.  Expected: ""Quantity"" Actual: " & strColOneHeader
 		ExitTest
 	End If
 	
-	If strColTwoHeader = "Product Number" Then
+	If Trim(strColTwoHeader) = "Product Number" Then
 		Reporter.ReportEvent micPass, "Product Number Header", "Product Number header sucessfully labeled"
 	Else 
 		Reporter.ReportEvent micFail, "Product Number Header", "Incorrect Product Number header.  Expected: ""Product Number"" Actual: " & strColTwoHeader
 		ExitTest
 	End If
 	
-	If strColThreeHeader = "Product Description" Then
+	If Trim(strColThreeHeader) = "Product Description" Then
 		Reporter.ReportEvent micPass, "Product Description Header", "Product Description header sucessfully labeled"
 	Else 
 		Reporter.ReportEvent micFail, "Product Description Header", "Incorrect Product Description header.  Expected: ""Product Description"" Actual: " & strColThreeHeader
@@ -3047,10 +3126,13 @@ Sub UploadProducts_AddValidProducts()
 End Sub
 
 Sub UploadProducts_ProductsAddedMsg()
-	If Browser("NGQ").Page("Quote").WebElement("Products added. Message").Exist Then
+
+	If Browser("NGQ").Page("Quote").WebElement("SuccessMessage").Exist Then
         Reporter.ReportEvent micPass, "Products Added Message", "Products added message successfully displayed"
-    ElseIf Browser("NGQ").Page("Quote").WebElement("Obsolete Product Message").Exist Then
+    ElseIf Browser("NGQ").Page("Quote").WebElement("WarningMessage").Exist Then
         Reporter.ReportEvent micWarning, "Obsolete Product Message", "The obsolete product message is being displayed"
+    Else
+    	Reporter.ReportEvent micFail, "Products Added Message", "Products added message not displayed"
     End If
 End Sub
 
@@ -3234,3 +3316,17 @@ Sub verify_prodTable_prodOpt(productOpt, intIndex)
 		Reporter.ReportEvent micFail, "Verify Option", "Incorrect Product Option"
 	End If
 End Sub
+
+Function get_prodTable_dealId(intIndex)
+	Dim dynCol : dynCol = getProductTableColumn("DealIdHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("innertext")
+	get_prodTable_dealId = actual
+End Function
+
+Function get_product_number(intIndex)
+	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("innertext")
+	get_product_number = actual
+End Function
