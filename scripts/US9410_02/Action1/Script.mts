@@ -11,7 +11,7 @@ DataTable.Import "..\..\data\data_US9410_02.xlsx"
 
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "57aded83ac21f1ef7a7d704623a38e802dfe3c4a325e")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("prodNumber","Global")
 Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("thirdParty","Global")
@@ -51,12 +51,14 @@ set_quantity
 ' Add to quote and verify
 add_to_quote
 
+validate_products_added_to_quote
+
 'Refresh Price
 click_refresh_pricing()
 
 ' Lobgout and close browser
 Navbar_Logout()
 
-FinalizeTest
+Browser("NGQ").Close 
 
-Browser("NGQ").Close
+FinalizeTest
