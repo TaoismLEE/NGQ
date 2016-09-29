@@ -44,8 +44,7 @@ sub Quote_AdditionalDataTab()
 end sub
 
 sub Quote_CustomerDataTab()
-	'Browser("NGQ").Page("Quote").WebElement("Customer Data Tab").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customer Data","xpath:=//SECTION[@id=""customerDataSection""]/EXPANDCOLLAPSE[1]/DIV[1]/DIV[1]/SPAN[2]").Click
+	Browser("NGQ").Page("Quote").WebElement("Customer Data Tab").Click
 	Wait 1
 end sub
 
@@ -121,46 +120,46 @@ End Sub
 '==================================================
 ' BEGIN New Quote - Empty fields validations 
 '==================================================
-function NewQuote_ValideEmptyQuote(strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate)
+function NewQuote_ValidateEmptyQuote(strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate)
 	' Validating Quote Number
-	strQuoteNumberID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id='quoteId']").GetROProperty("innertext")
+	strQuoteNumberID = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")
 	If strQuoteNumberID = "New Quote" Then
-		Reporter.ReportEvent micPass, "Valide empty quote number","New Quote is not generated"
+		Reporter.ReportEvent micPass, "Validate empty quote number","QuoteID contains default New Quote text"
 	Else
-		Reporter.ReportEvent micFail, "Valide empty quote number","New Quote is not empty"
+		Reporter.ReportEvent micFail, "Validate empty quote number","QuoteID does not contain default New Quote text"
 	End If
 	' Validating Quote Version
-	strQuoteVersion = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
+	strQuoteVersion = Browser("NGQ").Page("Quote").WebElement("quoteVersion").GetROProperty("innertext")
 	If strQuoteVersion = "1" Then
-		Reporter.ReportEvent micPass, "Valide version 1","New quote version is 1"
+		Reporter.ReportEvent micPass, "Validate version 1","New quote version is 1"
 	Else
-		Reporter.ReportEvent micFail, "Valide version 1","New quote version is not 1"
+		Reporter.ReportEvent micFail, "Validate version 1","New quote version is not 1"
 	End If
 	' Validating Quote Name
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quotenamespanSecond""]").Exist Then
-		Reporter.ReportEvent micPass, "Valide quate name","Quote Name is empty and pencil icon indicating it is editable"	
+	If Browser("NGQ").Page("Quote").WebElement("quoteName").Exist Then
+		Reporter.ReportEvent micPass, "Validate quate name","Quote Name is empty and pencil icon indicating it is editable"	
 	Else
-		Reporter.ReportEvent micFail, "Valide quate name","Quote Name is not empty and pencil icon indicating it is editable"
+		Reporter.ReportEvent micFail, "Validate quate name","Quote Name is not empty and pencil icon indicating it is editable"
 	End If	
 	' Validating Quote Status
-	strQuoteStatus = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
+	strQuoteStatus = Browser("NGQ").Page("Quote").WebElement("quoteStatus").GetROProperty("innertext")
 	If strQuoteStatus = "Quote/Configuration Created" Then
 		Reporter.ReportEvent micPass, "Valide quote status","Quote Status is Quote/Configuration Created"
 	Else
 		Reporter.ReportEvent micFail, "Valide quote status","Quote Status is not Quote/Configuration Created"
 	End If	
 	' Validating Quote Start Date
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[2]/SPAN[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide start date","Start Date is visible"	
+	If Browser("NGQ").Page("Quote").WebElement("quoteStartDate").Exist Then
+		Reporter.ReportEvent micPass, "Validate start date","Start Date is visible"	
 	Else
-		Reporter.ReportEvent micFail, "Valide start date","Start Date is not visible"
+		Reporter.ReportEvent micFail, "Validate start date","Start Date is not visible"
 	End If		
 	' Validating Quote End Date
-	strQuoteEndDate = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""expiryTsSpan""]/SPAN[1]").GetROProperty ("innertext")
+	strQuoteEndDate = Browser("NGQ").Page("Quote").WebElement("quoteEndDate").GetROProperty ("innertext")
 	If strQuoteEndDate = "(Need Pricing Call)" Then
-		Reporter.ReportEvent micPass, "Valide end date","End Date is not pulled out. It says - Need Pricing Call -"
+		Reporter.ReportEvent micPass, "Validate end date","End Date has default - Need Pricing Call - value"
 	Else
-		Reporter.ReportEvent micFail, "Valide end date","End Date is pulled out"
+		Reporter.ReportEvent micFail, "Validate end date","End Date does not have default value"
 	End If
 End function	
 '==================================================
@@ -169,9 +168,8 @@ End function
 ' BEGIN Quote - Edit quote name
 '==================================================
 function Quote_EditQuoteName(strQuoteName)
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("html id:=editquotename").Click
-	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@id='editquotename']").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id='quotename']").Set strQuoteName
+	Browser("NGQ").Page("Quote").WebElement("EditQuoteName").Click
+	Browser("NGQ").Page("Quote").WebEdit("EnterQuoteName").Set strQuoteName
 End function
 '==================================================
 ' END Quote - Edit quote name
@@ -305,41 +303,42 @@ End Sub
 '==================================================
 ' BEGIN Quote - "+ Add" button options validation 
 '==================================================
-function Quote_ValideAddButtonOptions()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/A[1]").MouseOver
+function Quote_ValidateAddButtonOptions()
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	' Validating Add Line
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[1]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide - Add Line","Add Line option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Add Line").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Line","Add Line option is displayed"	
 	Else
-		Reporter.ReportEvent micFail, "Valide - Add Line","Add Line option is not displayed"
+		Reporter.ReportEvent micFail, "Validate - Add Line","Add Line option is not displayed"
 	End If
 	' Validating Add Product or Option
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[2]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide - Add Product or Option","Add Product or Option option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Add Product or Option").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Product or Option","Add Product or Option option is displayed"	
 	Else
-		Reporter.ReportEvent micFail, "Valide - Add Product or Option","Add Product or Option option is not displayed"
+		Reporter.ReportEvent micFail, "Validate - Add Product or Option","Add Product or Option option is not displayed"
 	End If
 	' Validating Add Bundle
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[3]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide -Add Bundle","Add Bundle option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Add Bundle").Exist Then
+		Reporter.ReportEvent micPass, "Validate -Add Bundle","Add Bundle option is displayed"	
 	Else
-		Reporter.ReportEvent micFail, "Valide - Add Bundle","Add Bundle option is not displayed"
+		Reporter.ReportEvent micFail, "Validate - Add Bundle","Add Bundle option is not displayed"
 	End If	
 	' Add Config from OCS
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[4]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide - Add Config from OCS","Add Config from OCS option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Add OCS Config").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Config from OCS","Add Config from OCS option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Add Config from OCS","Add Config from OCS option is not displayed"
 	End If	
 	' Search Product(s)
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide - Search Product(s)","Search Product(s) option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Search Product(s)").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Search Product(s)","Search Product(s) option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search Product(s) option is not displayed"
 	End If	
 	' Quick Add
-	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[6]/A[1]").Exist Then
-		Reporter.ReportEvent micPass, "Valide - Quick Add","Quick Add option is displayed"	
+	If Browser("NGQ").Page("Quote").Link("Quick Add").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Quick Add","Quick Add option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Quick Add","Quick Add option is not displayed"
 	End If		
