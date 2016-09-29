@@ -637,10 +637,10 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="productAddToQuoteTab">
 <qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//SPAN[@id='productAddToQuoteTab' and @name='productupload']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Add to Quote]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="index" Hidden="0" ReadOnly="0" Type="NUMBER">	<qtpRep:Value RegularExpression="0"><![CDATA[0]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[SPAN]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html id" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[productAddToQuoteTab]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="class" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[line_gen ng-binding]]></qtpRep:Value>	</qtpRep:Property>
@@ -648,10 +648,10 @@
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//SPAN[@id="productAddToQuoteTab"]]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>_xpath</qtpRep:PropertyRef>
+<qtpRep:OrdinalIdentifier Type="index">	<qtpRep:Value>2</qtpRep:Value>	</qtpRep:OrdinalIdentifier>
 </qtpRep:BasicIdentification>
 <qtpRep:SmartIdentification Algorithm="Mercury.TolerantPriority" Active="1">
 <qtpRep:BaseFilter>
@@ -1840,7 +1840,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="bundleForm"]/FORM[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="bundleForm"]/FORM[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@ng-model='bundleSearch.bundleid']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[text]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="siebelobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -2364,6 +2364,46 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebCheckBox" Name="IncludeCoverPage">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebCheckBox]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='rowoutputquote']//div[contains(@class,'customer_rows')]//div[contains(.,'Include Cover Page')]/input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebCheckBox" Name="CustomGroupView">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebCheckBox]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='rowoutputquote']//div[contains(@class,'customer_rows')]//div[contains(.,'Custom Group View')]/input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
 <qtpRep:Object Class="Page" Name="Quote - Opportunity and Quote Info">
@@ -2511,6 +2551,44 @@
 </qtpRep:Comments>
 <qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
 <qtpRep:ChildObjects>
+<qtpRep:Object Class="WebTable" Name="Line Item Details Table">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebTable]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="itemsTable"]/DIV[2]/DIV[@role="grid"][1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="itemsTable"]/DIV[2]/DIV[@role="grid"][1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="role" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[grid]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[DIV]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html id" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="1"><![CDATA[.*-grid-container]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="class" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="1"><![CDATA[ui-grid-render-container.*]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="border" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="acc_name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>_xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>role</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>acc_name</qtpRep:PropertyRef>
+<qtpRep:OrdinalIdentifier Type="index">	<qtpRep:Value>1</qtpRep:Value>	</qtpRep:OrdinalIdentifier>
+</qtpRep:BasicIdentification>
+<qtpRep:SmartIdentification Algorithm="Mercury.TolerantPriority" Active="1">
+<qtpRep:BaseFilter>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
+</qtpRep:BaseFilter>
+<qtpRep:OptionalFilter>
+<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>border</qtpRep:PropertyRef>
+</qtpRep:OptionalFilter>
+</qtpRep:SmartIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebList" Name="OutputType">
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebList]]></qtpRep:Value>	</qtpRep:Property>
@@ -2576,6 +2654,25 @@
 <qtpRep:Object Class="WebElement" Name="SearchProduct">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[contains(text(), 'Search Product(s)')]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="QuantityHeader">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'sortable') and .//span[.='Quantity']]/parent::div]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -2802,9 +2899,47 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="editLineItem">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'ui-grid-cell')]//span[contains(@class,'icon-pencil')]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="DealIdHeader">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'sortable') and .//span[.='Deal Id']]/parent::div]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="DealId">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="thresholdLocation"]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[14]/DIV[2]/SPAN[1]/DIV[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[contains(@class,'ngHeaderCell') and contains(.,'Deal Id')]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="siebelobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="repositoryname" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -2817,11 +2952,7 @@
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>siebelobjtype</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>repositoryname</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>innertext</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>class</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>_xpath</qtpRep:PropertyRef>
 <qtpRep:OrdinalIdentifier Type="index">	<qtpRep:Value>0</qtpRep:Value>	</qtpRep:OrdinalIdentifier>
 </qtpRep:BasicIdentification>
@@ -3596,7 +3727,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebCheckBox]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="shiptongq"]/DIV[1]/INPUT[1]]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="shiptongq"]/DIV[1]/INPUT[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='shiptongq']/div[contains(@class,'sameassoldto')]/input]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="value" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[on]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[checkbox]]></qtpRep:Value>	</qtpRep:Property>
@@ -4329,6 +4460,44 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="quoteStatus">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='customerData']//strong[contains(@ng-bind,'QT_STTS')]/following-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="quoteStartDate">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='customerData']//strong[contains(@ng-bind,'STR_DT')]/following-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="QuoteOutputTab">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='QT_OP']]]></qtpRep:Value>	</qtpRep:Property>
@@ -4408,6 +4577,25 @@
 <qtpRep:Object Class="WebElement" Name="QuoteID">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='quoteId']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="quoteEndDate">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='customerData']//strong[contains(@ng-bind,'END_DT')]/following-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4808,9 +4996,28 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="EditQuoteName">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html id" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[editquotename]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="EditExternal">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//img[@id='editExternalCommentId']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='editExternalCommentId']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4846,9 +5053,28 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="CustomerSpecQuoteIDImage">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='editquotecustomspecquoteid']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Customer Data Tab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='CSTMR_DATA']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@pid='QD_CUST_DATA_TAB']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5019,11 +5245,51 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebEdit" Name="EnterQuoteName">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='quotename']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebEdit" Name="EnterProductNumber">
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@title='Product No.']//input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebEdit" Name="CustomerSpecQuoteIDBox">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='quotecustomspecquoteid']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5122,9 +5388,9 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="tableDIV"]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@pid='QD_SRCH_PRODUCTS_LNK']/a]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Search Product(s)]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="source_index" Hidden="1" ReadOnly="1" Type="NUMBER">	<qtpRep:Value RegularExpression="0"><![CDATA[4880]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="siebelobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="repositoryname" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Search Product(s)]]></qtpRep:Value>	</qtpRep:Property>
@@ -5136,10 +5402,7 @@
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>_xpath</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>text</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>siebelobjtype</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>repositoryname</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 </qtpRep:BasicIdentification>
 <qtpRep:SmartIdentification Algorithm="Mercury.TolerantPriority" Active="1">
 <qtpRep:BaseFilter>
@@ -5155,6 +5418,28 @@
 <qtpRep:PropertyRef>visible</qtpRep:PropertyRef>
 </qtpRep:OptionalFilter>
 </qtpRep:SmartIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="Link" Name="Quick Add">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@id='menu_item7']/a[.='Quick Add']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
 <qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
@@ -5178,17 +5463,36 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
-<qtpRep:Object Class="Link" Name="Add OCC Config">
+<qtpRep:Object Class="Link" Name="Add OCS Config">
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@pid='QD_ADD_CNFG_FRM_SCE_LNK']/a]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Add Config from OCC]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[A]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>text</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="Link" Name="Add Line">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@pid='QD_ADD_LINE_ITEM_LNK']/a]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 </qtpRep:BasicIdentification>
 <qtpRep:Comments>
 <qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
@@ -5201,9 +5505,9 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//DIV[@id="tableDIV"]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[3]/A[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@pid='QD_ADD_BNDLE_LNK']/a]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="visible" Hidden="1" ReadOnly="1" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[0]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Add Bundle]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="source_index" Hidden="1" ReadOnly="1" Type="NUMBER">	<qtpRep:Value RegularExpression="0"><![CDATA[5021]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="siebelobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="repositoryname" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Add Bundle]]></qtpRep:Value>	</qtpRep:Property>
@@ -5215,10 +5519,7 @@
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>_xpath</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>text</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>siebelobjtype</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>repositoryname</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 </qtpRep:BasicIdentification>
 <qtpRep:SmartIdentification Algorithm="Mercury.TolerantPriority" Active="1">
 <qtpRep:BaseFilter>
@@ -5234,6 +5535,9 @@
 <qtpRep:PropertyRef>visible</qtpRep:PropertyRef>
 </qtpRep:OptionalFilter>
 </qtpRep:SmartIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
 <qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
@@ -5246,6 +5550,68 @@
 <qtpRep:Property Name="image type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="alt" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="Page" Name="QuickSearch">
+<qtpRep:Properties>
+<qtpRep:Property Name="user-input in post data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="user input in get data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="url without form data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="non user-input in post data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="non user-input in get data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Page]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="index" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="form data" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="document size" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="all data in get method" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+<qtpRep:Object Class="WebEdit" Name="QuoteNumber">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@ng-model='fieldModel' and ./preceding-sibling::span[.='Quote Number']]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="Link" Name="Search">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[contains(@class,'btn-Primary') and contains(.,'Search')]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
@@ -5472,6 +5838,25 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ApproveOverride">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='discount_override_megs']//a[@btn-text='Yes']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="ApplyPreferredEmpower">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='pricingTermsTab']//div[contains(@class,'two')]/div/div[contains(.,'Preferred')]]]></qtpRep:Value>	</qtpRep:Property>
@@ -5529,11 +5914,50 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ApplyAuto">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@ng-click='applyAutoAllocation();']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebEdit" Name="ReqOpDiscAmt">
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='ReqOprtrDisc']//tr[contains(@class,'mcc-row')]/td[last()]//input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebEdit" Name="AutoTargPrice">
+<qtpRep:Properties>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@ng-model='globalVariable.totalNetPrice']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -9063,6 +9487,63 @@
 </qtpRep:Comments>
 <qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
 <qtpRep:ChildObjects>
+<qtpRep:Object Class="WebElement" Name="subtotal">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-bind='localizeData.SUB_TOTAL']/following-sibling::div[@class='div_info ng-binding']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="ShipAndHandle">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-bind='localizeData.SHIPING_HANDLING']/following-sibling::div[@class='div_info ng-binding']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="GrandTotal">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-bind='localizeData.GRND_TOTAL']/following-sibling::strong[@class='div_input ng-binding']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Grand Total Label_1">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-bind='localizeData.GRND TOTAL']]]></qtpRep:Value>	</qtpRep:Property>
@@ -9085,6 +9566,25 @@
 <qtpRep:Object Class="WebElement" Name="Grand Total Label">
 <qtpRep:Properties>
 <qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-bind='localizeData.GRND_TOTAL']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="CollapseIcon">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='collapseIcon']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
