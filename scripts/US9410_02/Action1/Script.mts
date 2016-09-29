@@ -6,12 +6,12 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "IE"
+InitializeTest "FF"
 DataTable.Import "..\..\data\data_US9410_02.xlsx"
 
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user","Global"), DataTable.Value("pass","Global"), "a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("prodNumber","Global")
 Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("thirdParty","Global")
