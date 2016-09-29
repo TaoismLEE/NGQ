@@ -1,0 +1,32 @@
+﻿Option Explicit
+
+'==================================================
+' BEGIN Ocs_RandSelectAndConfigureProduct
+' Author: Jesus
+'==================================================
+Sub Ocs_SelectAndConfigureProduct()
+	Browser("NGQ").Page("OCS").WebElement("Networking Product HTML ID").Click
+	Browser("NGQ").Page("OCS").WebElement("Networking - Wireless Devices").Click
+	Browser("NGQ").Page("OCS").WebElement("Wireless Devices - HPE M210 AP").Click
+	Browser("NGQ").Page("OCS").WebElement("HPE M210 - JL023A").Click
+End Sub
+
+Sub Ocs_SaveBom()
+	Browser("NGQ").Page("OCS").WebButton("BOM Save Btn").Click
+End Sub
+
+Sub Ocs_SaveBomValid()
+	Dim strSuccessfulMsgText
+	strSuccessfulMsgText = Browser("NGQ").Page("OCS").WebElement("Save Succesful Confirmation").InnerText
+	If Browser("NGQ").Page("OCS").WebElement("Save Succesful Confirmation").Exist _
+   	   And strSuccessfulMsgText = "Untitled Successfully saved - Click ""Next"" to continue." Then
+		Reporter.ReportEvent micPass, "Save confirmation found", "Succesful save confirmation was found"
+	Else
+		Reporter.ReportEvent micPass, "Save confirmation not found", "Succesful save confirmation was not found"
+	End If
+End Sub
+
+Sub Ocs_ClickConvertToQuote()
+	Browser("NGQ").Page("OCS").WebElement("Next - Convert To Quote Btn").Click
+End Sub
+
