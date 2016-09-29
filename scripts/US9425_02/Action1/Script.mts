@@ -36,7 +36,7 @@ Dim strQuoteTabSelected : strQuoteTabSelected = "Opportunity and Quote Info"
 
 'Navigate to Create New Quote
 Navbar_CreateNewQuote
-NewQuote_ValideEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
+NewQuote_ValidateEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
 Quote_currentlySelectedTab(strQuoteTabSelected)
 
 'Import opportunity ID

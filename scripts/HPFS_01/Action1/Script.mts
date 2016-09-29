@@ -29,7 +29,7 @@ OpenNgq objUser
 
 'Navigate to "New quote tab" and click "New Quote" and validate it is an empty quote
 Navbar_CreateNewQuote
-NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
+NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
 
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
