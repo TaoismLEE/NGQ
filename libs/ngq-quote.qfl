@@ -414,20 +414,21 @@ end sub
 '==================================================
 ' BEGIN Quote - Search
 '==================================================
-function AdvancedSearch(strQuoteNumber)
-	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""Form""]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
-end function
+'Deprecated - Use newly written advanced search functions
+'function AdvancedSearch(strQuoteNumber)
+'	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""Form""]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+'end function
 
 function QuickSearch(strQuoteNumber)
-	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[1]/NGQ-INPUT-TEXT[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+	Browser("NGQ").Page("QuickSearch").WebEdit("QuoteNumber").Set strQuoteNumber
 end function
 
 sub QuickSearch_Search()
-	Browser("name:=Home").Page("title:=Home").WebElement("innerText:=Search", "xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[2]/DIV[1]/NGQ-PRIMARY-BUTTON[1]/A[1]").Click
+	Browser("NGQ").Page("QuickSearch").WebElement("Search").Click
 end sub
 
 sub SelectResult_Search(strQuoteNumber)
-	Browser("name:=Home").Page("title:=Home").Link("innertext:="&strQuoteNumber).Click
+	Browser("NGQ").Page("AdvancedSearch").Link("SelectResult","innertext:="&strQuoteNumber).Click
 	wait 4
 end sub
 '==================================================
@@ -437,59 +438,60 @@ end sub
 '==================================================
 ' BEGIN QuoteServices - Options - Claim
 '==================================================
-function QuoteServices_Claim()
-	'Use this function if you'll work with QuoteNumber = NI00147520
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
-	wait 3
-end function
+' DEPRECATED FUNCTIONS BELOW
+'function QuoteServices_Claim()
+'	'Use this function if you'll work with QuoteNumber = NI00147520
+'	Browser("NGQ").Page("").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
+'	wait 3
+'end function
 '==================================================
 ' END QuoteServices - Options - Claim	
 '==================================================	
 ' BEGIN QuoteServices - Options - CustomGroup
 '==================================================
-function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
-	'Add Custom Group
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
-	'Complete form to add
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
-	'Save Custom Group
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
-	'Validation
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-		Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
-	Else
-		Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
-	End If		
-end function
-	
-sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
-	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
-	'Edit Custom Group Information
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
-	'Update Custom Group
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
-	'Validation
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-		Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
-	Else
-		Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
-	End If
-end sub
-	
-sub QuoteServices_RemoveCustomGroup()
-	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
-	'Validation
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-		Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
-	Else
-		Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
-	End If 		
-	'Close Custom Group
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
-end sub	
+'function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
+'	'Add Custom Group
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
+'	'Complete form to add
+'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
+'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
+'	'Save Custom Group
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
+'	'Validation
+'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'		Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
+'	Else
+'		Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
+'	End If		
+'end function
+'	
+'sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
+'	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
+'	'Edit Custom Group Information
+'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
+'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
+'	'Update Custom Group
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
+'	'Validation
+'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'		Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
+'	Else
+'		Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
+'	End If
+'end sub
+'	
+'sub QuoteServices_RemoveCustomGroup()
+'	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
+'	'Validation
+'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'		Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
+'	Else
+'		Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
+'	End If 		
+'	'Close Custom Group
+'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
+'end sub	
 '==================================================	
 ' END QuoteServices - Options - CustomGroup
 '==================================================
@@ -664,49 +666,50 @@ End Sub
 	'==================================================	
 	' BEGIN QuoteServices - Options - CustomGroup
 	'==================================================
-	function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
-		'Add Custom Group
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
-		'Complete form to add
-		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
-		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
-		'Save Custom Group
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
-		'Validation
-		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-			Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
-		Else
-			Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
-		End If		
-	end function
-	
-	sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
-		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
-		'Edit Custom Group Information
-		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
-		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
-		'Update Custom Group
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
-		'Validation
-		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-			Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
-		Else
-			Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
-		End If
-	end sub
-	
-	sub QuoteServices_RemoveCustomGroup()
-		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
-		'Validation
-		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-			Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
-		Else
-			Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
-		End If 		
-		'Close Custom Group
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
-	end sub	
+	' DEPRECATED DONT USE
+'	function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
+'		'Add Custom Group
+'		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
+'		'Complete form to add
+'		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
+'		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
+'		'Save Custom Group
+'		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
+'		'Validation
+'		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'			Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
+'		Else
+'			Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
+'		End If		
+'	end function
+'	
+'	sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
+'		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
+'		'Edit Custom Group Information
+'		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
+'		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
+'		'Update Custom Group
+'		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
+'		'Validation
+'		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'			Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
+'		Else
+'			Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
+'		End If
+'	end sub
+'	
+'	sub QuoteServices_RemoveCustomGroup()
+'		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
+'		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
+'		'Validation
+'		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+'			Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
+'		Else
+'			Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
+'		End If 		
+'		'Close Custom Group
+'		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
+'	end sub	
 	'==================================================	
 	' END QuoteServices - Options - CustomGroup
 	'==================================================
@@ -1162,7 +1165,7 @@ End sub
 sub ClickOwnerHistory
 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueOwnerHistory").Click
 End sub
-
+		' TODO REFACTOR THESE XPATHS WHEN DASHBOARD WORKING -JH
 		'validate table in owner history link
 sub ValidateOwnerHistoryTable
 		'Validate if Document Type column exist
@@ -1494,66 +1497,7 @@ End Sub
 
 '=====================================================================
 'LV Add
-'======================================================================
-sub Quote_AddBundle()
-	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
-    Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
-    Browser("NGQ").Page("Quote").Link("Add Bundle").Click
-    
-end sub
-
-
-sub Quote_PopulateBundle(strBundleProductNumber, intQuantity)
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]").Click	                                                                                               
-    Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]","index:=0").Set strBundleProductNumber
-    
-    'Hide the click if successful. 
- 	Dim intOriginalFilter : intOriginalFilter = Logger.SetReporterFilter(rfEnableErrorsOnly) 
- 	Browser("NGQ").Page("Footer").WebElement("Grand Total Label").Click 
- 	Logger.SetReporterFilter intOriginalFilter
-end Sub
-
-
-sub Quote_PopulateProduct(strPopulateStandaloneProduct, intQuantity)
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]").Click	                                                                                               
-    Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]","index:=0").Set strPopulateStandaloneProduct
-    
-    'Hide the click if successful. 
- 	Dim intOriginalFilter : intOriginalFilter = Logger.SetReporterFilter(rfEnableErrorsOnly) 
- 	Browser("NGQ").Page("Footer").WebElement("Grand Total Label").Click 
- 	Logger.SetReporterFilter intOriginalFilter
-end Sub
-
-sub Quote_CustomerDatatab()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SECTION[@id=""customerDataSection""]/EXPANDCOLLAPSE[1]/DIV[1]/DIV[1]/SPAN[2]").Click
-end Sub
-
-sub Quote_ShiptoTab()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""shipToCustomerTab""]").Click
-end Sub
-
-sub Quote_ShiptoAddress()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""shiptongq""]/DIV[1]/INPUT[1]").Click
-end Sub
-	
-sub Quote_Shipdata()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""SHP_DATA""]").Click
-end Sub
-
-Sub Quote_DeliverySpeed(strDeliverySpeed)
-	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[1]/DIV[1]/LABEL[1]/SELECT[1]").Click
-    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[1]/DIV[1]/LABEL[1]/SELECT[1]").Select strDeliverySpeed
-End Sub
-
-Sub Quote_TermsofDelivery(strTermsOfDelivery)
-	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[2]/DIV[1]/LABEL[1]/SELECT[1]").Click
-    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""border_line""]/DIV[4]/DIV[1]/DIV[2]/DIV[1]/LABEL[1]/SELECT[1]").Select strTermsOfDelivery
-End Sub
-
-Sub Quote_AdditionalDataTab()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""ADDL_DATA""]").Click
-End Sub
-
+'=====================================================================
 Sub Quote_RefreshPricng()
 	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
@@ -1645,21 +1589,21 @@ Sub Quote_SearchProduct()
 	Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Click	
 End Sub
 
-Sub Quote_SelectBundle()		
+' Selects bundle to be searched
+Sub Quote_SelectBundle()
 	Browser("NGQ").Page("Quote").Link("Search Product(s)").Click
 	Browser("NGQ").Page("Quote - Search Product").WebRadioGroup("ProductSearchType").Select "Bundle"
 End Sub
 
-Sub Quote_Button()
-	Browser("NGQ").Page("Search").WebRadioGroup("Product Bundle").Select "#2" 
-End Sub
 
+' Adds a product or option the line item details table
 sub Quote_AddProductOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
 End sub
 
+' Save the deal id
 Sub Quote_CaptureDealId()
 	Dim strDealId 
 	
@@ -1672,24 +1616,8 @@ Sub Quote_CaptureDealId()
 	End if
 End Sub
 
-Sub Quote_BundleIdCheck()
- Dim strBundleId
- Dim strxPath
- strxPath = "xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/DIV[1]/SPAN[1]"
- If Browser("name:=Home.*").Page("title:=Home.*").WebElement(strxPath).Exist Then
- 
-      strBundleId = Browser("name:=Home.*").Page("title:=Home.*").WebElement(strxPath).GetROProperty("innertext")
-      if  strBundleId <>  "" Then
-		Reporter.ReportEvent micPass, "Valid Bundle Id","Bundle ID displayed"
-	else
-		Reporter.ReportEvent micFail, "Bundle Id empty","Bundle ID cannot be Empty"
-	End if
-else
-	Reporter.ReportEvent micWarning, "Bundle Id Display Check","Bundle ID not displayed, Please contact SA"
-End if
 
-End Sub
-
+' Add bundle using search
 Sub Quote_AddBundleToQuote( strBundleId )
   Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Click
   Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Set strBundleId
@@ -1698,6 +1626,7 @@ Sub Quote_AddBundleToQuote( strBundleId )
   Browser("NGQ").Page("Quote - Search Product").WebElement("AddBundleToQuote").Click
 End Sub
 
+' Update quantity option
 Sub Quote_QtyUpdate(intIndex, intBundleQty)
 	'refactored by JH
 	Browser("NGQ").Page("Quote - Line Item Details").WebElement("editLineItem").Click
@@ -1705,25 +1634,27 @@ Sub Quote_QtyUpdate(intIndex, intBundleQty)
 	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
 	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//input)[1]"
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set intBundleQty
-	'bad xpath poi T_T;
-    'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[9]/DIV[2]/SPAN[1]/INPUT[1]").Set intBundleQty
 End Sub
 
+' Select output tab
 Sub Quote_OutputTab()
 	Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
-    Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//SELECT[@id=""optypeselect""]","index:=0").Select "Extended Net Price by item with estimated delivery"
+    Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Select "Extended Net Price by item with estimated delivery"
     
 End Sub
 
+' Clicks the preview button
 Sub Quote_PreviewButton()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""previewBtn""]").Click
+	Browser("NGQ").Page("Quote - Output Quote").WebElement("Preview Btn").Click
 End Sub
 
+' Clicks the save button when downloading files
 Sub Quote_SaveFromDownloadBar()
 	Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("WinButton").Click
     Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("Save").Click
 End Sub
 
+' Gets pdf ready to download
 Sub Quote_PreProcessDownload(strDownloadDir,strSearchFileName)
 	Dim fso
 	
@@ -1739,7 +1670,7 @@ Sub Quote_PreProcessDownload(strDownloadDir,strSearchFileName)
 End Sub
 
 
-
+' Saves the pdf to be checked
 Sub Quote_ProcessDownload(strDownloadDir,strSearchFileName)
 	Dim fso
 	
@@ -1756,24 +1687,28 @@ Sub Quote_ProcessDownload(strDownloadDir,strSearchFileName)
   	Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("Close").Click
 End Sub
 
+' Checks the pdf to verify all of the products were added
 Sub Quote_FileContentPriceCheck
 	FileContent("To be assigned.pdf").Check CheckPoint("To be assigned.pdf")
 End Sub
 
 
-
+' Selects the include cover page box
 sub Quote_SelectIncludeCoverPage()
 	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("IncludeCoverPage").CheckBox
 end sub
 
+' Un selects the include cover page box
 sub Quote_DeSelectIncludeCoverPage()
 	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("IncludeCoverPage").UnCheckBox
 end sub
 
+' Checks the CustomGroupView box
 sub Quote_SelectCustomGroupView()
 	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("CustomGroupView").CheckBox
 end sub
 
+' Unchecks the CustomGroupView box
 sub Quote_DeSelectCustomGroupView()
 	Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("CustomGroupView").UnCheckBox
 end sub
@@ -2777,19 +2712,38 @@ Function VerifyQuoteTransfer(strEmail)
 End Function
 '==================================================================
 'Verifies email and quote number 
+'Refactored by JH
 '==================================================================
 
 Function VerifyEmailQuote(strEmail,strQuote)
-	Dim temp1 : temp1 = Browser("NGQ").Page("Navbar_AdvancedSearch").WebElement("Result_QuoteNumber").GetROProperty("innertext")
-	Dim temp: temp = Browser("NGQ").Page("Navbar_AdvancedSearch").WebElement("Email Address").GetROProperty("innertext")
-	strEmail = Trim(strEmail)
-	strQuote = Trim(strQuote)
-	temp1 = Trim(temp1)
-	temp = Trim(temp)
-	If temp = strEmail and temp1 = strQuote Then
+	Dim temp1 : temp1 = verify_advSearch_emailBool(strEmail, 2)
+	Dim temp: temp = verify_advSearch_quoteIDBool(strQuote, 2)
+	If temp = true and temp1 = true Then
 		Reporter.ReportEvent micPass, "Verification: ","Quote is Successfully Claimed/Transfered"
 	else
 		Reporter.ReportEvent micFail, "Verification: ","Quote is Not Successfully Claimed/Transfered"
+	End If
+End Function
+
+Function verify_advSearch_emailBool(strEmailAdd, intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("CurrentOwnerHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	If actual = strEmailAdd Then
+		verify_advSearch_emailBool = true
+	else
+		verify_advSearch_emailBool = false
+	End If
+End Function
+
+Function verify_advSearch_quoteIDBool(strQuoteID, intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	If actual = strQuoteID Then
+		verify_advSearch_quoteIDBool = true
+	else
+		verify_advSearch_quoteIDBool = false
 	End If
 End Function
 '==================================================
@@ -3218,7 +3172,7 @@ End Sub
 
 Sub verify_advSearch_quoteID(strQuoteID, intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a/span"
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	If actual = strQuoteID Then
 		Reporter.ReportEvent micPass, "Verify Quote Number", "Verified matching Quote Number"
@@ -3229,7 +3183,7 @@ End Sub
 	
 Function getAdvSearchColumn(strColumnName)
 	dim findCol : findCol = Browser("NGQ").Page("AdvancedSearch").WebElement(strColumnName).GetROProperty("class")
-	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\d{4})", false)
+	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\w{4})", false)
 	if matches.Count = 0 then
 	    'we failed poi~
 	    print "failed"
