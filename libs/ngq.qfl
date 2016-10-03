@@ -23,7 +23,7 @@ sub InitializeTest(browserFamily)
 	UFT.App.Test.Settings.Run.DisableSmartIdentification = true
 	UFT.App.Test.Settings.Run.IterationMode = "oneIteration"
 	UFT.App.Test.Settings.Run.OnError = "Dialog"
-	UFT.Minimize
+	'UFT.Minimize
 	If browserFamily <> "" Then
 		BrowserStore.FamilyCode = browserFamily
 	else
@@ -69,8 +69,9 @@ Function LoginNGQ(objRealUser)
 	'if .Page("HP Log on selector").Link("Email & Computer Password").Exist(1) then
 	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
 	'end if
-	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist Then
-		If Dialog("DigitalBadgeLogin").Exist Then
+	
+	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(1) Then
+		If Dialog("DigitalBadgeLogin").Exist(1) Then
 		Dialog("DigitalBadgeLogin").Activate
 		Dialog("DigitalBadgeLogin").WinEdit("PIN").SetSecure objRealUser.EncryptedDigitalBadge
 		Dialog("DigitalBadgeLogin").WinButton("OK").Click
@@ -80,7 +81,7 @@ Function LoginNGQ(objRealUser)
 		End If
 	
 		with Browser("NGQ")
-			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist Then
+			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist(1) Then
 				.Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Set objRealUser.Username
 				.Page("HP Log on - Email & Computer Password").WebEdit("Password").SetSecure objRealUser.EncryptedPassword
 				.Page("HP Log on - Email & Computer Password").WebButton("Log on").Click
@@ -91,6 +92,7 @@ Function LoginNGQ(objRealUser)
 			End If
 		End with
 	End If
+	
 End Function
 
 sub NgqBrowserSync(objBrowser, byval intElapsedTimeMs)
@@ -215,7 +217,7 @@ function QuoteServices_SelectOption (strQuotaSelection_Selector)
 	'   CASE ("Clone")
 	'      PropertyValue = "Clone"
 	    CASE ("Refresh Pricing")
-			Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//A[@id=""refreshPriceId""]").Click
+	    	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
 			Wait 3			
 		CASE ("Claim")
 		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[4]").Click	
@@ -230,7 +232,7 @@ function QuoteServices_SelectOption (strQuotaSelection_Selector)
 	'   CASE ("CLIC Call")
 	'      PropertyValue = "CLIC Call"
 		CASE ("Save")
-	      Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//SPAN[@id=""ngqsavebtn""]").Click
+	      Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
 	      Wait 3
 	END SELECT
 end function
