@@ -76,7 +76,7 @@ applyEmpowerment "MCC"
 ' REQUIRED FOR PRE-VALIDATION TO PASS
 Quote_CustomerDatatab
 
-Quote_ShiptoTab
+CustomerData_ShipToTab
 
 CustomerDataShipTo_SelectSameAsSoldToAddress
 
