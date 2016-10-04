@@ -12,11 +12,11 @@ Dim al : Set al = NewActionLifetime
 'InitializeTest "CH"
 InitializeTest ""
 
-'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
-
 'DataImport
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+
+'Hard-coded data.
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<encrypted digitalbadge>")
 
 'set var from data sheets
 Dim emptyQuoteNumber : emptyQuoteNumber = DataTable.Value("quoteNumber", "Global")
