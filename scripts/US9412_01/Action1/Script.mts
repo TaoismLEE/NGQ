@@ -12,7 +12,7 @@ InitializeTest "IE"
 DataTable.Import "..\..\data\data_file.xlsx"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "k")
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "k")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim obsoleteNumber : obsoleteNumber = DataTable.Value("ObsoleteNumber", "Global")
 Dim validNumber : validNumber = DataTable.Value("ValidNumber", "Global")
