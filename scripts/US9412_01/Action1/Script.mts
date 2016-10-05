@@ -25,13 +25,14 @@ OpenNgq objUser
 
 'Navigate to "New quote tab" and click "New Quote" and validate it is an empty quote
 Navbar_CreateNewQuote
-NewQuote_ValideEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
+NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
 
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
 ' Enter quote name and save it
 Quote_EditQuoteName "Test Name"
+
 click_save_button()
 
 ' Click on Add+
@@ -58,7 +59,7 @@ validate_obsolete_object obsoleteNumber, 1
 
 validate_obsolete_object validNumber, 0
 
-Quote_ShiptoTab
+CustomerData_ShipToTab
 
 CustomerDataShipTo_SelectSameAsSoldToAddress
 
@@ -77,7 +78,7 @@ Quote_AdditionalDataTab
 AdditionalData_SetReceiptDateNow
 
 'Refresh Price
-click_refresh_pricing()
+ClickRefreshPricing()
 
 Quote_save
 
@@ -91,6 +92,8 @@ PreValidateQuote_success
 
 ' Lobgout and close browser
 Navbar_Logout()
+
+browser("NGQ").close()
 
 FinalizeTest
 
