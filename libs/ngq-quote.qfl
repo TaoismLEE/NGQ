@@ -279,6 +279,18 @@ Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	UFT.ReplayType = intOriginalReplayType
 End Sub
 
+Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intIndex)
+	Quote_AddProductOrOption
+
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+
+	LineItemDetails_SetProductNumber productNum
+	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span[not(contains(@class,'ng-hide'))]//input"
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productQty
+End Sub
+
 Sub LineItemDetails_SetProductNumber(strValue)
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").HoverTap
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
@@ -289,6 +301,7 @@ Sub LineItemDetails_SetProductNumber(strValue)
 		Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
 	End If
 End Sub
+
 Sub LineItemDetails_SetProductQuantity(strValue)
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").Set strValue
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductQty").SendKeys "~"
@@ -494,6 +507,174 @@ end sub
 'end sub	
 '==================================================	
 ' END QuoteServices - Options - CustomGroup
+'==================================================
+'
+'==================================================
+' ANA API SECTION START
+'==================================================
+''==================================================
+' BEGIN Quote - LineItemDetails - Validation Product that doesn’t exist in Corona
+'==================================================
+'Validate Product that doesn’t exist in Corona
+Sub LineItemDetails_ValidateProductNonExist(strQuoteNumber) '*** Edited September 26 Karina***
+	Dim actual : actual = Browser("NGQ").Page("Quote").WebElement("WarningMessage").GetROProperty("innertext")
+	If actual = "Item " & strQuoteNumber & " not found in corona for country=US currency=USD Incoterm=DP" Then
+		Reporter.ReportEvent micPass, "Validate Product that doesn’t exist in Corona","A warning message is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate Product that doesn’t exist in Corona","Warning message is not displayed or there are other error messages"
+	End If
+end Sub
+'Validate font color to product that doesn’t exist in Corona
+Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
+	If actual = "rgb(0, 0, 255)" Then
+		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Font color is blue"	
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Font color is not blue"
+	End If	
+End Sub
+'==================================================
+' END Quote - LineItemDetails - Validation Products that doesn’t exist in Corona
+'==================================================
+' BEGIN Quote - LineItemDetails - Validation Obsolete Product 
+'==================================================
+'Validate Obsolete Product
+Sub LineItemDetails_ValidateProductObsolete(strQuoteNumber) '*** Edited September 26 Karina***
+	Dim actual : actual = Browser("NGQ").Page("Quote").WebElement("WarningMessage").GetROProperty("innertext")
+	If actual = "Obsolete Product: More" Then
+		Reporter.ReportEvent micPass, "Validate Obsolete Product","A warning message is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate Obsolete Product","Warning message is not displayed or there are other error messages"
+	End If
+end Sub
+'Validate font color to obsolete product
+Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
+	If actual = "rgb(255, 0, 0)" Then
+		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Font color is red"
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not red"
+	End If	
+End Sub
+
+Sub Quote_SearchProductNoQualifiedDataValidation()
+		Dim actual : actual = Browser("NGQ").Page("Quote - Search Product").WebElement("NoQualifiedData").GetROProperty("innertext")
+		If actual = "No qualified data for the search criteria!" Then
+			Reporter.ReportEvent micPass, "Validate - Search Product(s)- No Qualified Data","Warning message is displayed at the top saying - No qualified data for the search criteria!-"	
+		Else
+			Reporter.ReportEvent micFail, "Validate - Search Product(s)- No Qualified Data","Warning message is not displayed"	
+		End If
+end Sub
+
+Sub Quote_SearchProductRemoveItem(intIndex) '*** Edited September 23 Karina*** 
+	'Remove product B
+	Dim xpath : xpath = "xpath:=(//table[@id='product-search-basket-table']/tbody/tr)[" & intIndex & "]/td/span[contains(@class,'icon-trash')]"
+	Browser("NGQ").Page("Quote - Search Product").WebElement(xpath).Click
+End Sub
+
+Sub Quote_SearchProductAddProductsToQuoteValidation() '*** Edited September 23 Karina***
+	Dim actual : actual = Browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext")
+	If actual = "Products added." Then
+		Reporter.ReportEvent micPass, "Validate add products from Search Product(s)","Confirmation message is displayed at the top saying - Products added -"
+	Else
+		Reporter.ReportEvent micFail, "Validate add products from Search Product(s)","Confirmation message is not  displayed"	
+	End If	
+End Sub
+
+' Validate Customize Output button - Unavailable
+Sub QuoteOutput_ValidateCustomizeOutputButtonUnavailable()
+	Dim actual : actual = Browser("NGQ").Page("Quote - Output Quote").WebElement("CustomizeOutputDisabled").GetROProperty("class")
+	If instr(actual, "btn-disabled") <> 0 Then
+		Reporter.ReportEvent micPass, "Validate the Customize Output button","Customize Output button is gray and unavailable"
+	Else
+		Reporter.ReportEvent micFail, "Validate the Customize Output button","Customize Output button is available"	
+	End If
+End Sub
+
+Sub QuoteOutput_ValidateCustomizeOutputButtonAvailable
+	Dim actual : actual = Browser("NGQ").Page("Quote - Output Quote").WebElement("CustomizeOutputDisabled").GetROProperty("class")
+	If instr(actual, "btn-disabled") = 0 Then
+		Reporter.ReportEvent micPass, "Validate the Customize Output button","Customize Output button is gray and unavailable"
+	Else
+		Reporter.ReportEvent micFail, "Validate the Customize Output button","Customize Output button is available"	
+	End If
+End Sub
+
+Sub QuoteOutput_CustomizeOutputButton
+	Browser("NGQ").Page("Quote - Output Quote").WebElement("CustomizeOutputDisabled").Click
+End Sub
+
+Sub QuoteOutput_VerifyOD1Suppressed
+	If Browser("NGQ").Page("Quote - Output Quote").WebCheckBox("OD1Suppressed").IsChecked Then
+		Reporter.ReportEvent micPass, "0D1 Supression Option","0D1 Suppression enabled by default"
+	Else
+		Reporter.ReportEvent micFail, "0D1 Supression Option","0D1 Suppresssion not enabled by default"	
+	End If
+End Sub
+
+Sub QuoteOutput_ValidateOutputTypeButtonOptions()
+	Dim actual : actual = Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").AllItems
+	' &_ is multiline continuation operator
+	Dim options : options = "Extended Net Price by item with estimated delivery;" &_
+				"Extended Net Price by item with estimated delivery (No Price breakdown);" &_
+				"Extended Net Price by item with list price and estimated delivery.;" &_
+				"Extended Net Price by item with list price and estimated delivery (No Price breakdown);" &_
+				"No list or extended list displayed. Line item descriptions with estimated delivery only and Grand Total;" &_
+				"No list or extended list displayed. Line item descriptions with estimated delivery only and Grand Total (No Price breakdown);" &_
+				"Dynamic Landscape template;" &_
+				"Dynamic Portrait template"
+	If actual = options Then
+		Reporter.ReportEvent micPass, "Validate - Output Type Options ","Nine options are displayed correctly"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Output Type Options ","Nine options are not displayed correctly"
+	End If
+End sub
+
+Sub QuoteOutput_SaveCustomizeOutput
+	Browser("NGQ").Page("Quote - Output Quote").WebElement("CustomizeOutputSave").Click
+End Sub
+
+Sub CustomerData_ValidateCustomerID(intCustomerID)
+	Dim actual : actual = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("CustomerID").GetROProperty("innertext")
+	If actual = intCustomerID Then
+		reporter.ReportEvent micPass, "Verify Customer ID", "Customer ID field populated with correct customer ID"
+	else
+		reporter.ReportEvent micFail, "Verify Customer ID", "Customer ID field did not populate with correct customer ID"
+	End If
+End Sub
+
+Sub lineItemDetails_changeView(strView)
+	Browser("NGQ").Page("Quote - Line Item Details").WebList("ChooseView").Select strView
+End Sub
+
+Sub lineItemDetails_LooseItemVerification(strPartNum, strPartDesc, intRowNum)
+	verify_prodTable_prodNum strPartNum, intRowNum
+	verify_prodTable_prodDesc strPartDesc, intRowNum
+	Dim dynCol : dynCol = getProductTableColumn("SolutionIDHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intRowNum & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("innertext")
+	If actual = "" Then
+		Reporter.ReportEvent micPass, "Verify Empty Solution ID", "Verified Loose Item"
+	else
+		Reporter.ReportEvent micFail, "Verify Empty Solution ID", "Not a loose item"
+	End If
+End Sub
+
+Sub lineItemDetails_SolutionIDAsc()
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("SolutionIDHeaderSort").Click
+	wait 1
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("SolutionIDHeaderSort").Click
+End Sub
+
+Sub lineItemDetails_resetGrid()
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("ResetGrid").Click
+End Sub
+'==================================================
+' END ANA API SECTION
 '==================================================
 '==================================================
 ' BEGIN ValidatePriceRefreshed
@@ -1061,14 +1242,16 @@ sub SetEndDate(strEndDate)
 End sub
 
 'click in a result from the date search
-sub ClickQuoteNumberResult()
-	Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Click Date Result").Click
+sub ClickQuoteNumberResult(intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
 End sub
 
 'funtion to validate the range of the date NEED FIX!!!
 sub ValidateDateRange(StartDate,EndDate)
-	Dim NGQEndDate : NGQEndDate = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("ValidateEndDate").GetROProperty("innertext")
-	Dim NGQStartDate : NGQStartDate = Browser("NGQ").Page("Navbar - AdvancedSearch").WebElement("Validate StarDate").GetROProperty("innertext")
+	Dim NGQEndDate : NGQEndDate = Browser("NGQ").Page("Quote").WebElement("quoteEndDate").GetROProperty("innertext")
+	Dim NGQStartDate : NGQStartDate = Browser("NGQ").Page("Quote").WebElement("quoteStartDate").GetROProperty("innertext")
 	NGQEndDate = FormatDateTime(NGQEndDate,0)
 	NGQStartDate = FormatDateTime(NGQStartDate,0)
 	StartDate = FormatDateTime(StartDate,0)
@@ -1140,30 +1323,62 @@ sub ValidateLastModifyBy_TS_and_OwnerHistory()
 End sub
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are has a value different from null
-sub ValidateFieldsByTsOwner()
+sub ValidateFieldsByTsOwner(intIndex)
 	'Validate if Last Modify by is has a Value
-	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueLastModifiedBy").GetROProperty("innertext") <> "" Then
+	Dim dynCol, xpath
+	dynCol = getDashboardColumnHeader("LastModifiedByHeader")
+	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement(xpath).GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Value of Last Modiy By","Last Modify By has a Value"
 	Else 	
 		Reporter.ReportEvent micFail, "Value Last Modiy By","Last Modify By is Empty"
 	End If
 	'Validate if Last Modify TS is has a Value
-	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueLastModifiedTs").GetROProperty("innertext") <> "" Then
+	dynCol = getDashboardColumnHeader("LastModifiedTsHeader")
+	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement(xpath).GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Value of Last Modiy Ts","Last Modify TS has a Value"
 	Else 	
 		Reporter.ReportEvent micFail, "Value Last Modiy Ts","Last Modify Ts is Empty"
 	End If
 	'Validate if Owner History is has a Value
-	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueOwnerHistory").GetROProperty("innertext") <> "" Then
+	dynCol = getDashboardColumnHeader("OwnerHistoryHeader")
+	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/a"
+	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement(xpath).GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Value of Owner History","Owner History has a Value"
 	Else 	
 		Reporter.ReportEvent micFail, "Value Owner History","Owner History Ts is Empty"
 	End If
 End sub
 
+Function getDashboardColumnHeader(strColumnName)
+	dim findCol : findCol = Browser("NGQ").Page("Navbar - My Dashboard").WebElement(strColumnName).GetROProperty("class")
+	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\w{4})", false)
+	if matches.Count = 0 then
+	    'we failed poi~
+	    print "failed"
+	end if
+	'reporter.ReportEvent micWarning, "regex match", Trim(matches(0).value)
+	getDashboardColumnHeader = Trim(matches(0).Value)
+End Function
+
+Sub verify_advSearch_quoteID(strQuoteID, intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	If actual = strQuoteID Then
+		Reporter.ReportEvent micPass, "Verify Quote Number", "Verified matching Quote Number"
+	else
+		Reporter.ReportEvent micFail, "Verify Quote Number", "Incorrect Quote Number found"
+	End If
+End Sub
+
 'click in the owner history link
-sub ClickOwnerHistory
-	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValueOwnerHistory").Click
+sub ClickOwnerHistory(intIndex)
+	Dim dynCol, xpath
+	dynCol = getDashboardColumnHeader("OwnerHistoryHeader")
+	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/a"
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement(xpath).Click
 End sub
 		' TODO REFACTOR THESE XPATHS WHEN DASHBOARD WORKING -JH
 		'validate table in owner history link
@@ -1213,8 +1428,11 @@ sub ValidateOwnerHistoryTable
 End sub
 
 'Click quote number
-sub ClickQuoteNumber()
-	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").Click
+sub ClickQuoteNumber(intIndex)
+	'Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").Click
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
 End sub
 
 'click the Log History Button
@@ -1334,7 +1552,7 @@ End sub
 	'Validate if the quote number submited is the same that the table shows
 sub ValidateQuoteNumberValue(QuoteNumber)
 	wait(3)
-	dim strtempNumber : strtempNumber = Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").GetROProperty("innertext")
+	dim strtempNumber : strtempNumber = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")
 		
 	If QuoteNumber = strtempNumber Then
 		Reporter.ReportEvent micPass, "Quote Number Value","Value in tab Match with submited"
@@ -1585,8 +1803,12 @@ end sub
  '================================================== 
  
 Sub Quote_SearchProduct()
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/A[1]").MouseOver
-	Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Click	
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").Link("Search Product(s)").Click
+	UFT.ReplayType = intOriginalReplayType	
 End Sub
 
 ' Selects bundle to be searched
@@ -1644,14 +1866,15 @@ Sub Quote_OutputTab()
 End Sub
 
 ' Clicks the preview button
-Sub Quote_PreviewButton()
+Sub Quote_PreviewButton(strName)
+	Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Select strName
 	Browser("NGQ").Page("Quote - Output Quote").WebElement("Preview Btn").Click
 End Sub
 
 ' Clicks the save button when downloading files
 Sub Quote_SaveFromDownloadBar()
-	Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("WinButton").Click
-    Browser("Home#/selfservicequote/createquote/").WinObject("Notification").WinButton("Save").Click
+	Browser("NGQ").WinObject("Notification").WinButton("WinButton").Click
+    Browser("NGQ").WinObject("Save Bar").WinButton("Save").Click
 End Sub
 
 ' Gets pdf ready to download
@@ -1764,7 +1987,8 @@ End Sub
 Sub PreValidateQuote_success()
     Dim regEx, Match, Matches   ' Create variable.
     Set regEx = New RegExp   ' Create a regular expression.
-    regEx.Pattern = "Deal \d{9}, Version 1 successfully created.QUOTE SUCESSFULLY UPDATED INTO IDS DB"  ' Set pattern.
+    'regEx.Pattern = "Deal \d{9}, Version 1 successfully created.QUOTE SUCESSFULLY UPDATED INTO IDS DB"  ' Set pattern.
+    regEx.Pattern = "QUOTE SUCESSFULLY UPDATED INTO IDS DB" 
     regEx.IgnoreCase = True   ' Set case insensitivity.
     regEx.Global = True   ' Set global applicability.
 	If regEx.Test(Browser("NGQ").Page("PreValidate").WebElement("QuoteValidatedResult").GetROProperty("innertext")) Then
@@ -1867,6 +2091,49 @@ Sub build_ocs_bom()
 	Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote").Click
 End Sub
 
+Sub build_ocs_bom_od1()
+	click_lineitem_add_ocs
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DLServers").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL100").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL180").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL180_Optimal").Click
+	Browser("NGQ").Page("OCS Config").WebElement("SaveOCSConfig").Click
+	Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote").Click
+End Sub
+
+Sub build_ocs_bom_serviceSupport()
+	'implement fully later
+	Dim lifecycle : lifecycle = "H0JT1A1"
+	Dim training : training = "H9P11A1"
+	Dim support : support = "H0JD4A1#WFH"
+	click_lineitem_add_ocs
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DLServers").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL100").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL180").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("DL180_Optimal").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").Link("ServicesSupportCenter").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("LifecycleServices").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebEdit("xpath:=//tr[@id='" & lifecycle &"']//input").Set 1
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("TrainingServices").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebEdit("xpath:=//tr[@id='" & training &"']//input").Set 1
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("SupportCredits").Click
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebEdit("xpath:=//tr[@id='" & support &"']//input").Set 1
+	Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("Overview").Click
+	Verify_bom_lineItem "H0JT1A1", 17
+	Verify_bom_lineItem "H9P11A1", 21
+	Verify_bom_lineItem "H0JD4A1 WFH", 20
+	Browser("NGQ").Page("OCS Config").WebElement("SaveOCSConfig").Click
+	Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote").Click
+End Sub
+
+Sub Verify_bom_lineItem(strProdNum, intLineNum)
+	Dim actual : actual = Browser("NGQ").Page("OCS Config").Frame("OCSConfigFrame").WebElement("xpath:=//table[starts-with(@id,'bom_grid')]/tbody/tr["& intLineNum &"]/td[3]").GetROProperty("InnerText")
+	If actual = strProdNum Then
+		Reporter.ReportEvent micPass, "Verify BOM line item", "Verified BOM Line item successfully"
+	else
+		Reporter.ReportEvent micFail, "Verify BOM line item", "Failed to Verify BOM Line item successfully"
+	End If
+End Sub
 'Adds an item from ocs config
 Sub click_lineitem_add_ocs()
 	browser("NGQ").Page("Quote").WebElement("Add").Click
@@ -1892,9 +2159,16 @@ Sub add_product_option2(strName)
 	write_product(strName)
 End Sub
 
+Sub scrollPageDown()
+	Dim obj
+	Dim WS
+	Set obj = CreateObject("Mercury.DeviceReplay")
+	Set WS = CreateObject("Wscript.Shell") 
+	WS.SendKeys "^{PGDN}"
+End Sub
+
 Sub write_product(strName)
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
 End Sub
 
@@ -2055,7 +2329,8 @@ End Sub
 Sub Quote_SelectOutputType(strName, filePath)
 	Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Select strName
 	Browser("NGQ").Page("Quote - Output Quote").WebElement("Preview Btn").Click
-	Browser("Home").WinObject("Notification").WinButton("WinButton").Click
+	wait(3)
+    Browser("NGQ").WinObject("Notification").WinButton("WinButton").Click
 	Browser("Home").WinMenu("ContextMenu").Select "Save as"
 	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set filePath
 	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
@@ -2160,7 +2435,7 @@ Sub verifyGrandTotalInPDF(strName, pdfObj)
 	If valid.Test(tot) Then
 		Reporter.ReportEvent micPass, "Grand Total Does Match In PDF", strName
 	Else
-		Reporter.ReportEvent micFail, "Grand Total Does Not Match In PDF", strName
+		Reporter.ReportEvent micFail, tot, strName
 	End If
 End Sub
 
@@ -3283,3 +3558,12 @@ Function get_product_number(intIndex)
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("innertext")
 	get_product_number = actual
 End Function
+
+Sub ClickCompanyPencilBtn()
+	Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("EditCompany").Click
+End Sub
+
+Sub EditCompanyName(StrCompanyName)
+	Browser("NGQ").Page("Quote - Customer Data - Sold To").WebEdit("Company Name").Set StrCompanyName
+	Browser("NGQ").Page("Quote - Customer Data - Sold To").WebEdit("Company Name").SendKeys "~"
+End Sub
