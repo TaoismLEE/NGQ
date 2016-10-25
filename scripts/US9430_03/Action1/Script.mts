@@ -8,13 +8,13 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\US9430_03.xlsx"
 Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 Dim strCompanyName : strCompanyName = DataTable("strCompanyName",1)
 
-InitializeTest ""
+InitializeTest "IE"
 
 'Open brower and go to My Dashboard
 OpenNgq(objUser)
@@ -28,10 +28,12 @@ ClickMyGroupStatusCount()
 
 'Click the Auto filter Btn and enter the value
 ClickAutoFilter()
-FillFilterQuoteNumber(strQuoteNumber)
+FillFilterQuoteNumber("NI00159734")
+'FillFilterQuoteNumber("NI00159591")
+'FillFilterQuoteNumber(strQuoteNumber)
 
 'click the quoete number value
-ClickQuoteNumber()
+ClickQuoteNumber(2)
 
 'Clone the Quote and save it
 Click_Clone()

@@ -6,15 +6,15 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
 Dim strQuote
 Dim strInternalComments
 'Import Data
-DataTable.Import "..\..\data\US9414_02.xlsx"
+DataTable.Import "..\..\data\US9414_02\US9414_02.xlsx"
 strQuote = DataTable("QuoteNumber", dtGlobalSheet)
 strInternalComments = DataTable("InternalComments", dtGlobalSheet)
 
-InitializeTest ""
+InitializeTest "IE"
 'Opens browser and ngq website
 OpenNgq objUser
 
@@ -25,11 +25,10 @@ QuickSearch strQuote
 QuickSearch_Search
 
 'Clicks the quote number that is displayed Under Result
-'==============================================
 AdvancedSearch_Result_OpenQuoteNumber strQuote
-'==============================================
+
 'Clicks Output tab
-QuoteOutput
+Quote_OutputTab
 
 'Validates two Internal Comment box are visible
 Validate_TwoInternalCommentsBox
@@ -47,7 +46,7 @@ Click_Clone
 Quote_save
 
 'Clicks on Quote output tab
-QuoteOutput
+Quote_OutputTab
 
 'Validates the internal comment box is empty
 QuoteOutput_Internal_Comments_Empty 
@@ -73,4 +72,5 @@ Navbar_Logout
 Close_Browser
 
 FinalizeTest
+
 

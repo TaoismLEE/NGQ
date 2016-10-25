@@ -8,12 +8,12 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\US9430_02.xlsx"
 Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 
-InitializeTest ""
+InitializeTest "IE"
 
 'Open browser and go to My Dashboard
 OpenNgq(objUser)
@@ -28,7 +28,8 @@ ValidateQuoteTab()
 ClickAutoFilter()
 
 'Set Quote Number
-FillFilterQuoteNumber(strQuoteNumber)
+FillFilterQuoteNumber("NI00159565")
+'FillFilterQuoteNumber(strQuoteNumber)
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
 ValidateLastModifyBy_TS_and_OwnerHistory()
@@ -37,10 +38,10 @@ ValidateLastModifyBy_TS_and_OwnerHistory()
 MoveScrollBarToRight()
 
 'Validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' has value different from NULL
-ValidateFieldsByTsOwner()
+ValidateFieldsByTsOwner(2)
 
 'Goto Owner History and Validate if the table has deployed
-ClickOwnerHistory()
+ClickOwnerHistory(2)
 ValidateOwnerHistoryTable()
 
 'go to My Dashboard
@@ -48,10 +49,11 @@ ClickMyDashboard()
 
 ValidateQuoteTab()
 ClickAutoFilter()
-FillFilterQuoteNumber(strQuoteNumber)
+FillFilterQuoteNumber("NI00159565")
+'FillFilterQuoteNumber(strQuoteNumber)
 
 'Click the quote Number
-ClickQuoteNumber()
+ClickQuoteNumber(2)
 
 Quote_AdditionalDataTab()
 ClickLogHistoryButton()

@@ -1,5 +1,10 @@
 ﻿Option Explicit
 
+Sub PdfVerification(strPdfFilePath, blnSoldTo, blnShipTo, blnSalesContact, blnLineItem, blnGrandTotal, blnComment, blnHeader)
+	Dim objPdfInfo : Set objPdfInfo = NewPdfInfo(blnSoldTo, blnShipTo, blnSalesContact, blnLineItem, blnGrandTotal, blnComment, blnHeader)	
+	objPdfInfo.Compare(strPdfFilePath)
+End Sub
+
 Class PdfInfo
 	'Quote Number
 	Dim strQuoteNumber
@@ -46,7 +51,7 @@ Class PdfInfo
 	Dim blnPdfShipTo
 	Dim blnPdfSalesContact
 	Dim blnPdfLineItem
-	Dim blnGrandTotal
+	Dim blnPdfGrandTotal
 	Dim blnPdfComment
 	Dim blnPdfHeader
 	
@@ -90,6 +95,7 @@ Class PdfInfo
 		blnPdfShipTo = blnShipTo
 		blnPdfSalesContact = blnSalesContact
 		blnPdfLineItem = blnLineItem
+		blnPdfGrandTotal = blnGrandTotal
 		blnPdfComment = blnComment
 		blnPdfHeader = blnHeader	
 	End Function 'End Init
@@ -102,7 +108,7 @@ Class PdfInfo
 		strSoldTo_CompanyName = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("Company Name").GetROProperty("innertext")
 		strSoldTo_StAddress = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("Street Address One").GetROProperty("innertext")
 		strSoldTo_City = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("City").GetROProperty("innertext")
-		strSoldTo_State = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("State").Click
+		strSoldTo_State = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("State").GetROProperty("innertext")
 		strSoldTo_PostalCode = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("Postal Code").GetROProperty("innertext")
 		strSoldTo_Country = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("Country").GetROProperty("innertext")
 	End Sub
@@ -115,7 +121,7 @@ Class PdfInfo
 		strShipTo_CompanyName = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("Company Name").GetROProperty("innertext")
 		strShipTo_StAddress = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("Street Address One").GetROProperty("innertext")
 		strShipTo_City = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("City").GetROProperty("innertext")
-		strShipTo_State = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("State").Click
+		strShipTo_State = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("State").GetROProperty("innertext")
 		strShipTo_PostalCode = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("Postal Code").GetROProperty("innertext")
 		strShipTo_Country = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("Country").GetROProperty("innertext")
 	End Sub
@@ -178,39 +184,33 @@ Class PdfInfo
 	End Sub
 	
 	Private Function CountProducts()
-		Dim oDesc, colRowDetails
-		Set oDesc = Description.Create
-
-		'These lines specify the properties that the rows have
-		oDesc("micclass").value="WebElement"
-		oDesc("html tag").value="DIV"
-		oDesc("class").value="ng-scope ngRow.*"
-
-		Set colRowDetails = Browser("NGQ").Page("Quote").WebElement("Line Item Details Table").ChildObjects(oDesc)
-		
-		intProductCount = colRowDetails.Count
-		If intProductCount = 0 Then
+		dim myElement : Set myElement = Description.Create
+		myElement("micclass").value = "WebElement"
+		myElement("xpath").Value = "//div[@ui-grid-row='row']"
+		dim rows : rows = Browser("NGQ").Page("Quote - Line Item Details").ChildObjects(myElement).Count
+		rows = rows / 2
+		If rows = 0 Then
 			Reporter.ReportEvent micFail, "Invalid number of Line Items", "You must have at least one line item to produce preview"
 		Else
-			Reporter.ReportEvent micPass, "Valid number of Line Items", "Correct number of line items entered"
+			Reporter.ReportEvent micPass, "Valid number of Line Items", intProductCount & " Items in Line Items Details Table"
 		End If
 	End Function
 	
 	Sub GetHeaderCols(intProdNumCol, intProdDescCol, intQuantityCol, intExtNetValCol)
-		Dim oDesc, ColColumns, intIterator
+		Dim oDesc, colColumns, intIterator
 		Dim blnProdNumColFound : blnProdNumColFound = False
 		Dim blnProdDescColFound : blnProdDescColFound = False
 		Dim blnQuantityColFound : blnQuantityColFound = False
 		Dim blnExtNetValColFound : blnExtNetValColFound = False
 		Dim intFoundCount : intFoundCount = 0
 		Dim strChildInnerHtml
-		
+
 		'Regular expressions
 		Dim regExProdNum
 		Set regExProdNum = New RegExp
 		regExProdNum.Pattern = ".*Product Number.*"
 		regExProdNum.IgnoreCase = True
-		
+	
 		Dim regExProdDesc
 		Set regExProdDesc = New RegExp
 		regExProdDesc.Pattern = ".*Product Description.*"
@@ -225,15 +225,16 @@ Class PdfInfo
 		Set regExExtNetVal = New RegExp
 		regExExtNetVal.Pattern = ".*Extended Net Value.*"
 		regExExtNetVal.IgnoreCase = True
-		
+
 		Set oDesc = Description.Create
-		oDesc("html tag").value = "DIV"
-		oDesc("class").value = "ngHeaderCell ng-scope.*"
+		oDesc("micclass").value = "WebElement"
+		oDesc("html tag").value = "SPAN"
+		oDesc("class").value = "ui-grid-header-cell-label ng-binding"
 		
-		Set colColumns = Browser("NGQ").Page("Quote - Line Item Details").WebElement("LineItemDetailTableHeader").ChildObjects(oDesc)
-		
-		For intIterator = 1 To colColumns.Count -1 Step 1
-			strChildInnerHtml = colColumns(intIterator).GetROProperty("innerhtml")
+		Set colColumns = Browser("NGQ").Page("Quote - Line Item Details").ChildObjects(oDesc)
+
+		For intIterator = 0 To colColumns.Count - 1 Step 1
+			strChildInnerHtml = colColumns(intIterator).GetROProperty("innertext")
 			
 			If intFoundCount = 4 Then
 				Exit For
@@ -260,126 +261,172 @@ Class PdfInfo
 	End Sub
 	
 	Function getProductNum(intCol, intRow)
-		Dim xpath : xpath = "//div[@class='ngCanvas']/div["&intRow+1&"]//div[contains(@class,'ngCell')]["&intCol+1&"]//span/span"
+		Dim xpath : xpath = "//div[@class='ui-grid-canvas']/div["&intRow+1&"]//div[contains(@class,'ui-grid-cell')]["&intCol+1&"]//span/span"
 		getProductNum = Browser("NGQ").Page("Quote").WebElement("xpath:="&xpath).GetROProperty("innertext")		
 	End Function
 	
 	Function getProductDesc(intCol, intRow)
-		Dim xpath : xpath = "//div[@class='ngCanvas']/div["&intRow+1&"]//div[contains(@class,'ngCell')]["&intCol+1&"]//div/div"
+		Dim xpath : xpath = "//div[@class='ui-grid-canvas']/div["&intRow+1&"]//div[contains(@class,'ui-grid-cell')]["&intCol+1&"]//div"
 		getProductDesc = Browser("NGQ").Page("Quote").WebElement("xpath:="&xpath).GetROProperty("innertext")
 	End Function
 	
 	Function getProductQuantity(intCol, intRow)
-		Dim xpath : xpath = "//div[@class='ngCanvas']/div["&intRow+1&"]//div[contains(@class,'ngCell')]["&intCol+1&"]//div/span[1]"
+		Dim xpath : xpath = "//div[@class='ui-grid-canvas']/div["&intRow+1&"]//div[contains(@class,'ui-grid-cell')]["&intCol+1&"]/span[1]"
 		getProductQuantity = Browser("NGQ").Page("Quote").WebElement("xpath:="&xpath).GetROProperty("innertext")
 	End Function
 	
 	Function getExtendedNetVal(intCol, intRow)
 		Dim strTemp
-		Dim xpath : xpath = "//div[@class='ngCanvas']/div["&intRow+1&"]//div[contains(@class,'ngCell')]["&intCol+1&"]//span/span"
+		Dim xpath : xpath = "//div[@class='ui-grid-canvas']/div["&intRow+1&"]//div[contains(@class,'ui-grid-cell')]["&intCol+1&"]//span/span"
 		strTemp = Browser("NGQ").Page("Quote").WebElement("xpath:="&xpath).GetROProperty("innertext")
 		 getExtendedNetVal = CDbl(strTemp)
 	End Function
 	
 	Public Sub Compare(pathToPDF)
-		Dim pdfObj : Set pdfObj = (New pdfParserObj)(pathToPDF)
+		Dim pdfObj : Set pdfObj = NewPdfParser(pathToPDF)
+
+		PdfCompareQuoteNumber pdfObj
 		
 		If blnPdfSoldTo Then
-			PdfCompareSoldTo
+			PdfCompareSoldTo pdfObj
 		End If
 
 		If blnPdfShipTo Then
-			PdfCompareShipTo
+			PdfCompareShipTo pdfObj
 		End If
 		
 		If blnPdfSalesContact Then
-			PdfCompareSalesContact
+			PdfCompareSalesContact pdfObj
 		End If
 				
 		If blnPdfLineItem Then
-			PdfCompareLineItems
+			PdfCompareLineItems pdfObj
 		End If
 		
-		If blnGrandTotal Then
-			PdfCompareGrandTotal
+		If blnPdfGrandTotal Then
+			PdfCompareGrandTotal pdfObj
 		End If
 		
 		If blnPdfComment Then
-			PdfCompareComment
+			PdfCompareComment pdfObj 
 		End If
 		
 		If blnPdfHeader Then
-			PdfCompareHeader
+			PdfCompareHeader pdfObj
 		End If
-	
-	
-		Print "=========================================="
-		print "Sold To Address: " & pdfObj.getSoldToAddress
-		Print "=========================================="
-		Print "Ship To Address" & pdfObj.getShipToAddress
-		Print "=========================================="
-		Print "Quote Expire: " & getQuoteExpire
-		Print "Quote Number: " & getQuoteNumber
-		Print "Sales contact: " & getSalesContact 
-		Print "Comments: " & getCommentsBlock
-		Print "Subtotal: " & getSubTotal
-		Print "QuoteCreate: " & getQuoteCreate
-		Print "Quote Header: " & getQuoteHeader
-		Print "Grand total: " & getTotalsGrandTotal
-		Print "Total subtotal: " & getTotalsSubTotal
-		Print "Total other: " & getTotalsOther
-		Print "=========================================="		
-		Print "Item 1"
-		print "Prod Num: " & pdfObj.getProductsNo(1)
-		print "Description: " & pdfObj.getProductsDescription(1)
-		print "Prod EDT: " & pdfObj.getProductsEDT(1)
-		print "Prod Qty: "& pdfObj.getProductsQty(1)
-		print "Product: " & pdfObj.getProductsProduct(1)
-		print "ExtNetPrice: " & pdfObj.getProductsExtNetPrice(1)
-		Print "=========================================="
-		Print "Item 2"
-		print "Prod Num: " & pdfObj.getProductsNo(2)
-		print "Description: " & pdfObj.getProductsDescription(2)
-		print "Prod EDT: " & pdfObj.getProductsEDT(2)
-		print "Prod Qty: "& pdfObj.getProductsQty(2)
-		print "Product: " & pdfObj.getProductsProduct(2)
-		print "ExtNetPrice: " & pdfObj.getProductsExtNetPrice(2)
-		Print "=========================================="
-		Print "Item 3"
-		print "Prod Num: " & pdfObj.getProductsNo(3)
-		print "Description: " & pdfObj.getProductsDescription(3)
-		print "Prod EDT: " & pdfObj.getProductsEDT(3)
-		print "Prod Qty: "& pdfObj.getProductsQty(3)
-		print "Product: " & pdfObj.getProductsProduct(3)
-		print "ExtNetPrice: " & pdfObj.getProductsExtNetPrice(3)
+		
+		Set pdfObj = Nothing
 	End Sub
 	
-	Private Sub PdfCompareSoldTo()
-		
+	Private Sub PdfCompareQuoteNumber(ByRef pdfObj)
+		If pdfObj.compareQuoteNumber(strQuoteNumber) Then
+			Reporter.ReportEvent micPass, "PDF Quote Number", "Quote number verified in pdf." + vbCrLf + _
+										  strQuoteNumber
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Number", "Quote number is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strQuoteNumber + vbCrLf + "Actual: " + pdfObj.getQuoteNumber
+		End If		
 	End Sub
 	
-	Private Sub PdfCompareShipTo()
-		
+	Private Sub PdfCompareSoldTo(ByRef pdfObj)
+		Dim strAppendedSoldTo
+		strAppendedSoldTo = strSoldTo_CompanyName + " " + strSoldTo_StAddress + " " + strSoldTo_City + ", " + _
+							strSoldTo_State + " " + strSoldTo_PostalCode + " " + strSoldTo_Country
+							
+		If pdfObj.compareSoldToAddress(strAppendedSoldTo) Then
+			Reporter.ReportEvent micPass, "PDF Quote Sold To Address", "Quote sold to address verified in pdf." + vbCrLf + _
+										  strAppendedSoldTo
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Sold To Address", "Quote sold to address is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strAppendedSoldTo + vbCrLf + "Actual: " + pdfObj.getSoldToAddress
+		End If
 	End Sub
 	
-	Private Sub PdfCompareSalesContact()
+	Private Sub PdfCompareShipTo(ByRef pdfObj)
+		Dim strAppendedShipTo
+		strAppendedShipTo = strShipTo_CompanyName + " " + strShipTo_StAddress + " " + strShipTo_City + ", " + _
+							strShipTo_State + " " + strShipTo_PostalCode + " " + strShipTo_Country
 		
+		If pdfObj.compareShipToAddress(strAppendedShipTo) Then
+			Reporter.ReportEvent micPass, "PDF Quote Ship To Address", "Quote ship to address verified in pdf." + vbCrLf + _
+										  strAppendedShipTo
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Ship To Address", "Quote ship to address is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strAppendedShipTo + vbCrLf + "Actual: " + pdfObj.getShipToAddress
+			End If
 	End Sub
 	
-	Private Sub PdfCompareLineItems()
+	Private Sub PdfCompareSalesContact(ByRef pdfObj)
+		Dim strAppendedSalesContact
+		strAppendedSalesContact = strSalesInfo_Name + " " + strSalesInfo_Phone + " " + strSalesInfo_Email
 		
+		If pdfObj.compareSalesContact(strAppendedSalesContact) Then
+			Reporter.ReportEvent micPass, "PDF Quote Sales Contact", "Quote sales contact verified in pdf." + vbCrLf + _
+										   strAppendedSalesContact
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Sales Contact", "Quote sales contact is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strAppendedSalesContact + vbCrLf + "Actual: " + pdfObj.getSalesContact
+		End If
 	End Sub
 	
-	Private Sub PdfCompareGrandTotal()
-		
+	Private Sub PdfCompareLineItems(ByRef pdfObj)
+		Dim intIter
+		Dim blnRowMatches
+
+		'Todo Jesus: Talk to Josh about getting table count
+'		If intProductCount = (pdfObj.productTable.Count() - 1) Then
+'			Reporter.ReportEvent micPass, "PDF Quote Items", "Same number of items in PDF and NGQ" & vbCrLf & _
+'									      intProductCount
+'		Else 
+'			Reporter.ReportEvent micFail, "PDF Quote Items", "Item count in NGQ is not the same as in PDF." & vbCrLf & _
+'										  "NGQ: " & intProductCount & Chr(9) & "PDF: " & (pdfObj.productTable.Count() - 1)
+'		End If
+
+		For intIter = 0 To intProductCount-1 Step 1
+			blnRowMatches = pdfObj.compareProductsTableProductsOnly(intIter + 1, intQuantity(intIter), strProductNum(intIter), strProductDesc(intIter))
+
+			If blnRowMatches Then
+				Reporter.ReportEvent micPass, "PDF Quote Item: " & (intIter+1), "Line item " & (intIter+1) & " matches in NGQ and pdf." & vbCrLf & _
+											  "Qty: " & intQuantity(intIter) & Chr(9) & "Number: " & strProductNum(intIter) & Chr(9) & _
+											  "Description: " & strProductDesc(intIter)
+			Else
+				Reporter.ReportEvent micFail, "PDF Quote Item: " & (intIter+1), "Line item " & (intIter+1) & " does not match in NGQ and pdf." & vbCrLf & _
+											  "Expected: Qty: " & intQuantity(intIter) & Chr(9) & "Number: " & strProductNum(intIter) & Chr(9) & _
+											  "Description: " & strProductDesc(intIter) & vbCrLf & _
+											  "Actual: Qty: " & pdfObj.getProductsQty(intIter+1) & Chr(9) & "Number: " & pdfObj.getProductsProduct(intIter+1) & Chr(9) & _
+											  "Description: " & pdfObj.getProductsDescription(intIter+1)
+			End If
+		Next
 	End Sub
 	
-	Private Sub PdfCompareComment()
-		
+	Private Sub PdfCompareGrandTotal(ByRef pdfObj)
+		If pdfObj.compareTotalsGrandTotal(dblGrandTotal) Then
+			Reporter.ReportEvent micPass, "PDF Quote Grand Total", "Quote grand total successfully verified in pdf" + vbCrLf + _
+										  dblGrandTotal
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Grand Total", "Quote grand total is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + dblGrandTotal + Chr(9) + "Actual: " + pdfObj.getTotalsGrandTotal
+		End If
 	End Sub
 	
-	Private Sub PdfCompareHeader()
-		
+	Private Sub PdfCompareComment(ByRef pdfObj)
+		If pdfObj.compareCommentsBlock(strExternalComment) Then
+			Reporter.ReportEvent micPass, "PDF Quote Comment", "Quote comment successfully verified in pdf" + vbCrLf + _
+										  strExternalComment
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Comment", "Quote comment is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strExternalComment + Chr(9) + "Actual: " + pdfObj.getCommentsBlock
+		End If
+	End Sub
+	
+	Private Sub PdfCompareHeader(ByRef pdfObj)
+		If pdfObj.compareQuoteHeader(strHeader) Then
+			Reporter.ReportEvent micPass, "PDF Quote Header", "Quote header successfully verified in pdf" + vbCrLf + _
+										  strHeader
+		Else
+			Reporter.ReportEvent micFail, "PDF Quote Header", "Quote header is incorrect in pdf." + vbCrLf + _
+										  "Expected: " + strHeader + Chr(9) + "Actual: " + pdfObj.getQuoteHeader
+		End If
 	End Sub
 End Class 'End PdfInfo
 
@@ -396,17 +443,21 @@ End Function
 Class pdfParserObj
 	public pdfObj
 	
-	Public Default Function Init(pathToPdf)
-    	SystemUtil.Run "cmd", "/c java -jar pdfbox.jar " + pathToPDF,""
+	Public Function Init(pathToPdf)
+		Dim strPdfLibPath : strPdfLibPath = Environment.Value("TestDir") & "\..\..\libs\pdfbox.jar"
+    	SystemUtil.Run "cmd", "/c java -jar " + strPdfLibPath + " " + pathToPDF,""
+    	Wait 10
 		dim strDLLPath : strDllPath = Environment.Value("TestDir") & "\..\..\libs\" & "pdfParserWrapper.dll"
 		Dim wrapper : Set wrapper = Dotnetfactory.CreateInstance("pdfParserWrapper.pdfParserWrapper", strDLLPath)
 		wrapper.deserializeObject()
 		Set pdfObj = wrapper.getpdfObj()
-		Set Init = Me
+		'Set Init = Me
  	End Function
  	
  	Public Function getSoldToAddress()
- 		getSoldToAddress = pdfObj.soldToAddress
+ 		Dim strTemp : strTemp = pdfObj.soldToAddress
+ 		strTemp = Replace(strTemp, vbCrLf, " ")
+ 		getSoldToAddress = strTemp
  	End Function
  	
  	Public Function compareSoldToAddress(strSoldAddress)
@@ -418,7 +469,9 @@ Class pdfParserObj
  	End Function
  	
  	Public Function getShipToAddress()
- 		getShipToAddress = pdfObj.shipToAddress
+ 		Dim strTemp : strTemp = pdfObj.shipToAddress
+ 		strTemp = Replace(strTemp, vbCrLf, " ")
+ 		getShipToAddress = strTemp
  	End Function
  	
  	Public Function compareShipToAddress(strShipAddress)
@@ -454,7 +507,14 @@ Class pdfParserObj
  	End Function 	
  	
  	Public Function getSalesContact()
- 		getSalesContact = pdfObj.salesContact
+ 		Dim strTemp : strTemp = pdfObj.salesContact
+ 		Dim arrTemp
+ 		arrTemp = Split(strTemp, vbCrLf)
+ 		arrTemp(2) = Replace(arrTemp(2), "Phone:", " ")
+ 		arrTemp(3) = Replace(arrTemp(3), "Email:", " ")
+
+		strTemp = Trim(arrTemp(1)) + " " + Trim(arrTemp(2)) + " " + Trim(arrTemp(3))
+ 		getSalesContact = strTemp
  	End Function
  	
  	Public Function compareSalesContact(strSalesContact)
@@ -490,7 +550,7 @@ Class pdfParserObj
  	End Function
  	
  	Public Function getQuoteCreate()
- 		getQuoteCreate = pdfObj.quoteHeader
+ 		getQuoteCreate = pdfObj.quoteCreate
  	End Function
  	
  	Public Function compareQuoteCreate(strQuoteCreate)
@@ -502,7 +562,7 @@ Class pdfParserObj
  	End Function
  	
  	Public Function getQuoteHeader()
- 		getQuoteHeader = pdfObj.quoteCreate
+ 		getQuoteHeader = pdfObj.quoteHeader
  	End Function
  	
  	Public Function compareQuoteHeader(strQuoteHeader)
@@ -515,6 +575,14 @@ Class pdfParserObj
  	
  	Public Function getTotalsGrandTotal()
  		getTotalsGrandTotal = pdfObj.TotalsTable.Item(0).Grand_total
+ 	End Function
+ 	
+ 	Public Function compareTotalsGrandTotal(strGrandTotal)
+ 		If Instr(strGrandTotal, getTotalsGrandTotal) <> 0 Or Instr(getTotalsGrandTotal, strGrandTotal) <> 0 then
+ 			compareTotalsGrandTotal = True
+ 		else
+ 			compareTotalsGrandTotal = False
+ 		End if
  	End Function
  	
  	Public Function getTotalsSubTotal()
@@ -569,7 +637,7 @@ Class pdfParserObj
  		getProductsExtNetPrice = pdfObj.ProductTable.Item(intRowNum-1).ExtNetPrice
  	End Function
  	
- 	Public Function compareProductsTable(intRowNum, strNo, strQty, strProduct, strDesc, strExt, strEDT)
+ 	Public Function compareProductsTableAll(intRowNum, strNo, strQty, strProduct, strDesc, strExt, strEDT)
  		Dim boolNo, boolQty, boolProduct, boolDesc, boolExt, boolEDT
  		If Instr(strNo, getProductsNo(intRowNum)) <> 0 Or Instr(getProductsNo(intRowNum), strNo) <> 0 Or (Len(strNo) = 0 And Len(getProductsNo(intRowNum)) = 0) then
  			boolNo = True
@@ -601,6 +669,98 @@ Class pdfParserObj
  		else
  			boolEDT = False
  		End if
- 		compareProductsTable = boolNo And boolQty And boolProduct And boolDesc And boolExt And boolEDT
+ 		compareProductsTableAll = boolNo And boolQty And boolProduct And boolDesc And boolExt And boolEDT
+ 	End Function
+ 	
+ 	Public Function compareProductsTableProductsOnly(intRowNum, strQty, strProduct, strDesc)
+ 		Dim boolQty, boolProduct, boolDesc
+
+ 		If Instr(strQty, getProductsQty(intRowNum)) <> 0 Or Instr(getProductsQty(intRowNum), strQty) <> 0 Or (Len(strQty) = 0 And Len(getProductsQty(intRowNum)) = 0) then
+ 			boolQty = True
+ 		else
+ 			boolQty = False
+ 		End if
+ 		
+ 		If Instr(strProduct, getProductsProduct(intRowNum)) <> 0 Or Instr(getProductsProduct(intRowNum), strProduct) <> 0 Or (Len(strProduct) = 0 And Len(getProductsProduct(intRowNum)) = 0) then
+ 			boolProduct = True
+ 		else
+ 			boolProduct = False
+ 		End if
+ 		
+ 		If Instr(strDesc, getProductsDescription(intRowNum)) <> 0 Or Instr(getProductsDescription(intRowNum), strDesc) <> 0 Or (Len(strDesc) = 0 And Len(getProductsDescription(intRowNum)) = 0) then
+ 			boolDesc = True
+ 		else
+ 			boolDesc = False
+ 		End if
+ 		
+ 		compareProductsTableProductsOnly = boolQty And boolProduct And boolDesc
+ 	End Function
+ 	
+ 	Public Function verifyProductsTable_bundlePricing()
+ 	Dim intRowNum: intRowNum = 1
+ 	Dim tempPriceCheck
+ 		Do While(VerifyProductsTable_ExtNetPriceIndex(intRowNum) = true)
+ 			tempPriceCheck = getProductsExtNetPrice(intRowNum)
+ 			If intRowNum = 1 Then
+ 				If CDbl(tempPriceCheck) > 0.00 Then
+ 					Reporter.ReportEvent micPass, "Verify Bundle Pricing contained in Bundle ID", "The full pricing for this quote is contained in the Bundle ID product"
+ 				else
+ 					Reporter.ReportEvent micPass, "Verify Bundle Pricing contained in Bundle ID", "The full pricing for this quote is not contained in the Bundle ID product"
+ 				End If
+			else
+				If (Len(tempPriceCheck) = 0) Then 
+					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle is equal to 0."
+				ElseIf CDbl(tempPriceCheck) = 0.00 Then
+					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle is equal to 0."
+ 				else
+ 					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle was not equal to 0"
+				End If
+ 			End If
+ 			intRowNum = intRowNum + 1
+ 		Loop	
+ 	End Function
+ 	Public Function VerifyProductsTable_ExtNetPriceIndex(intRowNum)
+ 		On error resume next
+ 		Err.Clear
+ 		dim temp : temp = pdfObj.ProductTable.Item(intRowNum-1).ExtNetPrice
+ 		If Err.Number <> 0 Then
+ 			Err.Clear
+ 			VerifyProductsTable_ExtNetPriceIndex = false
+ 		else
+ 			VerifyProductsTable_ExtNetPriceIndex = true
+ 		End If
+ 	End Function
+
+	' Checking instances where product number may be in quantity due to template used and verifying against 0D1
+ 	Public Function verifyProductsTable_quantityProduct0D1()
+ 	Dim intRowNum: intRowNum = 1
+ 	Dim tempQuantity
+ 		Do While(VerifyProductsTable_QuantityIndex(intRowNum) = true)
+ 			tempQuantity = getProductsQty(intRowNum)
+			If (Len(tempQuantity) = 0) Then 
+				Reporter.ReportEvent micPass, "Verify 0D1 suppressed in PDF", "No Product Number for this row...skipping..."
+			ElseIf instr(tempQuantity, "#0D1") = 0 Then
+				Reporter.ReportEvent micPass, "Verify 0D1 suppressed in PDF", "0D1 suppressed for this line item"
+			else
+				Reporter.ReportEvent micFail, "Verify 0D1 suppressed in PDF", "0D1 not suppressed for this line item"
+			End If
+ 			intRowNum = intRowNum + 1
+ 		Loop	
+ 	End Function
+ 	Public Function VerifyProductsTable_QuantityIndex(intRowNum)
+ 		On error resume next
+ 		Err.Clear
+ 		dim temp : temp = pdfObj.ProductTable.Item(intRowNum-1).Qty
+ 		If Err.Number <> 0 Then
+ 			Err.Clear
+ 			VerifyProductsTable_QuantityIndex = false
+ 		else
+ 			VerifyProductsTable_QuantityIndex = true
+ 		End If
  	End Function
 End Class
+
+Function NewPdfParser(strPdfPath)
+	Set NewPdfParser = New pdfParserObj
+	NewPdfParser.Init strPdfPath
+End Function

@@ -6,14 +6,14 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 Dim strExternalCommemnt : strExternalCommemnt = "External comment for testing"
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
 Dim strQuote,strProductNumber,strQutoteNum1,strVersion1,strQuoteStatus1,strEndDate1
 Dim strVersion2,strInternalComments1,strInternalComments2, strGenOutputType,strNewVersionSource, strNewversionReason
 Dim strExternalComments,strNewVersionComments,strVersion3,strQuoteName,strNewVersionIntComments
 Dim strOutputFilePath, strSavePath
 
 'Import Data
-DataTable.Import "..\..\data\US9414_01.xlsx"
+DataTable.Import "..\..\data\US9414_01\InputFiles\US9414_01.xlsx"
 strProductNumber = DataTable("Product_Number", dtGlobalSheet)
 strQutoteNum1 = DataTable("QuoteNumber_1",dtGlobalSheet)
 strVersion1 =  DataTable("Version_1",dtGlobalSheet)
@@ -36,7 +36,7 @@ strOutputSheet = "US9414_01_Output"
 DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
-InitializeTest ""
+InitializeTest "IE"
 'Opens the browser and opens ngq website
 OpenNgq objUser
 
@@ -44,7 +44,7 @@ OpenNgq objUser
 Navbar_CreateNewQuote
 
 'Validates Quote Number,Quote Version,Quote Name,Quote Status,Quote Start Date and Quote End Date
-NewQuote_ValideEmptyQuote strQutoteNum1, strVersion1, strQuoteStatus1, strEndDate1
+NewQuote_ValidateEmptyQuote strQutoteNum1, strVersion1, strQuoteStatus1, strEndDate1
 
 'Makes sure the opportunity tab is opened
 OpportunityandQuoteInfoTabExistence
@@ -80,9 +80,6 @@ Quote_Save
 QuoteOutput_ValidateInternalComments
 
 'Clicks the pencil icon of the "External Comments" text box and set the comment in the external comments box
-'==============old url=========================
-'QuoteOutput_ExternalComments strExternalComments
-'=============New URL============================
 QuoteOutput_SetExternalComments strExternalComments
 
 'Clicks the "Save" button on the top right of the page
@@ -91,14 +88,14 @@ Quote_Save
 'Checks the checkbox of "Include the comment in quote Output" under the "External Comments" text box.
 QuoteOutput_ExternalCommentCheckBox
 
+'Doesnt work -JH
 'Selects the "Add Product or Option" option
-'Click_AddProdAndOption deleted as duplicate - JH
+'Click_AddProdAndOption
+LineItemDetails_AddProductByNumber strProductNumber, 1
 
+' Also doesnt work - JH
 'Set the product number and press enter key in the keyboard
-'SetProductNumber strProductNumber deleted as duplicate - JH
-
-'Replaced duplicated functions to add product -JH
-LineItemDetails_AddProductByNumber strProductNumber, "1"
+'SetProductNumber strProductNumber
 
 'Selects the "Output Type" as "Extended Net Price by item with estimated delivery" under General information section
 Select_Quote_GeneraL_OutputType strGenOutputType
@@ -114,6 +111,9 @@ validateCommentInPdf(strExternalComments)
 
 'Closing pdf file
 pdfClose
+
+'Clicks the "Save" button on the top right of the page and the page is refreshed
+Quote_Save
 
 'Clicks the "Advanced Search" tab on the top of this page 
 AdvancedSearchClick
@@ -151,6 +151,8 @@ SetComment_NewVersionWindow strNewVersionComments
 
 'Presses OK button 
 NewVersion_OkButton
+'Verifies the new version message
+verify_newVersion_message
 
 strQuoteName = "New Version of " & strQuote &"-01"
 'Validates Quote number, version number, Quote name, Quote Status, Start Date and End Date
@@ -189,8 +191,7 @@ validate_SavedInternalComments strInternalComments2
 validate_SavedExternalComments strExternalComments
 
 'Export output data to excel sheet in test script dir
-
-strOutputFilePath = Environment.Value("TestDir") & "\Output\" & strOutputSheet & ".xls"
+strOutputFilePath = Environment.Value("TestDir") & "\..\..\data\US9414_01\OutputFiles\" & strOutputSheet & ".xlsx"
 DataTable.ExportSheet strOutputFilePath, strOutputSheet
 
 'Log off NGQ 
@@ -200,4 +201,5 @@ Navbar_Logout
 Close_Browser
 
 FinalizeTest
+
 

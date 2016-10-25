@@ -737,11 +737,12 @@ End Sub
 
 Sub PreValidate_ClicNoErrors()
 	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
-	Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
-	Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
-	PreValidate_ButtonVerification(objButton)
+	'TEMP WORKAROUND FOR CLIC SERVICE UNAVAILABLE
+	'Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
+	'Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
+	'Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
+	'Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	'PreValidate_ButtonVerification(objButton)
 End Sub
 
 Sub PreValidate_PriceNoErrors()
@@ -2159,16 +2160,9 @@ Sub add_product_option2(strName)
 	write_product(strName)
 End Sub
 
-Sub scrollPageDown()
-	Dim obj
-	Dim WS
-	Set obj = CreateObject("Mercury.DeviceReplay")
-	Set WS = CreateObject("Wscript.Shell") 
-	WS.SendKeys "^{PGDN}"
-End Sub
-
 Sub write_product(strName)
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
 End Sub
 

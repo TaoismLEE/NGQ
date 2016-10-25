@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="StartToStart" />
+  <WatchEntry1 value="EndToStart" />
+  <WatchEntry2 value="EndToEnd" />
+  <WatchEntry3 value="StartToEnd" />
+</Properties>

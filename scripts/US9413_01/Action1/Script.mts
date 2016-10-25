@@ -35,7 +35,7 @@ OpenNgq objUser
 
 Navbar_CreateNewQuote
 
-NewQuote_ValideEmptyQuote emptyQuoteNumber,emptyQuoteVersion,emptyQuoteStatus,emptyQuoteEndDate
+NewQuote_ValidateEmptyQuote emptyQuoteNumber,emptyQuoteVersion,emptyQuoteStatus,emptyQuoteEndDate
 
 Quote_currentlySelectedTab emptyQuoteSelectedTab
 
@@ -57,7 +57,7 @@ Dim grand_total : grand_total = get_grand_total
 
 quote_newVersion quoteID
 
-LineItemDetails_AddProductByNumber DataTable.Value("productID", "Global"), 1
+LineItemDetails_AddProductByNumber_manualQtyRow DataTable.Value("productID", "Global"), 1, 8 'Workaround for NGQ not locking their product quantity rows like normal
 
 'msgbox Err.Number
 

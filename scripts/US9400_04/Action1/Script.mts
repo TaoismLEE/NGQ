@@ -35,7 +35,7 @@ OpenNgq objUser
 
 Navbar_CreateNewQuote
 
-NewQuote_ValideEmptyQuote emptyQuoteNumber,emptyQuoteVersion,emptyQuoteStatus,emptyQuoteEndDate
+NewQuote_ValidateEmptyQuote emptyQuoteNumber,emptyQuoteVersion,emptyQuoteStatus,emptyQuoteEndDate
 
 Quote_currentlySelectedTab emptyQuoteSelectedTab
 

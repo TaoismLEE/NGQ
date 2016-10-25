@@ -5,9 +5,10 @@
 # to prevent merge conflicts
 #
 #
+start "$(pwd)\libs\utilscripts\RunCreateXMLRepo.bat"
+echo "XML Rebuild Complete, normalizing repository"
+sleep 7
 start "$(pwd)\libs\gitPreCommit.exe"
-echo "gitPreCommit ran successfully, starting tsr rebuild"
-start "$(pwd)\libs\utilscripts\RunCreateObjectRepo.bat"
-echo "TSR Rebuild Complete"
-sleep 3
+echo "gitPreCommit ran successfully, proceeding with commit"
+sleep 1
 git add .

@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="Dim strBundleId : strBundleId = Browser(&quot;NGQ&quot;).Page(&quot;Quote - Line Item Details&quot;).WebElement(&quot;ProductNumber&quot;).GetROProperty(&quot;innertext&quot;)" />
+  <WatchEntry1 value="DealId" />
+  <WatchEntry2 value="getProductsExtNetPrice(intRowNum)" />
+</Properties>
