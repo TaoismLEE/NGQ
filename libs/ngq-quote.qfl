@@ -2162,7 +2162,6 @@ End Sub
 
 Sub write_product(strName)
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
 End Sub
 
@@ -2390,6 +2389,14 @@ Sub verifyHeaderInPDF(strName, pdfObj)
 		Reporter.ReportEvent micFail, "Quote Header Not Found in PDF", strName
 	End If
 	
+End Sub
+
+Sub scrollPageDown()
+ 	Dim obj
+ 	Dim WS
+ 	Set obj = CreateObject("Mercury.DeviceReplay")
+ 	Set WS = CreateObject("Wscript.Shell") 
+ 	WS.SendKeys "^{PGDN}"
 End Sub
 
 ' Verifies that the grand total was entered into the pdf properly
@@ -3561,3 +3568,33 @@ Sub EditCompanyName(StrCompanyName)
 	Browser("NGQ").Page("Quote - Customer Data - Sold To").WebEdit("Company Name").Set StrCompanyName
 	Browser("NGQ").Page("Quote - Customer Data - Sold To").WebEdit("Company Name").SendKeys "~"
 End Sub
+
+
+' Author: Jesus
+'==================================================
+Sub Ocs_SelectAndConfigureProduct()
+	Browser("NGQ").Page("OCS").WebElement("Networking Product HTML ID").Click
+	Browser("NGQ").Page("OCS").WebElement("Networking - Wireless Devices").Click
+	Browser("NGQ").Page("OCS").WebElement("Wireless Devices - HPE M210 AP").Click
+	Browser("NGQ").Page("OCS").WebElement("HPE M210 - JL023A").Click
+End Sub
+
+Sub Ocs_SaveBom()
+	Browser("NGQ").Page("OCS").WebButton("BOM Save Btn").Click
+End Sub
+
+Sub Ocs_SaveBomValid()
+	Dim strSuccessfulMsgText
+	strSuccessfulMsgText = Browser("NGQ").Page("OCS").WebElement("Save Succesful Confirmation").InnerText
+	If Browser("NGQ").Page("OCS").WebElement("Save Succesful Confirmation").Exist _
+   	   And strSuccessfulMsgText = "Untitled Successfully saved - Click ""Next"" to continue." Then
+		Reporter.ReportEvent micPass, "Save confirmation found", "Succesful save confirmation was found"
+	Else
+		Reporter.ReportEvent micPass, "Save confirmation not found", "Succesful save confirmation was not found"
+	End If
+End Sub
+
+Sub Ocs_ClickConvertToQuote()
+	Browser("NGQ").Page("OCS").WebElement("Next - Convert To Quote Btn").Click
+End Sub
+
