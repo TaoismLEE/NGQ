@@ -11,7 +11,7 @@ InitializeTest "IE"
 DataTable.Import "..\..\data\data_file.xlsx"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID","Global")
 Dim customImagingNumber : customImagingNumber = DataTable.Value("CustomImagingNumber","Global")
 Dim assetTaggingNumber : assetTaggingNumber = DataTable.Value("AssetTaggingNumber","Global")
@@ -32,6 +32,7 @@ OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
 ' Click on Add+
 build_ocs_bom
+scrollPageDown
 
 'add components
 add_product_option customImagingNumber
