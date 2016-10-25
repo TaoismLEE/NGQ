@@ -2162,7 +2162,6 @@ End Sub
 
 Sub write_product(strName)
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
 End Sub
 
@@ -2390,6 +2389,14 @@ Sub verifyHeaderInPDF(strName, pdfObj)
 		Reporter.ReportEvent micFail, "Quote Header Not Found in PDF", strName
 	End If
 	
+End Sub
+
+Sub scrollPageDown()
+ 	Dim obj
+ 	Dim WS
+ 	Set obj = CreateObject("Mercury.DeviceReplay")
+ 	Set WS = CreateObject("Wscript.Shell") 
+ 	WS.SendKeys "^{PGDN}"
 End Sub
 
 ' Verifies that the grand total was entered into the pdf properly
