@@ -7,7 +7,7 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\US9547_03.xlsx"
 Dim strChooseViewName : strChooseViewName = DataTable("strChooseViewName",1)
@@ -20,7 +20,7 @@ Dim strColumnLabel
 'array with Values in the assign column
 Dim LabelsAssignedColumn
 
-InitializeTest ""
+InitializeTest "IE"
 'Open browser and go to NGQ
 OpenNgq(objUser)
 
@@ -56,7 +56,7 @@ ClickSaveBtnMyPrecerences()
 Navbar_CreateNewQuote()
 
 'Validate information in New Quote 
-NewQuote_ValideEmptyQuote null,null,null,null
+NewQuote_ValidateEmptyQuote null,null,null,null
 
 'set opportunity ID
 OpportunityAndQuoteInfo_SetOpportunityId(strOportunityId)
