@@ -979,6 +979,11 @@ Sub applyEmpowerment(eType)
 				'index = Iterator + 1
 				'dynCol = findTableColumn("Total Requested Discount")
 				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
+				
+				'INSERT COLUMN FIX
+				Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+				Browser("NGQ").Page("Pricing and Terms").WebElement("xpath:=//button[contains(text(), 'Total Requested') and not(contains(@class,'ui-grid-menu-item ng-binding ng-hide'))]").click
+				
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("MCCDiscount") Then
 					Reporter.ReportEvent micPass, "Verify Updated MCC Pricing", "Verified Correct MCC Discount"
@@ -1574,7 +1579,13 @@ End Sub
 
 	'function to set choose view name
 Sub EditChooseView(strViewName)
+dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
 	Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebEdit("Choose View").Set strViewName
+	UFT.ReplayType = intOriginalReplayType
+	wait(3)
+	'Doesnt work for some reason
+	'Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("ViewList").Select strViewName
 End Sub
 
 	'Function to choose a whatever value you send from AvailableColumn/ also send it to assigned column
@@ -1654,7 +1665,7 @@ Sub ValidateAssignedList_NewQuote(listArray())
 	Dim intListSize : intListSize = UBound(listArray)
 	Dim iterator 
 	For Iterator = 1 To intListSize Step 1
-		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[@ng-click='col.sort($event)' and text()='"+listArray(Iterator)+"']").Exist Then
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[contains(@class,'sortable') and .//span[.='"+listArray(Iterator)+"']]/parent::div").Exist Then
 	    	Reporter.ReportEvent micPass, "Templete Table", listArray(Iterator)+" Value Exist"
 	    Else 
 	    	Reporter.ReportEvent micFail, "Templete Table", listArray(Iterator)+" Value Doesn't Exist"
@@ -2143,7 +2154,7 @@ End Sub
 
 ' Add product option
 Sub add_product_option(strName)
-	 wait(2)
+	procMessageSync
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('contextMenu').setAttribute('style', 'left: 572px; top: 58px; display: block;');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_28').getElementsByTagName('a')[0].click()"
@@ -2152,12 +2163,21 @@ Sub add_product_option(strName)
 End Sub
 
 Sub add_product_option2(strName)
-	wait(2)
+	procMessageSync
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('contextMenu').setAttribute('style', 'left: 572px; top: 58px; display: block;');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_2').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_3').getElementsByTagName('a')[0].click()"
 	 wait(2)
 	write_product(strName)
+End Sub
+
+Sub procMessageSync()
+	Dim i : i = 0
+	
+	Do while (Browser("NGQ").Page("Quote").WebElement("processingMessage").Exist(1))
+		wait(1)
+	Loop
+
 End Sub
 
 Sub write_product(strName)
