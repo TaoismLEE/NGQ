@@ -981,8 +981,10 @@ Sub applyEmpowerment(eType)
 				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
 				
 				'INSERT COLUMN FIX
-				Browser("NGQ").Page("Quote").WebElement("AddCols").Click
-				Browser("NGQ").Page("Pricing and Terms").WebElement("xpath:=//button[contains(text(), 'Total Requested') and not(contains(@class,'ui-grid-menu-item ng-binding ng-hide'))]").click
+				If Not(Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).Exist(1)) Then
+					Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+				    Browser("NGQ").Page("Quote").WebElement("RequestedDiscount").Click
+				End If
 				
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")
 				If actual = DataTable("MCCDiscount") Then

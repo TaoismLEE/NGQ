@@ -9,8 +9,8 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-'InitializeTest "CH"
-InitializeTest ""
+InitializeTest "IE"
+'InitializeTest ""
 
 'DataImport
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
