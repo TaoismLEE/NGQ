@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# This script runs post-merge and is responsible 
+# for re-importing the xml file and creating
+# a new tsr file automagically
+#
+#
+start "$(pwd)\libs\utilscripts\RunCreateObjectRepo.bat"
+echo "TSR Rebuild complete"
+sleep 3
