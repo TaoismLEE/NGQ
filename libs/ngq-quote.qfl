@@ -98,7 +98,7 @@ Function Quote_get_quoteNumber()
 		Quote_get_quoteNumber = quoteID
 		Reporter.ReportEvent micPass, "Get Quote ID", "Successfully Extracted Quote ID"
 	else
-		Reporter.ReportEvent micWarning, "Get Quote ID", "New Quote has no ID"
+		Reporter.ReportEvent micDone, "Get Quote ID", "New Quote has no ID"
 	End If
 End Function
 
@@ -738,7 +738,7 @@ End Sub
 Sub PreValidate_ClicNoErrors()
 	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
 	'TEMP WORKAROUND FOR CLIC SERVICE UNAVAILABLE
-	'Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
+	'Reporter.ReportEvent micDone, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
 	'Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
 	'Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
 	'Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
@@ -1366,7 +1366,7 @@ Function getDashboardColumnHeader(strColumnName)
 	    'we failed poi~
 	    print "failed"
 	end if
-	'reporter.ReportEvent micWarning, "regex match", Trim(matches(0).value)
+	'reporter.ReportEvent micDone, "regex match", Trim(matches(0).value)
 	getDashboardColumnHeader = Trim(matches(0).Value)
 End Function
 
@@ -1791,7 +1791,7 @@ Sub Quote_DealId()
 			Reporter.ReportEvent micFail, "Products under bundle with valid Deal Id","Products under T bundles have Deal Id is Empty"
 		End if	
 	else
-		Reporter.ReportEvent micWarning, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
+		Reporter.ReportEvent micDone, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
 	End if	
 End Sub
 
@@ -1848,7 +1848,7 @@ Sub Quote_CaptureDealId()
 	    strDealId = Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").GetROProperty("innertext")
 		Datatable.GetSheet ("Global").AddParameter "DealId_Output", strDealId
 	else
-		Reporter.ReportEvent micWarning, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
+		Reporter.ReportEvent micDone, "Products under bundle with valid Deal Id Display Check","Products under T bundles have Deal Id is Not displayed"
 	End if
 End Sub
 
@@ -3381,7 +3381,7 @@ Sub UploadProducts_ProductsAddedMsg()
 	If Browser("NGQ").Page("Quote").WebElement("SuccessMessage").Exist Then
         Reporter.ReportEvent micPass, "Products Added Message", "Products added message successfully displayed"
     ElseIf Browser("NGQ").Page("Quote").WebElement("WarningMessage").Exist Then
-        Reporter.ReportEvent micWarning, "Obsolete Product Message", "The obsolete product message is being displayed"
+        Reporter.ReportEvent micDone, "Obsolete Product Message", "The obsolete product message is being displayed"
     Else
     	Reporter.ReportEvent micFail, "Products Added Message", "Products added message not displayed"
     End If
@@ -3486,7 +3486,7 @@ Function getAdvSearchColumn(strColumnName)
 	    'we failed poi~
 	    print "failed"
 	end if
-	'reporter.ReportEvent micWarning, "regex match", Trim(matches(0).value)
+	'reporter.ReportEvent micDone, "regex match", Trim(matches(0).value)
 	getAdvSearchColumn = Trim(matches(0).Value)
 End Function
 
@@ -3531,7 +3531,7 @@ Function getProductTableColumn(strColumnName)
 	    'we failed poi~
 	    print "failed"
 	end if
-	'reporter.ReportEvent micWarning, "regex match", Trim(matches(0).value)
+	'reporter.ReportEvent micDone, "regex match", Trim(matches(0).value)
 	getProductTableColumn = Trim(matches(0).Value)
 End Function
 

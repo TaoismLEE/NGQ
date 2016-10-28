@@ -78,7 +78,7 @@ Function LoginNGQ(objRealUser)
 		Dialog("DigitalBadgeLogin").WinButton("OK").Click
 		Reporter.ReportEvent micPass, "Logging into NGQ via DigitalBadge", "Logged in to NGQ via DigitalBadge"
 		Else
-			Reporter.ReportEvent micWarning, "Logging into NGQ via DigitalBadge", "DigitalBadge not required, skipping DigitalBadge Login"
+			Reporter.ReportEvent micDone, "Logging into NGQ via DigitalBadge", "DigitalBadge not required, skipping DigitalBadge Login"
 		End If
 	
 		with Browser("NGQ")
@@ -89,7 +89,7 @@ Function LoginNGQ(objRealUser)
 				.Page("Navbar").WebElement("Welcome Msg {{innertext:email}}").UpdateInnerText(".* " & objRealUser.Username).AssertExistsEx true, false, false, false
 				Reporter.ReportEvent micPass, "Logging into NGQ via User/Pass", "Logged in to NGQ via User/Pass"
 			Else
-				Reporter.ReportEvent micWarning, "Logging into NGQ via User/Pass", "Login not required, skipping login"
+				Reporter.ReportEvent micDone, "Logging into NGQ via User/Pass", "Login not required, skipping login"
 			End If
 		End with
 	End If
