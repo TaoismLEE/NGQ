@@ -36,14 +36,15 @@ Last Checked: 10/17/2016 3:01PM CST by Joshua Hunter
 * US9400_05
 * US9400_06
 * US9400_07
-
-## Broken Test Cases
 * US9425_01
 * US9425_02
 * HPFS_01
 * US9597_03
 * US9597_06
+
+## Broken Test Cases
 * US9400_08
+* US9400_03
 
 ## Untested
 * None
