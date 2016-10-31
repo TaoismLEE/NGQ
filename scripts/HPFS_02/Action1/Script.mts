@@ -51,7 +51,7 @@ uploadProduct
 
 importProductExcelSheet dirPath + "\data\depends\" + excelName
 
-Quote_ShiptoTab
+CustomerData_ShipTo
 
 CustomerDataShipTo_SelectSameAsSoldToAddress
 
