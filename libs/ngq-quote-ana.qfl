@@ -1,0 +1,922 @@
+﻿option explicit
+
+'==================================================
+' BEGIN Quote
+'==================================================
+sub Quote_Add()
+	Browser("NGQ").Page("Quote").WebElement("Add").Click
+end sub
+
+sub Quote_LineItem()
+	Browser("name:=Home.*").Page("title:=Home.*").Link("innertext:=Add Line Item","xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[1]/A[1]").Click
+end sub
+
+sub Quote_AddSubtotal()
+	Browser("name:=Home.*").Page("title:=Home.*").Link("innertext:=Add Subtotal","xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[1]/A[1]").Click
+	wait 1
+end sub
+
+sub Quote_AddProductOrOption()
+	'Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
+end sub
+
+sub Quote_AddConfigOCS()
+	Browser("name:=Home.*").Page("title:=Home.*").Link ("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[4]/A[1]").Click
+end sub
+
+sub Quote_SearchProduct() '*** Edited October 18 Karina*** 
+	Browser("name:=Home.*").Page("title:=Home.*").Link ("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[4]/A[1]").Click
+	
+end sub
+
+sub Quote_AdditionalDataTab()
+	Browser("NGQ").Page("Quote").WebElement("Additional Data Tab").Click
+	Wait 1
+end sub
+
+sub Quote_CustomerDataTab()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customer Data","xpath:=//SECTION[@id=""customerDataSection""]/EXPANDCOLLAPSE[1]/DIV[1]/DIV[1]/SPAN[2]").Click
+	Wait 1
+end sub
+
+sub Quote_OpportunityAndQuoteInfoTab()
+	Browser("NGQ").Page("Quote").WebElement("Opportunity and Quote Info Tab").Click
+	Wait 1
+end sub
+
+sub Quote_ShippingDataTab()
+	Browser("NGQ").Page("Quote").WebElement("Shipping Data Tab").Click
+	Wait 1
+end sub
+
+sub Quote_QuoteOutputTab()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Quote Output","xpath:=//SPAN[@id=""QT_OP""]").Click
+	Wait 1
+end sub
+'==================================================
+' END Quote
+'==================================================
+' BEGIN New Quote - Empty fields validations 
+'==================================================
+function NewQuote_ValideEmptyQuote(strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate)
+	' Validating Quote Number
+	strQuoteNumberID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quoteId""]").GetROProperty("innertext")
+	If strQuoteNumberID = "New Quote" Then
+		Reporter.ReportEvent micPass, "Validate empty quote number","New Quote is not generated"
+	Else
+		Reporter.ReportEvent micFail, "Validate empty quote number","New Quote is not empty"
+	End If
+	' Validating Quote Version
+	strQuoteVersion = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
+	If strQuoteVersion = "1" Then
+		Reporter.ReportEvent micPass, "Validate version 1","New quote version is 1"
+	Else
+		Reporter.ReportEvent micFail, "Validate version 1","New quote version is not 1"
+	End If
+	' Validating Quote Name
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quotenamespanSecond""]").Exist Then
+		Reporter.ReportEvent micPass, "Validate quate name","Quote Name is empty and pencil icon indicating it is editable"	
+	Else
+		Reporter.ReportEvent micFail, "Validate quate name","Quote Name is not empty and pencil icon indicating it is editable"
+	End If	
+	' Validating Quote Status
+	strQuoteStatus = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
+	If strQuoteStatus = "Quote/Configuration Created" Then
+		Reporter.ReportEvent micPass, "Validate quote status","Quote Status is Quote/Configuration Created"
+	Else
+		Reporter.ReportEvent micFail, "Validate quote status","Quote Status is not Quote/Configuration Created"
+	End If	
+	' Validating Quote Start Date
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[2]/SPAN[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate start date","Start Date is visible"	
+	Else
+		Reporter.ReportEvent micFail, "Validate start date","Start Date is not visible"
+	End If		
+	' Validating Quote End Date
+	strQuoteEndDate = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""expiryTsSpan""]/SPAN[1]").GetROProperty ("innertext")
+	If strQuoteEndDate = "(Need Pricing Call)" Then
+		Reporter.ReportEvent micPass, "Validate end date","End Date is not pulled out. It says - Need Pricing Call -"
+	Else
+		Reporter.ReportEvent micFail, "Validate end date","End Date is pulled out"
+	End If
+End function	
+'==================================================
+' END New Quote - Empty fields validations 
+'==================================================
+' BEGIN Quote - Quote Complete Validation
+'==================================================
+function Quote_ValidateQuoteComplete(strQuoteStatus)
+	' Validating Quote Status
+	strQuoteStatus = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
+	If strQuoteStatus = "Quote Complete" Then
+		Reporter.ReportEvent micPass, "Validate quote status","Quote Status is Quote Complete"
+	Else
+		Reporter.ReportEvent micFail, "Validate quote status","Quote Status is not Quote Complete"
+	End If	
+end function
+'==================================================
+' END Quote - Quote Complete Validation
+'==================================================
+' BEGIN Quote - Edit quote name 
+'==================================================
+function Quote_EditQuoteName(strQuoteName) '*** Edited September 21 Karina*** 
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""editquotename""]").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id=""quotename""]").Set strQuoteName
+End function
+'==================================================
+' END Quote - Edit quote name
+'==================================================
+' BEGIN Quote - Additional Data
+'==================================================
+function AdditionalData_GetReceiptDate()
+	AdditionalData_GetReceiptDate = Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Value
+end function
+
+sub AdditionalData_SetReceiptDate(strValue)
+	'yyyy-MM-dd HH:mm
+	Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Set strValue
+	'TODO: datepicker
+end sub
+
+sub AdditionalData_SetReceiptDateNow()
+	Browser("NGQ").Page("Quote - Additional Data").WebEdit("Receipt Date").Click
+	Browser("NGQ").Page("DateTime Picker").WebButton("Now").Click
+	Browser("NGQ").Page("DateTime Picker").WebButton("Done").Click
+end sub
+'==================================================
+' END Quote - Additional Data
+'==================================================
+' BEGIN Quote - Customer Data
+'==================================================
+sub CustomerData_BillToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Bill To Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_SalesContactsTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Sales Contacts Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_ShipToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Ship To Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_SoldToTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Sold To Tab").Click
+	Wait 1
+end sub
+
+sub CustomerData_ValidateCustomerID(strCustomerID) '- added aug 02 #####################################
+	Dim strActualCustomerID : strActualCustomerID = "0"
+	strActualCustomerID = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""soldtongq""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]").GetROProperty("innertext")
+	If strActualCustomerID = strCustomerID Then
+		Reporter.ReportEvent micPass, "Validate - Customer ID from Customer Data tab", "The Customer ID is correct in the Customer Data tab"    
+	Else	
+		Reporter.ReportEvent micFail, "Validate - Customer ID from Customer Data tab", "The Customer ID is NOT correct in the Customer Data tab"
+	End If      
+end sub
+'==================================================
+' END Quote - Customer Data
+'==================================================
+' BEGIN Quote - Customer Data - Bill To
+'==================================================
+sub CustomerDataBillTo_DeselectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").UncheckBox
+end sub
+
+function CustomerDataBillTo_SameAsSoldToAddressIsSelected()
+	CustomerDataShipTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").IsChecked
+end function
+
+sub CustomerDataBillTo_SelectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").CheckBox
+end sub
+'==================================================
+' END Quote - Customer Data - Bill To
+'==================================================
+' BEGIN Quote - Customer Data - Ship To
+'==================================================
+sub CustomerDataShipTo_DeselectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").UncheckBox
+end sub
+
+function CustomerDataShipTo_SameAsSoldToAddressIsSelected()
+	CustomerDataShipTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").IsChecked
+end function
+
+sub CustomerDataShipTo_SelectSameAsSoldToAddress()
+	Browser("NGQ").Page("Quote - Customer Data - Ship To").WebCheckBox("Same as Sold to Address").CheckBox
+end sub
+'==================================================
+' END Quote - Customer Data - Ship To
+'==================================================
+' BEGIN Quote - LineItemDetails
+'==================================================
+'Add product number
+sub LineItemDetails_SetProductNumberByIndex(intIndex, strValue) '*** Edited October 27 Karina***
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intIndex & "]/DIV[@role=""row""][1]/DIV[7]/SPAN[1]/SPAN[1]/INPUT[1]").Set strValue
+end sub
+'Add product quantity
+sub LineItemDetails_SetProductQuantityByIndex(intIndex, intValue)
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id=""itemQty""]","index:="&intIndex).Set intValue
+end sub
+'==================================================
+' END Quote - LineItemDetails
+'==================================================
+' BEGIN Quote - LineItemDetails - Show Hide Columns 
+'==================================================
+'Click "Show Hide Columns" button in <Line Item Details> section
+sub LineItemDetails_ShowHideColumns() 
+    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""showHideColMenuButton""]").Click
+end sub
+'Select checkbox option in "Show Hide Columns" popup from <Line Item Details> section 
+sub LineItemDetails_ShowHideColumnsSelection(strShowHideColumns_Selector)
+    select case (strShowHideColumns_Selector)
+        case ("Solution ID")
+            Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""showHideColMenuPopup""]/DIV[2]/DIV[1]/DIV[42]/SPAN[1]/INPUT[1]").Click
+            wait 2
+        case ("Total Requested Discount")
+            Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""showHideColMenuPopup""]/DIV[2]/DIV[1]/DIV[47]/SPAN[1]/INPUT[1]").Click
+            wait 2
+        case ("My Empowerment Disc %")
+            Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""showHideColMenuPopup""]/DIV[2]/DIV[1]/DIV[24]/SPAN[1]/INPUT[1]").Click
+            wait 2
+    end select
+end sub
+'==================================================
+' END Quote - LineItemDetails - Show Hide Columns
+'==================================================
+' BEGIN Quote - LineItemDetails - Maximize/Restore 
+'==================================================
+sub LineItemDetails_MaximizeRestore()
+    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[1]/DIV[3]/DIV[1]/SPAN[1]/IMG[1]").Click
+end sub
+'==================================================
+' END Quote - LineItemDetails - Maximize/Restore
+'==================================================
+' BEGIN Quote - LineItemDetails - Validation Products added
+'==================================================
+Function LineItemDetails_ValidateProductsAdded(intIndex, strvalue) '*** Edited September 23 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("inertext:="&strvalue, "xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intIndex & "]/DIV[@role=""row""][1]/DIV[4]/SPAN[2]/SPAN[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Products Added","Products are displayed in the - Line Item Details -panel"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Products Added","Products are not displayed in the - Line Item Details -panel"
+	End If	
+End Function
+'==================================================
+' END Quote - LineItemDetails - Validation Products added
+'==================================================
+' BEGIN Quote - LineItemDetails - Validation Product that doesn’t exist in Corona
+'==================================================
+'Validate Product that doesn’t exist in Corona
+function LineItemDetails_ValidateProductNonExist() '*** Edited September 26 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=.*not found in corona for country=US currency=USD Incoterm=DP", "xpath:=//DIV[2]/DIV[6]/DIV[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate Product that doesn’t exist in Corona","A warning message is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate Product that doesn’t exist in Corona","Warning message is not displayed or there are other error messages"
+	End If
+end function
+'Validate font color to product that doesn’t exist in Corona
+Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strvalue, "class:=ng-binding", "xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intIndex & "]/DIV[@role=""row""][1]/DIV[4]/SPAN[2]/SPAN[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Font color is blue"	
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Font color is not blue"
+	End If	
+End Sub
+'==================================================
+' END Quote - LineItemDetails - Validation Products that doesn’t exist in Corona
+'==================================================
+' BEGIN Quote - LineItemDetails - Validation Obsolete Product 
+'==================================================
+'Validate Obsolete Product
+function LineItemDetails_ValidateProductObsolete() '*** Edited September 26 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Obsolete Product: More", "xpath:=//DIV[2]/DIV[6]/DIV[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate Obsolete Product","A warning message is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate Obsolete Product","Warning message is not displayed or there are other error messages"
+	End If
+end function
+'Validate font color to obsolete product
+Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strvalue, "class:=ng-binding obsoleteColor", "xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intIndex & "]/DIV[@role=""row""][1]/DIV[4]/SPAN[2]/SPAN[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Font color is red"
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not red"
+	End If	
+End Sub
+'==================================================
+' END Quote - LineItemDetails - Validation Obsolete Product 
+'==================================================
+' BEGIN Quote - Validation "+ Add" button options
+'==================================================
+function Quote_ValideAddButtonOptions() '*** Edited September 26 Karina***
+	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/A[1]").MouseOver
+	Browser("name:=Home.*").Page("title:=Home.*").Webbutton("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/BUTTON[1]").MouseOver
+	' Validating Add Line
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[1]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Line","Add Line option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Add Line","Add Line option is not displayed"
+	End If
+	' Validating Add Product or Option
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[2]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Product or Option","Add Product or Option option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Add Product or Option","Add Product or Option option is not displayed"
+	End If
+	' Validating Add Bundle
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[3]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate -Add Bundle","Add Bundle option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Add Bundle","Add Bundle option is not displayed"
+	End If	
+	' Add Config from OCS
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[4]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Add Config from OCS","Add Config from OCS option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Add Config from OCS","Add Config from OCS option is not displayed"
+	End If	
+	' Search Product(s)
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[5]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Search Product(s)","Search Product(s) option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search Product(s) option is not displayed"
+	End If	
+	' Quick Add
+	If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[6]/A[1]").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Quick Add","Quick Add option is displayed"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Quick Add","Quick Add option is not displayed"
+	End If		
+end function
+'==================================================
+' END Quote - "+ Add" button options validation 
+'==================================================
+	'==================================================
+	' BEGIN Quote - Line Items - Select Items 
+	'==================================================	
+	'Select Line Item  '*** Edited October 27 Karina***
+	Sub LineItemDetails_SelectItemNumber (intLineItemRow)		
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intLineItemRow & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").Click
+	End Sub
+	'Select multiple Line Items '*** Edited October 18 Karina***
+	Sub LineItemsSelectMultiple(intProductRow1,intProductRow2) 
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intProductRow1 & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").Click
+		' Press Control Key
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intProductRow2 & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").Click
+	End Sub	
+	'==================================================
+	' END Quote - Line Items - Select Items
+	'==================================================	
+	' BEGIN Quote - Select "+ Add" button > "Add Line Item" option
+	'==================================================
+	'Select Line Item Option '*** Edited October 27 Karina***
+	sub LineItemDetails_SelectItemOption(intLineItemRow, strLineItemSelector)
+		Quote_LineItem
+		SELECT CASE (strLineItemSelector)
+		    CASE ("Comment")
+				Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intLineItemRow & "]/DIV[@role=""row""][1]/DIV[9]/SPAN[2]/INPUT[1]").Set strLineItemSelector
+				Wait 1
+			CASE ("Page Break")
+				Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intLineItemRow & "]/DIV[@role=""row""][1]/DIV[2]/SELECT[1]").Select ""&strLineItemSelector
+				Wait 1
+		END SELECT
+	end sub
+	'Remove Line Item
+	Sub LineItemRemove(intValue)
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[1]/DIV[1]/DIV[1]/SPAN[1]").Click
+	End Sub
+	'Remove subtotal
+	Sub SubTotalRemove(intValue)
+	End Sub		
+	'==================================================
+	' END Quote - Select "+ Add" button > "Add Line Item" option
+	'==================================================
+	' BEGIN Quote - Add Line Item - Validations Line Item
+	'==================================================
+	'Validate default Line Number as Line Item 
+	Function LineItemDetails_ValidateDefaultLineNumber() '*** Edited October 11 Karina*** 
+	dim strDefaultLineNumber : strDefaultLineNumber = Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[1]/DIV[@role=""row""][1]/DIV[2]/SELECT[1]").GetROProperty("default value")
+		If strDefaultLineNumber = "Comment" Then
+			Reporter.ReportEvent micPass, "Validate default Line Number","-Comment- is default number when adding line item"
+		Else
+			Reporter.ReportEvent micFail, "Validate default Line Number","-Comment- is not default number when adding line item"
+		End If	
+	End Function
+	'Validate Line Number Options
+	Sub LineItemDetails_ValidateOptionsLineNumber() '*** Edited October 11 Karina*** 
+		If Browser("name:=Home.*").Page("title:=Home.*").WebList("all items:=Comment;Page Break","xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[1]/DIV[@role=""row""][1]/DIV[2]/SELECT[1]").Exist Then
+			Reporter.ReportEvent micPass, "Validate Line Number Options","Two options are displayed correctly"
+		Else
+			Reporter.ReportEvent micFail, "Validate Line Number Options","Two options are not displayed"
+		End If	
+	End Sub
+	'Validate Subtotal
+	Sub LineItemDetails_ValidateSubtotal(intValue) '*** Added October 21 Karina*** 
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=SUB TOTAL.*","xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[9]/DIV[1]").Exist Then
+			Reporter.ReportEvent micPass, "Validate Subtotal","Subtotal was added"
+		Else
+			Reporter.ReportEvent micFail, "Validate Subtotal","Subtotal was not added"
+		End If	
+	End Sub	
+	'Validate Subtotal was removed
+	Sub LineItemDetails_ValidateSubtotalRemoved(intValue) '*** Added October 21 Karina*** 
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=SUB TOTAL.*","xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[9]/DIV[1]").Exist Then
+			Reporter.ReportEvent micFail, "Validate Subtotal","Subtotal was not removed"
+		Else
+			Reporter.ReportEvent micPass, "Validate Subtotal","Subtotal was removed"
+		End If	
+	End Sub		
+	'==================================================
+	' END Quote - LineItemDetails - Validations Line Item
+	'==================================================
+	' START Quote - LineItemDetails - Right Click Options
+	'==================================================	
+	'Remove Line Item
+	Sub LineItem_RightClick_RemoveItem(intValue)
+		'Rightclick
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").RightClick
+		'Select option "Remove Item"
+		Browser("name:=Home.*").Page("title:=Home.*").WebMenu ("html id:=menu_5","xpath:=//DIV[@id=""contextMenu""]/DIV[1]/UL[@role=""menu""][1]").Select "Remove Item"
+	End Sub
+	' Validate a message when you are trying to remove item associated with subtotal
+	Sub LineItem_ValidateTryRemoveItem(intValue)
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Please remove subtotal line item.*","xpath:=//DIV[@id=""grid_msgs""]/DIV[1]").Exist Then
+			Reporter.ReportEvent micPass, "Validate Line Number - Try to remove","A message pops up is displayed when you are trying to remove item associated with subtotal"
+			wait 1
+			Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""grid_msgs""]/DIV[2]/A[1]").Click
+		Else
+			Reporter.ReportEvent micFail, "Validate Line Number - Try to remove","A message pops up is not displayed you are trying to remove item associated with subtotal"
+		End If	
+	End Sub
+	'Replace Line Item
+	Sub LineItem_RightClick_ReplaceItem(intValue)
+		'Rightclick
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").RightClick
+		'Select option "Remove Item"
+		Browser("name:=Home.*").Page("title:=Home.*").WebMenu ("html id:=menu_5","xpath:=//DIV[@id=""contextMenu""]/DIV[1]/UL[@role=""menu""][1]").Select "Replace Item"
+	End Sub
+	Sub LineItem_RightClick_PromoteItem(intValue)
+		'Rightclick
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").RightClick
+		'Select option "Remove Item"
+		Browser("name:=Home.*").Page("title:=Home.*").WebMenu ("html id:=menu_5","xpath:=//DIV[@id=""contextMenu""]/DIV[1]/UL[@role=""menu""][1]").Select "Promote Item"
+	End Sub	
+	Sub LineItem_RightClick_DemoteItem(intValue)
+		'Rightclick
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""itemsTable""]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[" & intValue & "]/DIV[@role=""row""][1]/DIV[2]/DIV[1]").RightClick
+		'Select option "Remove Item"
+		Browser("name:=Home.*").Page("title:=Home.*").WebMenu ("html id:=menu_5","xpath:=//DIV[@id=""contextMenu""]/DIV[1]/UL[@role=""menu""][1]").Select "Demote Item"
+	End Sub	
+	'==================================================
+	' END Quote - LineItemDetails - Right Click Options	
+	'==================================================
+	' BEGIN Quote - Select "+ Add" button > "Add Bundle" option
+	'==================================================
+	    'Click on "Add Bundle" option from "+ Add" button list
+	    function Quote_AddBundleAction ()
+	        Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""tableDIV""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/UL[5]/LI[1]/UL[1]/LI[3]/A[1]").Click    
+	    end function
+	    'Set value ion "Product Number" filed from LIne Item Details
+	    function Quote_SetBundleID(strBundleID)
+	        Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[1]/DIV[1]/DIV[7]/DIV[2]/SPAN[1]/SPAN[1]/INPUT[1]").Set strBundleID
+	    end function
+	'==================================================
+	' END Quote - Select "+ Add" button > "Add Bundle" option
+	'==================================================
+	'==================================================
+	' BEGIN Quote - Validate "+ Add" button > "Add Bundle" option added - LOOSE PARTS - modified 02 aug #####################################
+	'==================================================
+	    'Validate "Loose Parts" record in "Add Bundle" option from "+ Add" added correctly
+	    function Quote_AddBundleLooosePartValidation ()
+	    Dim strLoosePart : strLoosePart = ""
+	    wait(3)
+	    strLoosePart = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[28]/DIV[1]/DIV[16]/DIV[2]/DIV[1]").GetROProperty("innertext")
+	    If Len(strLoosePart) = 0 Then
+	        Reporter.ReportEvent micPass, "Validate - Loose Part from Add Bundle", "The Loose Part are included in the Bundle (No Solution ID)"    
+	    Else
+	        Reporter.ReportEvent micFail, "Validate - Loose Part from Add Bundle", "The Loose Part are NOT included in the Bundle (No Solution ID)d"
+	    End If        
+	    end function
+	'==================================================
+	' END Quote - Select "+ Add" button > "Add Bundle" option added - LOOSE PARTS
+	'==================================================	
+	' BEGIN Quote - Validate "+ Add" button > "Add Bundle" option added
+	'==================================================
+	    'Validate record in "Add Bundle" option from "+ Add" added correctly
+	    function Quote_AddBundleValidation ()
+	    If Browser("name:=Home.*").Page("title:=Home.*").Link("xpath:=//DIV[@id=""thresholdLocation""]/DIV[2]/DIV[2]/DIV[1]/DIV[28]/DIV[1]/DIV[16]/DIV[2]/DIV[1]").Exist Then
+	        Reporter.ReportEvent micFail, "Validate - Add Bundle", "There are more than one Bundle added"    
+	    Else
+	        Reporter.ReportEvent micPass, "Validate - Add Bundle", "One Bundle has been added"
+	    End If        
+	    end function
+    '==================================================
+    ' END Quote - Select "+ Add" button > "Add Bundle" option
+    '==================================================
+	'==================================================
+	' BEGIN Quote - Configuration OCS with any product
+	'==================================================
+	function Quote_SelectConfigOCS ()
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebTable("xpath:=//TABLE[@id=""layout_table""]").WebElement ("Xpath:=//A[@id=""category_link_StorageESSN""]/SPAN[1]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebElement("xpath:=//UL[@id=""subnodes""]/LI[1]/DIV[1]/H6[1]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebElement("xpath:=//UL[@id=""subnodes""]/LI[1]/DIV[1]/H6[1]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebButton("xpath:=//UL[@id=""modelnodes""]/LI[1]/UL[1]/LI[1]/DIV[2]/BUTTON[1]").Click
+	end function
+	'==================================================
+	' END Quote - Configuration OCS with any product
+	'==================================================
+	' BEGIN Quote - Configuration OCS with OD1 products
+	'==================================================
+	function Quote_SelectConfigOCS_OD1 ()
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebTable("xpath:=//TABLE[@id=""layout_table""]").WebElement ("xpath:=//A[@id=""category_link_DLServers""]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebElement("xpath:=//UL[@id=""subnodes""]/LI[2]/DIV[1]/H6[1]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebElement("xpath:=//UL[@id=""subnodes""]/LI[3]/DIV[1]/H6[1]").Click
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebButton("xpath:=//UL[@id=""modelnodes""]/LI[1]/UL[1]/LI[3]/DIV[2]/BUTTON[1]").Click
+	end function
+	'==================================================
+	' END Quote - Configuration OCS with OD1 products
+	'==================================================
+	' BEGIN Quote - Manage My Solution > Service and Support Center process
+	'==================================================
+	function Quote_ServiceAndSupportCenter ()
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").Link("xpath:=//DIV[@id=""b_tree""]/UL[1]/LI[2]/UL[1]/LI[1]/SPAN[1]/A[1]").Click '"Services and Support Center" link from "Manage My Solution" section
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebRadioGroup("xpath:=//SPAN[@id=""radio_group_flexibleSupportSelections_supportSelections""]/TABLE[1]/TBODY[1]/TR[2]/TD[1]/INPUT[1]").Click '"Standard Recommendation" radioButton option from Global Support Choice section
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").Image("xpath:=//IMG[@id=""image-otherServicePerEventflexibleSelections""]").Click '"Lifecycle Services icon from New Configuration Section
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebEdit("xpath:=//DIV[@id=""otherServicePerEventflexibleSelections_perEventFlexibleServices""]/DIV[2]/TABLE[1]/TBODY[1]/TR[2]/TD[3]/INPUT[1]").Set "1" 'Selecting the first record from Lifecycle Services section
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").Image("xpath:=//IMG[@id=""image-otherServiceEducationflexibleSelections""]").Click '"Training Services Icon from "New COngiguration section
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebEdit("xpath:=//DIV[@id=""otherServiceEducationflexibleSelections_educationFlexibleServices""]/DIV[2]/TABLE[1]/TBODY[1]/TR[2]/TD[3]/INPUT[1]").Set "1" 'Set the value for the first record in Training Servicces from Training Services
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebButton("xpath:=//INPUT[@id=""show_bom_button""]").Click '"Overview" button from "New Configuration" section
+	    'Validate the message as Overview has been completed
+	    If Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebElement("xpath:=//DIV[@id=""div_tabs""]/DIV[@role=""tabpanel""][2]/DIV[4]").Exist Then'Message at the edge of the Overview table
+	        Reporter.ReportEvent micPass, "TS Custom Services","TS Custom Services are added correctly"
+	    Else
+	        Reporter.ReportEvent micFail, "TS Custom Services","TS Custom Services are NOT added correctly"
+	    End If        
+	end function
+	'==================================================
+	' END Quote - Manage My Solution > Service and Support Center process
+	'==================================================
+	' BEGIN Quote - Save and Convert To Quote 
+	'==================================================
+	Function Quote_SaveAndConvertToQuote ()
+	    Browser("name:=Home.*").Page("title:=Home.*").Frame ("title:=One Config Simple.*").WebButton("xpath:=//INPUT[@id=""sce_toolbar_save_config""]").Click 'Save button from New Configuration section
+	    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/SPAN[1]").Click '"Next - Convert To Quote" button deom New Configuration" section
+	End Function
+	'==================================================
+	' END QUOTE - Save and Convert To Quote
+	'==================================================
+	' BEGIN Quote - Search Product(s)
+	'==================================================
+	function Quote_SearchProductAction()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement ("xpath:=//DIV[@id=""productForm""]/FORM[1]/DIV[2]/A[1]").Click	
+	end function
+	
+	function Quote_SearchProductByProductNumber(strvalue)
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""productForm""]/FORM[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]").Set strvalue
+		Quote_SearchProductAction
+	end function
+	
+	function Quote_SearchProductByProductDescription(strvalue)
+		'Identify object
+		Quote_SearchProductAction
+	end function
+
+	function Quote_SearchProductByProductLine(strvalue)
+		'Identify object
+		Quote_SearchProductAction
+	end function
+
+	function Quote_SearchProductSelectResult(intvalue)
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//TABLE[@id=""search-results-table""]/TBODY[1]/TR[1]/TD[1]").Exist Then
+			'Enter Quantity
+			Browser("name:=Home.*").Page("title:=Home.*").WebTable("Xpath:=//TABLE[@id=""search-results-table""]").WebEdit("xpath:=//TABLE[@id=""search-results-table""]/TBODY[1]/TR[1]/TD[5]/INPUT[1]").Set intvalue
+			'Add Prodroduct to cart - June 22
+			Quote_SearchProductAddProductsToCart 
+			Else
+			Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search results are not displayed"
+		End If
+	end function
+	'==================================================
+	' END Quote - Search Product(s)
+ 	'==================================================	
+	' BEGIN Quote - Search Product(s) Manage Cart 
+ 	'==================================================	 	
+	function Quote_SearchProductAddProductsToCart()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""addProduct""]").Click
+	end function	
+
+	function Quote_SearchProductRemoveItem() '*** Edited September 23 Karina*** 
+	'Remove product B
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//TABLE[@id=""product-search-basket-table""]/TBODY[1]/TR[2]/TD[1]/SPAN[1]").Click
+	end function
+ 	'==================================================	
+	' END Quote - Search Product(s) Manage Cart 
+ 	'==================================================	
+ 	' BEGIN Quote - Search Product(s) Add to Quote 
+ 	'==================================================
+	function Quote_SearchProductAddProdcutsToQuote()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Products To Quote","xpath:=//DIV[@id=""border_space""]/DIV[2]/DIV[1]/DIV[1]/DIV[2]/SPAN[1]").Click
+	end function
+	'==================================================	
+	' END Quote - Search Product(s) Add to Quote  
+	'==================================================	
+	' BEGIN Quote - Search Product(s) - Validations
+	'==================================================
+	function Quote_SearchProductNoQualifiedDataValidation()
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=No qualified data for the search criteria!","xpath:=//DIV[@id=""product_search_popup""]/DIV[1]/DIV[4]/DIV[1]/ARTICLE[1]/DIV[1]/OMUI-ERROR-BOX[1]/UL[1]/LI[1]/LABEL[1]").Exist Then
+			Reporter.ReportEvent micPass, "Validate - Search Product(s)- No Qualified Data","Warning message is displayed at the top saying - No qualified data for the search criteria!-"	
+			Else
+			Reporter.ReportEvent micFail, "Validate - Search Product(s)- No Qualified Data","Warning message is not displayed"	
+		End If
+	end function
+
+	function Quote_SearchProductAddProductsToQuoteValidation() '*** Edited September 23 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Products added.","xpath:=//DIV[2]/DIV[7]/DIV[1]").Exist Then
+			Reporter.ReportEvent micPass, "Validate add products from Search Product(s)","Confirmation message is displayed at the top saying - Products added -"
+			Else
+			Reporter.ReportEvent micFail, "Validate add products from Search Product(s)","Confirmation message is not  displayed"	
+		End If	
+	end function	
+	'==================================================
+	' END Quote - Search Product(s) - Vaidations
+	'==================================================
+	' BEGIN Quote - Bundle Search 
+	'==================================================
+	'Select "Bundle ID" checkbox in Search Product(s) page
+	Sub Quote_SearchProductSelectBundle()
+	    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:= //DIV[@id=""product_search_popup""]/DIV[1]/DIV[3]/ARTICLE[1]/DIV[1]/DIV[1]/DIV[1]/DIV[1]/LABEL[2]/SPAN[1]").Click
+	End Sub
+	'Set value for "Bundle ID" fields in Search Product(s) page
+	Sub Quote_SearchBundleByID (strBundleID)
+	    Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""bundleForm""]/FORM[1]/DIV[1]/DIV[1]/DIV[1]/INPUT[1]").Set strBundleID
+	End Sub
+	'Check "INclude GLobal Bundles" checkbox in Search Product(s) page
+	Sub Quote_SearchBundleIncludeGlobalBundles()
+	    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""bundleForm""]/FORM[1]/DIV[1]/DIV[3]/DIV[1]/DIV[1]/LABEL[1]").Click
+	End Sub
+	'Click on "Bundle Search" button in Search Product(s) page
+	Sub Quote_SearchBundleAction()
+	    Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""bundleForm""]/FORM[1]/DIV[2]/A[1]").Click
+	End Sub
+	'Validate the "Bundle Search" result from Search Product(s) page
+	Sub Quote_SearchBundleValidateBundleID()
+	    If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//TABLE[@id=""bundle-search-results-table""]/TBODY[1]/TR[1]/TD[2]").Exist Then
+	        Reporter.ReportEvent micPass, "Bundle Search by ID","The result in Bundle Search is returned correctly"
+	    Else
+	        Reporter.ReportEvent micFail, "Bundle Search by ID","The result in Bundle Search is NOT returned correctly"
+	    End If
+	End Sub
+    'Select record found in "Bundle Search" from Search Product(s) page
+    sub Quote_SearchBundleSelectRecord()
+        Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//TABLE[@id=""bundle-search-results-table""]/TBODY[1]/TR[1]/TD[1]/LABEL[1]/SPAN[1]").click
+    end sub
+    'Click "Add Bundle to Quote" button in Search Product(s) page 
+    sub Quote_SearchBundleAddBundleToQuote()
+        Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Bundle To Quote","xpath:=//DIV[@id=""border_space""]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/SPAN[1]").Click
+    end sub	
+	'==================================================
+	' END Quote - Bundle Search
+	'==================================================	
+'==================================================
+' BEGIN Quote - OpportunityAndQuoteInfo
+'==================================================
+function OpportunityAndQuoteInfo_GetOpportunityId()
+	OpportunityAndQuoteInfo_GetOpportunityId = Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID").Value
+end function
+
+sub OpportunityAndQuoteInfo_Import()
+	Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebElement("Import").Click
+end sub
+
+sub OpportunityAndQuoteInfo_ImportOpportunityId(strValue) 
+	OpportunityAndQuoteInfo_SetOpportunityId strValue
+	OpportunityAndQuoteInfo_Import
+	Wait 3	
+	'Need time to get information
+	'TODO: extra syncing?
+end sub
+
+sub OpportunityAndQuoteInfo_SetOpportunityId(strValue)
+	'Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID").Set strValue
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("Xpath:=//INPUT[@id=""opportunityId""]").Set strValue
+end sub
+'==================================================
+' END Quote - OpportunityAndQuoteInfo
+'==================================================
+' BEGIN Quote - ShippingData
+'==================================================
+function ShippingData_GetDeliverySpeed()
+	ShippingData_GetDeliverySpeed = Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").Value
+end function
+
+function ShippingData_GetTermsOfDelivery()
+	ShippingData_GetTermsOfDelivery = Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").Value
+end function
+
+sub ShippingData_SetDeliverySpeed(strValue)
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Delivery Speed").SelectByText strValue
+end sub
+
+sub ShippingData_SetTermsOfDelivery(strValue)
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").WaitProperty "items count", micGreaterThan(1), 5000
+	Browser("NGQ").Page("Quote - Shipping Data").WebList("Terms of Delivery").SelectByText strValue
+end sub
+'==================================================
+' END Quote - ShippingData
+'==================================================
+' BEGIN Quote - Quote Output
+'==================================================
+'Select Output Type
+sub QuoteOutput_OutputTypeSelectOption(strOutputTypeSelector)
+	SELECT CASE (strOutputTypeSelector)
+	'   CASE ("More options..")
+		CASE ("Dynamic Landscape template")
+			Browser("name:=Home.*").Page("title:=Home.*").WebList ("xpath:=//SELECT[@id=""optypeselect""]", "index:=0").Select ""&strOutputTypeSelector
+			Wait 2
+	END SELECT
+end sub
+' Click on Customize Output button
+sub QuoteOutput_CustomizeOutputButton()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement( "xpath:=//DIV[@id=""rowoutputquote""]/DIV[3]/DIV[1]/DIV[1]/DIV[2]").Click
+	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customize Output", "xpath:=//DIV[@id=""rowoutputquote""]/DIV[3]/DIV[1]/DIV[1]/DIV[2]").Click
+end sub
+' Click on Preview button
+sub QuoteOutput_PreviewButton()
+	'Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Preview", "xpath:=//DIV[@id=""previewBtn""]").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""previewBtn""]").Click
+end sub
+' Save Customize Output 
+sub QuoteOutput_SaveCustomizeOutput()
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""customizeOuputSave""]").Click
+	wait 1
+end sub
+' Open PDF from Output Tab
+' Note incluide this function when step 430 is implemented 
+sub QuoteOutput_OpenPDF()
+	Browser("name:=Home.*").WinObject("text:=Do you want to open or save.*").WinButton("acc_name:=Open").Click
+end sub
+' Validate Customize Output button - Unavailable
+sub QuoteOutput_ValidateCustomizeOutputButtonUnavailable()
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customize Output", "class:=btn btn-disabled", "xpath:=//DIV[@id=""rowoutputquote""]/DIV[3]/DIV[1]/DIV[1]/DIV[2]").Exist Then
+			Reporter.ReportEvent micPass, "Validate the Customize Output button","Customize Output button is gray and unavailable"
+			Else
+			Reporter.ReportEvent micFail, "Validate the Customize Output button","Customize Output button is available"	
+		End If
+end sub
+' Validate Customize Output button - Available
+sub QuoteOutput_ValidateCustomizeOutputButtonAvailable()
+	'If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customize Output", "class:=btn btn-refresh", "xpath:=//DIV[@id=""rowoutputquote""]/DIV[3]/DIV[1]/DIV[1]/DIV[2]", "index:=0").Exist Then
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Customize Output", "xpath:=//DIV[@id=""rowoutputquote""]/DIV[3]/DIV[1]/DIV[1]/DIV[2]", "index:=0").Exist Then
+			Reporter.ReportEvent micPass, "Validate the Customize Output button","Customize Output button is green and available"
+			Else
+			Reporter.ReportEvent micFail, "Validate the Customize Output button","Customize Output button is unavailable"	
+		End If
+end sub
+'Validate Output Type Options
+sub QuoteOutput_ValidateOutputTypeButtonOptions()
+	If Browser("name:=Home.*").Page("title:=Home.*").WebList ("allitems:=Extended Net Price by item with estimated delivery;Extended Net Price by item with estimated delivery (No Price breakdown);Extended Net Price by item with list price and estimated delivery.;Extended Net Price by item with list price and estimated delivery (No Price breakdown);No list or extended list displayed. Line item descriptions with estimated delivery only and Grand Total;No list or extended list displayed. Line item descriptions with estimated delivery only and Grand Total (No Price breakdown);Dynamic Landscape template;Dynamic Portrait template;SLMS template", "xpath:=//SELECT[@id=""optypeselect""]", "index:=0").Exist Then
+		Reporter.ReportEvent micPass, "Validate - Output Type Options ","Nine options are displayed correctly"	
+	Else
+		Reporter.ReportEvent micFail, "Validate - Output Type Options ","Nine options are not displayed correctly"
+	End If
+end sub
+' Validate OD1 product on PDF file
+' Note: Complete this function when step 430 is implemented 
+sub QuoteOutput_ValidateOD1ProdcutIntoPDF()
+end sub
+'==================================================
+' END Quote - Quote Output
+'==================================================
+' BEGIN Quote - Search
+'==================================================
+function AdvancedSearch(strQuoteNumber)
+	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""Form""]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+end function
+
+function QuickSearch(strQuoteNumber)
+	Browser("name:=Home").Page("title:=Home").WebEdit("xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[1]/NGQ-INPUT-TEXT[1]/DIV[1]/INPUT[1]").Set strQuoteNumber
+end function
+
+sub QuickSearch_Search()
+	Browser("name:=Home").Page("title:=Home").WebElement("innerText:=Search", "xpath:=//DIV[@id=""views""]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/NGQ-QUICK-SEARCH[1]/DIV[2]/DIV[1]/NGQ-PRIMARY-BUTTON[1]/A[1]").Click
+end sub
+
+sub SelectResult_Search(strQuoteNumber) '*** Edited September 28 Karina*** 
+	Browser("name:=Home").Page("title:=Home").WebElement("innertext:="&strQuoteNumber,"xpath:=//DIV[@id=""Results""]/DIV[2]/DIV[2]/DIV[@role=""grid""][1]/DIV[@role=""rowgroup""][2]/DIV[1]/DIV[1]/DIV[@role=""row""][1]/DIV[@role=""gridcell""][3]/SPAN[2]/A[1]", "index:=0").Click
+	wait 4
+end sub
+'==================================================
+' END Quote - Search
+'==================================================
+' BEGIN QuoteServices - Options
+'==================================================
+	' BEGIN QuoteServices - Options - Claim
+	'==================================================
+	function QuoteServices_Claim()
+		'Use this function if you'll work with QuoteNumber = NI00147520
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
+		wait 3
+	end function
+	'==================================================
+	' END QuoteServices - Options - Claim	
+	'==================================================	
+	' BEGIN QuoteServices - Options - CustomGroup
+	'==================================================
+	function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
+		'Add Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
+		'Complete form to add
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
+		'Save Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
+		Else
+			Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
+		End If		
+	end function
+	
+	sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
+		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
+		'Edit Custom Group Information
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
+		'Update Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
+		Else
+			Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
+		End If
+	end sub
+	
+	sub QuoteServices_RemoveCustomGroup()
+		Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
+		'Validation
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
+			Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
+		Else
+			Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
+		End If 		
+		'Close Custom Group
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
+	end sub	
+	'==================================================	
+	' END QuoteServices - Options - CustomGroup
+	'==================================================
+	' BEGIN QuoteServices - Options - Pre-Validation
+	'==================================================
+	Sub QuoteServices_PreValidate_DataCheck()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""dataCheckBtn""]").Click
+		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""dataCheck""]/DIV[2]/DIV[1]/DIV[2]/DIV[1]/DIV[4]").Exist Then
+			Reporter.ReportEvent micFail, "Quoute - Pre Validation","There is warning/error message in the - Data Check Results- section. Verify Shipping, Additional Data and Receipt Date"
+		Else
+			Reporter.ReportEvent micPass, "Quoute - Pre Validation","There is no warning/error message in the - Data Check Results- section."
+		End If
+	End Sub
+
+	Sub QuoteServices_PreValidate_CLIC()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""clicBtn""]").Click
+		Wait 3
+	End Sub
+	
+	Sub QuoteServices_PreValidate_CustomConfigCheck(strFANNumber,strOverrideReason) '*** Edited September 27 Karina***
+	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("class:=btn btn-disabled", "xpath:=//I[@id=""checkFanNrBtn""]", "index:=0").Exist Then
+	Else
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//INPUT[@id=""fanNr""]", "index:=0").Set strFANNumber
+		Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//DIV[@id=""clic""]/DIV[1]/DIV[3]/TEXTAREA[1]", "index:=0").Set strOverrideReason
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//I[@id=""checkFanNrBtn""]", "index:=0").Click
+		Wait 1
+	End If
+		
+	End Sub	
+
+	Sub QuoteServices_PreValidate_Price()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""priceBtn""]").Click
+	End Sub
+	
+	Sub QuoteServices_PreValidate_Bundle()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""bundleBtn""]").Click
+	End Sub
+
+	Sub QuoteServices_PreValidate_Close()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""Validate_info""]/DIV[1]/DIV[2]/SPAN[1]").Click
+	End Sub
+	
+	Function QuoteServices_PreValidate_CompleteQuote()
+		Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""completeQuoteBtn""]").Click
+		QuoteServices_PreValidate_Close
+	End Function
+	'==================================================
+	' END QuoteServices - Options - Pre-Validation
+	'==================================================
