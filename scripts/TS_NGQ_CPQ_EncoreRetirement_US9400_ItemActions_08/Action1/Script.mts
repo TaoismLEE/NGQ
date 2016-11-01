@@ -72,6 +72,20 @@ rightClickAddPageBreak()
 
 rightClickAddComment()
 
+selectMultipleLines
+
+removeItemInSubTotal
+
+deleteSubTotalLine
+
+removeItem
+
+click_save_button()
+
+click_refresh_pricing()
+
+editProductNum
+
 
 Sub rightClickAddPageBreak()
 wait(3)
@@ -88,5 +102,48 @@ wait(3)
 	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'H1K92A3')])[1]").RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Click
 	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Set "A Comment"
+End Sub
+
+Sub selectMultipleLines()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'752426-B21')])[1]").Click
+	Dim obj
+	Set obj = CreateObject("Mercury.DeviceReplay")
+	obj.KeyDown 42
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[1]").Click
+	obj.KeyUp 42
+	UFT.ReplayType = 1
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//a[contains(text(), 'Add Subtotal')])[1]").Click
+End Sub
+
+Sub removeItemInSubTotal()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[2]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[@id='grid_msgs']//a").Click
+End Sub
+
+Sub removeItem()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_30').getElementsByTagName('a')[0].click()"
+End Sub
+
+Sub deleteSubTotalLine()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[@class='icon-trash ng-scope'])[last()]").Click
+End Sub
+
+Sub editProductNum()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'H1K92A3')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_31').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").Set "ABC"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").SendKeys("~")
 End Sub
