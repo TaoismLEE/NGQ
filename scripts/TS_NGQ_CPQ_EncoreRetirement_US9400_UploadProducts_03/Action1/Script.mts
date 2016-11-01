@@ -14,7 +14,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest
+InitializeTest "IE"
 
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
@@ -28,17 +28,17 @@ Dim strQuoteStatus : strQuoteStatus = ""
 Dim strQuoteEndDate : strQuoteEndDate = ""
  
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted DigitalBadge>")
 Dim strQuoteName : strQuoteName = DataTable.Value("QuotaName","Global")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("OpportunityID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
-Dim strUploadFileName : strUploadFileName = DataTable.Value("UploadFilename","Global")
+Dim strUploadFileName : strUploadFileName = Environment.Value("TestDir") & "\" & DataTable.Value("UploadFilename","Global")
 
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
-NewQuote_ValideEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
+NewQuote_ValidateEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
 Quote_EditQuoteName strQuoteName
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 strQuotaSelection_Selector = "Save"
@@ -47,10 +47,16 @@ QuoteServices_SelectOption strQuotaSelection_Selector
 
 ' CPQ_Encore Retirement_US9400_Upload Products_03
 ' Upload Product
-Quote_UploadProduct
-LineItemDetails_UploadProduct_BrowseClick
-LineItemDetails_UploadProduct_FileName strUploadFileName
-
+'Quote_UploadProduct
+'LineItemDetails_UploadProduct_BrowseClick
+'LineItemDetails_UploadProduct_FileName strUploadFileName
+uploadProduct
+setUploadProductPath strUploadFileName
+'UploadProducts_VerifyProducts strUploadFileName
+UploadProducts_ProceedWithImport
+UploadProducts_VerifyAddToQuoteTabDisplayed
+UploadProducts_AddValidProducts
+UploadProducts_ProductsAddedMsg 
 
 
 'Quote_SearchBundleByID strBundleID
@@ -61,7 +67,7 @@ LineItemDetails_UploadProduct_FileName strUploadFileName
 ' END: Core
 strQuotaSelection_Selector = "Refresh Pricing"
 Quote_AddBundleValidation
-Quote_ValideAddButtonOptions
+Quote_ValidateAddButtonOptions
 
 CloseBrowser
 FinalizeTest
