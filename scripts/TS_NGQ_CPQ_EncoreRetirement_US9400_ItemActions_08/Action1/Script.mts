@@ -15,11 +15,11 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest
-DataTable.Import "C:\ngq-demo-develop\data\TD_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08.xlsx"
+InitializeTest "CH"
+DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08.xlsx"
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>")
+Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
@@ -37,74 +37,113 @@ Dim strLineItemSelector: strLineItemSelector = DataTable.Value("LineItemSelector
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
-'NewQuote_ValideEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
-'OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
-'Quote_EditQuoteName strQuoteName
-'strQuotaSelection_Selector = "Save"
-'QuoteServices_SelectOption strQuotaSelection_Selector
-'Quote_ValideAddButtonOptions
+NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
 
-'CPQ_Encore Retirement_US9400_Item Actions_08
-'Validate Line Item by default and options
-Quote_LineItem
-LineItemDetails_ValidateDefaultLineNumber
-LineItemDetails_ValidateOptionsLineNumber
-LineItemRemove 1
+OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
+Quote_EditQuoteName strQuoteName
+click_save_button()
 
-'Add product from Configuration OCS
-Quote_AddConfigOCS
-Quote_SelectConfigOCS
-Quote_SaveAndConvertToQuote
+' Build ocs configuration
+build_ocs_bom @@ hightlight id_;_Browser("Home").Page("Home 2").Link("NI00155377")_;_script infofile_;_ZIP::ssf2.xml_;_
 
-' Add line item: Page Break
-'function needs: prodcut row, line item row, option
-strLineItemSelector = "Page Break"
-LineItemDetails_SelectItemNumber 2
-LineItemDetails_SelectItemOption 3, strLineItemSelector
-strQuotaSelection_Selector = "Save"
-QuoteServices_SelectOption strQuotaSelection_Selector
+'CustomerData_ShipTo
 
-' Add line item: Comment
-'function needs: prodcut row, line item row, option
-strLineItemSelector = "Comment"
-LineItemDetails_SelectItemNumber 2
-LineItemDetails_SelectItemOption 3, strLineItemSelector
-strQuotaSelection_Selector = "Save"
-QuoteServices_SelectOption strQuotaSelection_Selector
+'CustomerDataShipTo_SelectSameAsSoldToAddress
+
+' Click shipping data tab
+'Quote_ShippingDataTab
+
+' Set speed
+'ShippingData_SetDeliverySpeed strDeliverySpeed
+
+' Set Delivery terms
+'ShippingData_SetTermsOfDelivery strDeliveryTerms
+
+' Set receipt date
+Quote_AdditionalDataTab
+
+'AdditionalData_SetReceiptDateNow
+
+'Refresh Pricing
+click_refresh_pricing()
 
 
-'Add subtotal 
-LineItemsSelectMultiple 7,9
-Quote_AddSubtotal
-LineItemDetails_ValidateSubtotal 10
+rightClickAddPageBreak()
 
-'Try to remove item into Subtotal
-LineItem_RightClick_RemoveItem 9
-LineItem_ValidateTryRemoveItem 9
+rightClickAddComment()
 
-'Remove Subtotal and previous item
-LineItemRemove 10
-LineItem_RightClick_RemoveItem 9
-LineItemDetails_ValidateSubtotalRemoved 10
+selectMultipleLines
 
-'Replace Item
-LineItem_RightClick_ReplaceItem 9
-LineItemDetails_SetProductNumberByIndex 9, strProductNumber
-strQuotaSelection_Selector = "Save"
-QuoteServices_SelectOption strQuotaSelection_Selector
+removeItemInSubTotal
 
-'Demote Item
-LineItem_RightClick_DemoteItem 7
+deleteSubTotalLine
 
-'Promote Item
-LineItem_RightClick_PromoteItem 7
+removeItem
 
-' END: Core
-strQuotaSelection_Selector = "Save"
-QuoteServices_SelectOption strQuotaSelection_Selector
+click_save_button()
 
-Navbar_Logout
-CloseBrowser
-FinalizeTest @@ hightlight id_;_Browser("Home").Page("Home 2").Link("NI00155377")_;_script infofile_;_ZIP::ssf2.xml_;_
+click_refresh_pricing()
+
+editProductNum
 
 
+Sub rightClickAddPageBreak()
+wait(3)
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'752426-B21')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//div[@role='row']//select").SelectByText "Page Break"
+End Sub
+
+Sub rightClickAddComment()
+wait(3)
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'H1K92A3')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Set "A Comment"
+End Sub
+
+Sub selectMultipleLines()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'752426-B21')])[1]").Click
+	Dim obj
+	Set obj = CreateObject("Mercury.DeviceReplay")
+	obj.KeyDown 42
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[1]").Click
+	obj.KeyUp 42
+	UFT.ReplayType = 1
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//a[contains(text(), 'Add Subtotal')])[1]").Click
+End Sub
+
+Sub removeItemInSubTotal()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[2]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[@id='grid_msgs']//a").Click
+End Sub
+
+Sub removeItem()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'HA114A1')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_30').getElementsByTagName('a')[0].click()"
+End Sub
+
+Sub deleteSubTotalLine()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[@class='icon-trash ng-scope'])[last()]").Click
+End Sub
+
+Sub editProductNum()
+	UFT.ReplayType = 2
+	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[contains(text(),'H1K92A3')])[1]").RightClick
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_31').getElementsByTagName('a')[0].click()"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").click
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").Set "ABC"
+	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").SendKeys("~")
+End Sub
