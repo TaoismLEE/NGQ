@@ -2072,11 +2072,11 @@ End Sub
 Sub click_refresh_pricing()
 	browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
 	
-	if browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext") = "Refresh Pricing completed More" then
-        Reporter.ReportEvent micPass, "Refresh Pricing Pass","Pricing Successfully Refreshed"
-    else
-        Reporter.ReportEvent micFail, "Refresh Pricing Fail","Pricing Refresh Failed"
-    End if
+	'if browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext") = "Refresh Pricing completed More" then
+    '    Reporter.ReportEvent micPass, "Refresh Pricing Pass","Pricing Successfully Refreshed"
+    'else
+    '    Reporter.ReportEvent micFail, "Refresh Pricing Fail","Pricing Refresh Failed"
+    'End if
 End Sub
 
 
@@ -2152,6 +2152,13 @@ End Sub
 Sub click_lineitem_add_ocs()
 	browser("NGQ").Page("Quote").WebElement("Add").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+End Sub
+
+'Right click items
+Sub right_click_in_table()
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('contextMenu').setAttribute('style', 'left: 572px; top: 58px; display: block;');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
 End Sub
 
 ' Add product option
