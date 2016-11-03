@@ -53,6 +53,7 @@ QuoteServices_SelectOption strQuotaSelection_Selector
 uploadProduct
 setUploadProductPath strUploadFileName
 'UploadProducts_VerifyProducts strUploadFileName
+UploadProducts_changeDataColumns "B", "C", "D", "1"
 UploadProducts_ProceedWithImport
 UploadProducts_VerifyAddToQuoteTabDisplayed
 UploadProducts_AddValidProducts
@@ -66,8 +67,40 @@ UploadProducts_ProductsAddedMsg
 
 ' END: Core
 strQuotaSelection_Selector = "Refresh Pricing"
-Quote_AddBundleValidation
-Quote_ValidateAddButtonOptions
+QuoteServices_SelectOption strQuotaSelection_Selector
+'Quote_AddBundleValidation
+'Quote_ValidateAddButtonOptions
 
-CloseBrowser
+' REQUIRED FOR PRE-VALIDATION TO PASS
+Quote_CustomerDatatab
+
+CustomerData_ShipToTab
+
+CustomerDataShipTo_SelectSameAsSoldToAddress
+
+Quote_ShippingDataTab
+
+ShippingData_SetDeliverySpeed DataTable.Value("DeliverySpeed", "Global")
+
+ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
+
+Quote_AdditionalDataTab
+
+AdditionalData_SetReceiptDateNow
+' END REQUIREMENTS FOR PRE-VALIDATION TO PASS
+
+Quote_refreshPricing
+
+Quote_save
+
+select_preValidate_link
+
+'PreValidateQuote
+PreValidateQuoteOverwrite
+
+PreValidateQuote_success
+
+Navbar_Logout
+
+Close_Browser
 FinalizeTest
