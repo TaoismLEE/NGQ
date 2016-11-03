@@ -3514,6 +3514,13 @@ Sub UploadProducts_VerifyHeaders()
 
 End Sub
 
+Sub UploadProducts_changeDataColumns(strQuantity, strProduct, strDesc, strRowNum)
+	Browser("NGQ").Page("Upload Product File").WebList("Quantity Column").Select strQuantity
+	Browser("NGQ").Page("Upload Product File").WebList("Product Column").Select strProduct
+	Browser("NGQ").Page("Upload Product File").WebList("Product Description Column").Select strDesc
+	Browser("NGQ").Page("Upload Product File").WebEdit("Skip Rows Edit").Set strRowNum
+End Sub
+
 Sub UploadProducts_ProceedWithImport()
     Browser("NGQ").Page("Upload Product File").WebElement("Proceed with Import").Click
 End Sub
