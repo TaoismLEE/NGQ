@@ -20,7 +20,7 @@ Dim strColumnLabel
 'array with Values in the assign column
 Dim LabelsAssignedColumn
 
-InitializeTest "IE"
+InitializeTest "Action1"
 'Open browser and go to NGQ
 OpenNgq(objUser)
 

@@ -7,7 +7,7 @@ Option Explicit
 Dim al : Set al = NewActionLifetime
 
 'Initialize test
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'DataImport
 DataTable.Import "..\..\data\HPFS_02.xlsx"

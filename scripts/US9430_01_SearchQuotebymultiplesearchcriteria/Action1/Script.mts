@@ -6,7 +6,7 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'Change the sync time for this script from 1 min to 3
 UFT.BrowserNavigationTimeout = 200000

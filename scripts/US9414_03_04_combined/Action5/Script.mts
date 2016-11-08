@@ -19,7 +19,7 @@ strEmail = DataTable("Email", dtGlobalSheet)
 'Doesnt work - Ask Richard how to do this
 'NGQBrowserReInit
 
-InitializeTest "IE"
+InitializeTest "US9414_04"
 'Opens browser and ngq website
 OpenNgq objUser
 

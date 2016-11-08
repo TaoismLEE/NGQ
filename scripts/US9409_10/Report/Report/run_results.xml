@@ -15,7 +15,7 @@
           <FileName><![CDATA[Action1]]></FileName>
           <Language><![CDATA[VBScript - script block]]></Language>
           <FunctionName><![CDATA[VBScript global code]]></FunctionName>
-          <Scripts><![CDATA[InitializeTest ""]]></Scripts>
+          <Scripts><![CDATA[InitializeTest "Action1"]]></Scripts>
           <LineNo><![CDATA[13]]></LineNo>
         </StackFrame>
       </StackTrace>

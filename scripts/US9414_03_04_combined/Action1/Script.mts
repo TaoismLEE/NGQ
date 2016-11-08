@@ -27,7 +27,7 @@ strOutputSheet = "US9414_03_Output"
 DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
-InitializeTest "IE"
+InitializeTest "US9414_03"
 'Opens browser and ngq website
 OpenNgq objUser
 

@@ -12,7 +12,7 @@ Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<
 DataTable.Import "..\..\data\US9430_04.xlsx"
 Dim strQuoteNumber : strQuotenumber = DataTable("strQuotenumber",1)
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'open web browser and go to NGQ/My Dashboard
 OpenNgq(objUser)

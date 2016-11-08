@@ -8,7 +8,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 DataTable.Import "..\..\data\Tbundleusebestpricingshoppinglogic_US9408_06.xlsx"
 

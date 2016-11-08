@@ -9,7 +9,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "IE"
+InitializeTest "Action1"
 'InitializeTest ""
 
 'DataImport

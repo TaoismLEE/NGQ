@@ -14,7 +14,7 @@ DataTable.Import "..\..\data\US9414_02\US9414_02.xlsx"
 strQuote = DataTable("QuoteNumber", dtGlobalSheet)
 strInternalComments = DataTable("InternalComments", dtGlobalSheet)
 
-InitializeTest "IE"
+InitializeTest "Action1"
 'Opens browser and ngq website
 OpenNgq objUser
 
