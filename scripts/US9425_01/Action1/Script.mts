@@ -14,7 +14,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'Fetch data.
 DataTable.Import("..\..\data\NGQ_US9425_01_data.xlsx")

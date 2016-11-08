@@ -9,7 +9,7 @@ Option Explicit
 Dim al : Set al = NewActionLifetime
 
 'InitializeTest "CH"
-InitializeTest ""
+InitializeTest "Action1"
 
 'Hard-coded data.
 Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")

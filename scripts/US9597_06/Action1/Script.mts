@@ -19,7 +19,7 @@ Dim strOportunityId, strQuoteName, strMCCDisc, strAmount, strMCCNum, strTargReqD
 	strMCCNum = DataTable.Value("strMCCNum",1)
 	strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'Open browser and go to My Dashboard
 OpenNgq(objUser)
