@@ -16,7 +16,33 @@ function GetNgqUrl(byval strEnvironment)
 	GetNgqUrl = strUrl
 end function
 
-sub InitializeTest(browserFamily)
+Sub dynamicLoadTSR(actionName)
+	' Dynamic Tsr Loading
+	Dim path : path = Environment.Value("TestDir") & "\..\..\libs\ngq.tsr"
+	Set fso = CreateObject("Scripting.FileSystemObject")
+	If not(fso.FileExists(path)) Then
+   		'Tsr does not exist lets rebuild it
+   		dim fso
+		set fso = CreateObject("Scripting.FileSystemObject")
+		Dim strXmlPath : strXmlPath = Environment.Value("TestDir") & "\..\..\libs\ngq.xml"
+		dim objRepo
+		set objRepo = CreateObject("Mercury.ObjectRepositoryUtil")
+		objRepo.ImportFromXML strXmlPath, path
+		Reporter.ReportEvent micDone, "TSR Status", "TSR Imported from XML"
+	End If
+	'add tsr to action
+	Dim qtApp
+	Dim qtRepositories
+	Set qtApp = CreateObject("QuickTest.Application") 
+	Set qtRepositories = qtApp.Test.Actions(actionName).ObjectRepositories
+	qtRepositories.Add path
+	Set qtApp = Nothing
+	Reporter.ReportEvent micDone, "TSR Added to Action", "TSR added to current test case action"
+End Sub
+
+sub InitializeTest(actionName)
+	'Dynamically Load TSR
+	dynamicLoadTSR actionName
 	'Configure standard UFT settings.
 	UFT.ReplayType = 1
 	UFT.ObjectSyncTimeout = 20000
@@ -25,14 +51,14 @@ sub InitializeTest(browserFamily)
 	UFT.App.Test.Settings.Run.IterationMode = "oneIteration"
 	UFT.App.Test.Settings.Run.OnError = "Dialog"
 	'UFT.Minimize
-	If browserFamily <> "" Then
-		BrowserStore.FamilyCode = browserFamily
-	else
-		BrowserStore.FamilyCode = TestArgs("BrowserFamily")
-	End If
+'	If browserFamily <> "" Then
+'		BrowserStore.FamilyCode = browserFamily
+'	else
+'		BrowserStore.FamilyCode = TestArgs("BrowserFamily")
+'	End If
+	BrowserStore.FamilyCode = TestArgs("BrowserFamily")
 	set BrowserStore.OrBrowser = Browser("NGQ")
 	OrCore.SetOnBrowserSyncMethodName "NgqBrowserSync"
-	
 	'Load external data.
 	'TODO
 end sub

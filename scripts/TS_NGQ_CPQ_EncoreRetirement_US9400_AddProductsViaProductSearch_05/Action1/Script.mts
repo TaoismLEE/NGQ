@@ -17,7 +17,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_AddProductsViaProductSearch_05.xlsx"
 

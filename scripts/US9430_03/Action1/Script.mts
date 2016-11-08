@@ -14,7 +14,7 @@ DataTable.Import "..\..\data\US9430_03.xlsx"
 Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 Dim strCompanyName : strCompanyName = DataTable("strCompanyName",1)
 
-InitializeTest "IE"
+InitializeTest "Action1"
 
 'Open brower and go to My Dashboard
 OpenNgq(objUser)

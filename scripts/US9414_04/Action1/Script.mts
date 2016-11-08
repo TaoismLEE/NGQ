@@ -17,7 +17,7 @@ DataTable.Import "..\..\data\US9414_04.xlsx"
 strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
 strEmail = DataTable("Email", dtGlobalSheet)
 
-InitializeTest ""
+InitializeTest "Action1"
 
 'Opens browser and ngq website
 OpenNgq objUser
