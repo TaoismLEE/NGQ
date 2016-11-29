@@ -18,7 +18,7 @@ Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("thirdParty","Global")
 Dim quoteName : quoteName = DataTable.Value("QuoteName","Global")
 
 'NOTE: automation API calls only here. No raw UFT calls!
-
+dumpJenkinsOutput "US9410_02", "74230", "CPQ_Encore Retirement_US9410_Search HPE and third party part numbers_02"
 ' Open the NGQ website
 OpenNgq objUser
 

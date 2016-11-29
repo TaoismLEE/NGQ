@@ -4,6 +4,29 @@
 'const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
 const strItgUrl = "https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home"
 
+Sub dumpJenkinsOutput(strTestName, strTestID, strTestDesc)
+	DataTable.GlobalSheet.AddParameter "URL", strItgUrl
+	DataTable.GlobalSheet.AddParameter "UserStory", strTestName
+	DataTable.GlobalSheet.AddParameter "Test Case ID", strTestID
+	DataTable.GlobalSheet.AddParameter "Test Case Desc", strTestDesc
+	Dim path : path = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".xls"
+	Dim csvPath : csvPath = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".csv"
+	Dim fso : Set fso = CreateObject("Scripting.FileSystemObject")
+	If (fso.FileExists(path)) Then
+		fso.DeleteFile path
+	End if
+	If (fso.FileExists(csvPath)) Then
+		fso.DeleteFile csvPath
+	End If
+	DataTable.Export(path)
+	Dim xl : Set xl = createobject("excel.application")
+	Dim book : set book = xl.Workbooks.Open(path)
+	book.SaveAs csvPath,6, , , , , ,2
+	book.Close false
+	Set book = nothing
+	Set xl = nothing
+End Sub
+
 function GetNgqUrl(byval strEnvironment)
 	dim strUrl
 	select case strEnvironment
@@ -65,7 +88,17 @@ end sub
 
 sub FinalizeTest()
 	Logger.Report micPassWithoutScreen, "Script complete", "The script ran until the end successfully."
+	dumpReport()
 end sub
+
+Sub dumpReport()
+	logPath = Reporter.ReportPath
+	Set xmlDoc = CreateObject("Microsoft.XMLDOM")
+	xmlDoc.Async = "False"
+	xmlDoc.Load(logPath & "\run_results.xml")
+	Set colNodes=xmlDoc.selectNodes("//ReportNode[@type='User']/Data[./Result[.='Failed']]")
+	
+End Sub
 
 function OpenNewBrowser()
 	dim strGuid : strGuid = GenerateGuid()
@@ -97,7 +130,7 @@ Function LoginNGQ(objRealUser)
 	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
 	'end if
 	
-	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(1) Then
+	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(10) Then
 		If Dialog("DigitalBadgeLogin").Exist(1) Then
 		Dialog("DigitalBadgeLogin").Activate
 		Dialog("DigitalBadgeLogin").WinEdit("PIN").SetSecure objRealUser.EncryptedDigitalBadge
@@ -108,7 +141,7 @@ Function LoginNGQ(objRealUser)
 		End If
 	
 		with Browser("NGQ")
-			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist(1) Then
+			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist(10) Then
 				.Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Set objRealUser.Username
 				.Page("HP Log on - Email & Computer Password").WebEdit("Password").SetSecure objRealUser.EncryptedPassword
 				.Page("HP Log on - Email & Computer Password").WebButton("Log on").Click
@@ -211,8 +244,13 @@ end function
 ' BEGIN Navbar
 '==================================================
 sub Navbar_CreateNewQuote()
-	Navbar_ShowNewQuoteList()
-	Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote").Click
+	If (Browser("NGQ").Page("Navbar").Link("New Quote").Exist(5)) Then
+		Navbar_ShowNewQuoteList()
+		Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote").Click
+	else
+		Browser("NGQ").Page("Navbar").Link("CreateNewQuote").Click
+	End If
+	
 end sub
 
 sub Navbar_Home()
