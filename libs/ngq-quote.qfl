@@ -3348,9 +3348,10 @@ Sub SavePdfAs(strPath)
 	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
 	UFT.ReplayType = 1
 	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
-	UFT.ReplayType = 1
+	UFT.ReplayType = 2
 	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
 	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
+	UFT.ReplayType = 1
 End Sub 
 
 '*******************************************************************************************
