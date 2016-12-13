@@ -9,22 +9,46 @@ Sub dumpJenkinsOutput(strTestName, strTestID, strTestDesc)
 	DataTable.GlobalSheet.AddParameter "UserStory", strTestName
 	DataTable.GlobalSheet.AddParameter "Test Case ID", strTestID
 	DataTable.GlobalSheet.AddParameter "Test Case Desc", strTestDesc
-	Dim path : path = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".xls"
-	Dim csvPath : csvPath = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".csv"
+	'Dim path : path = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".xls"
+	Dim Path : Path = Environment.Value("TestDir") & "\..\..\data\Output\" & strTestName & ".csv"
 	Dim fso : Set fso = CreateObject("Scripting.FileSystemObject")
-	If (fso.FileExists(path)) Then
-		fso.DeleteFile path
+	If (fso.FileExists(Path)) Then
+		fso.DeleteFile Path
 	End if
-	If (fso.FileExists(csvPath)) Then
-		fso.DeleteFile csvPath
-	End If
-	DataTable.Export(path)
-	Dim xl : Set xl = createobject("excel.application")
-	Dim book : set book = xl.Workbooks.Open(path)
-	book.SaveAs csvPath,6, , , , , ,2
-	book.Close false
-	Set book = nothing
-	Set xl = nothing
+	Dim n, i, j, oSheet, oFile, sLine
+	Set oSheet = DataTable.GetSheet("Global")
+	
+	Set oFile = fso.CreateTextFile(Path, true)
+	For j = 1 to oSheet.GetParameterCount
+	sLine = sLine & oSheet.GetParameter(j).Name
+	If j < oSheet.GetParameterCount Then sLine = sLine & ", "
+	Next
+	oFile.writeline sLine
+	oSheet.SetCurrentRow 1
+	For i = 1 to oSheet.GetRowCount
+	sLine = ""
+	For j = 1 to oSheet.GetParameterCount
+	sLine = sLine & oSheet.GetParameter(j).Value
+	If j < oSheet.GetParameterCount Then sLine = sLine & ", "
+	Next
+	oFile.writeline sLine
+	oSheet.SetNextRow
+	Next
+	
+	oFile.close
+	
+	Set oSheet = nothing
+	Set fso = nothing
+'	If (fso.FileExists(csvPath)) Then
+'		fso.DeleteFile csvPath
+'	End If
+	'DataTable.Export(path)
+	'Dim xl : Set xl = createobject("excel.application")
+	'Dim book : set book = xl.Workbooks.Open(path)
+	'book.SaveAs csvPath,6, , , , , ,2
+	'book.Close false
+	'Set book = nothing
+	'Set xl = nothing
 End Sub
 
 function GetNgqUrl(byval strEnvironment)
@@ -129,7 +153,11 @@ Function LoginNGQ(objRealUser)
 	'if .Page("HP Log on selector").Link("Email & Computer Password").Exist(1) then
 	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
 	'end if
-	
+	'Browser("NGQ").Object.Document.Body.Style.setAttribute "zoom","80%"
+'	 Const OLECMDID_OPTICAL_ZOOM = 63
+'     Const OLECMDEXECOPT_DONTPROMPTUSER = 2
+'     dim intZoomLevel : intZoomLevel = 80
+'	Browser("NGQ").Object.ExecWB OLECMDID_OPTICAL_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, CLng(intZoomLevel), vbNull
 	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(10) Then
 		If Dialog("DigitalBadgeLogin").Exist(1) Then
 		Dialog("DigitalBadgeLogin").Activate
