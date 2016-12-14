@@ -1,0 +1,962 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE Report
+[
+<!ELEMENT Report (General ,(Doc|BPT)) >
+<!ATTLIST Report ver CDATA #REQUIRED tmZone CDATA #REQUIRED>
+
+<!ELEMENT General ( DocLocation ) >
+<!ATTLIST General productName CDATA #REQUIRED productVer CDATA #REQUIRED os CDATA #REQUIRED host CDATA #REQUIRED qcserver CDATA #IMPLIED qcproject CDATA #IMPLIED SolManSolutionId CDATA #IMPLIED SolManProjectId CDATA #IMPLIED SolManTestPlanId CDATA #IMPLIED SolManTestPackageId CDATA #IMPLIED SolManUserInfoData CDATA #IMPLIED  >
+
+<!ELEMENT BPT (DName,Res,DVer?,TSet?,TInst?,NodeArgs,AdditionalInfo*,Doc*) >
+<!ATTLIST BPT rID ID #REQUIRED >
+
+<!ELEMENT Doc (DName,ConfName?,Res,DVer?,TSet?,TInst?,RunType?,DT?,AdditionalInfo*,Step*,DIter*,Step*,Action*,Doc*,Summary?,TestMaintenanceSummary*,NodeArgs?) >
+<!ATTLIST Doc rID ID #REQUIRED type (Test|BC|BPTWrapperTest|Flow|Group|Action) "Test" productName CDATA #REQUIRED BCIter CDATA #IMPLIED >
+
+<!ELEMENT RunType ( #PCDATA )>
+<!ATTLIST RunType fmStep (False|True) "False" batch (False|True) "False" upDesc (False|True) "False" upChk (False|True) "False" upAS (False|True) "False">
+
+<!ELEMENT DName ( #PCDATA ) >
+
+<!ELEMENT ConfName ( #PCDATA ) >
+
+<!ELEMENT Res ( #PCDATA ) >
+
+<!ELEMENT AdditionalInfo (AdditionalDataName,AdditionalDataValue ) >
+
+<!ELEMENT AdditionalDataName ( #PCDATA ) >
+
+<!ELEMENT AdditionalDataValue ( #PCDATA ) >
+
+<!ELEMENT DVer ( #PCDATA ) >
+
+<!ELEMENT TSet ( #PCDATA ) >
+
+<!ELEMENT TInst ( #PCDATA ) >
+
+<!ELEMENT DIter (Step*,Action+,Summary?,NodeArgs)>
+<!ATTLIST DIter rID ID #REQUIRED iterID CDATA #REQUIRED>
+
+<!ELEMENT DocLocation ( #PCDATA )>
+
+<!ELEMENT Action (AName,AIter*,(Step|HtmlStep|Action)*, Summary,ActionMaintenanceSummary*, NodeArgs ) >
+<!ATTLIST Action rID ID #REQUIRED>
+
+<!ELEMENT AIter ((Step|HtmlStep|Action)*,DataMapping?, Summary?,NodeArgs) >
+<!ATTLIST AIter rID ID #REQUIRED iterID CDATA #REQUIRED isCountable (False|True) "False" >
+
+<!ELEMENT AName ( #PCDATA ) >
+
+<!ELEMENT TestMaintenanceSummary (ActionMaintenanceSummary*) >
+<!ATTLIST TestMaintenanceSummary ObjectsAdded CDATA #REQUIRED ObjectsUpdated CDATA #REQUIRED StepsUpdated CDATA #REQUIRED StepsComments CDATA #REQUIRED><!ELEMENT ActionMaintenanceSummary (ObjectChange* ) >
+<!ATTLIST ActionMaintenanceSummary Action CDATA #REQUIRED Objects CDATA #REQUIRED Updated CDATA #REQUIRED LinesTotal CDATA #REQUIRED Added CDATA #REQUIRED LinesUpdated CDATA #REQUIRED>
+
+<!ELEMENT ObjectChange  (Hierarchy, PropertyChangeList* ) >
+<!ATTLIST ObjectChange Operation CDATA #IMPLIED OriginalRepository CDATA #IMPLIED>
+
+<!ELEMENT PropertyChangeList (PropertyDef*) >
+
+<!ELEMENT PropertyDef (OriginalValue, NewValue) >
+<!ATTLIST PropertyDef PropName CDATA #REQUIRED OriginRegularExpression (True|False) "False" NewRegularExpression (True|False) "False" AddedProperty (True|False) "False" >
+
+<!ELEMENT OriginalValue ( #PCDATA )>
+
+<!ELEMENT NewValue ( #PCDATA )>
+
+<!ELEMENT Hierarchy  (ObjectName, Hierarchy*) >
+<!ATTLIST Hierarchy MicClass CDATA #REQUIRED>
+
+<!ELEMENT ObjectName  ( #PCDATA ) >
+
+<!ELEMENT Step (Obj,Details,Time,TimeTick* ,(Step|HtmlStep|Doc)*, DataMapping?, NodeArgs) >
+<!ATTLIST Step rID ID #REQUIRED retval CDATA #IMPLIED>
+
+<!ELEMENT HtmlStep (HTML,TimeTick*,(Step|HtmlStep|Doc)*,NodeArgs) >
+<!ATTLIST HtmlStep rID ID #REQUIRED >
+
+<!ELEMENT Obj ( #PCDATA ) >
+<!ATTLIST Obj plainTxt (False|True) "True">
+
+<!ELEMENT Details ( #PCDATA ) >
+<!ATTLIST Details plainTxt (False|True) "True">
+
+<!ELEMENT Time ( #PCDATA ) >
+
+<!ELEMENT HTML ( #PCDATA ) >
+
+<!ELEMENT Disp ( #PCDATA ) >
+
+<!ELEMENT TimeTick ( #PCDATA ) >
+
+<!ELEMENT DataMapping ( DataMappedItem* )>
+<!ELEMENT DataMappedItem EMPTY >
+<!ATTLIST DataMappedItem dsName CDATA #REQUIRED >
+<!ATTLIST DataMappedItem rowId CDATA #REQUIRED >
+
+<!ELEMENT NodeArgs (Disp,TopPane?,BtmPane?,ExtendedInfo? )>
+<!ATTLIST NodeArgs eType CDATA #REQUIRED icon CDATA #REQUIRED nRep CDATA #REQUIRED UserNote CDATA #IMPLIED filter (False|True) "True">
+<!ATTLIST NodeArgs status (Passed|Failed|Done|Warning|Information) "Done">
+<!ATTLIST NodeArgs iconSel CDATA #IMPLIED nType CDATA #IMPLIED MovieMarker CDATA "">
+<!ATTLIST NodeArgs Source CDATA #IMPLIED SourceLine CDATA #IMPLIED StepFlowItemKey CDATA #IMPLIED >
+
+<!ELEMENT TopPane (Path)>
+
+<!ELEMENT BtmPane ( (Path|WR)?,ASHilite?)>
+<!ATTLIST BtmPane vType CDATA "HTML">
+
+<!ELEMENT Path ( #PCDATA ) >
+
+<!ELEMENT ASHilite ( #PCDATA ) >
+
+<!ELEMENT WR ( #PCDATA ) >
+
+<!ELEMENT ExtendedInfo ( StepData ) >
+
+<!ATTLIST ExtendedInfo StepType CDATA #REQUIRED>
+<!ELEMENT DT (NodeArgs) >
+<!ATTLIST DT rID ID #REQUIRED>
+
+<!ELEMENT Summary (Param*)>
+<!ATTLIST Summary sTime CDATA #IMPLIED eTime CDATA #IMPLIED passed CDATA #IMPLIED failed CDATA #IMPLIED warnings CDATA #IMPLIED retval CDATA #IMPLIED stopped (False|True) "False" >
+
+<!ELEMENT Param (ParamName,ParamVal)+ >
+<!ATTLIST Param paramInOut (In|Out) "In">
+
+<!ELEMENT ParamName ( #PCDATA ) >
+
+<!ELEMENT ParamVal ( #PCDATA ) >
+
+]
+>
+<Report ver="2.0" tmZone="Central Standard Time">
+<General productName="HP Unified Functional Testing" productVer="12.54" os="Windows 7" host="SANCHJES4"><DocLocation><![CDATA[C:\Users\sanchjes\Documents\GitHub\NGQ\scripts\US9413_01]]></DocLocation></General>
+<Doc rID="T1"   productName= "HP Unified Functional Testing"  >
+<DName><![CDATA[US9413_01]]></DName>
+<Res><![CDATA[Report]]></Res>
+<DT rID="T2">
+<NodeArgs eType="Table" icon="2" nRep="4" filter="False" >
+<Disp><![CDATA[Run-Time Data Table]]></Disp>
+<BtmPane vType="Table" >
+<Path><![CDATA[Default.xls]]></Path>
+</BtmPane>
+</NodeArgs>
+</DT>
+<Action rID="T3">
+<AName><![CDATA[Action1]]></AName>
+<Step rID="T4">
+<Obj ><![CDATA[TSR Added to Action]]></Obj>
+<Details ><![CDATA[TSR added to current test case action]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:17]]></Time>
+<TimeTick>1481747057</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="8" >
+<Disp><![CDATA[TSR Added to Action]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T5">
+<Obj ><![CDATA[Open new IE browser]]></Obj>
+<Details plainTxt="False" ><![CDATA[Opened and added new browser '6218C22E665C45BA9EE0538945EEEA59' of type 'IE' to the BrowserStore dictionary.
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:22]]></Time>
+<TimeTick>1481747062</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="30" >
+<Disp><![CDATA[Open new IE browser]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T6">
+<Obj ><![CDATA[Delete cookies for 'NGQ']]></Obj>
+<Details plainTxt="False" ><![CDATA[Deleted cookies for 'Browser("NGQ")'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>openurl</td><td>file:///C:/Users/sanchjes/AppData/Local/Temp/orcore.html?23719a7886c243af8b2bc3492829866b</td><td>False</td></tr><tr><td>micclass</td><td>Browser</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:22]]></Time>
+<TimeTick>1481747062</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="39" >
+<Disp><![CDATA[Delete cookies for 'NGQ']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T7">
+<Obj ><![CDATA[Navigate to https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home]]></Obj>
+<Details plainTxt="False" ><![CDATA[Navigate 'Browser("NGQ")' to URL 'https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>openurl</td><td>file:///C:/Users/sanchjes/AppData/Local/Temp/orcore.html?23719a7886c243af8b2bc3492829866b</td><td>False</td></tr><tr><td>micclass</td><td>Browser</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:23]]></Time>
+<TimeTick>1481747063</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="49" >
+<Disp><![CDATA[Navigate to https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T8">
+<Obj ><![CDATA[Mouse over 'New Quote']]></Obj>
+<Details plainTxt="False" ><![CDATA[Mouse over 'Browser("NGQ").Page("Navbar").Link("New Quote")'.<br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>X &#40;screen coords&#41;</td><td>&#45;842</td></tr><tr><td>Y &#40;screen coords&#41;</td><td>361</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//a[@id='quoteMenu']</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:32]]></Time>
+<TimeTick>1481747072</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="80" >
+<Disp><![CDATA[Mouse over 'New Quote']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T9">
+<Obj ><![CDATA[Click on 'Create New Quote']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//a[@id='createNewQuote']</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:32]]></Time>
+<TimeTick>1481747072</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="91" >
+<Disp><![CDATA[Click on 'Create New Quote']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T10">
+<Obj ><![CDATA[Slow Page Load - 12.444 secs]]></Obj>
+<Details plainTxt="False" ><![CDATA[Slow page load - the page took 12.444 seconds to load. Acceptable page load time is set at 10 seconds.
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:45]]></Time>
+<TimeTick>1481747085</TimeTick>
+<NodeArgs eType="User" icon="6" nRep="100" status="Information" >
+<Disp><![CDATA[Slow Page Load - 12.444 secs]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T11">
+<Obj ><![CDATA[Validate empty quote number]]></Obj>
+<Details ><![CDATA[QuoteID contains default New Quote text]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:45]]></Time>
+<TimeTick>1481747085</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="105" status="Passed" >
+<Disp><![CDATA[Validate empty quote number]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T12">
+<Obj ><![CDATA[Validate version 1]]></Obj>
+<Details ><![CDATA[New quote version is 1]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:45]]></Time>
+<TimeTick>1481747085</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="107" status="Passed" >
+<Disp><![CDATA[Validate version 1]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T13">
+<Obj ><![CDATA[Validate quate name]]></Obj>
+<Details ><![CDATA[Quote Name is empty and pencil icon indicating it is editable]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:46]]></Time>
+<TimeTick>1481747086</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="110" status="Passed" >
+<Disp><![CDATA[Validate quate name]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T14">
+<Obj ><![CDATA[Valide quote status]]></Obj>
+<Details ><![CDATA[Quote Status is Quote/Configuration Created]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:46]]></Time>
+<TimeTick>1481747086</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="112" status="Passed" >
+<Disp><![CDATA[Valide quote status]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T15">
+<Obj ><![CDATA[Validate start date]]></Obj>
+<Details ><![CDATA[Start Date is visible]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:47]]></Time>
+<TimeTick>1481747087</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="115" status="Passed" >
+<Disp><![CDATA[Validate start date]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T16">
+<Obj ><![CDATA[Validate end date]]></Obj>
+<Details ><![CDATA[End Date has default - Need Pricing Call - value]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:47]]></Time>
+<TimeTick>1481747087</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="117" status="Passed" >
+<Disp><![CDATA[Validate end date]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T17">
+<Obj ><![CDATA[Validate currently selected quote tab]]></Obj>
+<Details ><![CDATA[Correct Quote Tab is selected]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:47]]></Time>
+<TimeTick>1481747087</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="119" status="Passed" >
+<Disp><![CDATA[Validate currently selected quote tab]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T18">
+<Obj ><![CDATA[Set 'Opportunity ID' to 'OPE-0002907630']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID")' to 'OPE-0002907630'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>type</td><td>text</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr><tr><td>html tag</td><td>input</td><td>False</td></tr><tr><td>html id</td><td>opportunityId</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:47]]></Time>
+<TimeTick>1481747087</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="130" >
+<Disp><![CDATA[Set 'Opportunity ID' to 'OPE-0002907630']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T19">
+<Obj ><![CDATA[Click on 'Import']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebElement("Import")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//a[@id='importBtn']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:24:51]]></Time>
+<TimeTick>1481747091</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="151" >
+<Disp><![CDATA[Click on 'Import']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T20">
+<Obj ><![CDATA[Click on 'EditQuoteName']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("EditQuoteName")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebElement</td><td>False</td></tr><tr><td>html id</td><td>editquotename</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:03]]></Time>
+<TimeTick>1481747103</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="211" >
+<Disp><![CDATA[Click on 'EditQuoteName']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T21">
+<Obj ><![CDATA[Set 'EnterQuoteName' to 'Test Quote']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote").WebEdit("EnterQuoteName")' to 'Test Quote'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//input[@id='quotename']</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:04]]></Time>
+<TimeTick>1481747104</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="232" >
+<Disp><![CDATA[Set 'EnterQuoteName' to 'Test Quote']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T22">
+<Obj ><![CDATA[Click on 'SaveButton']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@id='ngqsavebtn']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:05]]></Time>
+<TimeTick>1481747105</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="253" >
+<Disp><![CDATA[Click on 'SaveButton']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T23">
+<Obj ><![CDATA[Save Quote]]></Obj>
+<Details ><![CDATA[Quote Successfully Saved]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:08]]></Time>
+<TimeTick>1481747108</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="273" status="Passed" >
+<Disp><![CDATA[Save Quote]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T24">
+<Obj ><![CDATA[Get Quote ID]]></Obj>
+<Details ><![CDATA[Successfully Extracted Quote ID]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:08]]></Time>
+<TimeTick>1481747108</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="275" status="Passed" >
+<Disp><![CDATA[Get Quote ID]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T25">
+<Obj plainTxt="False" ><![CDATA[NGQ]]></Obj>
+<Details plainTxt="False" ><![CDATA[<table><tr><td><span style="text-align : left; font-size : 12px; ">Local Browser</span></td></tr></table>]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:09]]></Time>
+<TimeTick>1481747109</TimeTick>
+<Step rID="T26">
+<Obj plainTxt="False" ><![CDATA[NGQ.FullScreen]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:09]]></Time>
+<TimeTick>1481747109</TimeTick>
+<NodeArgs eType="Replay" icon="7" nRep="278" >
+<Disp><![CDATA[NGQ.FullScreen]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="277" >
+<Disp><![CDATA[NGQ]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T27">
+<Obj ><![CDATA[Click on 'Add']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("Add")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//li[@pid='QD_ADD_ITEM_BTN' and not(contains(concat(' ',@class,' '),' ng-hide '))]/button</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:10]]></Time>
+<TimeTick>1481747110</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="289" >
+<Disp><![CDATA[Click on 'Add']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T28">
+<Obj ><![CDATA[Click on 'Add OCS Config']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").Link("Add OCS Config")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//li[@pid='QD_ADD_CNFG_FRM_SCE_LNK']/a</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:11]]></Time>
+<TimeTick>1481747111</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="310" >
+<Disp><![CDATA[Click on 'Add OCS Config']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T29">
+<Obj ><![CDATA[Click on 'ProductList']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("ProductList")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebElement</td><td>False</td></tr><tr><td>html id</td><td>category_link_Accessories</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:18]]></Time>
+<TimeTick>1481747118</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="334" >
+<Disp><![CDATA[Click on 'ProductList']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T30">
+<Obj ><![CDATA[Set 'InputField' to '752426-B21']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("OCS Config").WebEdit("InputField")' to '752426-B21'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr><tr><td>html id</td><td>accessoryName</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:20]]></Time>
+<TimeTick>1481747120</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="355" >
+<Disp><![CDATA[Set 'InputField' to '752426-B21']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T31">
+<Obj ><![CDATA[Click on 'SearchButton']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("SearchButton")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebElement</td><td>False</td></tr><tr><td>html id</td><td>basicSearchButton</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:21]]></Time>
+<TimeTick>1481747121</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="376" >
+<Disp><![CDATA[Click on 'SearchButton']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T32">
+<Obj ><![CDATA[Set 'SetQuantity' to '1']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("OCS Config").WebEdit("SetQuantity")' to '1'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr><tr><td>html id</td><td>752426-B21</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:23]]></Time>
+<TimeTick>1481747123</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="397" >
+<Disp><![CDATA[Set 'SetQuantity' to '1']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T33">
+<Obj ><![CDATA[Click on 'Go2Bom']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("Go2Bom")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebElement</td><td>False</td></tr><tr><td>html id</td><td>go2BomBtn</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:24]]></Time>
+<TimeTick>1481747124</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="418" >
+<Disp><![CDATA[Click on 'Go2Bom']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T34">
+<Obj ><![CDATA[Click on 'SaveOCSConfig']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("SaveOCSConfig")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>micclass</td><td>WebElement</td><td>False</td></tr><tr><td>html id</td><td>sce_toolbar_save_config</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:26]]></Time>
+<TimeTick>1481747126</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="439" >
+<Disp><![CDATA[Click on 'SaveOCSConfig']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T35">
+<Obj ><![CDATA[Click on 'ConvertQuote']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//span[contains(text(),'Next - Convert to quote')]</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:30]]></Time>
+<TimeTick>1481747130</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="461" >
+<Disp><![CDATA[Click on 'ConvertQuote']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T36">
+<Obj ><![CDATA[Slow Page Load - 23.5 secs]]></Obj>
+<Details plainTxt="False" ><![CDATA[Slow page load - the page took 23.5 seconds to load. Acceptable page load time is set at 10 seconds.
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:54]]></Time>
+<TimeTick>1481747154</TimeTick>
+<NodeArgs eType="User" icon="6" nRep="470" status="Information" >
+<Disp><![CDATA[Slow Page Load - 23.5 secs]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T37">
+<Obj plainTxt="False" ><![CDATA[NGQ]]></Obj>
+<Details plainTxt="False" ><![CDATA[<table><tr><td><span style="text-align : left; font-size : 12px; ">Local Browser</span></td></tr></table>]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:54]]></Time>
+<TimeTick>1481747154</TimeTick>
+<Step rID="T38">
+<Obj plainTxt="False" ><![CDATA[Quote]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:54]]></Time>
+<TimeTick>1481747154</TimeTick>
+<Step rID="T39">
+<Obj plainTxt="False" ><![CDATA[RefreshPricing.Object]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:54]]></Time>
+<TimeTick>1481747154</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="476" >
+<Disp><![CDATA[RefreshPricing.Object]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="475" >
+<Disp><![CDATA[Quote]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="474" >
+<Disp><![CDATA[NGQ]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T40">
+<Obj ><![CDATA[Click on 'RefreshPricing']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("RefreshPricing")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@pid='QD_REFRESH_PRICE_BTN']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:25:55]]></Time>
+<TimeTick>1481747155</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="488" >
+<Disp><![CDATA[Click on 'RefreshPricing']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T41">
+<Obj ><![CDATA[Click on 'NewVersion']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersion")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@pid='QD_NEW_VERSION_BTN']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:02]]></Time>
+<TimeTick>1481747162</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="539" >
+<Disp><![CDATA[Click on 'NewVersion']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T42">
+<Obj ><![CDATA[Select 'Customer Request' in 'NewVersionRevisionSource']]></Obj>
+<Details plainTxt="False" ><![CDATA[Select 'Customer Request' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource")'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//select[@ng-model='revisionSource']</td><td>False</td></tr><tr><td>micclass</td><td>WebList</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:04]]></Time>
+<TimeTick>1481747164</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="560" >
+<Disp><![CDATA[Select 'Customer Request' in 'NewVersionRevisionSource']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T43">
+<Obj ><![CDATA[Select 'Reprice/Validity Period' in 'NewVersionRevisionReason']]></Obj>
+<Details plainTxt="False" ><![CDATA[Select 'Reprice/Validity Period' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason")'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//select[@ng-model='revisionReason']</td><td>False</td></tr><tr><td>micclass</td><td>WebList</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:05]]></Time>
+<TimeTick>1481747165</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="581" >
+<Disp><![CDATA[Select 'Reprice/Validity Period' in 'NewVersionRevisionReason']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T44">
+<Obj ><![CDATA[Set 'NewVersionRevisionComment' to 'poipoipoipoi']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment")' to 'poipoipoipoi'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//div[@id='revisionReasonLookup']//textarea[@ng-model='revisionComment']</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:06]]></Time>
+<TimeTick>1481747166</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="602" >
+<Disp><![CDATA[Set 'NewVersionRevisionComment' to 'poipoipoipoi']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T45">
+<Obj ><![CDATA[Click on 'NewVersionSubmit']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//div[@id='revisionReasonLookup']//a[@id='continue']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:08]]></Time>
+<TimeTick>1481747168</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="623" >
+<Disp><![CDATA[Click on 'NewVersionSubmit']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T46">
+<Obj ><![CDATA[New Version of Quote Created]]></Obj>
+<Details ><![CDATA[New Version successfully created]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:09]]></Time>
+<TimeTick>1481747169</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="635" status="Passed" >
+<Disp><![CDATA[New Version of Quote Created]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T47">
+<Obj ><![CDATA[QuoteID Comparison]]></Obj>
+<Details ><![CDATA[Quote ID Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:10]]></Time>
+<TimeTick>1481747170</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="637" status="Passed" >
+<Disp><![CDATA[QuoteID Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T48">
+<Obj ><![CDATA[Quote Name Comparison]]></Obj>
+<Details ><![CDATA[Quote Name Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:10]]></Time>
+<TimeTick>1481747170</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="639" status="Passed" >
+<Disp><![CDATA[Quote Name Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T49">
+<Obj ><![CDATA[Quote Version Comparison]]></Obj>
+<Details ><![CDATA[Quote Version Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:10]]></Time>
+<TimeTick>1481747170</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="641" status="Passed" >
+<Disp><![CDATA[Quote Version Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T50">
+<Obj ><![CDATA[Click on 'SaveButton']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@id='ngqsavebtn']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:10]]></Time>
+<TimeTick>1481747170</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="652" >
+<Disp><![CDATA[Click on 'SaveButton']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T51">
+<Obj ><![CDATA[Save Quote]]></Obj>
+<Details ><![CDATA[Quote Successfully Saved]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:13]]></Time>
+<TimeTick>1481747173</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="672" status="Passed" >
+<Disp><![CDATA[Save Quote]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T52">
+<Obj ><![CDATA[Quote Version Comparison]]></Obj>
+<Details ><![CDATA[Quote Version Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:13]]></Time>
+<TimeTick>1481747173</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="674" status="Passed" >
+<Disp><![CDATA[Quote Version Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T53">
+<Obj plainTxt="False" ><![CDATA[NGQ]]></Obj>
+<Details plainTxt="False" ><![CDATA[<table><tr><td><span style="text-align : left; font-size : 12px; ">Local Browser</span></td></tr></table>]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:13]]></Time>
+<TimeTick>1481747173</TimeTick>
+<Step rID="T54">
+<Obj plainTxt="False" ><![CDATA[Quote]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:13]]></Time>
+<TimeTick>1481747173</TimeTick>
+<Step rID="T55">
+<Obj plainTxt="False" ><![CDATA[Add.Object]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:13]]></Time>
+<TimeTick>1481747173</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="677" >
+<Disp><![CDATA[Add.Object]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="676" >
+<Disp><![CDATA[Quote]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="675" >
+<Disp><![CDATA[NGQ]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T56">
+<Obj ><![CDATA[Mouse over 'Add']]></Obj>
+<Details plainTxt="False" ><![CDATA[Mouse over 'Browser("NGQ").Page("Quote").WebElement("Add")'.<br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>X &#40;screen coords&#41;</td><td>&#45;682</td></tr><tr><td>Y &#40;screen coords&#41;</td><td>643&#46;5</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//li[@pid='QD_ADD_ITEM_BTN' and not(contains(concat(' ',@class,' '),' ng-hide '))]/button</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:14]]></Time>
+<TimeTick>1481747174</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="687" >
+<Disp><![CDATA[Mouse over 'Add']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T57">
+<Obj ><![CDATA[Click on 'Add Product or Option']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").Link("Add Product or Option")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//li[contains(@ng-mousedown,'anli(') and contains(@ng-mousedown,'PO')]/a</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:15]]></Time>
+<TimeTick>1481747175</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="698" >
+<Disp><![CDATA[Click on 'Add Product or Option']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T58">
+<Obj ><![CDATA[Set 'EnterProductNumber' to 'G1S77A']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber")' to 'G1S77A'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//span[@title='Product No.']//input</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:16]]></Time>
+<TimeTick>1481747176</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="719" >
+<Disp><![CDATA[Set 'EnterProductNumber' to 'G1S77A']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T59">
+<Obj ><![CDATA[Set '[ WebEdit ]' to '1']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("[ WebEdit ]")' to '1'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>(//div[contains(@class, 'uiGrid-02G5')])[8]//span[not(contains(@class,'ng-hide'))]//input</td><td>True</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:18]]></Time>
+<TimeTick>1481747178</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="741" >
+<Disp><![CDATA[Set '[ WebEdit ]' to '1']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T60">
+<Obj plainTxt="False" ><![CDATA[NGQ]]></Obj>
+<Details plainTxt="False" ><![CDATA[<table><tr><td><span style="text-align : left; font-size : 12px; ">Local Browser</span></td></tr></table>]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:19]]></Time>
+<TimeTick>1481747179</TimeTick>
+<Step rID="T61">
+<Obj plainTxt="False" ><![CDATA[Quote]]></Obj>
+<Details plainTxt="False" ><![CDATA[Page]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:19]]></Time>
+<TimeTick>1481747179</TimeTick>
+<Step rID="T62">
+<Obj plainTxt="False" ><![CDATA[RefreshPricing.Object]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:19]]></Time>
+<TimeTick>1481747179</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="754" >
+<Disp><![CDATA[RefreshPricing.Object]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="8" nRep="753" >
+<Disp><![CDATA[Quote]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Context" icon="7" nRep="752" >
+<Disp><![CDATA[NGQ]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T63">
+<Obj ><![CDATA[Click on 'RefreshPricing']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("RefreshPricing")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@pid='QD_REFRESH_PRICE_BTN']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:20]]></Time>
+<TimeTick>1481747180</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="766" >
+<Disp><![CDATA[Click on 'RefreshPricing']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T64">
+<Obj ><![CDATA[Grand Total Changed]]></Obj>
+<Details ><![CDATA[Grand Total successfully changed]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:22]]></Time>
+<TimeTick>1481747182</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="783" status="Passed" >
+<Disp><![CDATA[Grand Total Changed]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T65">
+<Obj ><![CDATA[Click on 'NewVersion']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersion")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@pid='QD_NEW_VERSION_BTN']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:23]]></Time>
+<TimeTick>1481747183</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="794" >
+<Disp><![CDATA[Click on 'NewVersion']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T66">
+<Obj ><![CDATA[Select 'Customer Request' in 'NewVersionRevisionSource']]></Obj>
+<Details plainTxt="False" ><![CDATA[Select 'Customer Request' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource")'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//select[@ng-model='revisionSource']</td><td>False</td></tr><tr><td>micclass</td><td>WebList</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:24]]></Time>
+<TimeTick>1481747184</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="815" >
+<Disp><![CDATA[Select 'Customer Request' in 'NewVersionRevisionSource']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T67">
+<Obj ><![CDATA[Select 'Reprice/Validity Period' in 'NewVersionRevisionReason']]></Obj>
+<Details plainTxt="False" ><![CDATA[Select 'Reprice/Validity Period' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason")'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//select[@ng-model='revisionReason']</td><td>False</td></tr><tr><td>micclass</td><td>WebList</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:26]]></Time>
+<TimeTick>1481747186</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="836" >
+<Disp><![CDATA[Select 'Reprice/Validity Period' in 'NewVersionRevisionReason']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T68">
+<Obj ><![CDATA[Set 'NewVersionRevisionComment' to 'poipoipoipoi']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment")' to 'poipoipoipoi'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//div[@id='revisionReasonLookup']//textarea[@ng-model='revisionComment']</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:27]]></Time>
+<TimeTick>1481747187</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="857" >
+<Disp><![CDATA[Set 'NewVersionRevisionComment' to 'poipoipoipoi']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T69">
+<Obj ><![CDATA[Click on 'NewVersionSubmit']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//div[@id='revisionReasonLookup']//a[@id='continue']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:28]]></Time>
+<TimeTick>1481747188</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="878" >
+<Disp><![CDATA[Click on 'NewVersionSubmit']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T70">
+<Obj ><![CDATA[New Version of Quote Created]]></Obj>
+<Details ><![CDATA[New Version successfully created]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:30]]></Time>
+<TimeTick>1481747190</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="890" status="Passed" >
+<Disp><![CDATA[New Version of Quote Created]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T71">
+<Obj ><![CDATA[QuoteID Comparison]]></Obj>
+<Details ><![CDATA[Quote ID Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:31]]></Time>
+<TimeTick>1481747191</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="892" status="Passed" >
+<Disp><![CDATA[QuoteID Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T72">
+<Obj ><![CDATA[Quote Name Comparison]]></Obj>
+<Details ><![CDATA[Quote Name Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:31]]></Time>
+<TimeTick>1481747191</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="894" status="Passed" >
+<Disp><![CDATA[Quote Name Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T73">
+<Obj ><![CDATA[Quote Version Comparison]]></Obj>
+<Details ><![CDATA[Quote Version Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:31]]></Time>
+<TimeTick>1481747191</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="896" status="Passed" >
+<Disp><![CDATA[Quote Version Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T74">
+<Obj ><![CDATA[Click on 'SaveButton']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//button[@id='ngqsavebtn']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:31]]></Time>
+<TimeTick>1481747191</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="907" >
+<Disp><![CDATA[Click on 'SaveButton']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T75">
+<Obj ><![CDATA[Save Quote]]></Obj>
+<Details ><![CDATA[Quote Successfully Saved]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:35]]></Time>
+<TimeTick>1481747195</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="928" status="Passed" >
+<Disp><![CDATA[Save Quote]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T76">
+<Obj ><![CDATA[Quote Version Comparison]]></Obj>
+<Details ><![CDATA[Quote Version Valid]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:35]]></Time>
+<TimeTick>1481747195</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="930" status="Passed" >
+<Disp><![CDATA[Quote Version Comparison]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T77">
+<Obj ><![CDATA[Click on 'Home']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Navbar").Link("Home")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//a[@id='homeMenu']</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:36]]></Time>
+<TimeTick>1481747196</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="941" >
+<Disp><![CDATA[Click on 'Home']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T78">
+<Obj ><![CDATA[Set 'QuickSearch' to 'NI00162029']]></Obj>
+<Details plainTxt="False" ><![CDATA[Set 'Browser("NGQ").Page("Home").WebEdit("QuickSearch")' to 'NI00162029'. <br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//input[@id='global_search']</td><td>False</td></tr><tr><td>micclass</td><td>WebEdit</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:39]]></Time>
+<TimeTick>1481747199</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="962" >
+<Disp><![CDATA[Set 'QuickSearch' to 'NI00162029']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T79">
+<Obj ><![CDATA[Click on 'QuickSearchButton']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Home").WebElement("QuickSearchButton")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//span[@id='search_bt']</td><td>False</td></tr><tr><td>micclass</td><td>WebElement</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:41]]></Time>
+<TimeTick>1481747201</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="983" >
+<Disp><![CDATA[Click on 'QuickSearchButton']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T80">
+<Obj ><![CDATA[Verify Quote Number]]></Obj>
+<Details ><![CDATA[Verified matching Quote Number]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:43]]></Time>
+<TimeTick>1481747203</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="996" status="Passed" >
+<Disp><![CDATA[Verify Quote Number]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T81">
+<Obj ><![CDATA[Verify Version]]></Obj>
+<Details ><![CDATA[Verified matching version]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:43]]></Time>
+<TimeTick>1481747203</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="999" status="Passed" >
+<Disp><![CDATA[Verify Version]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T82">
+<Obj ><![CDATA[Verify Quote Number]]></Obj>
+<Details ><![CDATA[Verified matching Quote Number]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:43]]></Time>
+<TimeTick>1481747203</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="1002" status="Passed" >
+<Disp><![CDATA[Verify Quote Number]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T83">
+<Obj ><![CDATA[Verify Version]]></Obj>
+<Details ><![CDATA[Verified matching version]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:43]]></Time>
+<TimeTick>1481747203</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="1005" status="Passed" >
+<Disp><![CDATA[Verify Version]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T84">
+<Obj ><![CDATA[Verify Quote Number]]></Obj>
+<Details ><![CDATA[Verified matching Quote Number]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:43]]></Time>
+<TimeTick>1481747203</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="1008" status="Passed" >
+<Disp><![CDATA[Verify Quote Number]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T85">
+<Obj ><![CDATA[Verify Version]]></Obj>
+<Details ><![CDATA[Verified matching version]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:44]]></Time>
+<TimeTick>1481747204</TimeTick>
+<NodeArgs eType="User" icon="4" nRep="1011" status="Passed" >
+<Disp><![CDATA[Verify Version]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T86">
+<Obj ><![CDATA[Click on 'Logout']]></Obj>
+<Details plainTxt="False" ><![CDATA[Clicked on 'Browser("NGQ").Page("Navbar").Link("Logout")'. <br/><table cellspacing="0" class="base stepData" data-label="step parameters"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>Coords</td><td>&#91;center&#93;&#44;&#91;center&#93;</td></tr><tr><td>Button</td><td>Left Mouse Button</td></tr></tbody></table><br/><table cellspacing="0" class="base stepData" data-label="object identifiers"><thead><tr><th>Name</th><th>Value</th><th>Regex</th></tr></thead><tbody><tr><td>xpath</td><td>//a[@href='logout']</td><td>False</td></tr><tr><td>micclass</td><td>Link</td><td>False</td></tr></tbody></table>
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:44]]></Time>
+<TimeTick>1481747204</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="1022" >
+<Disp><![CDATA[Click on 'Logout']]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T87">
+<Obj ><![CDATA[Script complete]]></Obj>
+<Details plainTxt="False" ><![CDATA[The script ran until the end successfully.
+]]></Details>
+<Time><![CDATA[12/14/2016 - 14:26:46]]></Time>
+<TimeTick>1481747206</TimeTick>
+<NodeArgs eType="User" icon="5" nRep="1034" status="Passed" >
+<Disp><![CDATA[Script complete]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="12/14/2016 - 14:24:17" eTime="12/14/2016 - 14:26:46" passed="29" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="3" nRep="6" status="Passed" >
+<Disp><![CDATA[Action1 Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="12/14/2016 - 14:24:15" eTime="12/14/2016 - 14:26:46" passed="29" failed="0" warnings="0" ><Param ><ParamName><![CDATA[NgqEnvironment]]></ParamName><ParamVal><![CDATA[ITG]]></ParamVal>
+</Param>
+<Param ><ParamName><![CDATA[BrowserFamily]]></ParamName><ParamVal><![CDATA[IE]]></ParamVal>
+</Param>
+<Param ><ParamName><![CDATA[DataSourceID]]></ParamName><ParamVal><![CDATA[]]></ParamVal>
+</Param>
+</Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" status="Passed" >
+<Disp><![CDATA[Test US9413_01 Summary]]></Disp>
+</NodeArgs>
+</Doc>
+</Report>
