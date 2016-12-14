@@ -8,14 +8,19 @@
 '================================================
 'Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
+Dim strEmail : strEmail = DataTable.Value("user", "Global")
 Dim strQuote
-Dim strEmail
 
 'Import Data
-DataTable.Import "..\..\data\US9414_04.xlsx"
-strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
-strEmail = DataTable("Email", dtGlobalSheet)
+'DataTable.Import "..\..\data\US9414_04.xlsx"
+'strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
+'strEmail = DataTable("Email", dtGlobalSheet)
 
 InitializeTest "Action1"
 
@@ -34,6 +39,9 @@ Click_MyGroupQuote
 'Clicks the "Count" number associated to "Quote Status"- Quote/Configuration Created
 Click_QuoteConfiguration_Count
 
+'To get a quote number for claiming
+strQuote = GetFirstQuoteNumberofMyGroupQuote(2)
+print strQuote
 'Locates and clicks the "Auto Filter" button in the "Result'' section 
 ClickAutoFilter
 
@@ -71,6 +79,3 @@ Navbar_Logout
 Close_Browser
 
 FinalizeTest
-
-
-

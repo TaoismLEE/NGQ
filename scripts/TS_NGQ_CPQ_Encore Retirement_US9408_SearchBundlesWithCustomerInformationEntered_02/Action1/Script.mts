@@ -15,9 +15,13 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
 
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
 'ImportTestData strTestDataFile
@@ -30,7 +34,7 @@ Dim strQuoteStatus : strQuoteStatus = ""
 Dim strQuoteEndDate : strQuoteEndDate = ""
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("OpportunityID","Global")
 Dim strQuoteName : strQuoteName = DataTable.Value("QuotaName","Global")
 Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")

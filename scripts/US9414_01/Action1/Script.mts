@@ -5,8 +5,14 @@
 '==========================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
 Dim strExternalCommemnt : strExternalCommemnt = "External comment for testing"
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
 Dim strQuote,strProductNumber,strQutoteNum1,strVersion1,strQuoteStatus1,strEndDate1
 Dim strVersion2,strInternalComments1,strInternalComments2, strGenOutputType,strNewVersionSource, strNewversionReason
 Dim strExternalComments,strNewVersionComments,strVersion3,strQuoteName,strNewVersionIntComments
@@ -104,6 +110,7 @@ Select_Quote_GeneraL_OutputType strGenOutputType
 Click_Preview_Quote_OutputType 
 
 'Saves the pdf in a specific  path
+Browser("NGQ").FullScreen
 OutputQuote_SaveQuotePdf strQuote
 
 'Validates the pdf contains the external comments
@@ -128,7 +135,8 @@ ClickSearch_advancedSearch
 AdvancedSearch_Result_OpenQuoteNumber strQuote
 
 'Clicks the Quote Output tab
-QuoteOutput
+'QuoteOutput
+Quote_OutputTab
 
 'Makes sure the saved internal comments remain in the comment box
 validate_SavedInternalComments strInternalComments1
@@ -165,7 +173,8 @@ Quote_Save
 validate_VersionNumber strVersion2
 
 'Clicks the Quote Output tab
-QuoteOutput
+'QuoteOutput
+Quote_OutputTab
 
 'Validates the saved internal comments in original version remain in the new version of this quote
 validate_SavedInternalComments strInternalComments1

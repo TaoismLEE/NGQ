@@ -8,6 +8,7 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
 'InitializeTest ""
@@ -29,9 +30,8 @@ DataTable.Import "..\..\data\NGQ_US9409_10_data.xlsx"
 
 Dim opportunityID : opportunityID = DataTable.Value("Opportunity_ID", "Global")
 Dim quoteName : quoteName = DataTable.Value("quoteName", "Global")
-
+' For Jenkins Reporting
 dumpJenkinsOutput "US9409_10", "74322", "CPQ_Encore Retirement_US9409_Deal Generated After Quote Complete_10"
-
 'Open browser.
 OpenNgq objUser
 

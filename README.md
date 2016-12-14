@@ -1,7 +1,7 @@
 # NGQ Test Repository
 This is the TAO Test Repository for the Next Generation Quoter
 
-Current Status: \!/ PRS OFFLINE \!/
+Current Status: Complete
 
 Last Checked: 10/17/2016 3:01PM CST by Joshua Hunter
 

@@ -6,17 +6,22 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
 Dim strQuote
 Dim strEmail
 Dim strReason
 Dim strGroup
 Dim strOutputSheet
 Dim strOutputFilePath
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 'Import Data
 DataTable.Import "..\..\data\US9414_03.xlsx"
-strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
+'strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
 strEmail = DataTable("Email", dtGlobalSheet)	
 strReason = DataTable("TransferReason", dtGlobalSheet)
 strGroup = DataTable("TransferGroup", dtGlobalSheet)
@@ -38,6 +43,9 @@ ValidateQuoteTab
 
 'Click on filte under my recent Quote
 ClickAutoFilter
+
+'Fetch the first quote in my quotes
+strQuote = GetFirstQuoteNumberofMyQuote(2)
 
 'FillFilterQuoteNumber strQuote
 

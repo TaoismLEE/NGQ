@@ -1,1 +1,1 @@
-﻿var __testDataSource={items:[{dataFilePath:'Default.xls',dataFileFormat:'excel',dataFileFolder:'C:\\Users\\sanchjes\\Documents\\GitHub\\NGQ\\scripts\\US9409_10\\Report',namePairs:[]}]};
+﻿var __testDataSource={items:[]};

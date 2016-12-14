@@ -8,14 +8,17 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
 
 'DataImport
 DataTable.Import "..\..\data\NGQ_HPFS_01_data.xlsx"
+DataTable_ImportDataSheet "..\..\data\NGQ_empty_quote_data.xlsx", "Sheet1"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Sheet1"), DataTable.Value("pass", "Sheet1"), "<Encrypted DigitalBadge>")
+'Dim objUser : Set objUser = NewRealUser("yu.li9@hpe.com", "", "<Encrypted DigitalBadge>")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim strQuotename : strQuoteName = DataTable("QuoteName")
 Dim deliverySpeed : deliverySpeed = DataTable.Value("DeliverySpeed", "Global")
@@ -89,7 +92,6 @@ RequestOPDisc MCCType, MCCOffApp, MCCDiscType, MCCValueType, MCCPercentage, MCCA
 applyEmpowerment "MCC"
 
 Dim intGrandTotal : intGrandTotal = get_grand_total
-
 Quote_save
 
 Quote_QuoteOutputTab
@@ -101,7 +103,7 @@ OutputQuote_SetOutputType strPdfOutputType
 Dim strQuoteNumber : strQuoteNumber = Quote_get_quoteNumber
 OutputQuote_ClickPreview
 OutputQuote_SaveQuotePdf strQuoteNumber
-
+'print DataTable("OutputFilePath")
 PdfVerification DataTable("OutputFilePath"), DataTable("PdfCheckSoldTo"), DataTable("PdfCheckShipTo"), DataTable("PdfCheckSalesContact"), _
                 DataTable("PdfCheckLineItems"), DataTable("PdfCheckGrandTotal"), DataTable("PdfCheckExtComment"), DataTable("PdfCheckHeader")
 

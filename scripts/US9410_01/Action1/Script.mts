@@ -5,13 +5,15 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
 
 DataTable.Import "..\..\data\data_file.xlsx"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("otherProductNumber", "Global")
 

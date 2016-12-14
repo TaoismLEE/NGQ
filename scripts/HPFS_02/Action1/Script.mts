@@ -8,12 +8,17 @@ Dim al : Set al = NewActionLifetime
 
 'Initialize test
 InitializeTest "Action1"
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 'DataImport
 DataTable.Import "..\..\data\HPFS_02.xlsx"
 
 ' Set opportunity id and 3rd party product number
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim obsoleteNumber : obsoleteNumber = DataTable.Value("ObsoleteNumber", "Global")
 Dim validNumber : validNumber = DataTable.Value("ValidNumber", "Global")

@@ -1,8 +1,10 @@
 ﻿option explicit
 
+'const strItgUrl = "https://c0050567.itcs.hp.com:449/q2cwngq/ngqom#/home"
 'const strItgUrl = "http://c0050564.itcs.hp.com:8880/q2cwngq/ngom#/home"
 'const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
 const strItgUrl = "https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home"
+'Const strItgUrl = "https://c0050567.itcs.hp.com:449/q2cwngq/ngom"
 
 Sub dumpJenkinsOutput(strTestName, strTestID, strTestDesc)
 	DataTable.GlobalSheet.AddParameter "URL", strItgUrl
@@ -112,7 +114,7 @@ end sub
 
 sub FinalizeTest()
 	Logger.Report micPassWithoutScreen, "Script complete", "The script ran until the end successfully."
-	dumpReport()
+	'dumpReport()
 end sub
 
 Sub dumpReport()
@@ -153,12 +155,30 @@ Function LoginNGQ(objRealUser)
 	'if .Page("HP Log on selector").Link("Email & Computer Password").Exist(1) then
 	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
 	'end if
+	If Browser("NGQ").Page("CertError").Link("MoveOn").Exist(1) Then
+			Browser("NGQ").Page("CertError").Link("MoveOn").Click
+			Browser("NGQ").Page("CertError").WebEdit("Email").Set objRealUser.Username
+			Browser("NGQ").Page("CertError").WebEdit("Password").SetSecure objRealUser.EncryptedPassword
+	'		Browser("NGQ").Page("CertError").WebButton("Log On").Click
+			UFT.ReplayType = 2
+			Browser("NGQ").Page("CertError").WebElement("Log On").FireEvent "onmousedown"
+			Browser("NGQ").Page("CertError").WebElement("Log On").FireEvent "onmouseup"
+			UFT.ReplayType = 1
+	'		Browser("NGQ").Page("CertError").WebButton("Log On").FireEvent "onmouseover"
+	'		Dim objwsh : set objwsh = CreateObject("WScript.Shell")
+	'		objwsh.SendKeys "{ENTER}"
+	'		set objwsh = Nothing
+	'		UFT.ReplayType = 1
+			Browser("NGQ").Page("Navbar").WebElement("Welcome Msg {{innertext:email}}").UpdateInnerText(".* " & objRealUser.Username).AssertExistsEx true, false, false, false
+			Reporter.ReportEvent micPass, "Logging into NGQ via User/Pass", "Logged in to NGQ via User/Pass"
+			Exit function
+	End If
 	'Browser("NGQ").Object.Document.Body.Style.setAttribute "zoom","80%"
 '	 Const OLECMDID_OPTICAL_ZOOM = 63
 '     Const OLECMDEXECOPT_DONTPROMPTUSER = 2
 '     dim intZoomLevel : intZoomLevel = 80
 '	Browser("NGQ").Object.ExecWB OLECMDID_OPTICAL_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, CLng(intZoomLevel), vbNull
-	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(10) Then
+	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(1) Then
 		If Dialog("DigitalBadgeLogin").Exist(1) Then
 		Dialog("DigitalBadgeLogin").Activate
 		Dialog("DigitalBadgeLogin").WinEdit("PIN").SetSecure objRealUser.EncryptedDigitalBadge
@@ -169,7 +189,7 @@ Function LoginNGQ(objRealUser)
 		End If
 	
 		with Browser("NGQ")
-			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist(10) Then
+			If .Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Exist(1) Then
 				.Page("HP Log on - Email & Computer Password").WebEdit("E-mail Address").Set objRealUser.Username
 				.Page("HP Log on - Email & Computer Password").WebEdit("Password").SetSecure objRealUser.EncryptedPassword
 				.Page("HP Log on - Email & Computer Password").WebButton("Log on").Click
