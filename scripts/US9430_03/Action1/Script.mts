@@ -8,10 +8,14 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\US9430_03.xlsx"
-Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
+'Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 Dim strCompanyName : strCompanyName = DataTable("strCompanyName",1)
 
 InitializeTest "Action1"
@@ -28,7 +32,7 @@ ClickMyGroupStatusCount()
 
 'Click the Auto filter Btn and enter the value
 ClickAutoFilter()
-FillFilterQuoteNumber("NI00159734")
+FillFilterQuoteNumber("NI00161552") 'NI00159734
 'FillFilterQuoteNumber("NI00159591")
 'FillFilterQuoteNumber(strQuoteNumber)
 

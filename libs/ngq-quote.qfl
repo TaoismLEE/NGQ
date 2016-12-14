@@ -289,6 +289,7 @@ Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intI
 	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span[not(contains(@class,'ng-hide'))]//input"
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productQty
+	UFT.ReplayType = 1
 End Sub
 
 Sub LineItemDetails_SetProductNumber(strValue)
@@ -530,9 +531,9 @@ Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Ed
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
 	If actual = "rgb(0, 0, 255)" Then
-		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Font color is blue"	
+		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Font color is Blue"	
 	Else
-		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Font color is not blue"
+		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Font color is not Blue"
 	End If	
 End Sub
 '==================================================
@@ -543,6 +544,7 @@ End Sub
 'Validate Obsolete Product
 Sub LineItemDetails_ValidateProductObsolete(strQuoteNumber) '*** Edited September 26 Karina***
 	Dim actual : actual = Browser("NGQ").Page("Quote").WebElement("WarningMessage").GetROProperty("innertext")
+	print actual
 	If actual = "Obsolete Product: More" Then
 		Reporter.ReportEvent micPass, "Validate Obsolete Product","A warning message is displayed"	
 	Else
@@ -552,14 +554,29 @@ end Sub
 'Validate font color to obsolete product
 Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
 	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
+	'dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Object.currentStyle.color
 	If actual = "rgb(255, 0, 0)" Then
-		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Font color is red"
+		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Font color is Red"
 	Else
-		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not red"
+		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not blue"
 	End If	
 End Sub
+''validate the obsoleteColor class was appended to the obsoleted product
+'Sub LineItemDetails_ValidateProductObsoleteClassValue(intIndex, strvalue) '*** Edited September 26 Karina***
+'	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+'	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+'	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
+'	'dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Object.currentStyle.color
+'	print actual
+'	If actual = "" Then
+'		Reporter.ReportEvent micPass, "Validate the class value to obsolete product","ObsoleteColor is appended"
+'	Else
+'		Reporter.ReportEvent micFail, "Validate the class value to obsolete product","ObsoleteColor is not appended"
+'	End If	
+'End Sub
 
 Sub Quote_SearchProductNoQualifiedDataValidation()
 		Dim actual : actual = Browser("NGQ").Page("Quote - Search Product").WebElement("NoQualifiedData").GetROProperty("innertext")
@@ -739,10 +756,10 @@ Sub PreValidate_ClicNoErrors()
 	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
 	'TEMP WORKAROUND FOR CLIC SERVICE UNAVAILABLE
 	'Reporter.ReportEvent micDone, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
-	'Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
-	'Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
-	'Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
-	'PreValidate_ButtonVerification(objButton)
+	Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	PreValidate_ButtonVerification(objButton)
 End Sub
 
 Sub PreValidate_PriceNoErrors()
@@ -1546,7 +1563,8 @@ End sub
 'save quote
 sub Quote_save()
 	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
-    if Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
+	Dim strMsg : strMsg = Browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext")
+    if strMsg = "Successfully Saved Quote!" then
         Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
     else
         Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
@@ -2005,6 +2023,7 @@ Sub PreValidateQuote_success()
     regEx.Pattern = "QUOTE SUCESSFULLY UPDATED INTO IDS DB" 
     regEx.IgnoreCase = True   ' Set case insensitivity.
     regEx.Global = True   ' Set global applicability.
+    print Browser("NGQ").Page("PreValidate").WebElement("QuoteValidatedResult").GetROProperty("innertext")
 	If regEx.Test(Browser("NGQ").Page("PreValidate").WebElement("QuoteValidatedResult").GetROProperty("innertext")) Then
 		Reporter.ReportEvent micPass, "Verify Quote Successfully Validated","Quote Successfully Saved/Validated"
 	else
@@ -2095,6 +2114,8 @@ End Sub
 Sub build_ocs_bom()
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	wait 1
+	browser("NGQ").FullScreen
 	click_lineitem_add_ocs
 	browser("NGQ").Page("OCS Config").WebElement("ProductList").Click
 	Browser("NGQ").Page("OCS Config").WebEdit("InputField").Set "752426-B21"
@@ -2152,7 +2173,8 @@ End Sub
 Sub click_lineitem_add_ocs()
 	UFT.ReplayType = 2
 	browser("NGQ").Page("Quote").WebElement("Add").Click
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	browser("NGQ").Page("Quote").Link("Add OCS Config").Click
+	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 	UFT.ReplayType = 1
 End Sub
 
@@ -2693,11 +2715,13 @@ End Sub
 'Validates the internal comment has the correct format
 '======================================================
 Function QuoteOutput_ValidateInternalComments()
-	dim comment : comment = Browser("NGQ").Page("Navbar - New Quote").WebElement("QuoteOutput_DisplayInternalComments").GetROProperty("innertext")
+	'dim comment : comment = Browser("NGQ").Page("Navbar - New Quote").WebElement("QuoteOutput_DisplayInternalComments").GetROProperty("innertext")
+	Dim comment : comment = Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_SavedInternalComments").GetROProperty("Innertext")
 	Dim regEx   ' Create variable.
     Set regEx = New RegExp   ' Create a regular expression.
-    regEx.Pattern = "\w+\.\w*.?@\w+\.com\:\s\d{4}\-\d{2}-\d{2}\s\d{2}\:\d{2}\s\(UTC\):\w+.*?$"   ' Set pattern.
-    regEx.IgnoreCase = True   ' Set case insensitivity.
+    'regEx.Pattern = "\w+\.\w*.?@\w+\.com\:\s\d{4}\-\d{2}-\d{2}\s\d{2}\:\d{2}\s\(UTC\):\w+.*?$"   ' Set pattern.
+    regEx.Pattern = "\w+@\w+\.com\:\s\d{4}\-\d{2}-\d{2}\s\d{2}\:\d{2}\s\(UTC\):\w+.*?$"   ' Set pattern.
+	regEx.IgnoreCase = True   ' Set case insensitivity.
     regEx.Global = True   ' Set global applicability.
     dim retVal : retval = regEx.Test(comment)      ' Execute the search test.
 		If retVal Then
@@ -2876,7 +2900,7 @@ End Function
 'Clicks the new version Button on the top right corner
 '==================================================================
 Sub Click_QuoteNewVersionButton()
-	Browser("NGQ").Page("Quote NewVersion").WebElement("Quote New Version").Click
+	Browser("NGQ").Page("Quote NewVersion").WebButton("New Version").Click
 End Sub
 '==================================================================
 'Selects new version source from the drop down list
@@ -2914,7 +2938,7 @@ End Sub
 '==================================================================
 Sub Click_Preview_Quote_OutputType()
 	Browser("NGQ").Page("Navbar - New Quote").WebElement("Qute_QuoteOutput_Preview").Click
-	Browser("NGQ").Page("Navbar - New Quote").WebElement("Qute_QuoteOutput_Preview").DoubleClick
+	'Browser("NGQ").Page("Navbar - New Quote").WebElement("Qute_QuoteOutput_Preview").DoubleClick
 End Sub
 
 
@@ -2923,41 +2947,41 @@ End Sub
 '===============================================================================================
 Function Validated_Quote(quoteNumber,quoteVersion,quoteName,quoteStatus,quoteEndDate)
 	' Validating Quote Number
-	Dim strQuoteNumberID: strQuoteNumberID  = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quoteId""]").GetROProperty("innertext")
+	Dim strQuoteNumberID: strQuoteNumberID  = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quoteId""]").GetROProperty("innertext")
 	If strQuoteNumberID = quoteNumber Then
 		Reporter.ReportEvent micPass, "Valid quote number: ","Quote number remains the same"
 	Else
 		Reporter.ReportEvent micFail, "Valid quote number: ","Quote Number is different"
 	End If
 	' Validating Quote Version
-	Dim strQuoteVersion : strQuoteVersion  = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
+	Dim strQuoteVersion : strQuoteVersion  = Browser("NGQ").Page("Quote").WebElement("quoteVersion").GetROProperty("innertext") 'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
 	If strQuoteVersion = quoteVersion Then
 		Reporter.ReportEvent micPass, "Valide version: ","New quote version is To be assigned"
 	Else
 		Reporter.ReportEvent micFail, "Valide version: ","New quote version is not To be assigned"
 	End If
 	' Validating Quote Name
-	Dim strQuotename : strQuotename = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quotenamespanSecond""]").GetROProperty("innertext")
+	Dim strQuotename : strQuotename = Browser("NGQ").Page("Quote").WebElement("quoteName").GetROProperty("innertext")'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""quotenamespanSecond""]").GetROProperty("innertext")
 	If strQuotename = quoteName Then
 		Reporter.ReportEvent micPass, "Valid Quote name:","Quote Name is Validated"	
 	Else
 		Reporter.ReportEvent micFail, "Valid Quote name: ","Quote Name is not Validated"
 	End If	
 	' Validating Quote Status
-	Dim strQuoteStatus : strQuoteStatus = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
+	Dim strQuoteStatus : strQuoteStatus = Browser("NGQ").Page("Quote").WebElement("quoteStatus").GetROProperty("innertext")'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[1]/SPAN[1]").GetROProperty("innertext")
 	If strQuoteStatus = quoteStatus Then
 		Reporter.ReportEvent micPass, "Valide quote status","Quote Status is Quote/Configuration Created"
 	Else
 		Reporter.ReportEvent micFail, "Valide quote status","Quote Status is not Quote/Configuration Created"
 	End If	
 	' Validating Quote Start Date
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[2]/SPAN[1]").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("quoteStartDate").Exist then 'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[3]/SPAN[2]/SPAN[1]").Exist Then
 		Reporter.ReportEvent micPass, "Valide start date","Start Date is visible"	
 	Else
 		Reporter.ReportEvent micFail, "Valide start date","Start Date is not visible"
 	End If		
 	' Validating Quote End Date
-	Dim strQuoteEndDate : strQuoteEndDate = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""expiryTsSpan""]/SPAN[1]").GetROProperty ("innertext")
+	Dim strQuoteEndDate : strQuoteEndDate = Browser("NGQ").Page("Quote").WebElement("quoteEndDate").GetROProperty ("innertext") 'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""expiryTsSpan""]/SPAN[1]").GetROProperty ("innertext")
 	If strQuoteEndDate = quoteEndDate Then
 		Reporter.ReportEvent micPass, "Valide end date","End Date is not pulled out. It says - Need Pricing Call -"
 	Else
@@ -2968,7 +2992,7 @@ End Function
 'Validates the version number located on the top left corner
 '==================================================================
 Function validate_VersionNumber(strNumber)
-	Dim strQuoteVersion : strQuoteVersion  = Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
+	Dim strQuoteVersion : strQuoteVersion  = Browser("NGQ").Page("Quote").WebElement("quoteVersion").GetROProperty("innertext") 'Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//DIV[@id=""customerData""]/DIV[5]/DIV[2]/DIV[1]/SPAN[3]").GetROProperty("innertext")
 	If strQuoteVersion = "0"& strNumber or strQuoteVersion = strNumber Then
 		Reporter.ReportEvent micPass, "Valid version: ","New quote version expected " & strNumber & " found " & strQuoteVersion
 	Else
@@ -3141,6 +3165,7 @@ End Sub
 'Move the page down
 '==================================================================
 Sub pageDownNewQuotePage()
+	browser("NGQ").FullScreen
 	Dim myjs : myjs ="window.scrollTo(0,0, document.body.scrollHeight);"
  	Browser("NGQ").Page("Navbar - New Quote").RunScript(myjs)
 End Sub
@@ -3346,10 +3371,20 @@ End Sub
 '*******************************************************************************************
 Sub SavePdfAs(strPath)
 	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
-	UFT.ReplayType = 1
-	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
 	UFT.ReplayType = 2
-	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
+
+	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
+	'UFT.ReplayType = 1
+	'Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
+	Browser("NGQ").Dialog("Save As").WinToolbar("FolderPath").Click
+	Browser("NGQ").Dialog("Save As").WinEdit("edit").Set strPath
+	Browser("NGQ").Dialog("Save As").WinEdit("edit").Type  micReturn
+
+'	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Click
+'	Dim wshshell
+'	Set wshshell = CreateObject("WScript.Shell")
+'	wshshell.Sendkeys "{ENTER}"
+	'print "have saved file to path: " & strPath
 	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
 	UFT.ReplayType = 1
 End Sub 
@@ -3360,7 +3395,8 @@ End Sub
 Sub OutputQuote_SaveQuotePdf(strQuoteNum)
 	Dim strSavePath
 	strSavePath = CreateSavePath(strQuoteNum)
-	SavePdfAs strSavePath
+	Dim strSavePathForPDF : strSavePathForPDF =  Environment.Value("TestDir") + "\..\..\data\pdfs"
+	SavePdfAs strSavePathForPDF
 	DataTable.GlobalSheet.AddParameter "OutputFilePath", strSavePath
 End Sub
 
@@ -3369,7 +3405,10 @@ End Sub
 '*******************************************************************************************
 Function CreateSavePath(strQuoteNum)
 	Dim strCreatedPath
+	'It's quite wired, will store the file in the products folder instead of pdfs folder
 	strCreatedPath = Environment.Value("TestDir") + "\..\..\data\pdfs\" + strQuoteNum + ".pdf"
+	'strCreatedPath = Environment.Value("TestDir") + "\..\..\data\pdfs\" + strQuoteNum + ".pdf"
+	'strCreatedPath = "C:\temp\" & strQuoteNum & ".pdf"
 	CreateSavePath = strCreatedPath
 End Function 
 
@@ -3424,6 +3463,23 @@ Function ClickAutoFilter()
     Browser("NGQ").Page("Navbar - My Dashboard").WebElement("BtnAutoFilter").Click
 End Function
 
+'To get the quote dynamically each time
+'Function GetFirstQuoteNumberofMyGroupQuote()
+'	GetFirstQuoteNumberofMyGroupQuote = Browser("NGQ").Page("Navbar - My Dashboard").Link("First Quote Num in My Group Quote").GetROProperty("innertext")
+'End Function
+Function GetFirstQuoteNumberofMyGroupQuote(intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	GetFirstQuoteNumberofMyGroupQuote = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+End Function
+
+Function GetFirstQuoteNumberofMyQuote(intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+	GetFirstQuoteNumberofMyQuote = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+End Function
 Function EnterKeys()
 	UFT.ReplayType = 2
 	Dim objKey 
@@ -3728,6 +3784,13 @@ Sub verify_prodTable_prodOpt(productOpt, intIndex)
 	else
 		Reporter.ReportEvent micFail, "Verify Option", "Incorrect Product Option"
 	End If
+End Sub
+Sub DisplayDealId()
+	    Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+	    if not Browser("NGQ").Page("Quote").WebElement("SwitchForDealID").Exist(1) then
+			Browser("NGQ").Page("Quote").WebElement("DealIdInNewMenu").Click
+		End if
+		Browser("NGQ").Page("Quote").WebElement("AddCols").Click
 End Sub
 
 Function get_prodTable_dealId(intIndex)

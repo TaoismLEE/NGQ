@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xls',dataFileFormat:'excel',dataFileFolder:'C:\\NGQ\\scripts\\TS_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08\\Report',namePairs:[]}]};
