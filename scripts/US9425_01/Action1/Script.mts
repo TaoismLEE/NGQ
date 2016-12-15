@@ -13,12 +13,17 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 InitializeTest "Action1"
 
 'Fetch data.
 DataTable.Import("..\..\data\NGQ_US9425_01_data.xlsx")
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 Dim strOpportunityId : strOpportunityId = DataTable("OpportunityId")
 Dim strQuoteName : strQuoteName = DataTable("QuoteName")
 Dim strPdfOutputType : strPdfOutputType = DataTable("pdfOutputType")
@@ -53,7 +58,7 @@ strQuoteNumber = Quote_get_quoteNumber
 build_ocs_bom
 
 'Fix errors/warnings that will be present in steps 21, 23
-Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from pre-validation."
+'Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the errors from pre-validation."
 PreValidate_FixDataCheckErrors
 
 'Click refresh pricing

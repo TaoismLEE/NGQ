@@ -1,0 +1,1404 @@
+<?xml version="1.0"?>
+<Results version="1.0">
+<ReportNode type="testrun">
+<ReportNode type="Action">
+<ReportNode type="User">
+<Data>
+    <Name>TSR Added to Action</Name>
+    <Description>TSR added to current test case action</Description>
+    <StartTime>2016-12-13 10:16:39</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Open new IE browser</Name>
+    <Description>Opened and added new browser 'CEC9535145F04B35AC01D0A6AD1F8610' of type 'IE' to the BrowserStore dictionary.
+</Description>
+    <StartTime>2016-12-13 10:16:44</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Delete cookies for 'NGQ'</Name>
+    <Description>Deleted cookies for 'Browser("NGQ")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;openurl&lt;/td&gt;&lt;td&gt;file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Browser&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:45</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Navigate to https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home</Name>
+    <Description>Navigate 'Browser("NGQ")' to URL 'https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;openurl&lt;/td&gt;&lt;td&gt;file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Browser&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:45</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Logging into NGQ via DigitalBadge</Name>
+    <Description>DigitalBadge not required, skipping DigitalBadge Login</Description>
+    <StartTime>2016-12-13 10:16:51</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'E-mail Address' to 'ngqautotester@hpe.com'</Name>
+    <Description>Set 'Browser("NGQ").Page("HP Log on - Email &amp; Computer Password").WebEdit("E-mail Address")' to 'ngqautotester@hpe.com'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//input[@id='username']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:52</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set (secure) 'Password' to '[password-not-shown]'</Name>
+    <Description>Set (secure) 'Browser("NGQ").Page("HP Log on - Email &amp; Computer Password").WebEdit("Password")' to '[password-not-shown]'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//input[@id='password']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:53</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Log on'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("HP Log on - Email &amp; Computer Password").WebButton("Log on")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//input[contains(concat(' ', @class, ' '), ' btn-primary ')]&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebButton&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:54</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Logging into NGQ via User/Pass</Name>
+    <Description>Logged in to NGQ via User/Pass</Description>
+    <StartTime>2016-12-13 10:16:59</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Mouse over 'New Quote'</Name>
+    <Description>Mouse over 'Browser("NGQ").Page("Navbar").Link("New Quote")'.&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;X &amp;#40;screen coords&amp;#41;&lt;/td&gt;&lt;td&gt;821&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Y &amp;#40;screen coords&amp;#41;&lt;/td&gt;&lt;td&gt;172&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//a[@id='quoteMenu']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:59</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Create New Quote'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//a[@id='createNewQuote']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:16:59</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Slow Page Load - 17.781 secs</Name>
+    <Description>Slow page load - the page took 17.781 seconds to load. Acceptable page load time is set at 10 seconds.
+</Description>
+    <StartTime>2016-12-13 10:17:18</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>7ff6a9bde7cc4d45b1f0ec93c93a404e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate empty quote number</Name>
+    <Description>QuoteID contains default New Quote text</Description>
+    <StartTime>2016-12-13 10:17:19</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate version 1</Name>
+    <Description>New quote version is 1</Description>
+    <StartTime>2016-12-13 10:17:19</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate quate name</Name>
+    <Description>Quote Name is empty and pencil icon indicating it is editable</Description>
+    <StartTime>2016-12-13 10:17:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Valide quote status</Name>
+    <Description>Quote Status is Quote/Configuration Created</Description>
+    <StartTime>2016-12-13 10:17:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate start date</Name>
+    <Description>Start Date is visible</Description>
+    <StartTime>2016-12-13 10:17:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate end date</Name>
+    <Description>End Date has default - Need Pricing Call - value</Description>
+    <StartTime>2016-12-13 10:17:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Validate currently selected quote tab</Name>
+    <Description>Correct Quote Tab is selected</Description>
+    <StartTime>2016-12-13 10:17:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'Opportunity ID' to 'OPE-0002907630'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebEdit("Opportunity ID")' to 'OPE-0002907630'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;type&lt;/td&gt;&lt;td&gt;text&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html tag&lt;/td&gt;&lt;td&gt;input&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;opportunityId&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:33</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Import'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote - Opportunity and Quote Info").WebElement("Import")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//a[@id='importBtn']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:35</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'EditQuoteName'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("EditQuoteName")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;editquotename&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:48</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'EnterQuoteName' to 'Test Quote'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote").WebEdit("EnterQuoteName")' to 'Test Quote'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//input[@id='quotename']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:50</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'SaveButton'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@id='ngqsavebtn']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:51</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Save Quote</Name>
+    <Description>Quote Successfully Saved</Description>
+    <StartTime>2016-12-13 10:17:55</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Get Quote ID</Name>
+    <Description>Successfully Extracted Quote ID</Description>
+    <StartTime>2016-12-13 10:17:56</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>NGQ.FullScreen</Name>
+    <Description />
+    <StartTime>2016-12-13 10:17:57</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+        </Path>
+        <Operation>FullScreen</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[openurl]]></Name>
+            <Value><![CDATA[file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>b918c1539afc4b0b83da88050f6cc452</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>NGQ</Name>
+    <Description>Browser</Description>
+    <StartTime>2016-12-13 10:17:57</StartTime>
+    <Duration>1</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Browser]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[openurl]]></Name>
+            <Value><![CDATA[file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>b918c1539afc4b0b83da88050f6cc452</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Add'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("Add")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//li[@pid='QD_ADD_ITEM_BTN' and not(contains(concat(' ',@class,' '),' ng-hide '))]/button&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:17:58</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Add OCS Config'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").Link("Add OCS Config")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//li[@pid='QD_ADD_CNFG_FRM_SCE_LNK']/a&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:00</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'ProductList'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("ProductList")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;category_link_Accessories&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:06</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'InputField' to '752426-B21'</Name>
+    <Description>Set 'Browser("NGQ").Page("OCS Config").WebEdit("InputField")' to '752426-B21'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;accessoryName&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'SearchButton'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("SearchButton")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;basicSearchButton&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:10</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'SetQuantity' to '1'</Name>
+    <Description>Set 'Browser("NGQ").Page("OCS Config").WebEdit("SetQuantity")' to '1'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;752426-B21&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:12</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Go2Bom'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("Go2Bom")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;go2BomBtn&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:14</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'SaveOCSConfig'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("SaveOCSConfig")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;html id&lt;/td&gt;&lt;td&gt;sce_toolbar_save_config&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:17</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'ConvertQuote'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("OCS Config").WebElement("ConvertQuote")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//span[contains(text(),'Next - Convert to quote')]&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:18:22</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Slow Page Load - 38.029 secs</Name>
+    <Description>Slow page load - the page took 38.029 seconds to load. Acceptable page load time is set at 10 seconds.
+</Description>
+    <StartTime>2016-12-13 10:19:01</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>7ff6a9bde7cc4d45b1f0ec93c93a404e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>RefreshPricing.Object</Name>
+    <Description />
+    <StartTime>2016-12-13 10:19:01</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[RefreshPricing]]></Name>
+          </Object>
+        </Path>
+        <Operation>Object</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[xpath]]></Name>
+            <Value><![CDATA[//button[@pid='QD_REFRESH_PRICE_BTN']]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>f414e2cfbade4c398a1d1ff9fa8680e1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Quote</Name>
+    <Description>Page</Description>
+    <StartTime>2016-12-13 10:19:01</StartTime>
+    <Duration>2</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>99a7f87cab7748589efcda185bb40667</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>NGQ</Name>
+    <Description>Browser</Description>
+    <StartTime>2016-12-13 10:19:01</StartTime>
+    <Duration>2</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Browser]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[openurl]]></Name>
+            <Value><![CDATA[file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>b918c1539afc4b0b83da88050f6cc452</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'RefreshPricing'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("RefreshPricing")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@pid='QD_REFRESH_PRICE_BTN']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:03</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'NewVersion'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersion")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@pid='QD_NEW_VERSION_BTN']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:14</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Select 'Customer Request' in 'NewVersionRevisionSource'</Name>
+    <Description>Select 'Customer Request' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//select[@ng-model='revisionSource']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebList&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:18</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Select 'Reprice/Validity Period' in 'NewVersionRevisionReason'</Name>
+    <Description>Select 'Reprice/Validity Period' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//select[@ng-model='revisionReason']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebList&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:20</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'NewVersionRevisionComment' to 'poipoipoipoi'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment")' to 'poipoipoipoi'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//div[@id='revisionReasonLookup']//textarea[@ng-model='revisionComment']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:22</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'NewVersionSubmit'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//div[@id='revisionReasonLookup']//a[@id='continue']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:25</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>New Version of Quote Created</Name>
+    <Description>New Version successfully created</Description>
+    <StartTime>2016-12-13 10:19:31</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>QuoteID Comparison</Name>
+    <Description>Quote ID Valid</Description>
+    <StartTime>2016-12-13 10:19:31</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Name Comparison</Name>
+    <Description>Quote Name Valid</Description>
+    <StartTime>2016-12-13 10:19:31</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Version Comparison</Name>
+    <Description>Quote Version Valid</Description>
+    <StartTime>2016-12-13 10:19:32</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'SaveButton'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@id='ngqsavebtn']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:33</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Save Quote</Name>
+    <Description>Quote Successfully Saved</Description>
+    <StartTime>2016-12-13 10:19:38</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Version Comparison</Name>
+    <Description>Quote Version Valid</Description>
+    <StartTime>2016-12-13 10:19:39</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Add.Object</Name>
+    <Description />
+    <StartTime>2016-12-13 10:19:39</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[Add]]></Name>
+          </Object>
+        </Path>
+        <Operation>Object</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[xpath]]></Name>
+            <Value><![CDATA[//li[@pid='QD_ADD_ITEM_BTN' and not(contains(concat(' ',@class,' '),' ng-hide '))]/button]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>f414e2cfbade4c398a1d1ff9fa8680e1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Quote</Name>
+    <Description>Page</Description>
+    <StartTime>2016-12-13 10:19:39</StartTime>
+    <Duration>1</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>99a7f87cab7748589efcda185bb40667</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>NGQ</Name>
+    <Description>Browser</Description>
+    <StartTime>2016-12-13 10:19:39</StartTime>
+    <Duration>1</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Browser]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[openurl]]></Name>
+            <Value><![CDATA[file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>b918c1539afc4b0b83da88050f6cc452</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Mouse over 'Add'</Name>
+    <Description>Mouse over 'Browser("NGQ").Page("Quote").WebElement("Add")'.&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;X &amp;#40;screen coords&amp;#41;&lt;/td&gt;&lt;td&gt;1239&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Y &amp;#40;screen coords&amp;#41;&lt;/td&gt;&lt;td&gt;523&amp;#46;5&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//li[@pid='QD_ADD_ITEM_BTN' and not(contains(concat(' ',@class,' '),' ng-hide '))]/button&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:40</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Add Product or Option'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").Link("Add Product or Option")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//li[contains(@ng-mousedown,'anli(') and contains(@ng-mousedown,'PO')]/a&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:42</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'EnterProductNumber' to 'G1S77A'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber")' to 'G1S77A'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//span[@title='Product No.']//input&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:46</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set '[ WebEdit ]' to '1'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote - Line Item Details").WebEdit("[ WebEdit ]")' to '1'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;(//div[contains(@class, 'uiGrid-002U')])[8]//span[not(contains(@class,'ng-hide'))]//input&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:52</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>RefreshPricing.Object</Name>
+    <Description />
+    <StartTime>2016-12-13 10:19:53</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[RefreshPricing]]></Name>
+          </Object>
+        </Path>
+        <Operation>Object</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[xpath]]></Name>
+            <Value><![CDATA[//button[@pid='QD_REFRESH_PRICE_BTN']]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>f414e2cfbade4c398a1d1ff9fa8680e1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Quote</Name>
+    <Description>Page</Description>
+    <StartTime>2016-12-13 10:19:53</StartTime>
+    <Duration>1</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Quote]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>99a7f87cab7748589efcda185bb40667</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>NGQ</Name>
+    <Description>Browser</Description>
+    <StartTime>2016-12-13 10:19:53</StartTime>
+    <Duration>1</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\NGQ\scripts\US9413_01\..\..\libs\ngq.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[NGQ]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Browser]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[openurl]]></Name>
+            <Value><![CDATA[file:///C:/Users/yli43/AppData/Local/Temp/orcore.html?a8d6809535234554a493412dfb5546e2]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>b918c1539afc4b0b83da88050f6cc452</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'RefreshPricing'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("RefreshPricing")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@pid='QD_REFRESH_PRICE_BTN']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:19:54</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Grand Total Changed</Name>
+    <Description>Grand Total successfully changed</Description>
+    <StartTime>2016-12-13 10:20:01</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'NewVersion'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersion")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@pid='QD_NEW_VERSION_BTN']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:01</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Select 'Customer Request' in 'NewVersionRevisionSource'</Name>
+    <Description>Select 'Customer Request' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionSource")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//select[@ng-model='revisionSource']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebList&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:05</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Select 'Reprice/Validity Period' in 'NewVersionRevisionReason'</Name>
+    <Description>Select 'Reprice/Validity Period' in 'Browser("NGQ").Page("Quote").WebList("NewVersionRevisionReason")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//select[@ng-model='revisionReason']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebList&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:07</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'NewVersionRevisionComment' to 'poipoipoipoi'</Name>
+    <Description>Set 'Browser("NGQ").Page("Quote").WebEdit("NewVersionRevisionComment")' to 'poipoipoipoi'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//div[@id='revisionReasonLookup']//textarea[@ng-model='revisionComment']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'NewVersionSubmit'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("NewVersionSubmit")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//div[@id='revisionReasonLookup']//a[@id='continue']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:13</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>New Version of Quote Created</Name>
+    <Description>New Version successfully created</Description>
+    <StartTime>2016-12-13 10:20:18</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>QuoteID Comparison</Name>
+    <Description>Quote ID Valid</Description>
+    <StartTime>2016-12-13 10:20:18</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Name Comparison</Name>
+    <Description>Quote Name Valid</Description>
+    <StartTime>2016-12-13 10:20:19</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Version Comparison</Name>
+    <Description>Quote Version Valid</Description>
+    <StartTime>2016-12-13 10:20:19</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'SaveButton'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Quote").WebElement("SaveButton")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//button[@id='ngqsavebtn']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:20</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Save Quote</Name>
+    <Description>Quote Successfully Saved</Description>
+    <StartTime>2016-12-13 10:20:28</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Quote Version Comparison</Name>
+    <Description>Quote Version Valid</Description>
+    <StartTime>2016-12-13 10:20:28</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Home'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Navbar").Link("Home")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//a[@id='homeMenu']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:32</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Set 'QuickSearch' to 'NI00161872'</Name>
+    <Description>Set 'Browser("NGQ").Page("Home").WebEdit("QuickSearch")' to 'NI00161872'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//input[@id='global_search']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebEdit&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:35</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'QuickSearchButton'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Home").WebElement("QuickSearchButton")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//span[@id='search_bt']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;WebElement&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:38</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Quote Number</Name>
+    <Description>Verified matching Quote Number</Description>
+    <StartTime>2016-12-13 10:20:42</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Version</Name>
+    <Description>Verified matching version</Description>
+    <StartTime>2016-12-13 10:20:42</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Quote Number</Name>
+    <Description>Verified matching Quote Number</Description>
+    <StartTime>2016-12-13 10:20:42</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Version</Name>
+    <Description>Verified matching version</Description>
+    <StartTime>2016-12-13 10:20:43</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Quote Number</Name>
+    <Description>Verified matching Quote Number</Description>
+    <StartTime>2016-12-13 10:20:43</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Verify Version</Name>
+    <Description>Verified matching version</Description>
+    <StartTime>2016-12-13 10:20:43</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <IsPlainTextStepInfo>True</IsPlainTextStepInfo>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Click on 'Logout'</Name>
+    <Description>Clicked on 'Browser("NGQ").Page("Navbar").Link("Logout")'. &lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="step parameters"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Coords&lt;/td&gt;&lt;td&gt;&amp;#91;center&amp;#93;&amp;#44;&amp;#91;center&amp;#93;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Button&lt;/td&gt;&lt;td&gt;Left Mouse Button&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br/&gt;&lt;table cellspacing="0" class="base stepData" data-label="object identifiers"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Regex&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;xpath&lt;/td&gt;&lt;td&gt;//a[@href='logout']&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;micclass&lt;/td&gt;&lt;td&gt;Link&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</Description>
+    <StartTime>2016-12-13 10:20:44</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="User">
+<Data>
+    <Name>Script complete</Name>
+    <Description>The script ran until the end successfully.
+</Description>
+    <StartTime>2016-12-13 10:20:45</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>7aed3309da32488b93dc1f3a42cbc03d</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Action1</Name>
+    <Description />
+    <StartTime>2016-12-13 10:16:33</StartTime>
+    <Duration>252</Duration>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>d47373ba90114a01830c8ce32f1ebef2</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>US9413_01</Name>
+    <ToolName>HP Unified Functional Testing</ToolName>
+    <ToolVersion>12.52</ToolVersion>
+    <Description />
+    <StartTime>2016-12-13 10:16:30</StartTime>
+    <Duration>255</Duration>
+    <Result>Passed</Result>
+    <InputParameters>
+      <Parameter name="NgqEnvironment" value="ITG" type="System.String" />
+      <Parameter name="BrowserFamily" value="IE" type="System.String" />
+      <Parameter name="DataSourceID" value="" type="System.String" />
+    </InputParameters>
+    <Extension>
+      <IconKey>f6cab6deb8ab4f118a722b4c51cbc69a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Environment>
+      <Timezone>00:00:00</Timezone>
+      <Locale>English (United States)</Locale>
+      <User>ASIAPACIFIC\yli43</User>
+      <CpuInfo>Intel(R) Xeon(R) CPU           E5620  @ 2.40GHz</CpuInfo>
+      <NumberOfCores>2</NumberOfCores>
+      <TotalMemory>8191</TotalMemory>
+      <HostName>extranet.hp.com\C0005664</HostName>
+      <OSInfo>Windows 7 Service Pack 1 (x64)</OSInfo>
+    </Environment>
+    <TestedApplications />
+    <Links>
+      <Link type="DataTable" reference="Default.xls" displayname="Default Data Table" />
+    </Links>
+  </Data>
+</ReportNode>
+<GeneralInfo>
+    <ResultName>Report</ResultName>
+    <RunStartTime>2016-12-13 10:16:30</RunStartTime>
+    <Timezone>00:00:00</Timezone>
+    <OrchestrationToolName>HP Unified Functional Testing</OrchestrationToolName>
+    <OrchestrationToolVersion>12.52</OrchestrationToolVersion>
+  </GeneralInfo>
+</Results>

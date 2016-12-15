@@ -6,14 +6,17 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 InitializeTest "Action1"
 
 'Change the sync time for this script from 1 min to 3
 UFT.BrowserNavigationTimeout = 200000
 
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
-DataTable.Import "..\..\data\US9430_01.xlsx"
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
+DataTable.Import "..\..\data\US9430_01.xlsx"
 Dim strOpportunityId : strOpportunityId = DataTable("strOpportunityId",1)
 Dim strQuoterNumber : strQuoterNumber = DataTable("strQuoterNumber",1)
 Dim strMCDPId : strMCDPId = DataTable("strMCDPId",1)

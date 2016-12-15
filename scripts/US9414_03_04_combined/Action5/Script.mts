@@ -7,14 +7,19 @@
 '=========================================================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
 Dim strQuote
-Dim strEmail
+Dim strEmail : strEmail = DataTable.Value("user", "Global")
 
 'Import Data
-DataTable.Import "..\..\data\US9414_04\US9414_04.xlsx"
-strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
-strEmail = DataTable("Email", dtGlobalSheet)
+'DataTable.Import "..\..\data\US9414_04\US9414_04.xlsx"
+'strQuote = DataTable("QuoteNumber", dtGlobalSheet)	
+'strEmail = DataTable("Email", dtGlobalSheet)
 
 'Doesnt work - Ask Richard how to do this
 'NGQBrowserReInit
@@ -37,6 +42,9 @@ Click_QuoteConfiguration_Count
 
 'Locates and clicks the "Auto Filter" button in the "Result'' section 
 ClickAutoFilter
+
+'Fetch the first quote in my group quotes
+strQuote = GetFirstQuoteNumberofMyGroupQuote(2)
 
 'Enter and submit th equote number in My Dashboard
 SetAutoFilterQuoteNumber strQuote

@@ -701,8 +701,11 @@ Class pdfParserObj
  	Dim tempPriceCheck
  		Do While(VerifyProductsTable_ExtNetPriceIndex(intRowNum) = true)
  			tempPriceCheck = getProductsExtNetPrice(intRowNum)
+ 			print tempPriceCheck
  			If intRowNum = 1 Then
- 				If CDbl(tempPriceCheck) > 0.00 Then
+ 				If (Len(tempPriceCheck) = 0) then
+ 					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle is equal to 0."
+ 				elseIf Ccur(tempPriceCheck) > 0.00 Then
  					Reporter.ReportEvent micPass, "Verify Bundle Pricing contained in Bundle ID", "The full pricing for this quote is contained in the Bundle ID product"
  				else
  					Reporter.ReportEvent micPass, "Verify Bundle Pricing contained in Bundle ID", "The full pricing for this quote is not contained in the Bundle ID product"
@@ -710,7 +713,7 @@ Class pdfParserObj
 			else
 				If (Len(tempPriceCheck) = 0) Then 
 					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle is equal to 0."
-				ElseIf CDbl(tempPriceCheck) = 0.00 Then
+				ElseIf Ccur(tempPriceCheck) = 0.00 Then
 					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle is equal to 0."
  				else
  					Reporter.ReportEvent micPass, "Verify Products inside Bundle do not contain Pricing", "Product Pricing Inside Bundle was not equal to 0"

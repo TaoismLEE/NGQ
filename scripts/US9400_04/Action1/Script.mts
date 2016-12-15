@@ -7,17 +7,19 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 'InitializeTest "CH"
 InitializeTest "Action1"
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 
 'DataImport
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 
 'set var from data sheets
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 Dim emptyQuoteNumber : emptyQuoteNumber = DataTable.Value("quoteNumber", "Global")
 Dim emptyQuoteVersion : emptyQuoteVersion = DataTable.Value("quoteVersion", "Global")
 Dim emptyQuoteStatus : emptyQuoteStatus = DataTable.Value("quoteStatus", "Global")
@@ -47,7 +49,9 @@ Quote_EditQuoteName quoteName
 
 Quote_save
 
+UFT.BrowserNavigationTimeout = 180000
 Quote_UploadConfig uploadConfigPath
+UFT.BrowserNavigationTimeout = 60000
 'Dim quoteID : quoteID = Quote_get_quoteNumber
 
 verify_product_table

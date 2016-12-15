@@ -7,13 +7,18 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\Tbundleusebestpricingshoppinglogic_US9408_06.xlsx"
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","a")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","a")
 Dim oEdit
 
 ''START: CoreLV
@@ -65,9 +70,11 @@ Quote_CaptureQuoteNumber
 
 
 OutputQuote_ClickPreview
-dim pdfPath : pdfpath = dirPath + "\data\depends\" + DataTable.Value("QuoteNumber_Output", "Global") + ".pdf"
-SavePdfAs pdfpath
-Dim pdfObj : Set pdfObj = NewPdfParser(pdfPath)
+'dim pdfPath : pdfpath = dirPath + "\data\depends\" + DataTable.Value("QuoteNumber_Output", "Global") + ".pdf"
+'SavePdfAs pdfpath
+OutputQuote_SaveQuotePdf DataTable.Value("QuoteNumber_Output", "Global") 'strQuoteNumber
+Dim strSavePath : strSavePath = CreateSavePath(DataTable.Value("QuoteNumber_Output", "Global")) 
+Dim pdfObj : Set pdfObj = NewPdfParser(strSavePath)
 pdfObj.verifyProductsTable_bundlePricing
 'Doesnt work
 'Quote_PreProcessDownload strDownloadDirectory, strDownloadFileName

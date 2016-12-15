@@ -13,12 +13,16 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 InitializeTest "Action1"
 
 'Fetch data.
 DataTable.Import("..\..\data\NGQ_US9425_02_data.xlsx")
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>",  "<Encrypted DigitalBadge>")
 Dim strOpportunityId : strOpportunityId = DataTable("OpportunityId")
 Dim strQuoteName : strQuoteName = DataTable("QuoteName")
 Dim strDeliverySpeed : strDeliverySpeed = DataTable("DeliverySpeed")
@@ -60,7 +64,7 @@ Quote_ShippingDataTab
 ShippingData_SetDeliverySpeed strDeliverySpeed
 
 'This step is not in the script, but it removes the error in step 27 "Errors in Price section"
-Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the error from step 27. This step adds a ship to address by selecting ""Same as Sold to Address"" and selects the ""Terms Of Delivery"""
+'Reporter.ReportEvent micWarning, "Step not in script", "This step is not in the test case, but it is required to remove the error from step 27. This step adds a ship to address by selecting ""Same as Sold to Address"" and selects the ""Terms Of Delivery"""
 ShippingData_SetTermsOfDelivery "Carriage Paid To"
 Quote_CustomerDataTab
 CustomerData_ShipToTab

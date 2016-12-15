@@ -17,12 +17,18 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_AddProductOrOption_06.xlsx"
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
@@ -53,17 +59,20 @@ Quote_ValidateAddButtonOptions
 LineItemDetails_AddProductByNumber strProductNumberInv, 1
 'Validate invalid product
 LineItemDetails_ValidateProductNonExist strProductNumberInv
+'LineItemDetails_ValidateProductNonExistFontColor 2, strProductNumberInv
 ' Try to add an obsolete product number 
+wait 5
 LineItemDetails_AddProductByNumber strProductNumberObs, 1
 'Validate obsolete product
 LineItemDetails_ValidateProductObsolete strProductNumberObs
+'LineItemDetails_ValidateProductObsoleteFontColor 3, strProductNumberObs
 'Add a valid product number
 LineItemDetails_AddProductByNumber strProductNumber, 1
-'Validate font color
+'Validate class value for the invalid and obsoleted products
 LineItemDetails_ValidateProductNonExistFontColor 2, strProductNumberInv
 LineItemDetails_ValidateProductObsoleteFontColor 3, strProductNumberObs
-
 ' Add product from Configuration OCS
+UFT.ReplayType = 1
 build_ocs_bom
 
 ' END: Core

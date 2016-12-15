@@ -8,10 +8,14 @@
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
-DataTable.Import "..\..\data\US9430_02.xlsx"
-Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
+'DataTable.Import "..\..\data\US9430_02.xlsx"
+'Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 
 InitializeTest "Action1"
 
@@ -28,7 +32,8 @@ ValidateQuoteTab()
 ClickAutoFilter()
 
 'Set Quote Number
-FillFilterQuoteNumber("NI00159565")
+'NI00159565
+FillFilterQuoteNumber("NI00161546")
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
@@ -49,7 +54,7 @@ ClickMyDashboard()
 
 ValidateQuoteTab()
 ClickAutoFilter()
-FillFilterQuoteNumber("NI00159565")
+FillFilterQuoteNumber("NI00161546")
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'Click the quote Number

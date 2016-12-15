@@ -6,7 +6,12 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>","<Encrypted DigitalBadge>")
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
 Dim strQuote
 Dim strInternalComments
 'Import Data

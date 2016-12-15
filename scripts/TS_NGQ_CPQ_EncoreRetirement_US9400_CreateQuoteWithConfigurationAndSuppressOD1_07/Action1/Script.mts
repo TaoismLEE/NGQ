@@ -15,12 +15,15 @@
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
-
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 InitializeTest "Action1"
+'Load the xls file for the user information
+DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_CreateQuoteWithConfigurationAndSuppressOD1_07.xlsx"
 
 'Hard-coded data.
-Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
+'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
