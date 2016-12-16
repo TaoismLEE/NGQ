@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 oppID, prodNumber, thirdParty, DeliverySpeed, ObsoleteNumber, ValidNumber, QuoteName, user, pass, URL, UserStory, Test_Case_ID, Test_Case_Desc
 OPE-0002935252, 726722-B21, G1S72A, Special Priority, 500087-B21, 726988-B21, Test Name, ngqautotester@hpe.com, 5837d714470784d5f4239f27ff8184944468b34a2fbe3bf4da31, https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home, US9410_02, 74230, CPQ_Encore Retirement_US9410_Search HPE and third party part numbers_02
+=======
+oppID,prodNumber,thirdParty,DeliverySpeed,ObsoleteNumber,ValidNumber,QuoteName,user,pass,URL,UserStory,Test_Case_ID,Test_Case_Desc
+OPE-0002935252,726722-B21,G1S72A,Special Priority,500087-B21,726988-B21,Test Name,taousautotester@hpe.com,5810ca086fd249fe54f03436d5829007179d176ceef6d120c899,https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home,US9410_02,74230,CPQ_Encore Retirement_US9410_Search HPE and third party part numbers_02
+>>>>>>> master
