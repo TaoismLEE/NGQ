@@ -1,2 +1,7 @@
+<<<<<<< HEAD
+Opportunity_ID, quoteName, productID, productQty, MCCDiscount, MCCType, MCCOffApp, MCCDiscType, MCCValueType, MCCDiscAmt, MCCPercentage, MCC_msg, DeliverySpeed, DeliveryTerms, URL, UserStory, Test_Case_ID, Test_Case_Desc
+OPE-0002935252, Test Quote, U7BM9E, 1, -10.00%, 72 - Special Negotiated Discount, False, Discount, Entire Quote, 10, Percent, 72, Special Priority, Carriage and Insurance Paid To, https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home, US9409_10, 74322, CPQ_Encore Retirement_US9409_Deal Generated After Quote Complete_10
+=======
 Opportunity_ID,quoteName,productID,productQty,MCCDiscount,MCCType,MCCOffApp,MCCDiscType,MCCValueType,MCCDiscAmt,MCCPercentage,MCC_msg,DeliverySpeed,DeliveryTerms,URL,UserStory,Test_Case_ID,Test_Case_Desc
 OPE-0002935252,Test Quote,U7BM9E,1,-40.00%,72 - Special Negotiated Discount,False,Discount,Entire Quote,40,Percent,72,Special Priority,Carriage and Insurance Paid To,https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home,US9409_10,74322,CPQ_Encore Retirement_US9409_Deal Generated After Quote Complete_10
+>>>>>>> master
