@@ -77,6 +77,7 @@ build_ocs_bom
 
 ' END: Core
 Quote_Refresh_Pricing
+CloseInformMessage
 Quote_Save
 Navbar_Logout
 
