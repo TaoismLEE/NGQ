@@ -50,11 +50,10 @@ Quote_EditQuoteName quoteName
 Quote_save
 
 'Dim quoteID : quoteID = Quote_get_quoteNumber
+'Quote_AddProductOrOption 
 AddProductsFromTable
 
 reset_DataTable
-
-
 
 Quote_refreshPricing
 

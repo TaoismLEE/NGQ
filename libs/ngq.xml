@@ -5346,6 +5346,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="EditQuoteName">
 <qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='quotename']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5353,8 +5354,8 @@
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
 </qtpRep:BasicIdentification>
 <qtpRep:Comments>
 <qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
