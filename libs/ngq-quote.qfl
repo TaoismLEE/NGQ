@@ -265,7 +265,7 @@ Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	Quote_AddProductOrOption
 
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
-	'UFT.ReplayType = 2
+	UFT.ReplayType = 2
 
 	LineItemDetails_SetProductNumber productNum
 	LineItemDetails_SetProductQuantity productQty
@@ -289,7 +289,7 @@ Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intI
 	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span[not(contains(@class,'ng-hide'))]//input"
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productQty
-	UFT.ReplayType = 1
+	UFT.ReplayType = intOriginalReplayType
 End Sub
 
 Sub LineItemDetails_SetProductNumber(strValue)
@@ -988,6 +988,7 @@ Sub applyEmpowerment(eType)
 				End If
 				row = DataTable.SetNextRow
 			Next
+			
 		Case "MCC"
 			reset_DataTable
 			rowcount = DataTable.GetRowCount
@@ -996,11 +997,16 @@ Sub applyEmpowerment(eType)
 				'index = Iterator + 1
 				'dynCol = findTableColumn("Total Requested Discount")
 				xpath = "xpath:=(//div[@id='thresholdLocation']//span[@title='Total Requested Discount'])[" & Iterator & "]"
+				'xpath = "xpath:=(//li[@id='menuitem-65']/button)"
 				
 				'INSERT COLUMN FIX
 				If Not(Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).Exist(1)) Then
-					Browser("NGQ").Page("Quote").WebElement("AddCols").Click
-				    Browser("NGQ").Page("Quote").WebElement("RequestedDiscount").Click
+					Browser("NGQ").Page("Quote").WebElement("AddCols").Click 				   
+  					'Browser("NGQ").Page("Quote").WebElement("RequestedDiscount").Click
+  					Browser("NGQ").Page("Quote").WebButton("totalDiscount").Click
+  					
+  					'//ul[@class='ui-grid-menu-items']/li[@id='menuitem-65']/button
+  					'
 				End If
 				
 				actual = Browser("NGQ").Page("Pricing and Terms").WebElement(xpath).GetROProperty("innertext")

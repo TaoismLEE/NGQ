@@ -6,6 +6,10 @@
 'Tags: Quote, Empowerments
 '================================================
 
+
+
+
+
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
@@ -18,6 +22,7 @@ DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 
 'Hard-coded data.
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<encrypted digitalbadge>")
+
 
 'set var from data sheets
 Dim emptyQuoteNumber : emptyQuoteNumber = DataTable.Value("quoteNumber", "Global")
@@ -50,7 +55,7 @@ Quote_EditQuoteName quoteName
 Quote_save
 
 'Dim quoteID : quoteID = Quote_get_quoteNumber
-'Quote_AddProductOrOption 
+Quote_AddProductOrOption 
 AddProductsFromTable
 
 reset_DataTable
@@ -71,8 +76,8 @@ Dim MCCAmount : MCCAmount = DataTable.Value("MCCDiscAmt", "Global")
 
 RequestOPDisc MCCType, MCCOffApp, MCCDiscType, MCCValueType, MCCPercentage, MCCAmount, MCCmsg
 
+'after this part it brakes in 12.52
 applyEmpowerment "MCC"
-
 
 ' REQUIRED FOR PRE-VALIDATION TO PASS
 Quote_CustomerDatatab

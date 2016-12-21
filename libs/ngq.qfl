@@ -155,6 +155,16 @@ Function LoginNGQ(objRealUser)
 	'if .Page("HP Log on selector").Link("Email & Computer Password").Exist(1) then
 	'	.Page("HP Log on selector").Link("Email & Computer Password").Click
 	'end if
+	Browser("NGQ").Object.Document.Body.Style.setAttribute "zoom","100%"
+	Const OLECMDID_OPTICAL_ZOOM = 63
+    Const OLECMDEXECOPT_DONTPROMPTUSER = 2
+    dim intZoomLevel : intZoomLevel = 100
+	Browser("NGQ").Object.ExecWB OLECMDID_OPTICAL_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, CLng(intZoomLevel), vbNull
+	
+	If Browser("NGQ").height < 899 Then
+		Browser("NGQ").FullScreen
+	End If
+	
 	If Browser("NGQ").Page("CertError").Link("MoveOn").Exist(1) Then
 			Browser("NGQ").Page("CertError").Link("MoveOn").Click
 			Browser("NGQ").Page("CertError").WebEdit("Email").Set objRealUser.Username
@@ -173,11 +183,7 @@ Function LoginNGQ(objRealUser)
 			Reporter.ReportEvent micPass, "Logging into NGQ via User/Pass", "Logged in to NGQ via User/Pass"
 			Exit function
 	End If
-	'Browser("NGQ").Object.Document.Body.Style.setAttribute "zoom","80%"
-'	 Const OLECMDID_OPTICAL_ZOOM = 63
-'     Const OLECMDEXECOPT_DONTPROMPTUSER = 2
-'     dim intZoomLevel : intZoomLevel = 80
-'	Browser("NGQ").Object.ExecWB OLECMDID_OPTICAL_ZOOM, OLECMDEXECOPT_DONTPROMPTUSER, CLng(intZoomLevel), vbNull
+
 	If not Browser("NGQ").Page("Navbar").Link("New Quote").Exist(1) Then
 		If Dialog("DigitalBadgeLogin").Exist(1) Then
 		Dialog("DigitalBadgeLogin").Activate
