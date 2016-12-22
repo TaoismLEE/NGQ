@@ -60,7 +60,8 @@ LineItemDetails_AddProductByNumber strProductNumber, intProductQuantity
 'Quote_SelectConfigOCS 
 'Quote_ServiceAndSupportCenter 
 'Quote_SaveAndConvertToQuote
-build_ocs_bom_serviceSupport
+'build_ocs_bom_serviceSupport
+build_ocs_bom
 'Search a product and add quantity
 'Quote_SearchProduct
 'Quote_SearchProductByProductNumber strProductNumberB
@@ -77,9 +78,9 @@ Quote_refreshPricing
 
 Quote_save
 
-verify_prodTable_prodNum "H0JT1A1", 20
-verify_prodTable_prodNum "H9P11A1", 24
-verify_prodTable_prodNum "H0JD4A1", 23
+verify_prodTable_prodNum "H1K92A3", 5
+verify_prodTable_prodNum "HA114A1", 7
+verify_prodTable_prodNum strProductNumberB, 9
 
 Navbar_Logout
 
