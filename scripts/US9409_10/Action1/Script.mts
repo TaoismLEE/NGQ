@@ -6,10 +6,6 @@
 'Tags: Quote, Empowerments
 '================================================
 
-
-
-
-
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
