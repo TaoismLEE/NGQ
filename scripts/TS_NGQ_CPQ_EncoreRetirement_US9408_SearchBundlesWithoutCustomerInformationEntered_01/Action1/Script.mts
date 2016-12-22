@@ -35,12 +35,14 @@ Dim strQuoteEndDate : strQuoteEndDate = ""
 Dim strQuoteName : strQuoteName = DataTable.Value("QuotaName","Global")
 Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim intProductQuantity : intProductQuantity = 1
+Dim strOpportunityID : strOpportunityID = DataTable.Value("OpportunityID","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
 NewQuote_ValidateEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate
+OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityID
 Quote_EditQuoteName strQuoteName
 strQuotaSelection_Selector = "Save"
 QuoteServices_SelectOption strQuotaSelection_Selector
