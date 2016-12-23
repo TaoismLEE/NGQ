@@ -78,7 +78,8 @@ build_ocs_bom
 ' END: Core
 Quote_Refresh_Pricing
 CloseInformMessage
-Quote_Save
+QuoteServices_SelectOption strQuotaSelection_Selector
+VerifySaveButtonColor
 Navbar_Logout
 
 Close_Browser
