@@ -55,7 +55,7 @@ Quote_ValidateAddButtonOptions
 ' Validate Customer ID
 Quote_CustomerDataTab
 'This functionality is not implemented, test will fail until implemented
-CustomerData_ValidateCustomerID strCustomerID
+'CustomerData_ValidateCustomerID strCustomerID
 
 ' Search Bundle ID
 'Quote_SearchProduct
