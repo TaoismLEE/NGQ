@@ -3,7 +3,7 @@ This is the TAO Test Repository for the Next Generation Quoter
 
 Current Status: Complete
 
-Last Checked: 10/17/2016 3:01PM CST by Joshua Hunter
+Last Checked: 12/25/2016 3:01PM CST by Taoism LEE
 
 ## Working Test Cases
 * US9410_01
