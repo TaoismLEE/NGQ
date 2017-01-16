@@ -1,10 +1,9 @@
-﻿
-'================================================
+﻿'================================================
 'Product Number:205713
-'User Story: TransferaquotetoanotherNGQuserinthesamegroup
-'Author: Rosales, Jahaziel Alejandro
-'Description: Validate a quote number in MyDashboard
-'Tags:
+'User Story: US9430_04
+'Description: This case is to validate:
+'			1.Sales Op is able to transfer a quote to another NGQ user in the same group.
+'Tags: Quote, Transfer, Group, 
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -25,16 +24,18 @@ ClickMyDashboard()
 
 'validate if QuoteTab is selected
 ValidateQuoteTab()
+'To get the first quote
+Dim strQuote: strQuote = GetFirstQuoteNumberofMyQuote(2)
 
 'Click auto Filter Button
 ClickAutoFilter()
 
 'set and submit Quote Number
-FillFilterQuoteNumber("NI00161546")  'NI00159743
+FillFilterQuoteNumber(strQuote)  'NI00159743
 'FillFilterQuoteNumber(strQuotenumber)
 ClickQuoteNumber(2)
 'Validate the submit value match with the value in table
-ValidateQuoteNumberValue("NI00161546")
+ValidateQuoteNumberValue(strQuote)
 'ValidateQuoteNumberValue(strQuotenumber)
 
 'logout and close the browser
