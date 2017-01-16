@@ -1,9 +1,9 @@
 ﻿'================================================
 'Product Number:205713
-'User Story: WithoutbeingpartofthesalesteamNGQuseraccessandeditothersquoteafterclonethequote
-'Author: Rosales, Jahaziel Alejandro
-'Description: Select one QuoteNumber in MyDashboard, then clone it and change the company name
-'Tags:
+'User Story: US9430_03
+'Description: This case is to validate:
+'			1. After cloning a quote, Sales Op is able to access and edit others' quote without being part of the sales team.
+'Tags: Quote, Company, Name, Clone
 '================================================
 
 Option Explicit
@@ -30,9 +30,12 @@ ClickMyGroupQuoteTab()
 'Click in the first row number
 ClickMyGroupStatusCount()
 
+'To get the first quote
+Dim strQuote : strQuote = GetFirstQuoteNumberofMyQuote(2)
+
 'Click the Auto filter Btn and enter the value
 ClickAutoFilter()
-FillFilterQuoteNumber("NI00161552") 'NI00159734
+FillFilterQuoteNumber(strQuote) 'NI00159734
 'FillFilterQuoteNumber("NI00159591")
 'FillFilterQuoteNumber(strQuoteNumber)
 
