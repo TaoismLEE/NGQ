@@ -27,13 +27,14 @@ ClickMyDashboard()
 
 'Validate If Quote Tab is selected
 ValidateQuoteTab()
-
+'To get the first quote
+'Dim strQuote: strQuote = GetFirstQuoteNumberofMyQuote(2)
 'Click the autofilter button, set the Quote Number
 ClickAutoFilter()
 
 'Set Quote Number
 'NI00159565
-FillFilterQuoteNumber("NI00161546")
+FillFilterQuoteNumber("NI00162806")
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
@@ -54,7 +55,7 @@ ClickMyDashboard()
 
 ValidateQuoteTab()
 ClickAutoFilter()
-FillFilterQuoteNumber("NI00161546")
+FillFilterQuoteNumber("NI00162806")
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'Click the quote Number

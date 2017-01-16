@@ -33,6 +33,7 @@ ClickAutoFilter()
 'set and submit Quote Number
 FillFilterQuoteNumber(strQuote)  'NI00159743
 'FillFilterQuoteNumber(strQuotenumber)
+UFT.BrowserNavigationTimeout = 180000
 ClickQuoteNumber(2)
 'Validate the submit value match with the value in table
 ValidateQuoteNumberValue(strQuote)
