@@ -293,10 +293,11 @@ Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intI
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
 
-	LineItemDetails_SetProductNumber productNum
+	'LineItemDetails_SetProductNumber productNum
 	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span[not(contains(@class,'ng-hide'))]//input"
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productQty
+	LineItemDetails_SetProductNumber productNum
 	UFT.ReplayType = 1
 End Sub
 
