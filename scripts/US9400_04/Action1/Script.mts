@@ -53,7 +53,10 @@ UFT.BrowserNavigationTimeout = 180000
 Quote_UploadConfig uploadConfigPath
 UFT.BrowserNavigationTimeout = 60000
 'Dim quoteID : quoteID = Quote_get_quoteNumber
-
+'Make sure the check points are displayed
+DisplayProductOptionColumn
+DisplayProductDescriptionColumn
+'To verify the imported data
 verify_product_table
 
 Navbar_Logout

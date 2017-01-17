@@ -3872,3 +3872,36 @@ Sub Ocs_ClickConvertToQuote()
 	Browser("NGQ").Page("OCS").WebElement("Next - Convert To Quote Btn").Click
 End Sub
 
+'To display the Product Description column in the line item details page
+Sub DisplayProductDescriptionColumn
+	If not Browser("NGQ").Page("Quote - Line Item Details").WebElement("ProductDescriptionHeader").Exist(1) Then
+		Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+		Dim objItem
+		Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
+		Dim objItems : set objItems = objElement.getElementsByTagName("button")
+		For each objItem in objItems
+            If objItem.lastChild.nodeValue = " Product Description" Then
+                objItem.click
+                Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+                Exit sub
+            End If
+        Next
+	End If
+End Sub
+
+'To display the Option column in the line item details page
+Sub DisplayProductOptionColumn
+	If not Browser("NGQ").Page("Quote - Line Item Details").WebElement("ProductOptionHeader").Exist(1) Then
+		Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+		Dim objItem
+		Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
+		Dim objItems : set objItems = objElement.getElementsByTagName("button")
+		For each objItem in objItems
+            If objItem.lastChild.nodeValue = " Option" Then
+                objItem.click
+                Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+                Exit sub
+            End If
+        Next
+	End If
+End Sub
