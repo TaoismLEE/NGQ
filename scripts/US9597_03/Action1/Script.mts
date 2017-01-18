@@ -37,16 +37,16 @@ EditChooseView(strChooseViewName)
 
 'Select a item from Available column and send to assigned column
 AvailableColumn(strColumnLabel(5))
-AvailableColumn(strColumnLabel(3))
+AvailableColumn(strColumnLabel(9))
 
 'Select a item from Assigned Column and send to Available column
 AssignedColumn(strColumnLabel(5))
 
 'Move a item in the assigned column up
-MoveUpAssignedLabel(strColumnLabel(3))
+MoveUpAssignedLabel(strColumnLabel(9))
 
 'Move a item in the assigned column down
-MoveDownAssigendLAbel(strColumnLabel(3))
+MoveDownAssigendLAbel(strColumnLabel(9))
 
 'Click the "Set as Default" checkbox
 CheckSetAsDefault()
