@@ -2123,7 +2123,7 @@ Sub build_ocs_bom()
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 	wait 1
-	If Browser("NGQ").height < 800 Then
+	If Browser("NGQ").height < 1000 Then
 		Browser("NGQ").FullScreen
 	End If
 	click_lineitem_add_ocs
@@ -2182,6 +2182,7 @@ End Sub
 'Adds an item from ocs config
 Sub click_lineitem_add_ocs()
 	UFT.ReplayType = 2
+	browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	browser("NGQ").Page("Quote").WebElement("Add").Click
 	browser("NGQ").Page("Quote").Link("Add OCS Config").Click
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
