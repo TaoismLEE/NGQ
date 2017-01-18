@@ -1,9 +1,10 @@
 ﻿'================================================
 'Project Number:205713
-'User Story: SalesOpCreateEditandDeleteCustomView
-'Author: Rosales, Jahaziel Alejandro
-'Description: Create a custom "Choose View", validate it and delete it
-'Tags:
+'User Story: US9597_03
+'Description: This case is to validate:
+'				1. Sales op is able to create,edit,delete custom view and set custom view as default.
+'				2. NGQ is able to  display the default custom view configured by Sales op.
+'Tags: Create, Edit, Delete, Custom, View
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
