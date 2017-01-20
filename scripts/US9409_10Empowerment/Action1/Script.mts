@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: US9409_10
+'User Story: CPQ_Encore Retirement_US9409_Deal Generated After Quote Complete_10
 'Author: Joshua Hunter
 'Description: This test deals with testing Operator Discounts / Empowerments
 'Tags: Quote, Empowerments
