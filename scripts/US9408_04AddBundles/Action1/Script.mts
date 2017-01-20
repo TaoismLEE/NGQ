@@ -1,16 +1,9 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04
-'
-'Preconditions:
-'1. A Bundle ID is ready.
-'2. An Opportunity ID is ready.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04
+'Author: Joshua Hunter
+'Description: This test deals with testing adding a bundle to a quote
+'Tags: Quote, Bundle
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -25,7 +18,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
 'ImportTestData strTestDataFile
-DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9408_AddBundlesFromLineItemGridWithCustomerInformationEnterd_04.xlsx" 'added 20jul
+DataTable.Import "..\..\data\US9408_04AddBundles.xlsx" 'added 20jul
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = ""
@@ -40,7 +33,8 @@ Dim strQuoteName : strQuoteName = DataTable.Value("QuotaName","Global")
 Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
-
+' For Jenkins Reporting
+dumpJenkinsOutput "US9408_04", "74253", "CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04" 
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
