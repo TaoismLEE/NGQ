@@ -31,6 +31,9 @@ Dim intProductQuantity : intProductQuantity = 1
 Dim strOpportunityID : strOpportunityID = DataTable.Value("OpportunityID","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 
+'For Jenkins Reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74250", "CPQ_Encore Retirement_US9408_Search bundles without customer information entered_01"
+
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
