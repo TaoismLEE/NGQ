@@ -1,7 +1,7 @@
 ﻿'Project Number: 205713
-'User Story: US9410_01
-'Description: Add a product by right clicking
-'Tags:
+'User Story: US9410_01_ThirdParty_Configuration
+'Description: Validates that the third party product can be included in a configuration
+'Tags: Configuration, third party, product
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -18,6 +18,8 @@ Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("otherProductNumber", "Global")
 
 'NOTE: automation API calls only here. No raw UFT calls!
+'For Jenkins Reporting
+dumpJenkinsOutput "US9410_01", "74229", "CPQEncoreRetirement_US9410_01_IncludethirdpartypartsintheconfigurationfromOCS"
 
 ' Open the NGQ website
 OpenNgq objUser
