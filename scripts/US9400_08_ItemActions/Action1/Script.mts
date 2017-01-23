@@ -1,6 +1,16 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Item Actions_08
-'
+'Project Number: 205713
+'User Story: US9400_08_Item Actions
+'Description:
+	'The case is to validate:
+		'1. Sales op is able to add an item between Page break and Comment.
+		'2. Sales op is able to remove the selected item only if Sub-total has not been applied to the lines being removed.
+		'3. There is a message popup indicating remove the sub-total and try again when Sales op is trying to remove a part of subtotal.
+		'4. Sales op is able to replace an item.
+		'5. Sales op is able to promote an item.
+		'6. Sales op is able to demote an item.
+'Tags: Remove item, Replace item, Promote item, Demote item
+
 'Preconditions:
 '1. Sales op has access to NGQ.
 '2. An Opportunity ID is ready.
@@ -31,6 +41,9 @@ Dim strQuotaSelection_Selector : strQuotaSelection_Selector = DataTable.Value("Q
 Dim strDeliverySpeed : strDeliverySpeed = DataTable.Value("DeliverySpeed","Global") 
 Dim strDeliveryTerms : strDeliveryTerms = DataTable.Value("DeliveryTerms","Global") 
 Dim strLineItemSelector: strLineItemSelector = DataTable.Value("LineItemSelector","Global")
+
+'Jenkins plugin
+dumpJenkinsOutput Environment.Value("TestName"), "74228", "CPQ_Encore Retirement_US9400_Item Actions_08"
 
 'START: Core
 OpenNgq objUser
