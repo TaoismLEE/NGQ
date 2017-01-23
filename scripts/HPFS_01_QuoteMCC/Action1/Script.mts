@@ -1,11 +1,11 @@
-﻿'================================================
+﻿'==============================================================================
 'Project Number: 205713
-'User Story: HPFS_01
+'User Story: CPQEncoreRetirement_HPFS_01_QuoteMCC
 'Description:	1. Sales op is able to create an HPFS quote in NGQ.
-'				2. MCC code 60B can be used to adjust quote total to HPFS quote price.
-'				3. NGQ is able to generate the budgetary quote output for this HPFS quote.
+'				      2. MCC code 60B can be used to adjust quote total to HPFS quote price.
+'				      3. NGQ is able to generate the budgetary quote output for this HPFS quote.
 'Tags: Quote, MCC, Output
-'================================================
+'==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
@@ -26,6 +26,9 @@ Dim strDeliveryTerms : strDeliveryTerms = DataTable("DeliveryTerms")
 Dim strExternalComments : strExternalComments = DataTable("ExternalComments")
 Dim strPdfOutputType : strPdfOutputType = DataTable("pdfOutputType")
 Dim strProductFilePath : strProductFilePath = getProductFilePath(DataTable.Value("ProductFileName", "Global"))
+
+'For Jenkins Reporting
+dumpJenkinsOutput "HPFS_01", "74467", "CPQEncoreRetirement_HPFS_01_QuoteMCC"
 
 ' Open the NGQ website
 OpenNgq objUser
