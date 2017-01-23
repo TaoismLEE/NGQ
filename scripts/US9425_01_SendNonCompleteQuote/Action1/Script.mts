@@ -23,6 +23,9 @@ Dim strOpportunityId : strOpportunityId = DataTable("OpportunityId")
 Dim strQuoteName : strQuoteName = DataTable("QuoteName")
 Dim strPdfOutputType : strPdfOutputType = DataTable("pdfOutputType")
 
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74239", "CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Non-Complete Quote _01"
+
 'Open browser.
 OpenNgq objUser
 
