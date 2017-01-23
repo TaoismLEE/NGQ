@@ -40,6 +40,9 @@ Dim strLoosePartNum : strLoosePartNum = DataTable.Value("LoosePartNumber","Globa
 Dim strLoosePartDesc : strLoosePartDesc = DataTable.Value("LoosePartDesc","Global")
 Dim intLoosePartRow : intLoosePartRow = DataTable.Value("LoosePartRow","Global")
 
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74258", "CPQ_Encore Retirement_US9408_Identify loose parts within the bundle_09"
+
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
