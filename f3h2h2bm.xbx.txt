@@ -1,0 +1,34 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch US9400_01d
+# Changes to be committed:
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action0/ObjectRepository.bdb
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action0/Resource.mtr
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action0/Script.mts
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action1/ObjectRepository.bdb
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action1/Resource.mtr
+#	new file:   US9400_01_Include_ThirdParty_OCS/Action1/Script.mts
+#	new file:   US9400_01_Include_ThirdParty_OCS/Default.xls
+#	new file:   US9400_01_Include_ThirdParty_OCS/Parameters.mtr
+#	new file:   US9400_01_Include_ThirdParty_OCS/Test.tsp
+#	new file:   US9400_01_Include_ThirdParty_OCS/US9400_01_Include ThirdPartyPartsInTheConfigurationFromOCS.usr
+#	new file:   US9400_01_Include_ThirdParty_OCS/default.cfg
+#	new file:   US9400_01_Include_ThirdParty_OCS/default.usp
+#
+# Changes not staged for commit:
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/.gitignore
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action0/ObjectRepository.bdb
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action0/Resource.mtr
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action0/Script.mts
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action1/ObjectRepository.bdb
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action1/Resource.mtr
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Action1/Script.mts
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Default.xls
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Parameters.mtr
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01.usr
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/Test.tsp
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/default.cfg
+#	deleted:    TS_NGQ_CPQ_EncoreRetirement_US9400_Include ThirdPartyPartsInTheConfigurationFromOCS_01/default.usp
+#
+
