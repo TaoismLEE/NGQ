@@ -1,6 +1,15 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Include Third Party Parts in the Configuration from OCS_01
-'
+'Project Number: 205713
+
+'User Story:  US9400_01_Include Third Party Parts in the Configuration from OCS
+
+'Description:
+' The case is to validate:
+'	1. Sales op is able to add a configuration from OCS to WNGQ.
+'	2. A third party product can be included in this configuration.
+
+'Tags OCS, Third Party Product
+
 'Preconditions:
 '1. Sales op has access to NGQ.
 '2. An Opportunity ID is ready.
@@ -37,6 +46,9 @@ Dim strQuoteName : strQuoteName = DataTable.Value("QuoteName","Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Global") 
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global") 
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = DataTable.Value("QuotaSelection_Selector","Global") 
+
+'Jenkins information
+dumpJenkinsOutput Environment.Value("TestName"), "74218", "CPQ_Encore Retirement_US9400_Include Third Party Parts in the Configuration from OCS_01 "
 
 'START: Core
 OpenNgq objUser
