@@ -1,16 +1,9 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07
-'
-'Preconditions:
-' 1. HP branded third party parts product number.
-' 2. Opportunity ID is ready.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07
+'Author: Joshua Hunter
+'Description: This test deals with testing adding OCS item with HP Branded Parts
+'Tags: Quote, OCS
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -25,7 +18,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
 'ImportTestData strTestDataFile
-DataTable.Import "..\..\data\TD_NGQ_CPQ_Encore Retirement_US9408_AddHPBrandedThirdPartyPartsInAnyConfiguration_07.xlsx"
+DataTable.Import "..\..\data\US9408_07HPBrandedParts.xlsx"
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = ""
@@ -41,7 +34,8 @@ Dim strQuoteName : strQuoteName = DataTable.Value("QuotaName","Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Global")
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
-
+' For Jenkins Reporting
+dumpJenkinsOutput "US9408_07", "74256", "CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07"
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
