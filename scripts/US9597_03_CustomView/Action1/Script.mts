@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number:205713
-'User Story: US9597_03
+'User Story: CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03
 'Description: This case is to validate:
 '				1. Sales op is able to create,edit,delete custom view and set custom view as default.
 '				2. NGQ is able to  display the default custom view configured by Sales op.
@@ -24,6 +24,9 @@ Dim strColumnLabel
 	
 'array with Values in the assign column
 Dim LabelsAssignedColumn
+
+' For Jenkins Reporting
+dumpJenkinsOutput "US9597_03_CustomView", "74269", "CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03"
 
 InitializeTest "Action1"
 'Open browser and go to NGQ
