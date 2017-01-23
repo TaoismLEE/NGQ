@@ -1,19 +1,11 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Add Product or Option_06
-'
-'Preconditions:
-'1. Sales op has access to NGQ.
-'2. An Opportunity ID is ready.
-'3. An invalid product number is ready.
-'4. An obsolete product number is ready.
-'5. A valid product number is ready.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Ana Karina Orduña
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9400_Add Product or Option_06
+'Description:	1. When adding an invalid product, the font color of product number and description is blue.
+'				2. When adding an obsolete product, the font color of product number and description is red.
+'				3. The new product line item is added at the bottom of the line items before entering the product number.
+'				4. The new product line item moves right below the line item right-clicked previously when the product number is entered.
+'Tags: Quote, Validate, Color, Text 
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -43,6 +35,9 @@ Dim strProductNumberObs : strProductNumberObs = DataTable.Value("ProductNumberOb
 Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Global")
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global") 
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = DataTable.Value("QuotaSelection_Selector","Global") 
+
+' For Jenkins Reporting
+dumpJenkinsOutput "US9400_06_ValidateText", "74226", "CPQ_Encore Retirement_US9400_Add Product or Option_06"
 
 'START: Core
 OpenNgq objUser
