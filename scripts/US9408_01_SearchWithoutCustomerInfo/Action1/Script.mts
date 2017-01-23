@@ -1,17 +1,10 @@
-﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Search bundles without customer information entered_01
-'
-'Preconditions:
-' 1. Bundle ID is ready.
-' 2. No customer information is entered.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
-'================================================
+﻿'==============================================================================
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Search bundles without customer information entered_01
+'Description:	This case is to validate: When not importing opportunity ID or
+'             entering customer ID, sales op is able to search out bundles
+'Tags: Search
+'==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
@@ -37,6 +30,9 @@ Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strOpportunityID : strOpportunityID = DataTable.Value("OpportunityID","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
+
+'For Jenkins Reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74250", "CPQ_Encore Retirement_US9408_Search bundles without customer information entered_01"
 
 'START: Core
 OpenNgq objUser
