@@ -1,18 +1,10 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Add Products via Product Search_05
-'
-'Preconditions:
-'1. An Opportunity ID is ready.
-'2. The product number A and B are ready.
-'3. A product number does not exist in Corona is ready.
-'4. Sales op has access to NGQ.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Ana Karina Orduña
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9400_Add Products via Product Search_05
+'Description:	1. Sales op is able to add products via Product Search option to WNGQ.
+'				2. Sales op is able to search product by product number.
+'				3. Sales op is able to delete a previously added product via clicking delete icon in Add to Quote section.
+'Tags: Add, Search, Product, 
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -41,6 +33,8 @@ Dim strProductNumberB : strProductNumberB = DataTable.Value("ProductNumberB","Gl
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = DataTable.Value("QuotaSelection_Selector","Global")
 
+' For Jenkins Reporting
+dumpJenkinsOutput "US9409_10_SearchAddProduct", "74225", "CPQ_Encore Retirement_US9400_Add Products via Product Search_05"
 
 'START: Core
 OpenNgq objUser
