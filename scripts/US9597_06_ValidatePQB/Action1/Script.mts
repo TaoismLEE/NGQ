@@ -1,8 +1,10 @@
 ﻿'================================================
-'Summary:
-'
-'Description:
-'
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9597_ show Price Quality Band_06
+'Description:	This case is to validate:
+'				1. Sales op is able to view Price Quality Band (PQB).
+'				2. The Current Band color at the header level and the traffic lights of all products are changed according to the PQB when changing the discount percentage.
+'Tags: PQB, BOM, Product, Pricing 
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -22,6 +24,9 @@ Dim strOportunityId, strQuoteName, strMCCDisc, strAmount, strMCCNum, strTargReqD
 	strAmount = DataTable.Value("strAmount",1)
 	strMCCNum = DataTable.Value("strMCCNum",1)
 	strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
+
+' For Jenkins Reporting
+dumpJenkinsOutput "US9597_06_ValidatePQB", "74273", "CPQ_Encore Retirement_US9597_ show Price Quality Band_06"
 
 InitializeTest "Action1"
 
