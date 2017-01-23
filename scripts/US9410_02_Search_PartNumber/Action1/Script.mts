@@ -1,5 +1,5 @@
 ﻿'Project Number: 205713
-'User Story: US9410_02_Search_HPEandThirdparty_Part_Number
+'User Story: US9410_02_Search_PartNumber
 'Description: This test case Validates that the Sales op is able to search HPE and third party part number
 'Tags:
 
