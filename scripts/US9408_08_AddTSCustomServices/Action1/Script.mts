@@ -1,16 +1,11 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Add TS custom services to each configuration solution_08
-'
-'Preconditions:
-'1. An Opportunity ID is ready.
-'2. TS custom services product number is ready..
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Add TS custom services to each configuration solution_08
+'Description:	"The case is to validate:
+'               1. Add TS custom services in BOM page.
+'               2. Add TS custom services within configuration.
+'               3. Add TS custom services as standalone."
+'Tags:
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -38,6 +33,9 @@ Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Globa
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 Dim strProductNumberB : strProductNumberB = DataTable.Value("ProductNumberB","Global")
+
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74257", "CPQ_Encore Retirement_US9408_Add TS custom services to each configuration solution_08"
 
 'START: Core
 OpenNgq objUser
