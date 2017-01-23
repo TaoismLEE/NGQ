@@ -1,15 +1,10 @@
-﻿'================================================
-'Test case: US9425_02
-'
-'Summary: Send an email with quotes details and PDF_Complete Quote
-'
+﻿'==============================================================================
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Complete Quote_02
 'Description: This case is to validate:
 '               1. The user is able to Preview the PDF generated and send 
 '                  the PDF as attachment in the email after quote completed.
-'
-'Pre-condition:
-'    1. Sales ops have access to NGQ.
-'    2. Sales ops have a valid opportunity ID
+'Tags:
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
