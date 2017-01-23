@@ -1,6 +1,6 @@
 ﻿'================================================
 'Product Number:205713
-'User Story: US9430_04
+'User Story: CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04
 'Description: This case is to validate:
 '			1.Sales Op is able to transfer a quote to another NGQ user in the same group.
 'Tags: Quote, Transfer, Group, 
@@ -18,6 +18,9 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 
 InitializeTest "Action1"
 
+' For Jenkins Reporting
+dumpJenkinsOutput "US9430_04_TransferQuote", "74249", "CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04"
+
 'open web browser and go to NGQ/My Dashboard
 OpenNgq(objUser)
 ClickMyDashboard()
@@ -33,7 +36,6 @@ ClickAutoFilter()
 'set and submit Quote Number
 FillFilterQuoteNumber(strQuote)  'NI00159743
 'FillFilterQuoteNumber(strQuotenumber)
-UFT.BrowserNavigationTimeout = 180000
 ClickQuoteNumber(2)
 'Validate the submit value match with the value in table
 ValidateQuoteNumberValue(strQuote)
