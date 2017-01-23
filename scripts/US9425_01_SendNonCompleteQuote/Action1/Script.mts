@@ -1,15 +1,10 @@
-﻿'================================================
-'Test case: US9425_01
-'
-'Summary: Send an email with quotes details and PDF of non-complete Quote
-'
+﻿'==============================================================================
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Non-Complete Quote _01
 'Description: This case is to validate:
 '               1. The user is able to Preview the PDF generated and send 
 '                  the PDF as attachment in the email before quote completed.
-'
-'Pre-condition:
-'    1. Sales ops have access to NGQ.
-'    2. Sales ops have a valid opportunity ID
+'Tags:
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -27,6 +22,9 @@ DataTable.Import("..\..\data\NGQ_US9425_01_data.xlsx")
 Dim strOpportunityId : strOpportunityId = DataTable("OpportunityId")
 Dim strQuoteName : strQuoteName = DataTable("QuoteName")
 Dim strPdfOutputType : strPdfOutputType = DataTable("pdfOutputType")
+
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74239", "CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Non-Complete Quote _01"
 
 'Open browser.
 OpenNgq objUser
