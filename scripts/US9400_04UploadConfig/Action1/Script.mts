@@ -1,8 +1,8 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: US9400_04
-'Description:
-'Tags:
+'User Story: CPQ_Encore Retirement_US9400_Upload Config_04
+'Description: This test uploads a spreadsheet and verifies product table contains all products
+'Tags: Quote, Upload
 '================================================
 
 Option Explicit
@@ -31,7 +31,7 @@ DataTable.Import "..\..\data\NGQ_US9400_04_data.xlsx"
 Dim opportunityID : opportunityID = DataTable.Value("Opportunity_ID", "Global")
 Dim quoteName : quoteName = DataTable.Value("quoteName", "Global")
 Dim uploadConfigPath : uploadConfigPath = Environment.Value("TestDir") & "\..\..\data\" & DataTable.Value("uploadConfigPath", "Global")
-
+dumpJenkinsOutput "US9400_04", "74224", "CPQ_Encore Retirement_US9400_Upload Config_04"
 'Open browser.
 OpenNgq objUser
 
@@ -53,10 +53,7 @@ UFT.BrowserNavigationTimeout = 180000
 Quote_UploadConfig uploadConfigPath
 UFT.BrowserNavigationTimeout = 60000
 'Dim quoteID : quoteID = Quote_get_quoteNumber
-'Make sure the check points are displayed
-DisplayProductOptionColumn
-DisplayProductDescriptionColumn
-'To verify the imported data
+
 verify_product_table
 
 Navbar_Logout
