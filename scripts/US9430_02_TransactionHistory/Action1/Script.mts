@@ -1,9 +1,10 @@
 ﻿'================================================
 'Product Number:205713
-'User Story: NGQ capture the transaction history
-'Author: Jahaziel Alejandro Rosales
-'Description: Validate some search/tables in MyDashboard
-'Tags:
+'User Story: CPQ_Encore Retirement_US9430_NGQ capture the transaction history_02
+'Description: This case is to validate:
+'			1. NGQ is able to capture the email ID and timestamping of the last person having edited the quote.
+'			2. NGQ is able to capture the transaction history of the quote.
+'Tags: Advanced, Search, Filter, Table,
 '================================================
 
 Option Explicit
@@ -17,6 +18,9 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'DataTable.Import "..\..\data\US9430_02.xlsx"
 'Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 
+' For Jenkins Reporting
+dumpJenkinsOutput "US9430_02_TransactionHistory", "74247", "CPQ_Encore Retirement_US9430_NGQ capture the transaction history_02"
+
 InitializeTest "Action1"
 
 'Open browser and go to My Dashboard
@@ -27,8 +31,7 @@ ClickMyDashboard()
 
 'Validate If Quote Tab is selected
 ValidateQuoteTab()
-'To get the first quote
-'Dim strQuote: strQuote = GetFirstQuoteNumberofMyQuote(2)
+
 'Click the autofilter button, set the Quote Number
 ClickAutoFilter()
 
