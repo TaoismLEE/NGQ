@@ -1,9 +1,9 @@
 ﻿'=========================================================================================================
-'
 'Project Number: 205713
-'User Story: US9414_04
+'User Story: CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04
 'DescriptioN: This user case claims a quote owned by User B and verifies the claim process by searching the 
-'same quote in advanced search. The comments presence will be validated manually by clicking the link in the email.
+'             same quote in advanced search. The comments presence will be validated manually by clicking the link in the email.
+'Tags:
 '=========================================================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -25,6 +25,10 @@ Dim strEmail : strEmail = DataTable.Value("user", "Global")
 'NGQBrowserReInit
 
 InitializeTest "US9414_04"
+
+'For Jenkins reporting
+dumpJenkinsOutput "US9414_04", "74238", "CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04"
+
 'Opens browser and ngq website
 OpenNgq objUser
 

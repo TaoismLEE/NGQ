@@ -1,9 +1,10 @@
 ﻿'=================================================================
 'Project Number: 205713
-'User Story: US9414_03
+'User Story: CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03
 'Description: Transfer a quote and sends confrimation email to both transferer and transferee; Validates the transfer of quote by 
-'searching same quote in advanced search; User B have to validate 
-'the specific comments manually by clicking the link in User B email
+'             searching same quote in advanced search; User B have to validate 
+'             the specific comments manually by clicking the link in User B email
+'Tags:
 '=================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -33,6 +34,10 @@ DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
 InitializeTest "US9414_03"
+
+'For Jenkins reporting
+dumpJenkinsOutput "US9414_03", "74237", "CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03"
+
 'Opens browser and ngq website
 OpenNgq objUser
 
