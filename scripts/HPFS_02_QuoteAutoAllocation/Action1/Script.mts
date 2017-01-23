@@ -1,7 +1,9 @@
-﻿'Project Number: 205713
+﻿'==============================================================================
+'Project Number: 205713
 'User Story: HPFS_02
 'Description: Validates that auto allocation can be used to adjust quote total to HPFS quote price.
 'Tags:
+'==============================================================================
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
