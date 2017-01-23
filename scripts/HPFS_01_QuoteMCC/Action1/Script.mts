@@ -1,11 +1,11 @@
-﻿'================================================
+﻿'==============================================================================
 'Project Number: 205713
-'User Story: HPFS_01
+'User Story: CPQ_Encore Retirement_HPFS Quote_MCC_01
 'Description:	1. Sales op is able to create an HPFS quote in NGQ.
-'				2. MCC code 60B can be used to adjust quote total to HPFS quote price.
-'				3. NGQ is able to generate the budgetary quote output for this HPFS quote.
+'				      2. MCC code 60B can be used to adjust quote total to HPFS quote price.
+'				      3. NGQ is able to generate the budgetary quote output for this HPFS quote.
 'Tags: Quote, MCC, Output
-'================================================
+'==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
