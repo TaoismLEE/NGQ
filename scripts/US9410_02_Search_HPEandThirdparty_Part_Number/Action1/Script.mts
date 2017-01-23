@@ -1,6 +1,6 @@
 ﻿'Project Number: 205713
-'User Story: US9410_02
-'Description: Add a product to quote
+'User Story: US9410_02_Search_HPEandThirdparty_Part_Number
+'Description: This test case Validates that the Sales op is able to search HPE and third party part number
 'Tags:
 
 Option Explicit
