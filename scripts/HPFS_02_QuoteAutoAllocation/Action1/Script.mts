@@ -1,7 +1,9 @@
-﻿'Project Number: 205713
+﻿'==============================================================================
+'Project Number: 205713
 'User Story: HPFS_02
 'Description: Validates that auto allocation can be used to adjust quote total to HPFS quote price.
-'Tags:
+'Tags:Quote, Allocation, HPFS
+'==============================================================================
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -34,6 +36,9 @@ Dim numberOfRows : numberOfRows = DataTable.Value("NumberOfValidProducts","Globa
 Dim pdfPath
 
 'NOTE: automation API calls only here. No raw UFT calls!
+
+'For Jenkins Reporting
+dumpJenkinsOutput "HPFS_02", "74468", "CPQEncoreRetirement_HPFS_02_QuoteAutoAllocation"
 
 ' Open the NGQ website
 OpenNgq objUser
