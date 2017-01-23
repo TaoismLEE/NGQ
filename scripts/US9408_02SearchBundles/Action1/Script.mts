@@ -1,17 +1,9 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02
-'
-'Preconditions:
-' 1. Bundle ID is ready.
-' 2. Customer ID defined
-' 3. Opportunity ID is ready
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02
+'Author: Joshua Hunter
+'Description: This test deals with testing adding a specific bundle id to a quote
+'Tags: Quote, Bundles
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -25,7 +17,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
 'ImportTestData strTestDataFile
-DataTable.Import "..\..\data\TD_NGQ_CPQ_Encore Retirement_US9408_SearchBundlesWithCustomerInformationEntered_02.xlsx"
+DataTable.Import "..\..\data\US9408_02SearchBundles.xlsx"
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = ""
@@ -41,7 +33,7 @@ Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim strCustomerID : strCustomerID = DataTable.Value("CustomerID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
-
+dumpJenkinsOutput "US9408_02", "74251", "CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02"
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
