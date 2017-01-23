@@ -1,7 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: US9408_06
-'Author: Latha Venkataram
+'User Story: CPQEncoreRetirement_US9408_06_Sbundleusebestpricingshoppinglogic
 'Description: This test deals with best pricing shopping logic for S Bundle
 'Tags: Quote, SBundle
 '================================================
@@ -37,6 +36,9 @@ Dim strReceiptDate : strReceiptDate = DataTable.Value("ReceiptDate","Global")
 
 Dim strOutputType : strOutputType = DataTable.Value("OutputType","Global") 
 Dim dirPath : dirPath = Environment.Value("TestDir") + "\..\.."
+
+'For Jenkins Reporting
+dumpJenkinsOutput "US9408_06", "74255", "CPQEncoreRetirement_US9408_06_Sbundleusebestpricingshoppinglogic"
 
 OpenNgq objUser
 Navbar_CreateNewQuote
