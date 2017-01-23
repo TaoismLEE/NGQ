@@ -1,18 +1,11 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9408_Identify loose parts within the bundle_09
-'
-'Preconditions:
-'1. An Opportunity ID
-'2. T Bundle ID(this bundle must contain config and loose parts.
-'3. Add "Solution ID" column in <Show Hide Columns> button
-'4. THIS TEST REQUIRES SET UP OF CUSTOM LINE ITEM DETAILS VIEW TEMPLATE. PLEASE ADD BEFORE RUNNING -Joshua Hunter
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9408_Identify loose parts within the bundle_09
+'Description:	"The case is to validate:
+'               1. Validate user can recognize the loose parts within the bundle.
+'               2. Just add bundle, not add standalone product, user can not see PQB.
+'               3. Add standalone product, user can see PQB."
+'Tags:
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -46,6 +39,9 @@ Dim intIndex : intIndex = 0
 Dim strLoosePartNum : strLoosePartNum = DataTable.Value("LoosePartNumber","Global")
 Dim strLoosePartDesc : strLoosePartDesc = DataTable.Value("LoosePartDesc","Global")
 Dim intLoosePartRow : intLoosePartRow = DataTable.Value("LoosePartRow","Global")
+
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74258", "CPQ_Encore Retirement_US9408_Identify loose parts within the bundle_09"
 
 'START: Core
 OpenNgq objUser
