@@ -34,6 +34,9 @@ Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity",
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 Dim strProductNumberB : strProductNumberB = DataTable.Value("ProductNumberB","Global")
 
+'For Jenkins reporting
+dumpJenkinsOutput Environment.Value("TestName"), "74257", "CPQ_Encore Retirement_US9408_Add TS custom services to each configuration solution_08"
+
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote
