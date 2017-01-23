@@ -25,6 +25,10 @@ Dim strEmail : strEmail = DataTable.Value("user", "Global")
 'NGQBrowserReInit
 
 InitializeTest "US9414_04"
+
+'For Jenkins reporting
+dumpJenkinsOutput "US9414_04", "74238", "CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04"
+
 'Opens browser and ngq website
 OpenNgq objUser
 

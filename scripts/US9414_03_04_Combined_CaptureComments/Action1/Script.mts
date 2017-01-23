@@ -34,6 +34,10 @@ DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
 InitializeTest "US9414_03"
+
+'For Jenkins reporting
+dumpJenkinsOutput "US9414_03", "74237", "CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03"
+
 'Opens browser and ngq website
 OpenNgq objUser
 
