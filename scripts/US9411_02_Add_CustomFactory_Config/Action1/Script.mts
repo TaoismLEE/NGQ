@@ -1,7 +1,7 @@
 ﻿'Project Number: 205713
-'User Story: US9411_02
-'Description: Add multiple items by right clicking
-'Tags:
+'User Story: US9411_02_Add_CustomFactory_Config
+'Description: This test case validates that the user is able to add custom factory services within a configuration
+'Tags: imaging, tagging, asset, BIOS, custom, packaging
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
