@@ -1,10 +1,19 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Upload Products_03
-'
+'Project Number:205713 
+'User Story: US9400_03_Upload Products
+'Description: 
+	'The case is to validate:
+	'1. Sales op is able to upload a product file to WNGQ.
+	'2. There are small icons to identify whether a product is valid in Add to Quote section:
+		'1) The valid products will be displayed with a green tick icon.
+		'2) The Invalid product will be displayed with a red cross icon.
+		'3. Both valid and invalid products are added to the quote.
+		'4. The supported file type is .xls or xlsx.
+'Tags:  Upload file, Add Valid and Invalid Products to quote
+
 'Preconditions:
 ' 2. No customer information is entered.
 '
-'Recommended: Use programing descriptive not objects repository
 'Author: Guillermo Soria
 '
 'Notes:
@@ -36,6 +45,9 @@ Dim strOpportunityId : strOpportunityId = DataTable.Value("OpportunityID","Globa
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 Dim strUploadFileName : strUploadFileName = Environment.Value("TestDir") & "\" & DataTable.Value("UploadFilename","Global")
+
+'Jenkins plugin
+dumpJenkinsOutput Environment.Value("TestName"), "74220", "CPQ_Encore Retirement_US9400_Upload Products_03"
 
 'START: Core
 OpenNgq objUser
