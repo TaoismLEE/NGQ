@@ -1,8 +1,11 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story : US9414_02
-'Description: Capture comments when clone a quote with comments
-'Author: Pramesh Bhandari
+'User Story : CPQ_Encore Retirement_US9414_Capture Comments When Clone a Quote with Comments_02
+'Description: This case is to validate:
+'			1. After cloning another user's quote, the existing comments of the quote don't remain in the cloned quote.
+'			2. Sales Op is able to add new internal comments, NGQ is able to captures all the new internal comments. 
+'			3. NGQ is able to capture when the internal comments have been created and by whom.
+'Tags: Quote, Comment, Comments, Clone
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -18,6 +21,9 @@ Dim strInternalComments
 DataTable.Import "..\..\data\US9414_02\US9414_02.xlsx"
 strQuote = DataTable("QuoteNumber", dtGlobalSheet)
 strInternalComments = DataTable("InternalComments", dtGlobalSheet)
+
+' For Jenkins Reporting
+dumpJenkinsOutput "US9414_02_AddInternalComments", "74236", "CPQ_Encore Retirement_US9414_Capture Comments When Clone a Quote with Comments_02"
 
 InitializeTest "Action1"
 'Opens browser and ngq website
