@@ -1,0 +1,4 @@
+Warning (-17897): Unknown script language	[MsgId: MWAR-17897]
+Virtual User Script started at : 1/19/2017 11:23:12 AM	[MsgId: MMSG-15967]
+Running Vuser...	[MsgId: MMSG-15964]
+Starting action Action1.	[MsgId: MMSG-15919]

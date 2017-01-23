@@ -1,17 +1,10 @@
 ﻿'================================================
-'Test Case: CPQ_Encore Retirement_US9400_Create Quote with Configuration and Suppress OD1_07
-'
-'Preconditions:
-'1. An Opportunity ID is ready.
-'2. A configuration with OD1 products is ready.
-'3. Sales op has access to NGQ.
-'
-'Recommended: Use programing descriptive not objects repository
-'Author: Ana Karina Orduña
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Project Number: 205713
+'User Story: CPQ_Encore Retirement_US9400_Create Quote with Configuration and Suppress OD1_07
+'Description:	1. Sales op is able to create a quote with a configuration and suppress OD1's.
+'				2. There is a new option named "with OD1 suppress" below Other Option in Customize Output page. The checkbox of this option is checked by default.
+'				3. The OD1 products are visible in the output file after checking "with OD1 suppress" option.
+'Tags: Quote, Output, OD1, 
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -40,6 +33,9 @@ Dim strFANNumber : strFANNumber = DataTable.Value("FANNumber","Global")
 Dim strOverrideReason : strOverrideReason = DataTable.Value("OverrideReason","Global")
 Dim strOutputTypeSelector: strOutputTypeSelector = DataTable.Value("OutputTypeSelector","Global")
 Dim dirPath : dirPath = Environment.Value("TestDir") + "\..\..\data\pdfs\"
+
+' For Jenkins Reporting
+dumpJenkinsOutput "US9400_07QuoteConfigOD1", "74227", "CPQ_Encore Retirement_US9400_Create Quote with Configuration and Suppress OD1_07"
 
 'START: Core
 OpenNgq objUser
