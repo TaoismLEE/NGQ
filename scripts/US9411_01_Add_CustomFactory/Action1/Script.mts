@@ -1,7 +1,7 @@
 ﻿'Project Number: 205713
-'User Story: US9411_01
-'Description: Add multiple products to a quote
-'Tags:
+'User Story: US9411_01_Add_CustomFactory
+'Description: This testcase validates that the user is able to add custom factory  services(Custom imaging, Asset tagging, BIOS revisions, Custom packaging) via searching
+'Tags: imaging, tagging, BIOS 
 
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -22,6 +22,9 @@ Dim thirdPartyNumber : thirdPartyNumber = DataTable.Value("ThirdPartyNumber","Gl
 Dim customPackagingNumber : customPackagingNumber = DataTable.Value("CustomPackingNumber","Global")
 
 'NOTE: automation API calls only here. No raw UFT calls!
+
+'For Jenkins Reporting
+dumpJenkinsOutput "US9411_01", "74232", "CPQ_Encore Retirement_US9411_add custom factory services via searching_01"
 
 ' Open the NGQ website
 OpenNgq objUser
