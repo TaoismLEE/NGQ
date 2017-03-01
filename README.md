@@ -1,9 +1,30 @@
 # NGQ Test Repository
-This is the TAO Test Repository for the Next Generation Quoter
+This is the TAO Test Repository for the Next Generation Quoter.
 
-Current Status: Complete
+Current Status: Completed
 
-Last Checked: 12/25/2016 3:01PM CST by Taoism LEE
+
+Last Checked: 3/1/2017 3:01PM CST by Taoism LEE
+
+## IMPORTANT UPDATE
+
+The orcore framework has been move to its own repository on GitHub.  This repository now treats orcore as a submodule.  This changes a few things when downloading code and updates from GitHub.
+
+**To clone this repo use command :**
+
+`git clone --recursive <URL>`
+
+**If the repository is already cloned to your environment but the folder libs/orcore is empty, run the following commands:**
+
+
+`git submodule init`
+
+`git submodule update`
+
+
+
+
+
 
 ## Working Test Cases
 * US9410_01
