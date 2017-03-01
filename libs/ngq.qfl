@@ -2,8 +2,8 @@
 
 'const strItgUrl = "https://c0050567.itcs.hp.com:449/q2cwngq/ngqom#/home"
 'const strItgUrl = "http://c0050564.itcs.hp.com:8880/q2cwngq/ngom#/home"
-'const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
-const strItgUrl = "https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home"
+const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
+'const strItgUrl = "https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home"
 'Const strItgUrl = "https://c0050567.itcs.hp.com:449/q2cwngq/ngom"
 
 Sub dumpJenkinsOutput(strTestName, strTestID, strTestDesc)
