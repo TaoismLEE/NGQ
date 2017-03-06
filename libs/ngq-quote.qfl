@@ -4113,3 +4113,154 @@ Sub CompareTwoArrays(arrSource,arrDest)
 		End If
 	Next
 End Sub
+
+Sub ChangeToAdvancedSearch()
+	Browser("NGQ").Page("Navbar - AdvancedSearch").Link("Advanced Search").Click
+End Sub
+
+Sub CheckDefaultPageOfAdvancedSearch()
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number").Exist(1) Then
+		Logger.report MicPass, "The quote number search form is displayed","The quote number search form appears correctly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number & Version").Exist(1) Then
+		Logger.report MicPass, "The Quote Number & Version search form is displayed", "shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Company Name").Exist(1) Then
+		Logger.report MicPass, "The Company Name search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Start Date(From)").Exist(1) Then
+		Logger.report MicPass, "The Quote Start Date(From) search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Product Number").Exist(1) Then
+		Logger.report MicPass, "The Product number search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Customer Line Item Number(CLIN)").Exist(1) Then
+		Logger.report MicPass, "The Customer Line Item Number(CLIN) search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Name").Exist(1) Then
+		Logger.report MicPass, "The Quote  Name search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Order Number").Exist(1) Then
+		Logger.report MicPass, "The Order Number search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Create By(Email)").Exist(1) Then
+		Logger.report MicPass, "The Create By search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Last Edited by(Email)").Exist(1) Then
+		Logger.report MicPass, "The Last Edited By search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote End Date(To)").Exist(1) Then
+		Logger.report MicPass, "The Quote End Date search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Opportunity ID").Exist(1) Then
+		Logger.report MicPass, "The Opportunity ID search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("MDCP Id").Exist(1) Then
+		Logger.report MicPass, "The MDCP Org ID search form is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").Exist(1) then
+		Logger.report MicPass, "The Quote status list is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").Exist(1) Then
+		Logger.report MicPass, "The Country Code list is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").Exist(1) Then
+		Logger.report MicPass, "The Region Code list is displayed","shows rightly"
+	End If
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").Exist(1) Then
+		Logger.report MicPass, "The Data Source list is displayed","shows rightly"
+	End If
+End Sub
+
+Sub CompareListOptionsOfAdvancedSearch()
+	CompareQuoteStatusList
+	CompareCountryCodeList
+	CompareRegionCodeList
+	CompareDataSourceList
+End Sub
+
+Sub CompareQuoteStatusList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfQuoteStatus : intNumberOfQuoteStatus = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfQuoteStatus Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").HasItem(DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " shows in the list", "The language shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " does NOT show in the list", "Fail to show the language"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
+
+Sub CompareCountryCodeList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfCountryCode : intNumberOfCountryCode = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("CountryCode").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfCountryCode Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").HasItem(DataTable.GetSheet("Global").GetParameter("CountryCode").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("CountryCode").ValueByRow(i) & " shows in the list", "The country shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("CountryCode").ValueByRow(i) & " does NOT show in the list", "Fail to show the country"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
+
+Sub CompareRegionCodeList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfRegionCode : intNumberOfRegionCode = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").ItemsCount
+	'It's very strange that it will get 6 while there are only 5 option tags in the weblist:Region Code?
+	intNumberOfRegionCode = intNumberOfRegionCode - 1
+	While DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfRegionCode Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").HasItem(DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(i) & " shows in the list", "The region shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(i) & " does NOT show in the list", "Fail to show the region"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
+
+Sub CompareDataSourceList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfDataSource : intNumberOfDataSource = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("DataSource").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfDataSource Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").HasItem(DataTable.GetSheet("Global").GetParameter("DataSource").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("DataSource").ValueByRow(i) & " shows in the list", "The data source shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("DataSource").ValueByRow(i) & " does NOT show in the list", "Fail to show the data source"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
