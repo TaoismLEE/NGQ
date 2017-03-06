@@ -4052,3 +4052,64 @@ Sub CompareCountryList()
 		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
 	End If
 End Sub
+
+'To check whether each item shows in the page
+Sub CheckEachExists(arrSource)
+	Dim intSourceLen : intSourceLen = Ubound(arrSource)
+	Dim i
+	For i = 0 To intSourceLen - 1 Step 1
+		Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Dynamic Column{xpath}").SetTOProperty "xpath", "//div//span[./i]/preceding-sibling::span[.='" & arrSource(i) & "']"
+		If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Dynamic Column{xpath}").Exist(1) Then
+			Logger.Report micPass, arrSource(i) & " column exists", "Column shows correctly"
+		ElseIf Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Data Source Column").Exist(1) Then
+			MoveScrollBarToRight
+			If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Dynamic Column{xpath}").Exist(1) Then
+				Logger.Report micPass, arrSource(i) & " column exists", "Column shows correctly"
+			else
+				Logger.Report micFail, arrSource(i) & " column does NOT show in the page", "Column doesn't show correctly"
+			End If
+		ElseIf Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Owner History Column").Exist(1) Then
+			MoveScrollBarToLeft
+			If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Dynamic Column{xpath}").Exist(1) Then
+				Logger.Report micPass, arrSource(i) & " column exists", "Column shows correctly"
+			else
+				Logger.Report micFail, arrSource(i) & " column does NOT show in the page", "Column doesn't show correctly"
+			End If
+		End If
+	Next
+End Sub
+
+
+Sub ChangeToMyDashboard()
+	Browser("NGQ").Page("Navbar - My Dashboard").Link("My Dashboard").Click
+End Sub
+
+'Store data from excel to arrays
+Function GetSourceDataFromExcel()
+	Dim intCounter : intCounter = 1
+	Dim arrSource()
+	While DataTable.GetSheet("Global").GetParameter("Columns").ValueByRow(intCounter) <> ""
+		ReDim preserve arrSource(intCounter)
+		arrSource(intCounter - 1) = DataTable.GetSheet("Global").GetParameter("Columns").ValueByRow(intCounter)
+		intCounter = intCounter + 1
+	Wend
+	GetSourceDataFromExcel = arrSource
+End Function
+
+'To compare two arrays to see whether all the items in arrSource exists in arrDest
+Sub CompareTwoArrays(arrSource,arrDest)
+	Dim intSourceLen : intSourceLen = Ubound(arrSource)
+	Dim intDestlen : intDestlen = Ubound(arrDest)
+	Dim i,j
+	For i = 0 To intSourceLen - 1 Step 1
+		For j = 0 To intDestLen - 1 Step 1
+			If arrSource(i) = arrDest(j) Then
+				Reporter.ReportEvent micPass, arrSource(i) & " has been showed in the page", "Item shows correctly"
+				Exit For
+			End If
+		Next
+		If j = intDestLen Then
+			Reporter.ReportEvent micFail, arrSource(i) & " has NOT been showed in the page", "Item does NOT appear"
+		End If
+	Next
+End Sub
