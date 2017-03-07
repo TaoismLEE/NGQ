@@ -4264,3 +4264,81 @@ Sub CompareDataSourceList()
 		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
 	End If
 End Sub
+
+Sub ClickMyPreferenceUnderAdminTools()
+	Dim intReplayType : intReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Navbar-AdminTools").WebElement("Admin Tools").MouseOver
+	Browser("NGQ").Page("Navbar-AdminTools").WebElement("My Preferences tab").Click
+	UFT.ReplayType = intReplayType
+End Sub
+
+Sub CheckDefaultValueOfSelectDefaultCountry()
+	Dim strDefaultValue : strDefaultValue = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Select Default Country").Value
+	If strDefaultValue = "U.S.A." Then
+		Logger.Report micPass, "The default value is right","Default value: U.S.A. shows correctly"
+	End If
+End Sub
+
+Sub CompareCountryList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfCountry : intNumberOfCountry = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Select Default Country").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfCountry Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Select Default Country").HasItem(DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(i) & " shows in the list", "The country shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(i) & " does NOT show in the list", "Fail to show the country"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
+
+Sub CompareAvailableColumnList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfAvailableColumn : intNumberOfAvailableColumn = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Available Column List").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("AvailableColumns").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfAvailableColumn Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Available Column List").HasItem(DataTable.GetSheet("Global").GetParameter("AvailableColumns").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("AvailableColumns").ValueByRow(i) & " shows in the list", "The item shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("AvailableColumns").ValueByRow(i) & " does NOT show in the list", "Fail to show the item"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
+
+Sub CompareAssignedColumnList()
+	Dim intRows : intRows = 1
+	Dim intNumberOfAssignedColumn : intNumberOfAssignedColumn = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").ItemsCount
+	While DataTable.GetSheet("Global").GetParameter("AssignedColumns").ValueByRow(intRows) <> ""
+		intRows = intRows + 1
+	Wend
+	intRows = intRows - 1
+	If intRows = intNumberOfAssignedColumn Then
+		Dim i
+		For i = 1 To intRows Step 1
+			If Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").HasItem(DataTable.GetSheet("Global").GetParameter("AssignedColumns").ValueByRow(i)) Then
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("AssignedColumns").ValueByRow(i) & " shows in the list", "The item shows"
+			Else
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("AssignedColumns").ValueByRow(i) & " does NOT show in the list", "Fail to show the item"
+			End If
+		Next
+	Else
+		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+	End If
+End Sub
