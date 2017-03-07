@@ -3982,7 +3982,7 @@ End Sub
 Sub CompareListOptionsOfHomePage()
 	CompareLanguageList
 	CompareStatusList
-	CompareCountryList
+	CompareHomeCountryList
 End Sub
 
 'To compare the listed options of languages in the header of home page
@@ -4032,7 +4032,7 @@ Sub CompareStatusList()
 End Sub
 
 'To compare the listed options of country in the quick search section
-Sub CompareCountryList()
+Sub CompareHomeCountryList()
 	Dim intRows : intRows = 1
 	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Home").WebList("Country").ItemsCount
 	While DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(intRows) <> ""
