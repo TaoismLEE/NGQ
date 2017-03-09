@@ -1276,7 +1276,8 @@ End sub
 'click in a result from the date search
 sub ClickQuoteNumberResult(intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//a)[" & intIndex & "]"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
 End sub
 
