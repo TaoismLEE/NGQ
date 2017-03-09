@@ -3919,8 +3919,8 @@ Sub CheckHeaderOfHomePage(strSystemName, strLoginUser)
 	If Browser("NGQ").Page("Home").WebElement("NavigationMenus").Exist(1) Then
 		Logger.report MicPass, "The navigation menus are displayed","The navigation menus appear correctly"
 	End If
-	If Browser("NGQ").Page("Home").WebList("LanguageSelect").Exist(1) Then
-		Logger.report MicPass, "The languange selection form is displayed","The languange selection form appears correctly"
+	If Browser("NGQ").Page("Home").link("Displayed Language").Exist(1) Then
+		Logger.report MicPass, "The languange selection is displayed","The languange selection appears correctly"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("SimpleSearchForm").Exist(1) Then
 		Logger.report MicPass, "The simple search form is displayed","The simple search form appears correctly"
@@ -3988,9 +3988,10 @@ End Sub
 'To compare the listed options of languages in the header of home page
 Sub CompareLanguageList()
 	Dim intRows : intRows = 1
-	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Home").WebList("LanguageSelect").ItemsCount
+	Browser("NGQ").Page("Home").Link("Displayed Language").Click
+	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Language Select").WebList("LanguageSelect").ItemsCount
 	'There is a blanck item before the first language in the webpage
-	intNumberOfLanguages = intNumberOfLanguages - 1
+	'intNumberOfLanguages = intNumberOfLanguages - 1
 	While DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(intRows) <> ""
 		intRows = intRows + 1
 	Wend
@@ -3998,7 +3999,7 @@ Sub CompareLanguageList()
 	If intRows = intNumberOfLanguages Then
 		Dim i
 		For i = 1 To intRows Step 1
-			If Browser("NGQ").Page("Home").WebList("LanguageSelect").HasItem(DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i)) Then
+			If Browser("NGQ").Page("Language Select").WebList("LanguageSelect").HasItem(DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i)) Then
 				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i) & " shows in the list", "The language shows"
 			Else
 				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i) & " does NOT show in the list", "Fail to show the language"
@@ -4225,7 +4226,7 @@ Sub CompareRegionCodeList()
 	Dim intRows : intRows = 1
 	Dim intNumberOfRegionCode : intNumberOfRegionCode = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").ItemsCount
 	'It's very strange that it will get 6 while there are only 5 option tags in the weblist:Region Code?
-	intNumberOfRegionCode = intNumberOfRegionCode - 1
+	'intNumberOfRegionCode = intNumberOfRegionCode - 1
 	While DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(intRows) <> ""
 		intRows = intRows + 1
 	Wend
