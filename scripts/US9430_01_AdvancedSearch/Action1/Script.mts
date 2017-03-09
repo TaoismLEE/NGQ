@@ -2,12 +2,12 @@
 'Project Number:205713
 'User Story: CPQ_Encore Retirement_US9430_Search Quote by multiple search criteria_01
 'Description: This case is to validate:
-			'1. Sales Op is able to search quote database using Opp ID. '
+'			1. Sales Op is able to search quote database using Opp ID. '
 '			2. Sales Op is able to search quote database using Quote ID. 
 '			3. Sales Op is able to search quote database using  MDCP ID.
 '			4. Sales Op is able to search quote database using Company Name.
 '			5. Sales Op is able to search quote database using User Name.
-'			6. Sales Op is able to search quote database using Date Range.
+'			6. Sales Op is able to search quote database using Date Range(start date ~ end date).
 'Tags: Search, Filter, Quote
 '================================================
 Option Explicit
@@ -32,7 +32,7 @@ Dim strStartDate : strStartDate = DataTable("strStartDate",1)
 Dim strEndDate : strEndDate = DataTable("strEndDate",1)
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9430_01_AdvancedSearch", "74246", "CPQ_Encore Retirement_US9430_Search Quote by multiple search criteria_01"
+dumpJenkinsOutput Environment.Value("TestName"), "74246", "CPQ_Encore Retirement_US9430_Search Quote by multiple search criteria_01"
 
 'open brower  
 OpenNgq(objUser)
