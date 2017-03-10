@@ -1,6 +1,6 @@
 ﻿'================================================
 'Product Number:205713
-'User Story: CPQ_Encore Retirement_US9430_Without being part of the sales team NGQ user access and edit others quote after clone the quote_03
+'User Story: CPQ_Encore Retirement_US9430_03:Without being part of the sales team, NGQ user access and edit others quote after clone the quote
 'Description: This case is to validate:
 '			1. After cloning a quote, Sales Op is able to access and edit others' quote without being part of the sales team.
 'Tags: Quote, Company, Name, Clone
@@ -19,7 +19,7 @@ DataTable.Import "..\..\data\US9430_03.xlsx"
 Dim strCompanyName : strCompanyName = DataTable("strCompanyName",1)
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9430_03_CloneQuoteEditName", "74248", "CPQ_Encore Retirement_US9430_Without being part of the sales team NGQ user access and edit others quote after clone the quote_03"
+dumpJenkinsOutput Environment.Value("TestName"), "74248", "CPQ_Encore Retirement_US9430_Without being part of the sales team NGQ user access and edit others quote after clone the quote_03"
 
 InitializeTest "Action1"
 
@@ -34,7 +34,7 @@ ClickMyGroupQuoteTab()
 ClickMyGroupStatusCount()
 
 'To get the first quote
-Dim strQuote : strQuote = GetFirstQuoteNumberofMyQuote(2)
+Dim strQuote : strQuote = GetFirstQuoteNumberofMyGroupQuote(2)
 
 'Click the Auto filter Btn and enter the value
 ClickAutoFilter()
