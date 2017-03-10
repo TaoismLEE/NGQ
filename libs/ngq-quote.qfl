@@ -1559,7 +1559,13 @@ sub ClickMyGroupStatusCount()
 End sub
 
 sub Click_Clone()
-	  Browser("NGQ").Page("Navbar - New Quote").WebElement("Quote_Clone").Click
+	 Browser("NGQ").Page("Navbar - New Quote").WebElement("Quote_Clone").Click
+	 Dim strMsg : strMsg = Browser("NGQ").Page("Quote").WebElement("Quote Clone Message").GetROProperty("innertext")
+   	if strMsg = "New quote number will be generated upon save." then
+        Reporter.ReportEvent micPass, "Clone Quote","Quote Successfully Cloned"
+    else
+        Reporter.ReportEvent micFail, "Clone Quote","Quote failed to clone"
+    End if
 End sub 
 
 'save quote
@@ -1573,11 +1579,10 @@ sub Quote_save()
     End if
 End sub
 
-					'End US9430_03================================================= Alejandro Rosales
-					
-					'Start US9430_04================================================= Alejandro Rosales
+'End US9430_03================================================= Alejandro Rosales
+'Start US9430_04================================================= Alejandro Rosales
 				
-	'Validate if the quote number submited is the same that the table shows
+'Validate if the quote number submited is the same that the table shows
 sub ValidateQuoteNumberValue(QuoteNumber)
 	wait(3)
 	dim strtempNumber : strtempNumber = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")
@@ -3473,14 +3478,16 @@ End Function
 'End Function
 Function GetFirstQuoteNumberofMyGroupQuote(intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//a)[" & intIndex & "]"
 	'dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	GetFirstQuoteNumberofMyGroupQuote = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 End Function
 
 Function GetFirstQuoteNumberofMyQuote(intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//a)[" & intIndex & "]"
 	'dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	GetFirstQuoteNumberofMyQuote = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 End Function
