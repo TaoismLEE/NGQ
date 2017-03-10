@@ -1467,6 +1467,13 @@ sub ClickQuoteNumber(intIndex)
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
 End sub
 
+'Check the first row quote
+sub CheckFirstRowQuote(intIndex)
+	Dim dynCol : dynCol = getAdvSearchColumn("FirstColumnForCheck")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//div[contains(@class,'icon-ok')]"
+	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
+End sub
+
 'click the Log History Button
 sub ClickLogHistoryButton()
 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickLogHistoryBtn").Click
@@ -1588,11 +1595,9 @@ sub ValidateQuoteNumberValue(QuoteNumber)
 	dim strtempNumber : strtempNumber = Browser("NGQ").Page("Quote").WebElement("QuoteID").GetROProperty("innertext")
 		
 	If QuoteNumber = strtempNumber Then
-		Reporter.ReportEvent micPass, "Quote Number Value","Value in tab Match with submited"
-		
+		Reporter.ReportEvent micPass, "Quote Number Value","Value in tab Match with submited"	
 	Else 	
 		Reporter.ReportEvent micFail, "Quote Number Value","Value in tab Not Match with submited"	
-
 	End If
 End sub
 
@@ -4342,4 +4347,16 @@ Sub CompareAssignedColumnList()
 	Else
 		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
 	End If
+End Sub
+
+Sub CompareTwoQuote(strQuoteNumber,strQuote)
+	If strQuoteNumber = strQuote Then
+		Logger.Report micPass, "Quote Transfered successfully","Transfer quote successfully"
+	else
+		Logger.Report micFail, "Failed to transfer quote","Failed"
+	End If
+End Sub
+
+Sub ClickHome()
+	Browser("NGQ").Page("Home").WebElement("Home").Click
 End Sub
