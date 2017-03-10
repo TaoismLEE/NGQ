@@ -1,6 +1,6 @@
 ﻿'================================================
 'Product Number:205713
-'User Story: CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04
+'User Story: CPQ_Encore Retirement_US9430_04: Transfer a quote to another NGQ user in the same group
 'Description: This case is to validate:
 '			1.Sales Op is able to transfer a quote to another NGQ user in the same group.
 'Tags: Quote, Transfer, Group, 
@@ -13,33 +13,65 @@ SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
-'DataTable.Import "..\..\data\US9430_04.xlsx"
-'Dim strQuoteNumber : strQuotenumber = DataTable("strQuotenumber",1)
+DataTable.Import "..\..\data\US9430_04.xlsx"
+Dim strTargetUser : strTargetUser = DataTable.Value("TargetUser",1)
+Dim strTransferReason : strTransferReason = DataTable.Value("TransferReason",1)
+Dim strUserGroup : strUserGroup = DataTable.Value("UserGroup",1)
 
 InitializeTest "Action1"
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9430_04_TransferQuote", "74249", "CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04"
+dumpJenkinsOutput Environment.Value("TestName"), "74249", "CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04"
 
 'open web browser and go to NGQ/My Dashboard
 OpenNgq(objUser)
-ClickMyDashboard()
+ClickMyDashboard
 
 'validate if QuoteTab is selected
-ValidateQuoteTab()
+ValidateQuoteTab
 'To get the first quote
 Dim strQuote: strQuote = GetFirstQuoteNumberofMyQuote(2)
 
 'Click auto Filter Button
-ClickAutoFilter()
+ClickAutoFilter
 
-'set and submit Quote Number
-FillFilterQuoteNumber(strQuote)  'NI00159743
-'FillFilterQuoteNumber(strQuotenumber)
-ClickQuoteNumber(2)
-'Validate the submit value match with the value in table
-ValidateQuoteNumberValue(strQuote)
-'ValidateQuoteNumberValue(strQuotenumber)
+'Set the first row quote
+FillFilterQuoteNumber(strQuote)
+
+'Check the check item
+CheckFirstRowQuote(2)
+
+'Click transfer button
+Click_TransferOwnership
+
+'Set values for transfer
+SelectTransferOwnership_TransferReason strTransferReason
+SelectTransferOwnershipGroup strUserGroup
+SelectTransferEmail strTargetUser
+Click_TransferContinue
+
+'Inform message pops up
+VerifyQuoteTransfer strTargetUser
+
+'Click home, then click my dashboard
+ClickHome
+ClickMyDashboard
+
+'Click My Group Quote tab and first status number
+ClickMyGroupQuoteTab
+ClickMyGroupStatusCount
+
+'Click auto Filter Button
+ClickAutoFilter
+
+'Set the filter quote the same with the tansfered quote
+FillFilterQuoteNumber(strQuote)
+
+'Get the result
+Dim strQuoteNumber : strQuoteNumber = GetFirstQuoteNumberofMyGroupQuote(2)
+
+'Make sure they are the same
+CompareTwoQuote strQuoteNumber, strQuote
 
 'logout and close the browser
 Navbar_Logout()
