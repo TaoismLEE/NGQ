@@ -4,7 +4,7 @@
 'Description: This case is to validate:
 '			1. NGQ is able to capture the email ID and timestamping of the last person having edited the quote.
 '			2. NGQ is able to capture the transaction history of the quote.
-'Tags: Advanced, Search, Filter, Table,
+'Tags: Advanced, Search, Filter, Table
 '================================================
 
 Option Explicit
@@ -15,11 +15,11 @@ SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
-'DataTable.Import "..\..\data\US9430_02.xlsx"
-'Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
+DataTable.Import "..\..\data\US9430_02.xlsx"
+Dim strQuoteNumber : strQuoteNumber = DataTable("strQuoteNumber",1)
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9430_02_TransactionHistory", "74247", "CPQ_Encore Retirement_US9430_NGQ capture the transaction history_02"
+dumpJenkinsOutput Environment.Value("TestName"), "74247", "CPQ_Encore Retirement_US9430_NGQ capture the transaction history_02"
 
 InitializeTest "Action1"
 
@@ -37,11 +37,14 @@ ClickAutoFilter()
 
 'Set Quote Number
 'NI00159565
-FillFilterQuoteNumber("NI00162806")
+FillFilterQuoteNumber(strQuoteNumber)
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
 ValidateLastModifyBy_TS_and_OwnerHistory()
+
+'Click the grid button to hide the grid
+ClickGridButtonOfDashboard
 
 'Scroll SideBar to validate fields
 MoveScrollBarToRight()
@@ -58,7 +61,7 @@ ClickMyDashboard()
 
 ValidateQuoteTab()
 ClickAutoFilter()
-FillFilterQuoteNumber("NI00162806")
+FillFilterQuoteNumber(strQuoteNumber)
 'FillFilterQuoteNumber(strQuoteNumber)
 
 'Click the quote Number
