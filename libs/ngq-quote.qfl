@@ -1372,7 +1372,7 @@ sub ValidateFieldsByTsOwner(intIndex)
 	End If
 	'Validate if Last Modify TS is has a Value
 	dynCol = getDashboardColumnHeader("LastModifiedTsHeader")
-	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span"
 	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement(xpath).GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Value of Last Modiy Ts","Last Modify TS has a Value"
 	Else 	
