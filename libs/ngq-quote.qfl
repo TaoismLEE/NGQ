@@ -1330,10 +1330,10 @@ sub FillFilterQuoteNumber(quoteNumber)
 	wait(10)
 End sub
 
-		'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
+'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are active
 sub ValidateLastModifyBy_TS_and_OwnerHistory()
-		'Click to deploy the table of showing colums
-	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Colums Button").Click
+	'Click to deploy the table of showing colums
+	ClickGridButtonOfDashboard
 	'Validate if Last Modify by is active
 	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Last Modify by").Exist Then
 		Reporter.ReportEvent micPass, "Validate Last Modiy By","Last Modify By is active"
@@ -1354,6 +1354,10 @@ sub ValidateLastModifyBy_TS_and_OwnerHistory()
 		Reporter.ReportEvent micFail, "Validate Owner History","Owner History is not active"
 	End If
 End sub
+'Click grid button in Dashboard page
+Sub ClickGridButtonOfDashboard()
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Colums Button").Click
+End Sub
 
 'validate if the colums 'Last Modify by' 'Las modified Ts' and 'Owner History' are has a value different from null
 sub ValidateFieldsByTsOwner(intIndex)
@@ -1418,7 +1422,6 @@ End sub
 sub ValidateOwnerHistoryTable
 		'Validate if Document Type column exist
 	If 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateDocumentType").GetROProperty("innertext") <> "" Then
-
 		Reporter.ReportEvent micPass, "Column Document Type","Document Type Column Exist"
 	Else 	
 		Reporter.ReportEvent micFail, "Column Document Type","Document Type Not Column Exist"
@@ -1434,7 +1437,6 @@ sub ValidateOwnerHistoryTable
 		Reporter.ReportEvent micPass, "Column Transaction By ","Transaction By Column Exist"
 	Else 	
 		Reporter.ReportEvent micFail, "Column Transaction By ","Transaction By Not Column Exist"
-
 	End If
 	'Validate if Transaction Description column exist
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTransactionDescription").GetROProperty("innertext") <> "" Then
@@ -1445,16 +1447,12 @@ sub ValidateOwnerHistoryTable
 	'Validate if Transaction Time column exist
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTransactionTime").GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Column Transaction Time ","Transaction Time Column Exist"
-
-
 	Else 	
 		Reporter.ReportEvent micFail, "Column Transaction Time ","Transaction Time Not Column Exist"
-
 	End If
 	'Validate if Transaction Result column exist
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ValidateTrasactionResult").GetROProperty("innertext") <> "" Then
 		Reporter.ReportEvent micPass, "Column Transaction Result ","Transaction Result Column Exist"
-
 	Else 	
 		Reporter.ReportEvent micFail, "Column Transaction Result ","Transaction ResultNot Column Exist"
 	End If
@@ -1464,7 +1462,8 @@ End sub
 sub ClickQuoteNumber(intIndex)
 	'Browser("NGQ").Page("Navbar - My Dashboard").WebElement("ClickQuoteNumber").Click
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//a)[" & intIndex & "]"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Click
 End sub
 
@@ -1474,7 +1473,7 @@ sub ClickLogHistoryButton()
 End sub
 
 sub ValidateLogHistory()
-'Validate information in Quote Information Tab
+	'Validate information in Quote Information Tab
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Last Modifed Time").Exist Then
 		Reporter.ReportEvent micPass, "Column Last Modified Time","Last Modified Time Column Exist"
 	Else 	
@@ -1489,24 +1488,19 @@ sub ValidateLogHistory()
 	'Change to tab Line Item
 	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Line Item Btn").Click
 
-'Validate information in Line ItemcTab
+	'Validate information in Line ItemcTab
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Last Modifed Time").Exist Then
-
-
 		Reporter.ReportEvent micPass, "Column Last Modified Time","Last Modified Time Column Exist"
 	Else 	
 		Reporter.ReportEvent micFail, "Column Last Modified Time ","Last Modified Time Not Column Exist"
 	End If
 	If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Modified By").Exist Then
-
-
 		Reporter.ReportEvent micPass, "Column Modified By","Modified By Column Exist"
-
 	Else 	
 		Reporter.ReportEvent micFail, "Column Modified By","Modified By Not Column Exist"
 	End If
-'close log history
-Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Close Log History Btn").Click
+	'close log history
+	Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Close Log History Btn").Click
 End sub
 
 'Scroll SideBar to validate fields
@@ -3456,9 +3450,7 @@ End Sub
 'validate if the quote tab is active/selected
 Function ValidateQuoteTab()
     If Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Validate Quote Tab").Exist(1) Then
-            Reporter.ReportEvent micPass, "Valide Quote Tab","The quote tab is selected"        
-
-
+            Reporter.ReportEvent micPass, "Valide Quote Tab","The quote tab is selected"
     Else 
             Reporter.ReportEvent micFail, "Valide Quote Tab","The quote tab is Not selected"        
     End If
