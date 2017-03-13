@@ -177,7 +177,7 @@ End function
 ' BEGIN Quote - Edit quote name
 '==================================================
 function Quote_EditQuoteName(strQuoteName)
-	Browser("NGQ").Page("Quote").WebElement("EditQuoteNamePencil").Click
+	Browser("NGQ").Page("Quote").WebElement("EditQuoteName").Click
 	Browser("NGQ").Page("Quote").WebEdit("EnterQuoteName").Set strQuoteName
 End function
 '==================================================
@@ -1670,6 +1670,7 @@ Function NoteDownAssignedColumn()
 	Dim count
 	Dim LabelsArray()
 	ReDim LabelsArray(ListSize)
+	
 		For count = 1 To ListSize Step 1
 			LabelsArray(count) = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").GetItem(count)
 			'MsgBox LabelsArray(count)
