@@ -1706,7 +1706,7 @@ Sub ValidateAssignedList_NewQuote(listArray())
      	End If
 	Next
 	Browser("NGQ").Page("Home").WebElement("Home").Object.scrollIntoView
-	wait 2
+	wait 4
 End Sub
 	'Click delete button for choose view
  Sub ClickDeleteBtnChooseView()
