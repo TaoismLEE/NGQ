@@ -5,7 +5,7 @@
 'const strItgUrl = "https://ngq-itg-int.itcs.hpecorp.net/q2cwngq/ngom#/home"
 'const strItgUrl = "https://c4t24880.itcs.hpecorp.net/q2cwngq/ngom#/home"
 'Const strItgUrl = "https://c0050567.itcs.hp.com:449/q2cwngq/ngom"
-Const strItgUrl =  "https://c9t26093.itcs.hpecorp.net/q2cwngq/ngq#/home"
+Const strItgUrl = "https://c9t26093.itcs.hpecorp.net/q2cwngq/ngq#/home"
 
 Sub dumpJenkinsOutput(strTestName, strTestID, strTestDesc)
 	DataTable.GlobalSheet.AddParameter "URL", strItgUrl
