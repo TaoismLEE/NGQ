@@ -1692,16 +1692,20 @@ End Sub
 
 	'Validate if all columns in the choose view's table are the same that created in assigned column array
 Sub ValidateAssignedList_NewQuote(listArray())
-
+	Browser("NGQ").Page("Navbar - New Quote").WebList("ChooseView").Object.scrollIntoView
 	Dim intListSize : intListSize = UBound(listArray)
 	Dim iterator 
 	For Iterator = 1 To intListSize Step 1
-		If Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[contains(@class,'sortable') and .//span[.='"+listArray(Iterator)+"']]/parent::div").Exist Then
+		Dim xpath : xpath = "//div[contains(@class,'sortable') and .//span[.='" + listArray(Iterator) + "']]/parent::div"
+		Browser("NGQ").Page("Navbar - New Quote").WebElement("ColumnName{xpath}").SetTOProperty "xpath", xpath
+		If Browser("NGQ").Page("Navbar - New Quote").WebElement("ColumnName{xpath}").Exist(1) Then
 	    	Reporter.ReportEvent micPass, "Templete Table", listArray(Iterator)+" Value Exist"
 	    Else 
 	    	Reporter.ReportEvent micFail, "Templete Table", listArray(Iterator)+" Value Doesn't Exist"
      	End If
 	Next
+	Browser("NGQ").Page("Home").WebElement("Home").Object.scrollIntoView
+	wait 2
 End Sub
 	'Click delete button for choose view
  Sub ClickDeleteBtnChooseView()
