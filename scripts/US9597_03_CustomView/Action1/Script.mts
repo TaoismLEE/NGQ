@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number:205713
-'User Story: CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03
+'User Story: CPQ_Encore Retirement_US9597_03: Sales Op Create, Edit and Delete Custom View
 'Description: This case is to validate:
 '				1. Sales op is able to create,edit,delete custom view and set custom view as default.
 '				2. NGQ is able to  display the default custom view configured by Sales op.
@@ -33,7 +33,7 @@ InitializeTest "Action1"
 OpenNgq(objUser)
 
 'go to My Preferences in Admin Tools navbar
-ClickAdminTools_MyPreferences()
+ClickMyPreferenceUnderAdminTools
 
 'set the Choose view field
 EditChooseView(strChooseViewName)
@@ -91,12 +91,12 @@ ValidateChooseView(strChooseViewName)
 ValidateAssignedList_NewQuote LabelsAssignedColumn
 
 'go to My Preferences in Admin Tools navbar
-ClickAdminTools_MyPreferences()
+ClickMyPreferenceUnderAdminTools
 
 'Set Choose Viewd
 EditChooseView(strChooseViewName)
 
-'UnClick the check box
+'Click the check box to uncheck the default setting
 CheckSetAsDefault()
 
 'Save
@@ -112,7 +112,7 @@ pageDownNewQuotePage()
 ValidateChooseView("DEFAULT_VIEW")
 
 'go to My Preferences in Admin Tools navbar
-ClickAdminTools_MyPreferences()
+ClickMyPreferenceUnderAdminTools
 
 'Set Choose View
 EditChooseView(strChooseViewName)

@@ -2565,7 +2565,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Import">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[@id='importBtn']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@class='btnmedium' and @value='Import']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -2626,6 +2626,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@ng-model='opportunityVm.importId']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[text]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[input]]></qtpRep:Value>	</qtpRep:Property>
@@ -2633,9 +2634,7 @@
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
 <qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>type</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html tag</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>html id</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
 </qtpRep:BasicIdentification>
 <qtpRep:Comments>
 <qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
@@ -4791,7 +4790,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="quoteVersion">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@ng-test-bind='theversion']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Version:']/following-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4810,7 +4809,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="quoteStatus">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id='customerData']//strong[contains(@ng-bind,'QT_STTS')]/following-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Quote Status:']/preceding-sibling::span]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4905,7 +4904,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="quoteName">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='quotenamespanSecond']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Quote Name:']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5401,9 +5400,28 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WebElement" Name="EditQuoteNamePencil">
+<qtpRep:Properties>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[(//span[@class='icon-pencil'])[1]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>xpath</qtpRep:PropertyRef>
+<qtpRep:PropertyRef>micclass</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="EditQuoteName">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='quotename']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Quote Name:']/following-sibling::span/input]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5713,7 +5731,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@id='quotename']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Quote Name:']/following-sibling::input]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -7688,7 +7706,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Move to Right">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@class='btn-move-right']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[.='>>']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -7707,7 +7725,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Move to Left">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@class='btn-move-left']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[.='<<']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -8298,7 +8316,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[@id='createNewQuote']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li/a[.='Create New Quote']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[a]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="href" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[#/datasource]]></qtpRep:Value>	</qtpRep:Property>
@@ -10234,7 +10252,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[@id='quoteMenu']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[.='New Quote']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
@@ -10291,7 +10309,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Link]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@id='ordermenubar']/a]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li/a[.='Create New Quote']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
