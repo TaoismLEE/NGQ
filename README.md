@@ -1,26 +1,13 @@
 # NGQ Test Repository
 This is the TAO Test Repository for the Next Generation Quoter.
 
-Current Status: Completed
+Current Status: Converting from ITG2 to ITG4
 
 
-Last Checked: 3/1/2017 3:01PM CST by Taoism LEE
+Last Checked: 3/13/2017 3:01PM CST by Taoism LEE
 
 ## IMPORTANT UPDATE
-
-The orcore framework has been move to its own repository on GitHub.  This repository now treats orcore as a submodule.  This changes a few things when downloading code and updates from GitHub.
-
-**To clone this repo use command :**
-
-`git clone --recursive <URL>`
-
-**If the repository is already cloned to your environment but the folder libs/orcore is empty, run the following commands:**
-
-
-`git submodule init`
-
-`git submodule update`
-
+Please stop using the scripts in ITG2 envrionment starting from 3/15/2017
 
 
 
@@ -64,6 +51,9 @@ The orcore framework has been move to its own repository on GitHub.  This reposi
 * US9597_06
 * US9400_08
 * US9400_03
-
+* UI_HomePage
+* UI_MyDashboard_TableColumns
+* UI_AdvancedSearch
+* UI_MyPreference
 ## Untested
 * None
