@@ -2190,11 +2190,14 @@ Sub Verify_bom_lineItem(strProdNum, intLineNum)
 End Sub
 'Adds an item from ocs config
 Sub click_lineitem_add_ocs()
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
-	browser("NGQ").Page("Quote").WebElement("Add").Click
-	browser("NGQ").Page("Quote").Link("Add OCS Config").Click
-	'browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
-	UFT.ReplayType = 1
+	browser("NGQ").page("Quote").webelement("Add").Object.scrollIntoView
+	browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+'	browser("NGQ").Page("Quote").Link("Add OCS Config").highlight
+'	browser("NGQ").Page("Quote").Link("Add OCS Config").Click
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
+	UFT.ReplayType = strOriginType
 End Sub
 
 'Right click items

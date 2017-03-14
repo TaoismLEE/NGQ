@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9597_ show Price Quality Band_06
+'User Story: CPQ_Encore Retirement_US9597_06: show Price Quality Band
 'Description:	This case is to validate:
 '				1. Sales op is able to view Price Quality Band (PQB).
 '				2. The Current Band color at the header level and the traffic lights of all products are changed according to the PQB when changing the discount percentage.
@@ -18,19 +18,19 @@ DataTable.Import "..\..\data\US9547_06.xlsx"
 
 Dim strOportunityId, strQuoteName, strMCCDisc, strAmount, strMCCNum, strTargReqDiscPercentage
 
-	strOportunityId = DataTable.Value("strOportunityId",1)
-	strQuoteName = DataTable.Value("strQuoteName",1)
-	strMCCDisc = DataTable.Value("strMCCDisc",1)
-	strAmount = DataTable.Value("strAmount",1)
-	strMCCNum = DataTable.Value("strMCCNum",1)
-	strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
+strOportunityId = DataTable.Value("strOportunityId",1)
+strQuoteName = DataTable.Value("strQuoteName",1)
+strMCCDisc = DataTable.Value("strMCCDisc",1)
+strAmount = DataTable.Value("strAmount",1)
+strMCCNum = DataTable.Value("strMCCNum",1)
+strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
 
 ' For Jenkins Reporting
 dumpJenkinsOutput "US9597_06_ValidatePQB", "74273", "CPQ_Encore Retirement_US9597_ show Price Quality Band_06"
 
 InitializeTest "Action1"
 
-'Open browser and go to My Dashboard
+'Open browser
 OpenNgq(objUser)
 
 'go to new Quote navbar
@@ -96,4 +96,3 @@ ClickRefreshPricing()
 Navbar_Logout()
 Browser("NGQ").Close()
 FinalizeTest
-
