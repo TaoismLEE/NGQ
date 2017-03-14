@@ -1,9 +1,9 @@
 ﻿'==============================================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Non-Complete Quote _01
+'User Story: CPQ_Encore Retirement_US9425_01: Send an email with quotes details and PDF_Non-Complete Quote
 'Description: This case is to validate:
 '               1. The user is able to Preview the PDF generated and send 
-'                  the PDF as attachment in the email before quote completed.
+'               2. The PDF as attachment in the email before quote completed.
 'Tags:
 '================================================
 Option Explicit
@@ -46,12 +46,11 @@ OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 OpportunityIdIsValid
 
 'Edit quote name
-Dim strQuoteNumber
 Quote_EditQuoteName strQuoteName
 
 'Click save and verify that save notification and quote number appear
 Quote_save
-strQuoteNumber = Quote_get_quoteNumber
+Dim strQuoteNumber : strQuoteNumber = Quote_get_quoteNumber
 
 build_ocs_bom
 

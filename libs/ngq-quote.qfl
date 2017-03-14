@@ -234,7 +234,7 @@ sub CustomerDataBillTo_DeselectSameAsSoldToAddress()
 end sub
 
 function CustomerDataBillTo_SameAsSoldToAddressIsSelected()
-	CustomerDataShipTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").IsChecked
+	CustomerDataBillTo_SameAsSoldToAddressIsSelected = Browser("NGQ").Page("Quote - Customer Data - Bill To").WebCheckBox("Same as Sold to Address").IsChecked
 end function
 
 sub CustomerDataBillTo_SelectSameAsSoldToAddress()
@@ -390,9 +390,6 @@ end sub
 sub OpportunityAndQuoteInfo_ImportOpportunityId(strValue) 
 	OpportunityAndQuoteInfo_SetOpportunityId strValue
 	OpportunityAndQuoteInfo_Import
-	Wait 3	
-	'Need time to get information
-	'TODO: extra syncing?
 end sub
 
 sub OpportunityAndQuoteInfo_SetOpportunityId(strValue)
@@ -718,7 +715,7 @@ End Sub
 ' Author Jesus
 '==================================================
 Sub SelectExtraMenu()
-	Browser("NGQ").Page("Quote - Extra Menu").WebElement("Triangle Hidden Menu Button").Click
+	Browser("NGQ").Page("Quote - Extra Menu").WebElement("Triangle Hidden Menu Button").MouseOver
 End Sub
 '==================================================
 ' END SelectExtraMenu
@@ -727,8 +724,11 @@ End Sub
 ' Author Jesus
 '==================================================
 Sub SelectPreValidate()
+	Dim strOriginType : strOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
 	SelectExtraMenu
 	Browser("NGQ").Page("Quote - Extra Menu").WebElement("Pre-Validate").Click
+	UFT.ReplayType = strOriginType
 End Sub
 
 
@@ -755,17 +755,21 @@ Sub PreValidate_FixDataCheckErrors()
 End Sub
 
 Sub PreValidate_DataCheckNoErrors()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn").Click
 	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn")
 	PreValidate_ButtonVerification(objButton)
 End Sub
 
 Sub PreValidate_ClicNoErrors()
 	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
+	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
 	'TEMP WORKAROUND FOR CLIC SERVICE UNAVAILABLE
 	'Reporter.ReportEvent micDone, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
-	Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	If PreValidate_DefaultButtonColor(objButton) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
+		Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	End If	
 	PreValidate_ButtonVerification(objButton)
 End Sub
 
@@ -790,6 +794,15 @@ Sub PreValidate_ClickCompleteQuote()
 	PreValidate_ValidateCompleteQuote
 End Sub
 
+Function PreValidate_DefaultButtonColor(objButton)
+	Dim strButtonColor : strButtonColor = objButton.Object.currentStyle.backgroundColor 
+	If strButtonColor = "#01a982" Then
+		PreValidate_DefaultButtonColor = True
+	else
+		PreValidate_DefaultButtonColor = False
+	End If
+End Function
+
 Sub PreValidate_ButtonVerification(objButton)
 	Dim bcolor
 	Dim blnCheckMark
@@ -802,8 +815,7 @@ Sub PreValidate_ButtonVerification(objButton)
 		ExitTest
 	End If
 
-	
-	blnCheckMark = objButton.CheckProperty("innerhtml", MicRegExpMatch(".*class=""load_right"".*"))	
+	blnCheckMark = objButton.CheckProperty("innerhtml", MicRegExpMatch(".*class="".*load_right"".*"))	
 	If blnCheckMark Then
 		Logger.Report micPass, "Button has checkmark", "The " & objButton.GetTOProperty("TestObjName") & " has a checkmark"
 	Else
