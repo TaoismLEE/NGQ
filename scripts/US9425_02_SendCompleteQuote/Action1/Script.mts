@@ -1,9 +1,9 @@
 ﻿'==============================================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9425_Send an email with quotes details and PDF_Complete Quote_02
+'User Story: CPQ_Encore Retirement_US9425_02: Send an email with quotes details and PDF_Complete Quote
 'Description: This case is to validate:
 '               1. The user is able to Preview the PDF generated and send 
-'                  the PDF as attachment in the email after quote completed.
+'               2. The PDF as attachment in the email after quote completed.
 'Tags:
 '================================================
 Option Explicit
@@ -90,6 +90,7 @@ SelectPreValidate
 PreValidate_DataCheckNoErrors
 PreValidate_ClicNoErrors 'Overrides error to get rid of it
 PreValidate_PriceNoErrors
+PreValidate_ProductCheckNoErrors
 PreValidate_BundleNoErrors
 
 'Complete the quote
