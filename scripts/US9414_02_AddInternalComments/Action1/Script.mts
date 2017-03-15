@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story : CPQ_Encore Retirement_US9414_Capture Comments When Clone a Quote with Comments_02
+'User Story : CPQ_Encore Retirement_US9414_02: Capture Comments When Clone a Quote with Comments
 'Description: This case is to validate:
 '			1. After cloning another user's quote, the existing comments of the quote don't remain in the cloned quote.
 '			2. Sales Op is able to add new internal comments, NGQ is able to captures all the new internal comments. 
@@ -36,7 +36,8 @@ QuickSearch strQuote
 QuickSearch_Search
 
 'Clicks the quote number that is displayed Under Result
-AdvancedSearch_Result_OpenQuoteNumber strQuote
+'AdvancedSearch_Result_OpenQuoteNumber strQuote
+ClickQuoteNumberResult(2)
 
 'Clicks Output tab
 Quote_OutputTab
