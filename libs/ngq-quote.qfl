@@ -755,34 +755,57 @@ Sub PreValidate_FixDataCheckErrors()
 End Sub
 
 Sub PreValidate_DataCheckNoErrors()
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn")
-	PreValidate_ButtonVerification(objButton)
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn").Exist(1) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn").Click
+		wait 2
+		Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Data Check Btn")
+		PreValidate_ButtonVerification(objButton)	
+	End If
 End Sub
 
+Sub PreValidate_ProductCheckNoErrors()
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Product Check Btn").Exist(1) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Product Check Btn").Click
+		wait 5
+		Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Product Check Btn")
+		PreValidate_ButtonVerification(objButton)
+	End If
+End Sub
+
+
 Sub PreValidate_ClicNoErrors()
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Exist(1) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn").Click
+		wait 2
+		Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
 	'TEMP WORKAROUND FOR CLIC SERVICE UNAVAILABLE
 	'Reporter.ReportEvent micDone, "Step not in script", "This step is not in the test case, but it is required to remove the errors from CLIC section.  It overrides the error in this screen."
-	If PreValidate_DefaultButtonColor(objButton) Then
-		Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
-		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
-		Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
-	End If	
-	PreValidate_ButtonVerification(objButton)
+		If PreValidate_DefaultButtonColor(objButton) Then
+			Browser("NGQ").Page("Quote - Pre-Validation").WebEdit("Override Reason Text").Set "Test"	
+			Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Custom Config Check Btn").Click
+			wait 2
+			Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Clic Btn")
+		End If	
+		PreValidate_ButtonVerification(objButton)
+	End If
 End Sub
 
 Sub PreValidate_PriceNoErrors()
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn")
-	PreValidate_ButtonVerification(objButton)
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn").Exist(1) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn").Click
+		wait 2
+		Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Price Btn")
+		PreValidate_ButtonVerification(objButton)
+	End If
 End Sub
 
 Sub PreValidate_BundleNoErrors()
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn").Click
-	Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn")
-	PreValidate_ButtonVerification(objButton)
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn").Exist(1) Then
+		Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn").Click
+		wait 2
+		Dim objButton : Set objButton = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Bundle Btn")
+		PreValidate_ButtonVerification(objButton)	
+	End If
 End Sub
 
 Sub PreValidate_CloseValidationPage()
@@ -790,7 +813,8 @@ Sub PreValidate_CloseValidationPage()
 End Sub
 
 Sub PreValidate_ClickCompleteQuote()
-	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Btn").Click	
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Btn").Click
+	wait 2
 	PreValidate_ValidateCompleteQuote
 End Sub
 
@@ -1596,6 +1620,9 @@ sub Quote_save()
     else
         Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
     End if
+    If Browser("NGQ").Page("Quote").WebElement("XMark").Exist(1) Then
+    	Browser("NGQ").Page("Quote").WebElement("XMark").Click
+    End If
 End sub
 
 'End US9430_03================================================= Alejandro Rosales
