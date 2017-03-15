@@ -1384,7 +1384,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebList]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id = 'revisionReasonLookup']/div/div/div/div/div/label/select[@ng-model ='revisionSource'] ]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//select[@ng-model='newversionVm.revisionSource']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
@@ -1403,7 +1403,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebList]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//label[@class = 'custom-select custom-select-search']/select[@ng-model = 'revisionReason']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//select[@ng-model='newversionVm.revisionReason']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
@@ -1439,7 +1439,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="NewVersion_OkButton">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id = 'paNumberSearchResult']/following-sibling::div/a[@id = 'continue']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='continue' and .='OK']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -1460,7 +1460,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//textarea[@  ng-model="revisionComment" and @ maxlength ='255'] ]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//textarea[@ ng-model="newversionVm.revisionComment"]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -1480,7 +1480,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebButton]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//*[@id='customerDataSection']/div[7]/div/div[2]/button[2]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[.='New Version' and ./i]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -2395,7 +2395,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="ClickTab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='QT_OP']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[.='Quote Output']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -3491,7 +3491,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[not(contains(@class,'ng-hide'))]/input[@id='itemQty']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[(//input[@id='itemQty'])[1]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -3531,7 +3531,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@title='Product No.']//input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@title='Product No.']//input]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -4906,7 +4906,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="quoteName">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//strong[.='Quote Name:']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[(//strong[.='Quote Name:']/following-sibling::span)[1]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5155,7 +5155,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Opportunity and Quote Info Tab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='OPP_QT_INFO']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[.='Opportunity and Quote Info']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5633,7 +5633,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Add Product Or Option">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li[@id = 'menu_item1']/a[contains(., "Add Product or Option")]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[contains(text(), "Add Product or Option")]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -7347,7 +7347,7 @@
 <qtpRep:ChildObjects>
 <qtpRep:Object Class="WebElement" Name="SearchButton">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[@btn-text = 'Search']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[.='Search' and ./i]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -7493,7 +7493,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Advanced_SearchTab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//li/a[@id = 'searchMenu']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[.='Advanced Search']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -7514,7 +7514,7 @@
 <qtpRep:Properties>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebEdit]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="_xpath" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div/span[@class='suffix-colon ng-binding' and text()='Quote Number']/following-sibling::input]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//input[@ng-model='quoteNo']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="type" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="name" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -8007,7 +8007,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Qute_QuoteOutput_Preview">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//div[@id = 'previewBtn' and @pid = 'QD_PREVIEW_BTN']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[(//select[@id = 'optypeselect']/following-sibling::input)[1]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>

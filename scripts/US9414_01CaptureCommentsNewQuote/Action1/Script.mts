@@ -1,7 +1,7 @@
 ﻿'==========================================================================
 'Project Number: 205713
-'User Story:CPQ_Encore Retirement_US9414_Capture Comments When Create a New Quote and Version the Quote_01 
-'Description:Capture comments when create new a Quote and version the quote
+'User Story:CPQ_Encore Retirement_US9414_01_Capture Comments When Create a New Quote and reversion the Quote
+'Description: Capture comments when create new a Quote and reversion the quote
 'Tags: Quote, Comments
 '==========================================================================
 Option Explicit
@@ -112,7 +112,6 @@ Select_Quote_GeneraL_OutputType strGenOutputType
 Click_Preview_Quote_OutputType 
 
 'Saves the pdf in a specific  path
-Browser("NGQ").FullScreen
 OutputQuote_SaveQuotePdf strQuote
 
 'Validates the pdf contains the external comments
@@ -131,10 +130,12 @@ AdvancedSearchClick
 SetQuoteNumber_AdvancedSearch strQuote
 
 'Clicks the search button
-ClickSearch_advancedSearch
+'ClickSearch_advancedSearch
+ClickSearchButton_advancedSearch()
 
 'Clicks the hyperlink quote number under result section
-AdvancedSearch_Result_OpenQuoteNumber strQuote
+'AdvancedSearch_Result_OpenQuoteNumber strQuote
+ClickQuoteNumberResult(2)
 
 'Clicks the Quote Output tab
 'QuoteOutput

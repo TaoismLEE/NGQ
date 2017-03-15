@@ -13,7 +13,7 @@ sub Quote_AddProductOrOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
-	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
+	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
 	UFT.ReplayType = intOriginalReplayType
 end sub
 
@@ -2735,7 +2735,7 @@ End Sub
 'BEGIN Quote- Quote Output
 '==================================================
 Sub QuoteOutput()
-	 Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@id='QT_OP']").Click
+	 Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
 	
 End Sub
 '==================================================
@@ -2814,8 +2814,6 @@ End suB
 	
 	If enableCheckbox = false Then
 		Browser("NGQ").Page("Navbar - New Quote").WebCheckBox("QuoteOutput_ExternalCommentCheckBox").Click
-
-
 	End If
 End sub
 '==================================================
@@ -2898,7 +2896,6 @@ End Sub
 '=========================================================================
 Function SetQuoteNumber_AdvancedSearch(quoeteNumber)
 	Browser("NGQ").Page("Navbar_AdvancedSearch").WebEdit("QuoteNumber").Set quoeteNumber
-    
 End Function
 '==================================================
 'Clicks Search button under Advanced search tab
@@ -2932,17 +2929,18 @@ sub ClickSearch_advancedSearch()
 Function validate_SavedInternalComments(strToCheck)
 	Dim temp : temp = Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_SavedInternalComments").GetROProperty("Innertext")
 	Dim checkReadonly: checkReadonly = Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_SavedInternalComments").GetROProperty("disabled")
+	print checkReadonly
 	If InStr(1,temp, strToCheck) > 0 Then
 		Reporter.ReportEvent micPass, "Saved Internal Comments: ","Internal comments contains: " & strToCheck
 	Else
-	Reporter.ReportEvent micFail, "Saved Internal comments: ","Internal comments Doesn't dispaly: " & strToCheck
+		Reporter.ReportEvent micFail, "Saved Internal comments: ","Internal comments Doesn't dispaly: " & strToCheck
 	End If
 
 
 	If checkReadonly = "1" Then
 		Reporter.ReportEvent micPass, "Saved Internal Comments: ","Internal comments is in Read-only mode"
 	Else
-	Reporter.ReportEvent micFail, "Saved Internal comments: ","Internal comments is not Read-only mode"
+		Reporter.ReportEvent micFail, "Saved Internal comments: ","Internal comments is not Read-only mode"
 	End If
 End Function
 '==================================================================
@@ -2950,7 +2948,6 @@ End Function
 '==================================================================
 Function validate_SavedExternalComments(strToCheck)
 	Dim temp : temp = Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_ExternalCommentEditBox").GetROProperty("Innertext")
-
 	If InStr(1,temp, strToCheck) > 0 Then
 		Reporter.ReportEvent micPass, "Saved External comments: ","External comments contains: " & strToCheck
 
