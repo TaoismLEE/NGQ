@@ -2877,7 +2877,6 @@ End Sub
 Function QuoteOutput_Internal_Comments_Empty()
 	' Validating Empty internal comments area
 	Dim emptyInternalComments : emptyInternalComments =Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_InternalComments").GetROProperty("innertext")
-
 	If emptyInternalComments =  "" Then
 		Reporter.ReportEvent micPass, "Internal comments: ","Internal Comments Textbox is empty"
 	Else
@@ -3071,8 +3070,7 @@ End Sub
 '==================================================================
 function Validate_TwoInternalCommentsBox()
 	If Browser("NGQ").Page("Navbar - New Quote").WebEdit("QuoteOutput_InternalComments").Exist(1) Then
-	
-		If Browser("NGQ").Page("Navbar - New Quote").WebElement("QuoteOutput_DisplayInternalComments").Exist Then
+		If Browser("NGQ").Page("Navbar - New Quote").WebElement("QuoteOutput_DisplayInternalComments").Exist(1) Then
 			Reporter.ReportEvent micPass, "Internal Comment Box: ","Internal Comment box are Visible"
 		Else 
 			Reporter.ReportEvent micFail, "Internal Comment Box: ","Internal Comment box are not Visible"
