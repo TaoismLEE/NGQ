@@ -295,7 +295,7 @@ Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intI
 
 	'LineItemDetails_SetProductNumber productNum
 	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span[not(contains(@class,'ng-hide'))]//input"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//input[@id='itemQty'])[1]"
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set productQty
 	LineItemDetails_SetProductNumber productNum
 	UFT.ReplayType = 1
@@ -3734,7 +3734,7 @@ End Sub
 
 Sub verify_advSearch_versions(strVersion, intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("VersionHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/div"
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	If actual = strVersion Then
 		Reporter.ReportEvent micPass, "Verify Version", "Verified matching version"
@@ -3745,7 +3745,7 @@ End Sub
 
 Sub verify_advSearch_quoteID(strQuoteID, intIndex)
 	Dim dynCol : dynCol = getAdvSearchColumn("QuoteNumberHeader")
-	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]/span[not(contains(@class,'ng-hide'))]/a"
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//a)[2]"
 	dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
 	If actual = strQuoteID Then
 		Reporter.ReportEvent micPass, "Verify Quote Number", "Verified matching Quote Number"
