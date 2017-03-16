@@ -41,7 +41,7 @@ OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 ' Enter quote name and save it
 Quote_EditQuoteName "Test Name"
 
-click_save_button()
+Quote_save
 
 ' Click on Add+
 click_lineitem_add_product_search
