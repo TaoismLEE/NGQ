@@ -329,37 +329,37 @@ function Quote_ValidateAddButtonOptions()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	' Validating Add Line
-	If Browser("NGQ").Page("Quote").Link("Add Line").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Add Line").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate - Add Line","Add Line option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Add Line","Add Line option is not displayed"
 	End If
 	' Validating Add Product or Option
-	If Browser("NGQ").Page("Quote").Link("Add Product or Option").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Add Product or Option").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate - Add Product or Option","Add Product or Option option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Add Product or Option","Add Product or Option option is not displayed"
 	End If
 	' Validating Add Bundle
-	If Browser("NGQ").Page("Quote").Link("Add Bundle").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Add Bundle").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate -Add Bundle","Add Bundle option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Add Bundle","Add Bundle option is not displayed"
 	End If	
 	' Add Config from OCS
-	If Browser("NGQ").Page("Quote").Link("Add OCS Config").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Add OCS Config").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate - Add Config from OCS","Add Config from OCS option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Add Config from OCS","Add Config from OCS option is not displayed"
 	End If	
 	' Search Product(s)
-	If Browser("NGQ").Page("Quote").Link("Search Product(s)").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Search Product(s)").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate - Search Product(s)","Search Product(s) option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search Product(s) option is not displayed"
 	End If	
 	' Quick Add
-	If Browser("NGQ").Page("Quote").Link("Quick Add").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("Quick Add").Exist(1) Then
 		Reporter.ReportEvent micPass, "Validate - Quick Add","Quick Add option is displayed"	
 	Else
 		Reporter.ReportEvent micFail, "Validate - Quick Add","Quick Add option is not displayed"
@@ -2097,8 +2097,13 @@ End Sub
 
 ' Clicks the line item search option for search product
 Sub click_lineitem_add_product_search()
+	Dim strOriginType : strOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("Add").scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("SearchProduct").Click
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Clicks the product list button in new configuration
@@ -2109,7 +2114,6 @@ End Sub
 ' Clicks the save button on the new quote screen
 Sub click_save_button()
 	browser("NGQ").Page("Quote").WebElement("SaveButton").Click
-	
 	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Successfully Saved Quote!" then
         Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
     else
