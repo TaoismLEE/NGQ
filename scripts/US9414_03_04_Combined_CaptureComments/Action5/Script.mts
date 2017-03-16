@@ -1,9 +1,9 @@
 ﻿'=========================================================================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04
+'User Story: CPQ_Encore Retirement_US9414_04: Capture Comments When Claim a Quote
 'DescriptioN: This user case claims a quote owned by User B and verifies the claim process by searching the 
 '             same quote in advanced search. The comments presence will be validated manually by clicking the link in the email.
-'Tags:
+'Tags: Claim
 '=========================================================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -39,10 +39,10 @@ Click_MyDashboard
 ValidateQuoteTab
 
 'Clicks the "My Group Quote" tab next to the "My Quote" tab
-Click_MyGroupQuote
+ClickMyGroupQuoteTab
 
 'Clicks the "Count" number associated to "Quote Status"- Quote/Configuration Created
-Click_QuoteConfiguration_Count
+ClickMyGroupStatusCount
 
 'Locates and clicks the "Auto Filter" button in the "Result'' section 
 ClickAutoFilter
@@ -63,7 +63,7 @@ Click_Claim
 Click_Ok_Claim
 
 'Click the "OK" button to close the window
-Quote_Claim_Success_Ok
+'Quote_Claim_Success_Ok
 
 'Click on Advanced search
 AdvancedSearchClick
