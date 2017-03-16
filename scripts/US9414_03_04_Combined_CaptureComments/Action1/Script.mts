@@ -1,10 +1,10 @@
 ﻿'=================================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03
+'User Story: CPQ_Encore Retirement_US9414_03: Capture Comments When Transfer a Quote
 'Description: Transfer a quote and sends confrimation email to both transferer and transferee; Validates the transfer of quote by 
 '             searching same quote in advanced search; User B have to validate 
 '             the specific comments manually by clicking the link in User B email
-'Tags:
+'Tags: Transfer
 '=================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
