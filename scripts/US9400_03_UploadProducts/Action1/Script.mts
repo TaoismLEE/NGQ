@@ -101,18 +101,25 @@ ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
 Quote_AdditionalDataTab
 
 AdditionalData_SetReceiptDateNow
+SetValueForPaymentTerm
 ' END REQUIREMENTS FOR PRE-VALIDATION TO PASS
 
 Quote_refreshPricing
 
 Quote_save
 
-select_preValidate_link
+'select_preValidate_link
+'PreValidateQuoteOverwrite
+'PreValidateQuote_success
 
 'PreValidateQuote
-PreValidateQuoteOverwrite
-
-PreValidateQuote_success
+SelectPreValidate
+PreValidate_DataCheckNoErrors
+PreValidate_ProductCheckNoErrors
+PreValidate_ClicNoErrors
+PreValidate_PriceNoErrors
+PreValidate_BundleNoErrors
+PreValidate_ClickCompleteQuote
 
 Navbar_Logout
 
