@@ -63,6 +63,14 @@ Sub Quote_PricingTermsTab()
 	Wait 1
 End Sub
 
+Sub SetValueForPaymentTerm()
+	Quote_PricingTermsTab
+	Dim strSelectedValue : strSelectedValue = Browser("NGQ").page("Pricing and Terms").weblist("Payment Term").Selection
+	If strSelectedValue = "Please Select One" Then
+		Browser("NGQ").page("Pricing and Terms").weblist("Payment Term").Select "NT30"
+	End If
+End Sub
+
 'Author Jesus:
 Sub Quote_QuoteOutputTab()
 	Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
@@ -3553,8 +3561,13 @@ End Function
 'Functions for "upload products file section of NGQ
 ' Clicks on the upload product button
 Sub uploadProduct()
-	Browser("NGQ").Page("Quote").Link("Upload Product").Click
+	Dim strOriginType : strOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("Upload").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
     Browser("NGQ").Page("Upload Product File").WebElement("UploadProductBrowse").Click
+    UFT.ReplayType = strOriginType
+    Browser("NGQ").Page("Upload Product File").WebElement("Choose File").Click
 End Sub
 
 ' Uploads the product
@@ -3644,7 +3657,7 @@ Sub UploadProducts_ProceedWithImport()
 End Sub
 
 Sub UploadProducts_VerifyAddToQuoteTabDisplayed()
-	If Browser("NGQ").Page("Upload Product File").WebElement("productAddToQuoteTab").CheckProperty("class", MicRegExpMatch(".*line_radiu")) Then
+	If Browser("NGQ").Page("Upload Product File").WebElement("productAddToQuoteTab").CheckProperty("class", MicRegExpMatch(".*active")) Then
 		Reporter.ReportEvent micPass, "Add to Quote Tab", "Add to quote tab is selected and being displayed"
 	Else
 		Reporter.ReportEvent micFail, "Add to Quote Tab", "Add to quote tab is not selected and being displayed"
@@ -3656,10 +3669,9 @@ Sub UploadProducts_AddValidProducts()
 End Sub
 
 Sub UploadProducts_ProductsAddedMsg()
-
-	If Browser("NGQ").Page("Quote").WebElement("SuccessMessage").Exist Then
+	If Browser("NGQ").Page("Quote").WebElement("SuccessMessage").Exist(1) Then
         Reporter.ReportEvent micPass, "Products Added Message", "Products added message successfully displayed"
-    ElseIf Browser("NGQ").Page("Quote").WebElement("WarningMessage").Exist Then
+    ElseIf Browser("NGQ").Page("Quote").WebElement("WarningMessage").Exist(1) Then
         Reporter.ReportEvent micDone, "Obsolete Product Message", "The obsolete product message is being displayed"
     Else
     	Reporter.ReportEvent micFail, "Products Added Message", "Products added message not displayed"
