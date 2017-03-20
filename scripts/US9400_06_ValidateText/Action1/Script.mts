@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9400_Add Product or Option_06
+'User Story: CPQ_Encore Retirement_US9400_06: Add Product or Option
 'Description:	1. When adding an invalid product, the font color of product number and description is blue.
 '				2. When adding an obsolete product, the font color of product number and description is red.
 '				3. The new product line item is added at the bottom of the line items before entering the product number.
@@ -17,10 +17,8 @@ InitializeTest "Action1"
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
+'Load test data
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_AddProductOrOption_06.xlsx"
-
-'Hard-coded data.
-'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<Encrypted DigitalBadge>")
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
@@ -56,13 +54,12 @@ LineItemDetails_AddProductByNumber strProductNumberInv, 1
 LineItemDetails_ValidateProductNonExist strProductNumberInv
 'LineItemDetails_ValidateProductNonExistFontColor 2, strProductNumberInv
 ' Try to add an obsolete product number 
-wait 5
-LineItemDetails_AddProductByNumber strProductNumberObs, 1
+LineItemDetails_AddProductByNumber2 strProductNumberObs
 'Validate obsolete product
 LineItemDetails_ValidateProductObsolete strProductNumberObs
 'LineItemDetails_ValidateProductObsoleteFontColor 3, strProductNumberObs
 'Add a valid product number
-LineItemDetails_AddProductByNumber strProductNumber, 1
+LineItemDetails_AddProductByNumber2 strProductNumber
 'Validate class value for the invalid and obsoleted products
 LineItemDetails_ValidateProductNonExistFontColor 2, strProductNumberInv
 LineItemDetails_ValidateProductObsoleteFontColor 3, strProductNumberObs
