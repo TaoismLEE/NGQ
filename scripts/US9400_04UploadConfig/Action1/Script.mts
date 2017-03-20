@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9400_Upload Config_04
+'User Story: CPQ_Encore Retirement_US9400_04: Upload Config
 'Description: This test uploads a spreadsheet and verifies product table contains all products
 'Tags: Quote, Upload
 '================================================
@@ -17,9 +17,9 @@ InitializeTest "Action1"
 
 'DataImport
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
+Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 'set var from data sheets
-Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 Dim emptyQuoteNumber : emptyQuoteNumber = DataTable.Value("quoteNumber", "Global")
 Dim emptyQuoteVersion : emptyQuoteVersion = DataTable.Value("quoteVersion", "Global")
 Dim emptyQuoteStatus : emptyQuoteStatus = DataTable.Value("quoteStatus", "Global")
@@ -57,10 +57,8 @@ UFT.BrowserNavigationTimeout = 60000
 verify_product_table
 
 Navbar_Logout
-
-FinalizeTest
-
 browser("NGQ").Close
+FinalizeTest
 'file to uploado: C:\Users\rosaljah\OneDrive - Hewlett Packard Enterprise\TAO\ngq-demo-develop\ngq-demo-develop - Rosales\NGQ\data\
 'file name: US9400-04-Configuration.xlsx
 '. OPE-0005373487
