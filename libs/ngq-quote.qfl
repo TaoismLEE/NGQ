@@ -122,8 +122,9 @@ End Function
 Sub Quote_refreshPricing()
 	Utils_scroll_to_refreshPricing
 	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
-	if Browser("NGQ").Page("Quote").WebElement("RefreshPricingMessage").GetROProperty("innertext") = "Refresh Pricing complete" then
+	if Browser("NGQ").Page("Quote").WebElement("RefreshPricingMessage").GetROProperty("innertext") = "Refresh Pricing completed" then
 		Reporter.ReportEvent micPass, "Refresh Pricing", "Successfully Refreshed Pricing for this Quote"
+	else
 		Reporter.ReportEvent micFail, "Refresh Pricing","Failed to Refresh Pricing for this Quote"
 	End if
 End Sub
@@ -604,6 +605,15 @@ Sub Quote_SearchProductRemoveItem(intIndex) '*** Edited September 23 Karina***
 	Dim xpath : xpath = "xpath:=(//table[@id='product-search-basket-table']/tbody/tr)[" & intIndex & "]/td/span[contains(@class,'icon-trash')]"
 	Browser("NGQ").Page("Quote - Search Product").WebElement(xpath).Click
 End Sub
+Sub CheckItemRemoved(strProductNumber)
+	Dim xpath : xpath = "xpath:=//table[@id='product-search-basket-table']//td[.='" & strProductNumber & "']"
+	if Not Browser("NGQ").Page("Quote - Search Product").WebElement(xpath).Exist(1) then
+		logger.Report micPass, "The item has been removed successfully", "Removed"
+	else
+		logger.Report micFail, "Failed to remove product", "Failed"
+	End if
+End Sub
+
 
 Sub Quote_SearchProductAddProductsToQuoteValidation() '*** Edited September 23 Karina***
 	Dim actual : actual = Browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext")
@@ -1903,7 +1913,7 @@ Sub Quote_SearchProduct()
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
-	Browser("NGQ").Page("Quote").Link("Search Product(s)").Click
+	Browser("NGQ").Page("Quote").WebElement("Search Product(s)").Click
 	UFT.ReplayType = intOriginalReplayType	
 End Sub
 
@@ -4416,4 +4426,8 @@ End Sub
 
 Sub ClickHome()
 	Browser("NGQ").Page("Home").WebElement("Home").Click
+End Sub
+
+Sub ChangeToResultTable()
+	Browser("NGQ").Page("Quote - Search Product").WebElement("Search Results").Click
 End Sub

@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9400_Add Products via Product Search_05
+'User Story: CPQ_Encore Retirement_US9400_05: Add Products via Product Search
 'Description:	1. Sales op is able to add products via Product Search option to WNGQ.
 '				2. Sales op is able to search product by product number.
 '				3. Sales op is able to delete a previously added product via clicking delete icon in Add to Quote section.
@@ -14,6 +14,8 @@ InitializeTest "Action1"
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
+'Load test data
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_AddProductsViaProductSearch_05.xlsx"
 
 'Hard-coded data.
@@ -52,6 +54,7 @@ Quote_SearchProduct
 'Enter the product number A 
 set_product_number strProductNumberA
 set_quantity
+ChangeToResultTable
 
 'Enter the product number that does not exist in Corona 
 set_product_number strProductNumberNE
@@ -63,6 +66,7 @@ set_quantity
 
 'Remove product B
 Quote_SearchProductRemoveItem 2
+CheckItemRemoved strProductNumberB
 
 'Add Products to Quote
 add_to_quote
@@ -73,6 +77,7 @@ verify_prodTable_prodNum strProductNumberA, 2
 
 
 ' END: Core
+PreValidate_FixDataCheckErrors
 Quote_refreshPricing
 
 Quote_save
