@@ -296,6 +296,16 @@ Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	UFT.ReplayType = intOriginalReplayType
 End Sub
 
+Sub LineItemDetails_AddProductByNumber2(productNum)
+	Quote_AddProductOrOption
+
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+
+	LineItemDetails_SetProductNumber productNum
+	UFT.ReplayType = intOriginalReplayType
+End Sub
+
 Sub LineItemDetails_AddProductByNumber_manualQtyRow(productNum, productQty, intIndex)
 	Quote_AddProductOrOption
 
@@ -538,6 +548,9 @@ Sub LineItemDetails_ValidateProductNonExist(strQuoteNumber) '*** Edited Septembe
 	Else
 		Reporter.ReportEvent micFail, "Validate Product that doesn’t exist in Corona","Warning message is not displayed or there are other error messages"
 	End If
+	If Browser("NGQ").Page("Quote").WebElement("XMark").Exist(1) Then
+    	Browser("NGQ").Page("Quote").WebElement("XMark").Click
+    End If
 end Sub
 'Validate font color to product that doesn’t exist in Corona
 Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
@@ -563,6 +576,9 @@ Sub LineItemDetails_ValidateProductObsolete(strQuoteNumber) '*** Edited Septembe
 	Else
 		Reporter.ReportEvent micFail, "Validate Obsolete Product","Warning message is not displayed or there are other error messages"
 	End If
+	If Browser("NGQ").Page("Quote").WebElement("XMark").Exist(1) Then
+    	Browser("NGQ").Page("Quote").WebElement("XMark").Click
+    End If
 end Sub
 'Validate font color to obsolete product
 Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
