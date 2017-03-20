@@ -10,11 +10,6 @@
 		'5. Sales op is able to promote an item.
 		'6. Sales op is able to demote an item.
 'Tags: Remove item, Replace item, Promote item, Demote item
-
-'Preconditions:
-'1. Sales op has access to NGQ.
-'2. An Opportunity ID is ready.
-'
 'Author: Reese Childers
 '================================================
 Option Explicit
@@ -24,10 +19,9 @@ InitializeTest "Action1"
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
-DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08.xlsx"
 
-'Hard-coded data.
-'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
+'Load test data
+DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08.xlsx"
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
@@ -57,23 +51,26 @@ click_save_button()
 ' Build ocs configuration
 build_ocs_bom @@ hightlight id_;_Browser("Home").Page("Home 2").Link("NI00155377")_;_script infofile_;_ZIP::ssf2.xml_;_
 
-CustomerData_ShipTo
+'Add nessesary data
+PreValidate_FixDataCheckErrors
 
-CustomerDataShipTo_SelectSameAsSoldToAddress
-
-' Click shipping data tab
-Quote_ShippingDataTab
-
-' Set speed
-ShippingData_SetDeliverySpeed strDeliverySpeed
-
-' Set Delivery terms
-ShippingData_SetTermsOfDelivery strDeliveryTerms
-
-' Set receipt date
-Quote_AdditionalDataTab
-
-AdditionalData_SetReceiptDateNow
+'CustomerData_ShipTo
+'
+'CustomerDataShipTo_SelectSameAsSoldToAddress
+'
+'' Click shipping data tab
+'Quote_ShippingDataTab
+'
+'' Set speed
+'ShippingData_SetDeliverySpeed strDeliverySpeed
+'
+'' Set Delivery terms
+'ShippingData_SetTermsOfDelivery strDeliveryTerms
+'
+'' Set receipt date
+'Quote_AdditionalDataTab
+'
+'AdditionalData_SetReceiptDateNow
 
 'Refresh Pricing
 click_refresh_pricing()
@@ -83,6 +80,8 @@ rightClickAddPageBreak()
 rightClickAddComment()
 
 selectMultipleLines
+
+AddSubtotal
 
 removeItemInSubTotal
 

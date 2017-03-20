@@ -576,9 +576,6 @@ Sub LineItemDetails_ValidateProductObsolete(strQuoteNumber) '*** Edited Septembe
 	Else
 		Reporter.ReportEvent micFail, "Validate Obsolete Product","Warning message is not displayed or there are other error messages"
 	End If
-	If Browser("NGQ").Page("Quote").WebElement("XMark").Exist(1) Then
-    	Browser("NGQ").Page("Quote").WebElement("XMark").Click
-    End If
 end Sub
 'Validate font color to obsolete product
 Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
@@ -2148,7 +2145,7 @@ End Sub
 ' Clicks the save button on the new quote screen
 Sub click_save_button()
 	browser("NGQ").Page("Quote").WebElement("SaveButton").Click
-	if browser("NGQ").Page("Quote").WebElement("SuccessMessage").GetROProperty("innertext") = "Successfully Saved Quote!" then
+	if browser("NGQ").Page("Quote").WebElement("Quote_Save_Message").GetROProperty("innertext") = "Successfully Saved Quote!" then
         Reporter.ReportEvent micPass, "Save Quote","Quote Successfully Saved"
     else
         Reporter.ReportEvent micFail, "Save Quote","Quote didn't save"
@@ -2621,105 +2618,127 @@ End Sub
 
 ' Adds a page break to line item details table
 Sub rightClickAddPageBreak()
-wait(3)
+	wait 1
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(3)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[1]"
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
-	Browser("name:=Home.*").Page("title:=Home.*").WebList("xpath:=//div[@role='row']//select").SelectByText "Page Break"
+	Browser("NGQ").Page("Quote").WebList("xpath:=//div[@role='row']//select").SelectByText "Page Break"
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Add a comment to line item details table
 Sub rightClickAddComment()
-wait(3)
+	wait 1
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(5)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[1]"
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Click
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Set "A Comment"
+	UFT.ReplayType = strOriginType
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Click
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Set "A Comment"
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@class='wrap ng-scope']/input").Sendkeys("~")
 End Sub
 
 ' Select multiple lines of the line item details table
 Sub selectMultipleLines()
 	wait(3)
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(3)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[1]"
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
 	
 	prodName = get_product_number(8)
-	Dim xpath2 : xpath2 = "xpath:=(//span[contains(text(),'"
-	xpath2 = xpath2 + prodName + "')])[1]"
+	Dim xpath2 : xpath2 = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).Click
+	Browser("NGQ").Page("Quote").WebElement(xpath).Click
 	Dim obj
 	Set obj = CreateObject("Mercury.DeviceReplay")
 	obj.KeyDown 42
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath2).Click
+	Browser("NGQ").Page("Quote").WebElement(xpath2).Click
 	obj.KeyUp 42
-	UFT.ReplayType = 1
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//a[contains(text(), 'Add Subtotal')])[1]").Click
+	UFT.ReplayType = strOriginType
+	'Browser("NGQ").Page("Quote").WebElement("xpath:=(//a[contains(text(), 'Add Subtotal')])[1]").Click
+End Sub
+
+Sub AddSubtotal()
+	wait 1
+	Dim strOriginType : strOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Dim prodName : prodName = get_product_number(8)
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
+	
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
+	UFT.ReplayType = strOriginType
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').getElementsByTagName('a')[2].click()"
 End Sub
 
 ' Tries to remove an item from the line item details while being in a subtotal
 Sub removeItemInSubTotal()
-	wait(3)
+	wait 3
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(8)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[2]"
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName &"')])[1]"
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
-	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_29').getElementsByTagName('a')[0].click()"
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//div[@id='grid_msgs']//a").Click
+	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_30').getElementsByTagName('a')[0].click()"
+	Browser("NGQ").Page("Quote").WebElement("xpath:=//div[@id='grid_msgs']//a").Click
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Removes item from table
 Sub removeItem()
 	wait(3)
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(8)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[1]"
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[2]"
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_30').getElementsByTagName('a')[0].click()"
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Deletes sub total line
 Sub deleteSubTotalLine()
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=(//span[@class='icon-trash ng-scope'])[last()]").Click
+	Browser("NGQ").Page("Quote").WebElement("xpath:=(//span[@class='icon-trash ng-scope'])[last()]").Click
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Edits the product number of a pre existing item
 Sub editProductNum(strName)
 	wait(3)
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(5)
-	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
-	xpath = xpath + prodName + "')])[1]"
+	Dim xpath : xpath = "xpath:=(//span[contains(text(),'" & prodName & "')])[1]"
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_7').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_31').getElementsByTagName('a')[0].click()"
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").click
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").Set strName
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//span[@title='Product No.']//input").SendKeys("~")
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@title='Product No.']//input").click
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@title='Product No.']//input").Set strName
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//span[@title='Product No.']//input").SendKeys("~")
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Promotes an item in the line item details table
 Sub rightClickPromoteItem()
-wait(3)
+	wait(3)
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(5)
 	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
@@ -2727,7 +2746,7 @@ wait(3)
 	
 	Dim correctNum : correctNum = get_item_number(5)
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_11').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_42').getElementsByTagName('a')[0].click()"
 	
@@ -2738,11 +2757,13 @@ wait(3)
 	Else
 		Reporter.ReportEvent micFail, "Expected Line Number: " + correctNum, "Actual Line Number: " + correctNum2
 	End If
+	UFT.ReplayType = strOriginType
 End Sub
 
 ' Demotes an item in the line item details table
 Sub rightClickDemoteItem()
-wait(3)
+	wait(3)
+	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim prodName : prodName = get_product_number(5)
 	Dim xpath : xpath = "xpath:=(//span[contains(text(),'"
@@ -2750,7 +2771,7 @@ wait(3)
 	
 	Dim correctNum : correctNum = get_item_number(5)
 	
-	Browser("name:=Home.*").Page("title:=Home.*").WebElement(xpath).RightClick
+	Browser("NGQ").Page("Quote").WebElement(xpath).RightClick
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('menu_11').setAttribute('class', 'submenu');"
 	Browser("NGQ").Page("Upload Config").RunScript "document.getElementById('item_43').getElementsByTagName('a')[0].click()"
 	
@@ -2761,6 +2782,7 @@ wait(3)
 	Else
 		Reporter.ReportEvent micFail, "Expected Line Number: " + correctNum, "Actual Line Number: " + correctNum2
 	End If
+	UFT.ReplayType = strOriginType
 End Sub
 '================================
 ' End of Reese's functions
