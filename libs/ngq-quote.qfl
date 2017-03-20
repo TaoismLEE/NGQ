@@ -27,9 +27,9 @@ End Sub
 
 Sub Quote_UploadConfig(strPath)
 	Browser("NGQ").Page("Quote").WebElement("Upload").Object.scrollIntoView
-	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
 	Browser("NGQ").Page("Quote").WebElement("UploadConfig").Click
 	UFT.ReplayType = intOriginalReplayType
 	uploadConfigFile strPath
