@@ -1,6 +1,6 @@
 ﻿'==============================================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_Search bundles without customer information entered_01
+'User Story: CPQ_Encore Retirement_US9408_01: Search bundles without customer information entered
 'Description:	This case is to validate: When not importing opportunity ID or
 '             entering customer ID, sales op is able to search out bundles
 'Tags: Search
