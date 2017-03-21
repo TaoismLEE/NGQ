@@ -1140,7 +1140,7 @@ Sub lineItemDetails_verifyPricingSource()
 End Sub
 
 Sub Utils_scrollToBottom_lineItemAddColumn()
-	Browser("NGQ").Page("Quote").Link("Upload Product").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 End Sub
 
 Sub Utils_scrollRight_lineItemTableColumn()
