@@ -4469,3 +4469,21 @@ End Sub
 Sub ChangeToResultTable()
 	Browser("NGQ").Page("Quote - Search Product").WebElement("Search Results").Click
 End Sub
+
+Sub CheckStatusColumnsExist()
+	if Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Data Source").Exist(1) then
+		logger.report micPass, "'Data Source' column exists", "Column exists"
+	else
+		logger.report micFail, "'Data Source' column does not exist", "Not Exist"
+	End if
+	if Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Quote Status").Exist(1) then
+		logger.report micPass, "'Quote Status' column exists", "Column exists"
+	else
+		logger.report micFail, "'Quote Status' column does not exist", "Not Exist"
+	End if
+	if Browser("NGQ").Page("Navbar - My Dashboard").WebElement("Count").Exist(1) then
+		logger.report micPass, "'Count' column exists", "Column exists"
+	else
+		logger.report micFail, "'Count' column does not exist", "Not Exist"
+	End if	
+End Sub

@@ -19,9 +19,11 @@ DataTable.Import "..\..\data\UI_MyDashboard_TableColumns.xlsx"
 
 'Open browser
 OpenNgq objUser
+'Check the listed columns of status table
+CheckStatusColumnsExist
+
 Dim arrSource : arrSource = GetSourceDataFromExcel
-'Dim arrDest : arrDest = GetDestDataFromGridWeb
-'CompareTwoArrays arrSource, arrDest
+'Check the listed columns of result table
 ChangeToMyDashboard
 CheckEachExists arrSource
 
