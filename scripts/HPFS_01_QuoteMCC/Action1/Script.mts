@@ -2,8 +2,8 @@
 'Project Number: 205713
 'User Story: CPQEncoreRetirement_HPFS_01_QuoteMCC
 'Description:	1. Sales op is able to create an HPFS quote in NGQ.
-'				      2. MCC code 60B can be used to adjust quote total to HPFS quote price.
-'				      3. NGQ is able to generate the budgetary quote output for this HPFS quote.
+'				2. MCC code 60B can be used to adjust quote total to HPFS quote price.
+'				3. NGQ is able to generate the budgetary quote output for this HPFS quote.
 'Tags: Quote, MCC, Output
 '==============================================================================
 Option Explicit
@@ -47,7 +47,7 @@ Quote_save
 uploadProduct 
 
 setUploadProductPath strProductFilePath
-UploadProducts_VerifyProducts strProductFilePath
+	'UploadProducts_VerifyProducts strProductFilePath
 
 UploadProducts_ProceedWithImport
 
@@ -58,7 +58,7 @@ UploadProducts_AddValidProducts
 UploadProducts_ProductsAddedMsg
 
 Quote_CustomerDataTab
-Quote_currentlySelectedTab "Customer Data"
+	'Quote_currentlySelectedTab "Customer Data"
 
 CustomerData_ShipToTab
 
@@ -78,7 +78,7 @@ AdditionalData_SetReceiptDateNow
 'Click refresh pricing
 Dim strQuoteSelector : strQuoteSelector = "Refresh Pricing"
 QuoteServices_SelectOption strQuoteSelector
-ValidatePriceRefreshed
+	'ValidatePriceRefreshed
 
 Quote_PricingTermsTab
 
