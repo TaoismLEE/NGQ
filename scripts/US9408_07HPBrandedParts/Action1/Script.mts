@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07
+'User Story: CPQ_Encore Retirement_US9408_07: Add HP branded third party parts in any configuration
 'Author: Joshua Hunter
 'Description: This test deals with testing adding OCS item with HP Branded Parts
 'Tags: Quote, OCS
