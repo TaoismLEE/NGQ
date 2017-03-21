@@ -1,11 +1,11 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_Add TS custom services to each configuration solution_08
+'User Story: CPQ_Encore Retirement_US9408_08: Add TS custom services to each configuration solution
 'Description:	"The case is to validate:
 '               1. Add TS custom services in BOM page.
 '               2. Add TS custom services within configuration.
 '               3. Add TS custom services as standalone."
-'Tags:
+'Tags: TS custom services
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -72,7 +72,8 @@ set_quantity
 add_to_quote
 
 ' END: Core
-Quote_refreshPricing
+'Quote_refreshPricing
+ClickRefreshPricing
 
 Quote_save
 
