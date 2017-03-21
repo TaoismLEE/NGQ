@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04
+'User Story: CPQ_Encore Retirement_US9408_04: Add bundles from line item grid with customer information enterd
 'Author: Joshua Hunter
 'Description: This test deals with testing adding a bundle to a quote
 'Tags: Quote, Bundle
@@ -18,7 +18,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Test Data
 'Fill path and file with its extension (C:\ngq-demo-develop\data\fileName.xlsx)
 'ImportTestData strTestDataFile
-DataTable.Import "..\..\data\US9408_04AddBundles.xlsx" 'added 20jul
+DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9408_AddBundlesFromLineItemGridWithCustomerInformationEnterd_04.xlsx"
 
 ' Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = ""
@@ -52,7 +52,8 @@ Quote_ValidateAddButtonOptions
 Quote_SelectBundle
 Quote_AddBundleToQuote strBundleID
 ' END: Core
-Quote_refreshPricing
+'Quote_refreshPricing
+ClickRefreshPricing
 
 Quote_save
 

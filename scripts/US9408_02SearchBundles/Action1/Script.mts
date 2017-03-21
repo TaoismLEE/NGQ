@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02
+'User Story: CPQ_Encore Retirement_US9408_02: Search bundles with customer information entered
 'Author: Joshua Hunter
 'Description: This test deals with testing adding a specific bundle id to a quote
 'Tags: Quote, Bundles
