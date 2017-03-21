@@ -1932,7 +1932,7 @@ End Sub
 
 ' Selects bundle to be searched
 Sub Quote_SelectBundle()
-	Browser("NGQ").Page("Quote").Link("Search Product(s)").Click
+	Browser("NGQ").Page("Quote").WebElement("Search Product(s)").Click
 	Browser("NGQ").Page("Quote - Search Product").WebRadioGroup("ProductSearchType").Select "Bundle"
 End Sub
 
