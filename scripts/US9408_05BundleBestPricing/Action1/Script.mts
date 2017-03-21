@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9408_T bundle use best pricing shopping logic_05
+'User Story: CPQ_Encore Retirement_US9408_05: T bundle use best pricing shopping logic
 'Author: Latha Venkataram
 'Description: This test deals with best pricing shopping logic for T Bundle
 'Tags: Quote, TBundle
@@ -52,7 +52,8 @@ Quote_CaptureQuoteNumber
 Quote_SelectBundle 
 Quote_AddBundleToQuote strBundleId
 
-Quote_refreshPricing
+'Quote_refreshPricing
+ClickRefreshPricing
 
 'Doesnt work
 'Quote_DealId
@@ -73,7 +74,7 @@ Quote_DeSelectCustomGroupView
 
 OutputQuote_SetOutputType "Extended Net Price by item with estimated delivery"
 
-Quote_CaptureQuoteNumber
+'Quote_CaptureQuoteNumber
 
 
 OutputQuote_ClickPreview
