@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQEncoreRetirement_US9408_06_Sbundleusebestpricingshoppinglogic
+'User Story: CPQEncoreRetirement_US9408_06: Sbundleusebestpricingshoppinglogic
 'Description: This test deals with best pricing shopping logic for S Bundle
 'Tags: Quote, SBundle
 '================================================
@@ -53,12 +53,13 @@ Quote_CaptureQuoteNumber
 Quote_SelectBundle 
 Quote_AddBundleToQuote strBundleId
 
-Quote_refreshPricing
+'Quote_refreshPricing
+ClickRefreshPricing
 Quote_QtyUpdate 1, intBundleQty
 Quote_ClickFooter
 
-Quote_refreshPricing
-
+'Quote_refreshPricing
+ClickRefreshPricing
 Quote_OutputTab
 
 Quote_SelectIncludeCoverPage
@@ -68,7 +69,7 @@ Quote_DeSelectCustomGroupView
 
 OutputQuote_SetOutputType "Extended Net Price by item with estimated delivery"
 
-Quote_CaptureQuoteNumber
+'Quote_CaptureQuoteNumber
 
 
 OutputQuote_ClickPreview
