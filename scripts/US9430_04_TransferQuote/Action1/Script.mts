@@ -3,7 +3,8 @@
 'User Story: CPQ_Encore Retirement_US9430_04: Transfer a quote to another NGQ user in the same group
 'Description: This case is to validate:
 '			1.Sales Op is able to transfer a quote to another NGQ user in the same group.
-'Tags: Quote, Transfer, Group, 
+'Tags: Quote, Transfer, Group
+'Author: yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -13,6 +14,7 @@ SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
+'Load test data
 DataTable.Import "..\..\data\US9430_04.xlsx"
 Dim strTargetUser : strTargetUser = DataTable.Value("TargetUser",1)
 Dim strTransferReason : strTransferReason = DataTable.Value("TransferReason",1)
@@ -24,7 +26,7 @@ InitializeTest "Action1"
 dumpJenkinsOutput Environment.Value("TestName"), "74249", "CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04"
 
 'open web browser and go to NGQ/My Dashboard
-OpenNgq(objUser)
+OpenNgq objUser
 ClickMyDashboard
 
 'validate if QuoteTab is selected
