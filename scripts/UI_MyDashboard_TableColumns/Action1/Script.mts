@@ -20,11 +20,11 @@ DataTable.Import "..\..\data\UI_MyDashboard_TableColumns.xlsx"
 'Open browser
 OpenNgq objUser
 'Check the listed columns of status table
+ChangeToMyDashboard
 CheckStatusColumnsExist
 
 Dim arrSource : arrSource = GetSourceDataFromExcel
 'Check the listed columns of result table
-ChangeToMyDashboard
 CheckEachExists arrSource
 
 FinalizeTest
