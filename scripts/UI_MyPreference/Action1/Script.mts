@@ -24,5 +24,6 @@ CheckDefaultValueOfSelectDefaultCountry
 CompareCountryList
 CompareAvailableColumnList
 CompareAssignedColumnList
-
+Navbar_Logout
+Close_Browser
 FinalizeTest

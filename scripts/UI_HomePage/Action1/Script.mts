@@ -29,7 +29,8 @@ CheckDashboardDocumentPhotoOfHomePage
 
 'Compare all the lists of home page
 CompareListOptionsOfHomePage
-
+Navbar_Logout
+Close_Browser
 FinalizeTest
 
 
