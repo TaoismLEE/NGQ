@@ -26,5 +26,6 @@ CheckStatusColumnsExist
 Dim arrSource : arrSource = GetSourceDataFromExcel
 'Check the listed columns of result table
 CheckEachExists arrSource
-
+Navbar_Logout
+Close_Browser
 FinalizeTest

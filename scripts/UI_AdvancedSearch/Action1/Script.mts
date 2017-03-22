@@ -23,4 +23,6 @@ ChangeToAdvancedSearch
 CheckDefaultPageOfAdvancedSearch
 CompareListOptionsOfAdvancedSearch
 
+Navbar_Logout
+Close_Browser
 FinalizeTest
