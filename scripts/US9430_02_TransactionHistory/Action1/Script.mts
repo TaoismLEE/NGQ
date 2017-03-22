@@ -37,6 +37,7 @@ ClickAutoFilter()
 
 'Set Quote Number
 'NI00159565
+strQuoteNumber = GetFirstQuoteNumberofMyQuote(2)
 FillFilterQuoteNumber(strQuoteNumber)
 'FillFilterQuoteNumber(strQuoteNumber)
 
