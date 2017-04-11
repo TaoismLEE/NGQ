@@ -32,5 +32,3 @@ CompareListOptionsOfHomePage
 Navbar_Logout
 Close_Browser
 FinalizeTest
-
-
