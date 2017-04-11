@@ -4019,73 +4019,113 @@ End Sub
 Sub CheckHeaderOfHomePage(strSystemName, strLoginUser)
 	If Browser("NGQ").Page("Home").WebElement("HeaderOfHomePage").Exist(1) Then
 		Logger.report MicPass, "The header is displayed","The header appears correctly"
+	else
+		logger.report micFail, "The header is NOT loaded","Fail to load"
 	End If
 	If Browser("NGQ").Page("Home").WebElement("LogoOfHPE").Exist(1) Then
 		Logger.report MicPass, "The HPE logo is displayed","The HPE logo appears correctly"
+	else
+		logger.report micFail, "The logo is NOT displayed","Logo not load"
 	End If
 	If Browser("NGQ").Page("Home").Link("Log Out").Exist(1) Then
 		Logger.report MicPass, "The log out button is displayed","The log out appears correctly"
+	Else 
+		logger.report micFail, "The log out button is NOT displayed", "Button not load"
 	End If
 	If Browser("NGQ").Page("Home").WebElement("NavigationMenus").Exist(1) Then
 		Logger.report MicPass, "The navigation menus are displayed","The navigation menus appear correctly"
+	else
+		logger.report micFail, "The navigation menus are NOT displayed", "Navigation menus not load"
 	End If
 	If Browser("NGQ").Page("Home").link("Displayed Language").Exist(1) Then
 		Logger.report MicPass, "The languange selection is displayed","The languange selection appears correctly"
+	else
+		logger.report micFail, "The languange selection is NOT displayed", "Language selection not load"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("SimpleSearchForm").Exist(1) Then
 		Logger.report MicPass, "The simple search form is displayed","The simple search form appears correctly"
+	else
+		logger.report micFail, "The simple search form is NOT displayed", "simple search form not load"
 	End If
 	Dim strSystemNameShowed : strSystemNameShowed = Browser("NGQ").Page("Home").WebElement("SystemName").InnerText
 	If strSystemNameShowed = strSystemName Then
-		Logger.report MicPass, "The system name is displayed correctly","System name displays correctly"
+		Logger.report MicPass, "The system name: " & strSystemNameShowed & " is displayed correctly","System name displays correctly"
+	Else 
+		logger.report micFail, "The system name: " & strSystemNameShowed & " is NOT displayed correctly", "System name not load"
 	End If
 	Dim strUserShowed : strUserShowed =Browser("NGQ").Page("Home").WebElement("LoginUser").InnerText
 	If strUserShowed = strLoginUser Then
-		Logger.report MicPass, "Login user shows correctly","The right user is displayed"
+		Logger.report MicPass, "Login user: " & strUserShowed & " shows correctly","The right user is displayed"
+	else
+		logger.report micFail, "Login user doses NOT show correctly","User not load"
 	End If
 End Sub
 
 Sub CheckQuickSearchOfHomePage()
 	If Browser("NGQ").Page("Home").WebEdit("QuoteNumber_2").Exist(1) Then
 		Logger.report MicPass, "The quote number search form is displayed","The quote number search form appears correctly"
+	Else 
+		logger.report micFail, "The quote number search form is NOT displayed", "The quote number search form not load"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("MDCP Org ID").Exist(1) Then
 		Logger.report MicPass, "The MDCP Org ID search form is displayed","The MDCP Org ID search form appears correctly"
+	else
+		logger.report micFail, "The MDCP Org ID search form is NOT displayed", "The MDCP Org ID search form not load"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("Product Number").Exist(1) Then
 		Logger.report MicPass, "The Product Number search form is displayed","The Product Number search form appears correctly"
+	else
+		logger.report micFail, "The Product Number search form is NOT displayed", "The Product Number search form not load"
 	End If
-	If Browser("NGQ").Page("Home").WebEdit("Created By Email").Exist(1) Then
+	If Browser("NGQ").Page("Home").WebEdit("Created By Email").Exist(1) and Browser("NGQ").Page("Home").WebEdit("Created By Email").GetROProperty("placeholder") = "Ex: me@ex33ample.com" Then
 		Logger.report MicPass, "The Created By Email search form is displayed","The Created By Email search form appears correctly"
+	else
+		logger.report micFail, "The Created By Email search form is NOT displayed", "The Created By Email search form not load"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("Opportunity ID").Exist(1) Then
 		Logger.report MicPass, "The Opportunity ID search form is displayed","The Opportunity ID search form appears correctly"
+	else
+		logger.report micFail, "The Opportunity ID search form is NOT displayed", "The Opportunity ID search form not load"
 	End If
 	Dim strStatusDefault : strStatusDefault = DataTable.GetSheet("Global").GetParameter("Status").ValueByRow(1)
 	If Browser("NGQ").Page("Home").WebList("Status").Exist(1) and strStatusDefault = "Please Select" Then
 		Logger.report MicPass, "The Status search list is displayed","The Status search list appears correctly"
+	else
+		logger.report micFail, "The Status search list is NOT displayed", "The Status search list not load"
 	End If
 	Dim strCountryDefault : strCountryDefault = DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(1)
 	If Browser("NGQ").Page("Home").WebList("Country").Exist(1) and strCountryDefault = "Please Select" Then
 		Logger.report MicPass, "The Country search list is displayed","The Country search list appears correctly"
+	else
+		logger.report micFail, "The Country search list is NOT displayed", "he Country search list not load"
 	End If
 	If Browser("NGQ").Page("Home").WebButton("Search").Exist(1) Then
 		Logger.report MicPass, "The search button is displayed","The search button appears correctly"
+	else
+		logger.report micFail,"The search button is NOT displayed","The search button not load"
 	End If
 End Sub
 
 Sub CheckDashboardDocumentPhotoOfHomePage()
 	If Browser("NGQ").Page("Home").WebElement("My Dashboard").Exist(1) Then
 		Logger.report MicPass, "My Dashboard section is displayed","My Dashboard section appears correctly"
+	else
+		logger.report micFail, "My Dashboard section is NOT displayed", "My Dashboard section not load"
 	End If
 	If Browser("NGQ").Page("Home").WebElement("Document Flow").Exist(1) Then
 		Logger.report MicPass, "Document Flow section is displayed","Document Flow section appears correctly"
+	else
+		logger.report micFail, "Document Flow section is NOT displayed","Document Flow section not load"
 	End If
 	If Browser("NGQ").Page("Home").WebElement("Photo").Exist(1) Then
 		Logger.report MicPass, "The photo is displayed","The photo appears correctly"
+	Else 
+		logger.report micFail, "The photo is NOT displayed","The photo not load"
 	End If
 	If Browser("NGQ").Page("Home").WebEdit("Document Search").Exist(1) Then
 		Logger.report MicPass, "The Document Search form is displayed","The Document Search form appears correctly"
+	Else 
+		logger.report micFail, "The Document Search form is NOT displaye", "The Document Search form not load"
 	End If
 End Sub
 
@@ -4100,8 +4140,6 @@ Sub CompareLanguageList()
 	Dim intRows : intRows = 1
 	Browser("NGQ").Page("Home").Link("Displayed Language").Click
 	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Language Select").WebList("LanguageSelect").ItemsCount
-	'There is a blanck item before the first language in the webpage
-	'intNumberOfLanguages = intNumberOfLanguages - 1
 	While DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(intRows) <> ""
 		intRows = intRows + 1
 	Wend
@@ -4232,54 +4270,86 @@ End Sub
 Sub CheckDefaultPageOfAdvancedSearch()
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number").Exist(1) Then
 		Logger.report MicPass, "The quote number search form is displayed","The quote number search form appears correctly"
+	else
+		logger.report micFail, "The quote number search form is NOT displayed", "The quote number search form not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number & Version").Exist(1) Then
 		Logger.report MicPass, "The Quote Number & Version search form is displayed", "shows rightly"
+	else
+		logger.report micFail,"The Quote Number & Version search form is NOT displayed","Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Company Name").Exist(1) Then
 		Logger.report MicPass, "The Company Name search form is displayed","shows rightly"
+	else
+		logger.report micFail, "The Company Name search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Start Date(From)").Exist(1) Then
 		Logger.report MicPass, "The Quote Start Date(From) search form is displayed","shows rightly"
+	else
+		logger.report micFail, "The Quote Start Date(From) search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Product Number").Exist(1) Then
 		Logger.report MicPass, "The Product number search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Product number search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Customer Line Item Number(CLIN)").Exist(1) Then
 		Logger.report MicPass, "The Customer Line Item Number(CLIN) search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Customer Line Item Number(CLIN) search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Name").Exist(1) Then
 		Logger.report MicPass, "The Quote  Name search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Quote  Name search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Order Number").Exist(1) Then
 		Logger.report MicPass, "The Order Number search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Order Number search form is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Create By(Email)").Exist(1) Then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Create By(Email)").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Create By(Email)").GetROProperty("placeholder") = "Specify Email (Ex:me@example.com)" Then
 		Logger.report MicPass, "The Create By search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Create By search form is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Last Edited by(Email)").Exist(1) Then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Last Edited by(Email)").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Last Edited by(Email)").GetROProperty("placeholder") = "Specify Email (Ex:me@example.com)" Then
 		Logger.report MicPass, "The Last Edited By search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Last Edited By search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote End Date(To)").Exist(1) Then
 		Logger.report MicPass, "The Quote End Date search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Quote End Date search form is NOT displayed", "Not load"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Opportunity ID").Exist(1) Then
 		Logger.report MicPass, "The Opportunity ID search form is displayed","shows rightly"
 	End If
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("MDCP Id").Exist(1) Then
 		Logger.report MicPass, "The MDCP Org ID search form is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The MDCP Org ID search form is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").Exist(1) then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").GetROProperty("selection") = "Select Quote Status" then
 		Logger.report MicPass, "The Quote status list is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Quote status list is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").Exist(1) Then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Country Code").GetROProperty("selection") = "Please Select One" Then
 		Logger.report MicPass, "The Country Code list is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Country Code list is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").Exist(1) Then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").GetROProperty("selection") = "Please Select One" Then
 		Logger.report MicPass, "The Region Code list is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Region Code list is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").Exist(1) Then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Data Source").GetROProperty("selection") = "NGQ" Then
 		Logger.report MicPass, "The Data Source list is displayed","shows rightly"
+	Else 
+		logger.report micFail,"The Data Source list is NOT displayed", "Not load"
 	End If
 End Sub
 
@@ -4335,8 +4405,6 @@ End Sub
 Sub CompareRegionCodeList()
 	Dim intRows : intRows = 1
 	Dim intNumberOfRegionCode : intNumberOfRegionCode = Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Region Code").ItemsCount
-	'It's very strange that it will get 6 while there are only 5 option tags in the weblist:Region Code?
-	'intNumberOfRegionCode = intNumberOfRegionCode - 1
 	While DataTable.GetSheet("Global").GetParameter("RegionCode").ValueByRow(intRows) <> ""
 		intRows = intRows + 1
 	Wend

@@ -13,7 +13,6 @@ InitializeTest "Action1"
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
-Dim strLoginUser : strLoginUser = DataTable.Value("user", "Global")
 
 'Fetch data.
 DataTable.Import "..\..\data\UI_AdvancedSearch.xlsx"
