@@ -31,7 +31,7 @@ NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Ne
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
-' Click on Add+
+'Add config from OCS
 build_ocs_bom
 
 'add 3rd party
