@@ -2130,7 +2130,7 @@ End Sub
 Sub click_lineitem_add_product_search()
 	Dim strOriginType : strOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
-	Browser("NGQ").Page("Quote").WebElement("Add").scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	'browser("NGQ").Page("Quote - Line Item Details").WebElement("addButton").Click
 	browser("NGQ").Page("Quote - Line Item Details").WebElement("SearchProduct").Click
@@ -2372,9 +2372,9 @@ Sub validate_obsolete_object(strName, valOption)
 
 	
 	' Building dynamic xpath
-	goodPath = goodPath + strName + "') and @class='ng-binding']/parent::span"
+	goodPath = goodPath + strName + "') and @class='ng-binding']/parent::div"
 	
-	validateTip = Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).GetROProperty("title")
+	validateTip = Browser("NGQ").Page("Quote").WebElement(goodPath).GetROProperty("title")
 	
 	validateTip = Replace(validateTip, "<br>", "")
 	
@@ -2432,7 +2432,7 @@ End Sub
 ' Validates that the obsolete product color 
 Sub validate_obsolete_color()
 	
-	if Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//span[@class='ng-binding obsoleteColor']").Exist then
+	if Browser("NGQ").Page("Quote").WebElement("xpath:=//span[@class='ng-binding obsoleteColor']").Exist then
 		Reporter.ReportEvent micPass, "Obsolete Color is displayed", "The proper Obsolete color is displayed"
 	Else
 		Reporter.ReportEvent micFail, "Obsolete Color is not displayed", "The Obsolete color was not displayed"	

@@ -67,36 +67,30 @@ validate_obsolete_object obsoleteNumber, 1
 
 validate_obsolete_object validNumber, 0
 
-CustomerData_ShipToTab
-
-CustomerDataShipTo_SelectSameAsSoldToAddress
-
-' Click shipping data tab
-Quote_ShippingDataTab
-
-' Set speed
-ShippingData_SetDeliverySpeed deliverySpeed
-
-' Set Delivery terms
-ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
-
-' Set receipt date
-Quote_AdditionalDataTab
-
-AdditionalData_SetReceiptDateNow
+'Set required data
+PreValidate_FixDataCheckErrors
 
 'Refresh Price
 ClickRefreshPricing()
 
 Quote_save
 
-validate_obsolete_color()
+'validate_obsolete_color()
+LineItemDetails_ValidateProductObsoleteFontColor 2, obsoleteNumber
 
-select_preValidate_link
+'Select pre-validate from the drop down menu
+SelectPreValidate
 
-PreValidateQuoteOverwrite
+'Validate that there are no errors in Data Check, CLIC, Price, Bundle
+PreValidate_DataCheckNoErrors
+PreValidate_ClicNoErrors 'Overrides error to get rid of it
+PreValidate_PriceNoErrors
+'PreValidate_ProductCheckNoErrors
+PreValidate_BundleNoErrors
 
-PreValidateQuote_success
+'Complete the quote
+PreValidate_ClickCompleteQuote
+PreValidate_CloseValidationPage
 
 ' Lobgout and close browser
 Navbar_Logout()
