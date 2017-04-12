@@ -2310,8 +2310,8 @@ Sub procMessageSync()
 End Sub
 
 Sub write_product(strName)
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
-	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").Set strName
+	Browser("NGQ").Page("Quote").WebEdit("xpath:=//option[@label='Product']/ancestor::div[@role='row']//input[@ng-model='row.entity.productNr']").SendKeys "~"
 End Sub
 
 Sub select_product()
