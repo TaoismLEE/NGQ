@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9409_Deal Generated After Quote Complete_10
+'User Story: CPQ_Encore Retirement_US9409_10: Deal Generated After Quote Complete
 'Author: Joshua Hunter
 'Description: This test deals with testing Operator Discounts / Empowerments
 'Tags: Quote, Empowerments
@@ -50,6 +50,24 @@ Quote_EditQuoteName quoteName
 
 Quote_save
 
+' REQUIRED FOR PRE-VALIDATION TO PASS
+Quote_CustomerDatatab
+
+CustomerData_ShipToTab
+
+CustomerDataShipTo_SelectSameAsSoldToAddress
+
+Quote_ShippingDataTab
+
+ShippingData_SetDeliverySpeed DataTable.Value("DeliverySpeed", "Global")
+
+ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
+
+Quote_AdditionalDataTab
+
+AdditionalData_SetReceiptDateNow
+' END REQUIREMENTS FOR PRE-VALIDATION TO PASS
+
 'Dim quoteID : quoteID = Quote_get_quoteNumber
 Quote_AddProductOrOption 
 AddProductsFromTable
@@ -75,37 +93,26 @@ RequestOPDisc MCCType, MCCOffApp, MCCDiscType, MCCValueType, MCCPercentage, MCCA
 'after this part it brakes in 12.52
 applyEmpowerment "MCC"
 
-' REQUIRED FOR PRE-VALIDATION TO PASS
-Quote_CustomerDatatab
-
-CustomerData_ShipToTab
-
-CustomerDataShipTo_SelectSameAsSoldToAddress
-
-Quote_ShippingDataTab
-
-ShippingData_SetDeliverySpeed DataTable.Value("DeliverySpeed", "Global")
-
-ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
-
-Quote_AdditionalDataTab
-
-AdditionalData_SetReceiptDateNow
-' END REQUIREMENTS FOR PRE-VALIDATION TO PASS
-
 Quote_refreshPricing
 
 Quote_save
 
-select_preValidate_link
+'Pre-validate config
+SelectPreValidate
+PreValidate_DataCheckNoErrors
+PreValidate_ClicNoErrors
+PreValidate_PriceNoErrors
+PreValidate_BundleNoErrors
 
-PreValidateQuote
-
-PreValidateQuote_success
+'Check the Deal is generated
+CheckDealGenerateInfoDisplay
+Dim strDealId
+strDealId = FetchDealId
+PreValidate_CloseValidationPage
+DisplayDealId
+CheckDealIdDisplayed strDealId
 
 Navbar_Logout
-
+Close_Browser
 FinalizeTest
-
-browser("NGQ").Close
 
