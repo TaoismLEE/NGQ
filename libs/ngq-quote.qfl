@@ -2194,7 +2194,7 @@ Sub validate_product_number_line_item(strName)
 	Dim goodPath : goodPath = "xpath:=(//span[contains(text(),'"
 	goodPath = goodPath + strName + "')])[1]"
 	
-	If Browser("name:=Home.*").Page("title:=Home.*").WebElement(goodPath).Exist then
+	If Browser("NGQ").Page("Quote").WebElement(goodPath).Exist then
 		Reporter.ReportEvent micPass, "Validate Variable Success", strName
 	Else
 		Reporter.ReportEvent micFail, "Validate Variable Fail", strName

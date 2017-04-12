@@ -32,18 +32,24 @@ NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Ne
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
-' Click on Add+
+'Add a config
 build_ocs_bom
 scrollPageDown
 
 'add components
-add_product_option customImagingNumber
+click_lineitem_add_product_search
+set_product_number customImagingNumber
+set_quantity
+set_product_number assetTaggingNumber
+set_quantity
+set_product_number thirdPartyNumber
+set_quantity
+set_product_number customPackagingNumber
+set_quantity
 
-add_product_option2 assetTaggingNumber
-
-add_product_option2 thirdPartyNumber
-
-add_product_option2 customPackagingNumber
+' Add to quote and verify
+add_to_quote
+validate_products_added_to_quote
 
 ' Refresh Pricing
 click_refresh_pricing()
