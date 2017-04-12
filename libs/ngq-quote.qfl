@@ -4555,3 +4555,27 @@ Sub CheckStatusColumnsExist()
 		logger.report micFail, "'Count' column does not exist", "Not Exist"
 	End if	
 End Sub
+
+Sub CheckDealIdDisplayed(strDealID)
+	Dim strXpath : strXpath = "xpath:=//div/span[.='" & strDealID & "']"
+	If Browser("NGQ").Page("Quote - Line Item Details").WebElement(strXpath).Exist(1) Then
+		Logger.report micPass, "Deal Id generated","Pass"
+	else
+		Logger.report micFail, "Fail to generate Deal Id","Fail"
+	End If
+End Sub
+
+Function FetchDealId()
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Deal Info Msg").InnerText
+	strValue = mid(strValue,6,9)
+	FetchDealId = strValue
+End Function
+
+Sub CheckDealGenerateInfoDisplay()
+	Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Complete Quote Btn").Click
+	If Browser("NGQ").Page("Quote - Pre-Validation").WebElement("Deal Info Msg").Exist(1) Then
+		Logger.report micPass, "Infor displayed","Displays inform message"
+	else
+		Logger.report micFail, "Fails to generate Deal","Fails"
+	End If
+End Sub
