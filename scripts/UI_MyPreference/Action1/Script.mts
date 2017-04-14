@@ -16,6 +16,9 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 
 'Fetch data.
 DataTable.Import "..\..\data\UI_MyPreference.xlsx"
+
+dumpJenkinsOutput "UI_MyPreference", "000004", "Check all the elements which should be displayed are displayed in My Preference page"
+
 'Open browser
 OpenNgq objUser
 

@@ -17,6 +17,8 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Fetch data.
 DataTable.Import "..\..\data\UI_MyDashboard_TableColumns.xlsx"
 
+dumpJenkinsOutput "UI_MyDashboard_TableColumns", "000003", "Check all the columns which should be displayed are displayed in the page"
+
 'Open browser
 OpenNgq objUser
 'Check the listed columns of status table

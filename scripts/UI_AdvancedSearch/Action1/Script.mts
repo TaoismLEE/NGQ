@@ -16,6 +16,10 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 
 'Fetch data.
 DataTable.Import "..\..\data\UI_AdvancedSearch.xlsx"
+
+'Dump jenkins report
+dumpJenkinsOutput "UI_AdvancedSearch", "000001", "Check all the elements which should be displayed are displayed in the advanced page and the options of list"
+
 'Open browser
 OpenNgq objUser
 ChangeToAdvancedSearch

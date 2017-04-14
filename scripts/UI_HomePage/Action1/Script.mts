@@ -19,6 +19,8 @@ Dim strLoginUser : strLoginUser = DataTable.Value("user", "Global")
 DataTable.Import "..\..\data\UI_HomePage.xlsx"
 Dim strSystemName : strSystemName = DataTable.Value("SystemName","Global")
 
+dumpJenkinsOutput "UI_HomePage", "000002", "Check all the elements which should be displayed are displayed in the home page"
+
 'Open browser
 OpenNgq objUser
 

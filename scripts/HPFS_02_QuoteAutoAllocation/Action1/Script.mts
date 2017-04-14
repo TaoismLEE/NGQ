@@ -61,29 +61,14 @@ uploadProduct
 
 importProductExcelSheet dirPath + "\data\depends\" + excelName
 
-CustomerData_ShipTo
-
-CustomerDataShipTo_SelectSameAsSoldToAddress
-
-' Click shipping data tab
-Quote_ShippingDataTab
-
-' Set speed
-ShippingData_SetDeliverySpeed deliverySpeed
-
-' Set Delivery terms
-ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
-
-' Set receipt date
-Quote_AdditionalDataTab
-
-AdditionalData_SetReceiptDateNow
+'Input nessary data
+PreValidate_FixDataCheckErrors
 
 'Refresh Pricing
 click_refresh_pricing()
 
 ' Add auto allocation target requested net price
-Quote_SetTargReqPrice targPrice
+Quote_SetTargReqPrice2 targPrice
 
 verifyGrandTotal
 
@@ -106,6 +91,8 @@ verifyGrandTotalInPDF DataTable.Value("GrandTotal", "Global"), pdfObj
 
 verifyProductInPDF pdfObj, numberOfRows
 
+Navbar_Logout
+Close_Browser
 FinalizeTest
 
 
