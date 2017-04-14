@@ -2486,6 +2486,13 @@ Sub Quote_SetTargReqPrice(strNum)
 	Browser("NGQ").Page("Pricing and Terms").WebElement("ApproveOverride").Click
 End Sub
 
+Sub Quote_SetTargReqPrice2(strNum)
+	Browser("NGQ").Page("Quote").WebElement("PricingTermsTab").Click
+	Browser("NGQ").Page("Pricing and Terms").WebEdit("AutoTargPrice").Set strNum
+	Browser("NGQ").Page("Pricing and Terms").WebElement("ApplyAuto").Click
+	'Browser("NGQ").Page("Pricing and Terms").WebElement("ApproveOverride").Click
+End Sub
+
 ' Verifies that the table displayed in ngq was successfully transferred to the pdf properly
 Sub verifyProductInPDF(objPDF, numRows)
 	Dim i : i = 1
@@ -2505,10 +2512,9 @@ End Sub
 ' Verifies that the grand total is the sum of subtotal and shipping and handling
 Sub verifyGrandTotal()
 	Browser("NGQ").Page("Footer").WebElement("CollapseIcon").Click
-    Dim subTot : subTot = CDbl(Browser("NGQ").Page("Footer").WebElement("subtotal").GetROProperty("innertext"))
-    Dim shipAndHandle : shipAndHandle = CDbl(Browser("NGQ").Page("Footer").WebElement("ShipAndHandle").GetROProperty("innertext"))
-    Dim grandTot : grandTot = CDbl(Browser("NGQ").Page("Footer").WebElement("GrandTotal").GetROProperty("innertext"))
-    
+    Dim subTot : subTot = Cdbl(Browser("NGQ").Page("Footer").WebElement("subtotal").GetROProperty("innertext"))
+    Dim shipAndHandle : shipAndHandle = Cdbl(Browser("NGQ").Page("Footer").WebElement("ShipAndHandle").GetROProperty("innertext"))
+    Dim grandTot : grandTot = Cdbl(Browser("NGQ").Page("Footer").WebElement("GrandTotal").GetROProperty("innertext"))
     If grandTot = (subTot + shipAndHandle) Then
     	Reporter.ReportEvent micPass, "Grand Total Match Sub total plus Shipping and Handling", CStr(grandTot)
     Else
