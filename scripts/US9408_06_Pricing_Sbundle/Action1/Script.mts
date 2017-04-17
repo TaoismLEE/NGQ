@@ -38,7 +38,7 @@ Dim strOutputType : strOutputType = DataTable.Value("OutputType","Global")
 Dim dirPath : dirPath = Environment.Value("TestDir") + "\..\.."
 
 'For Jenkins Reporting
-dumpJenkinsOutput "US9408_06", "74255", "CPQEncoreRetirement_US9408_06_Sbundleusebestpricingshoppinglogic"
+dumpJenkinsOutput Environment.Value("TestName"), "74255", "CPQEncoreRetirement_US9408_06_Sbundleusebestpricingshoppinglogic"
 
 OpenNgq objUser
 Navbar_CreateNewQuote

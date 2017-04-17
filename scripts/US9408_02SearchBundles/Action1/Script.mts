@@ -33,7 +33,9 @@ Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim strCustomerID : strCustomerID = DataTable.Value("CustomerID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
-dumpJenkinsOutput "US9408_02", "74251", "CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02"
+
+dumpJenkinsOutput Environment.Value("TestName"), "74251", "CPQ_Encore Retirement_US9408_Search bundles with customer information entered_02"
+
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote

@@ -2,7 +2,7 @@
 'Summary: Check the UI of Home Page
 'Description: Check all the elements which should be displayed are displayed in the home page
 'Creator: yu.li9@hpe.com
-'Last Modified Time: 2/28/2017
+'Last Modified Time: 4/17/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -19,7 +19,7 @@ Dim strLoginUser : strLoginUser = DataTable.Value("user", "Global")
 DataTable.Import "..\..\data\UI_HomePage.xlsx"
 Dim strSystemName : strSystemName = DataTable.Value("SystemName","Global")
 
-dumpJenkinsOutput "UI_HomePage", "000002", "Check all the elements which should be displayed are displayed in the home page"
+dumpJenkinsOutput Environment.Value("TestName"), "000002", "Check all the elements which should be displayed are displayed in the home page"
 
 'Open browser
 OpenNgq objUser
@@ -31,6 +31,7 @@ CheckDashboardDocumentPhotoOfHomePage
 
 'Compare all the lists of home page
 CompareListOptionsOfHomePage
+
 Navbar_Logout
 Close_Browser
 FinalizeTest

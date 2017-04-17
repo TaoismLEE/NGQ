@@ -38,7 +38,8 @@ Dim strDownloadFileName : strDownloadFileName = DataTable.Value("DownloadFileNam
 Dim dirPath : dirPath = Environment.Value("TestDir") + "\..\.."
 
 ''START: Core
-dumpJenkinsOutput "US9408_05", "74254", "CPQ_Encore Retirement_US9408_T bundle use best pricing shopping logic_05"
+dumpJenkinsOutput Environment.Value("TestName"), "74254", "CPQ_Encore Retirement_US9408_T bundle use best pricing shopping logic_05"
+
 OpenNgq objUser
 Navbar_CreateNewQuote
 NewQuote_ValidateEmptyQuote strQuoteNumberID, strQuoteVersion, strQuoteStatus, strQuoteEndDate

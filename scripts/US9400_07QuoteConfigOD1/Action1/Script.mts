@@ -35,7 +35,7 @@ Dim strOutputTypeSelector: strOutputTypeSelector = DataTable.Value("OutputTypeSe
 Dim dirPath : dirPath = Environment.Value("TestDir") + "\..\..\data\pdfs\"
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9400_07QuoteConfigOD1", "74227", "CPQ_Encore Retirement_US9400_Create Quote with Configuration and Suppress OD1_07"
+dumpJenkinsOutput Environment.Value("TestName"), "74227", "CPQ_Encore Retirement_US9400_Create Quote with Configuration and Suppress OD1_07"
 
 'START: Core
 OpenNgq objUser

@@ -35,7 +35,7 @@ Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Globa
 Dim intProductQuantity : intProductQuantity = DataTable.Value("ProductQuantity","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9408_07", "74256", "CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07"
+dumpJenkinsOutput Environment.Value("TestName"), "74256", "CPQ_Encore Retirement_US9408_Add HP branded third party parts in any configuration_07"
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote

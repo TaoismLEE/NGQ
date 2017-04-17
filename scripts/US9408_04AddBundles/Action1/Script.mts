@@ -34,7 +34,7 @@ Dim strBundleID : strBundleID = DataTable.Value("BundleID","Global")
 Dim intProductQuantity : intProductQuantity = 1
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = ""
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9408_04", "74253", "CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04" 
+dumpJenkinsOutput Environment.Value("TestName"), "74253", "CPQ_Encore Retirement_US9408_Add bundles from line item grid with customer information enterd_04" 
 'START: Core
 OpenNgq objUser
 Navbar_CreateNewQuote

@@ -1,6 +1,6 @@
 ﻿'================================================ @@ hightlight id_;_2426184_;_script infofile_;_ZIP::ssf4.xml_;_
 'Project Number: 205713
-'User Story: CPQ_Encore Retirement_US9413_Version Quote and View History_Valid Quote_01
+'User Story: CPQ_Encore Retirement_US9413_01: Version Quote and View History_Valid Quote
 'Author: Joshua Hunter
 'Description: This test deals with testing the ability to create new versions of a quote
 'Tags: Quote, NewVersion
@@ -30,7 +30,7 @@ DataTable.Import "..\..\data\NGQ_US9413_01_data.xlsx"
 
 Dim opportunityID : opportunityID = DataTable.Value("Opportunity_ID", "Global")
 Dim quoteName : quoteName = DataTable.Value("quoteName", "Global")
-dumpJenkinsOutput "US9413_01", "74231", "CPQ_Encore Retirement_US9413_Version Quote and View History_Valid Quote_01"
+dumpJenkinsOutput Environment.Value("TestName"), "74231", "CPQ_Encore Retirement_US9413_Version Quote and View History_Valid Quote_01"
 'Open browser.
 OpenNgq objUser
 'browser("NGQ").FullScreen

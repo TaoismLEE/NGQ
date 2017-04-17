@@ -26,7 +26,7 @@ Dim deliverySpeed : deliverySpeed = DataTable.Value("DeliverySpeed", "Global")
 'NOTE: automation API calls only here. No raw UFT calls!
 
 'For Jenkins Reporting
-dumpJenkinsOutput "US9412_01", "74259", "CPQ_Encore Retirement_US9412_Be aware of end of life products_Quote Completion Process_01"
+dumpJenkinsOutput Environment.Value("TestName"), "74259", "CPQ_Encore Retirement_US9412_Be aware of end of life products_Quote Completion Process_01"
 
 ' Open the NGQ website
 OpenNgq objUser

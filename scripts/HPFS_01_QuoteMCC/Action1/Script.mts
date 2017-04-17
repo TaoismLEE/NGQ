@@ -5,6 +5,7 @@
 '				2. MCC code 60B can be used to adjust quote total to HPFS quote price.
 '				3. NGQ is able to generate the budgetary quote output for this HPFS quote.
 'Tags: Quote, MCC, Output
+'Last Modified: yu.li9@hpe.com
 '==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -16,9 +17,10 @@ InitializeTest "Action1"
 DataTable.Import "..\..\data\NGQ_HPFS_01_data.xlsx"
 DataTable_ImportDataSheet "..\..\data\NGQ_empty_quote_data.xlsx", "Sheet1"
 
-' Set opportunity id and 3rd party product number
+'Intialize a new user
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Sheet1"), DataTable.Value("pass", "Sheet1"), "<Encrypted DigitalBadge>")
-'Dim objUser : Set objUser = NewRealUser("yu.li9@hpe.com", "", "<Encrypted DigitalBadge>")
+
+'Fetch and store test data
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim strQuotename : strQuoteName = DataTable("QuoteName")
 Dim deliverySpeed : deliverySpeed = DataTable.Value("DeliverySpeed", "Global")
@@ -28,7 +30,7 @@ Dim strPdfOutputType : strPdfOutputType = DataTable("pdfOutputType")
 Dim strProductFilePath : strProductFilePath = getProductFilePath(DataTable.Value("ProductFileName", "Global"))
 
 'For Jenkins Reporting
-dumpJenkinsOutput "HPFS_01", "74467", "CPQEncoreRetirement_HPFS_01_QuoteMCC"
+dumpJenkinsOutput Environment.Value("TestName"), "74467", "CPQEncoreRetirement_HPFS_01_QuoteMCC"
 
 ' Open the NGQ website
 OpenNgq objUser
@@ -111,6 +113,5 @@ PdfVerification DataTable("OutputFilePath"), DataTable("PdfCheckSoldTo"), DataTa
                 DataTable("PdfCheckLineItems"), DataTable("PdfCheckGrandTotal"), DataTable("PdfCheckExtComment"), DataTable("PdfCheckHeader")
 
 Navbar_Logout
-Browser("NGQ").Close()
-
+Close_Browser
 FinalizeTest

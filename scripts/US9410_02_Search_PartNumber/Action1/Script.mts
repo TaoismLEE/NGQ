@@ -21,7 +21,7 @@ Dim quoteName : quoteName = DataTable.Value("QuoteName","Global")
 'NOTE: automation API calls only here. No raw UFT calls!
 
 'For Jenkins Reporting
-dumpJenkinsOutput "US9410_02", "74230", "CPQ_Encore Retirement_US9410_Search HPE and third party part numbers_02"
+dumpJenkinsOutput Environment.Value("TestName"), "74230", "CPQ_Encore Retirement_US9410_Search HPE and third party part numbers_02"
 ' Open the NGQ website
 OpenNgq objUser
 

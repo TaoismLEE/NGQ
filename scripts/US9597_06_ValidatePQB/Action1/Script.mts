@@ -26,7 +26,7 @@ strMCCNum = DataTable.Value("strMCCNum",1)
 strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9597_06_ValidatePQB", "74273", "CPQ_Encore Retirement_US9597_ show Price Quality Band_06"
+dumpJenkinsOutput Environment.Value("TestName"), "74273", "CPQ_Encore Retirement_US9597_ show Price Quality Band_06"
 
 InitializeTest "Action1"
 

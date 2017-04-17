@@ -10,6 +10,8 @@ Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
+InitializeTest "US9414_03"
+
 Dim strQuote
 Dim strEmail
 Dim strReason
@@ -33,10 +35,9 @@ strOutputSheet = "US9414_03_Output"
 DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
-InitializeTest "US9414_03"
 
 'For Jenkins reporting
-dumpJenkinsOutput "US9414_03", "74237", "CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03"
+dumpJenkinsOutput Environment.Value("TestName"), "74237", "CPQ_Encore Retirement_US9414_Capture Comments When Transfer a Quote_03"
 
 'Opens browser and ngq website
 OpenNgq objUser

@@ -23,7 +23,7 @@ strQuote = DataTable("QuoteNumber", dtGlobalSheet)
 strInternalComments = DataTable("InternalComments", dtGlobalSheet)
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9414_02_AddInternalComments", "74236", "CPQ_Encore Retirement_US9414_Capture Comments When Clone a Quote with Comments_02"
+dumpJenkinsOutput Environment.Value("TestName"), "74236", "CPQ_Encore Retirement_US9414_Capture Comments When Clone a Quote with Comments_02"
 
 InitializeTest "Action1"
 'Opens browser and ngq website

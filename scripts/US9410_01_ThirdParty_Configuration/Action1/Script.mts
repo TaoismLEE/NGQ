@@ -19,7 +19,7 @@ Dim strProductNumber : strProductNumber = DataTable.Value("otherProductNumber", 
 
 'NOTE: automation API calls only here. No raw UFT calls!
 'For Jenkins Reporting
-dumpJenkinsOutput "US9410_01", "74229", "CPQEncoreRetirement_US9410_01_IncludethirdpartypartsintheconfigurationfromOCS"
+dumpJenkinsOutput Environment.Value("TestName"), "74229", "CPQEncoreRetirement_US9410_01_IncludethirdpartypartsintheconfigurationfromOCS"
 
 ' Open the NGQ website
 OpenNgq objUser
