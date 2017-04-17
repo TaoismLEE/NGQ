@@ -4462,6 +4462,8 @@ Sub CheckDefaultValueOfSelectDefaultCountry()
 	Dim strDefaultValue : strDefaultValue = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Select Default Country").Value
 	If strDefaultValue = "U.S.A." Then
 		Logger.Report micPass, "The default value is right","Default value: U.S.A. shows correctly"
+	else
+		logger.report micFail, "The default value is not U.S.A.","Default value is wrong"
 	End If
 End Sub
 

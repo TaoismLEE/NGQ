@@ -24,7 +24,7 @@ Dim customPackagingNumber : customPackagingNumber = DataTable.Value("CustomPacki
 'NOTE: automation API calls only here. No raw UFT calls!
 
 'For Jenkins Reporting
-dumpJenkinsOutput "US9411_01", "74232", "CPQ_Encore Retirement_US9411_add custom factory services via searching_01"
+dumpJenkinsOutput Environment.Value("TestName"), "74232", "CPQ_Encore Retirement_US9411_add custom factory services via searching_01"
 
 ' Open the NGQ website
 OpenNgq objUser

@@ -26,7 +26,7 @@ Dim strColumnLabel
 Dim LabelsAssignedColumn
 
 ' For Jenkins Reporting
-dumpJenkinsOutput "US9597_03_CustomView", "74269", "CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03"
+dumpJenkinsOutput Environment.Value("TestName"), "74269", "CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03"
 
 InitializeTest "Action1"
 'Open browser and go to NGQ

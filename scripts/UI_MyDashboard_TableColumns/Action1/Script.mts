@@ -1,8 +1,8 @@
 ﻿'================================================
 'Summary: Check the listed columns of My Dashboard page
-'Description: Check all the columns which should be displayed are displayed in the page
+'Description: Check all the columns which should be displayed are displayed in My Dashboard page
 'Creator: yu.li9@hpe.com
-'Last Modified Time: 3/6/2017
+'Last Modified Time: 4/17/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -17,7 +17,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Fetch data.
 DataTable.Import "..\..\data\UI_MyDashboard_TableColumns.xlsx"
 
-dumpJenkinsOutput "UI_MyDashboard_TableColumns", "000003", "Check all the columns which should be displayed are displayed in the page"
+dumpJenkinsOutput Environment.Value("TestName"), "000003", "Check all the columns which should be displayed are displayed in My Dashboard page"
 
 'Open browser
 OpenNgq objUser
@@ -28,6 +28,14 @@ CheckStatusColumnsExist
 Dim arrSource : arrSource = GetSourceDataFromExcel
 'Check the listed columns of result table
 CheckEachExists arrSource
+
+'Check the listed columns of status table of My group page
+ClickMyGroupQuoteTab
+CheckStatusColumnsExist
+
+'Check the listed columns of result table
+CheckEachExists arrSource
+
 Navbar_Logout
 Close_Browser
 FinalizeTest

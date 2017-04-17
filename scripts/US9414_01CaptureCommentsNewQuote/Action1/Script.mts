@@ -44,7 +44,7 @@ DataTable.AddSheet strOutputSheet
 DataTable.GetSheet(strOutputSheet).AddParameter "QuoteNumber", ""
 
 InitializeTest "Action1"
-dumpJenkinsOutput "US9414_01", "74235", "CPQ_Encore Retirement_US9414_Capture Comments When Create a New Quote and Version the Quote_01"
+dumpJenkinsOutput Environment.Value("TestName"), "74235", "CPQ_Encore Retirement_US9414_Capture Comments When Create a New Quote and Version the Quote_01"
 'Opens the browser and opens ngq website
 OpenNgq objUser
 

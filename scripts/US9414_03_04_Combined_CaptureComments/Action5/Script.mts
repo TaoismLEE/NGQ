@@ -9,6 +9,8 @@ Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
+InitializeTest "US9414_04"
+
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
@@ -24,10 +26,8 @@ Dim strEmail : strEmail = DataTable.Value("user", "Global")
 'Doesnt work - Ask Richard how to do this
 'NGQBrowserReInit
 
-InitializeTest "US9414_04"
-
 'For Jenkins reporting
-dumpJenkinsOutput "US9414_04", "74238", "CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04"
+dumpJenkinsOutput Environment.Value("TestName"), "74238", "CPQ_Encore Retirement_US9414_Capture Comments When Claim a Quote_04"
 
 'Opens browser and ngq website
 OpenNgq objUser

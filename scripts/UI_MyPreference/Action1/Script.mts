@@ -2,7 +2,7 @@
 'Summary: Check the UI of My Preference page
 'Description: Check all the elements which should be displayed are displayed in My Preference page
 'Creator: yu.li9@hpe.com
-'Last Modified Time: 3/7/2017
+'Last Modified Time: 4/17/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -17,7 +17,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Fetch data.
 DataTable.Import "..\..\data\UI_MyPreference.xlsx"
 
-dumpJenkinsOutput "UI_MyPreference", "000004", "Check all the elements which should be displayed are displayed in My Preference page"
+dumpJenkinsOutput Environment.Value("TestName"), "000004", "Check all the elements which should be displayed are displayed in My Preference page"
 
 'Open browser
 OpenNgq objUser
@@ -27,6 +27,7 @@ CheckDefaultValueOfSelectDefaultCountry
 CompareCountryList
 CompareAvailableColumnList
 CompareAssignedColumnList
+
 Navbar_Logout
 Close_Browser
 FinalizeTest
