@@ -287,12 +287,6 @@ Sub LineItemDetails_AddProductByNumber (productNum, productQty)
 	
 	LineItemDetails_SetProductQuantity productQty
 	LineItemDetails_SetProductNumber productNum
-	'Quote_save_unverified
-	'wait 5
-	
-	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Set productNum
-	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").Click
-	'Browser("name:=Home.*").Page("title:=Home.*").WebEdit("xpath:=//option[@label='Product']/parent::select/parent::div/parent::div/following-sibling::div//input[@ng-model='row.entity.productNr']").SendKeys "~" 
 	UFT.ReplayType = intOriginalReplayType
 End Sub
 
@@ -2969,6 +2963,11 @@ sub ClickSearch_advancedSearch()
 	Browser("NGQ").Page("Navbar_AdvancedSearch").WebElement("SearchButton").MouseOver
 	Browser("NGQ").Page("Navbar_AdvancedSearch").WebElement("SearchButton").Click
  End sub
+
+Sub ClickSearch_QuickSearch()
+	Browser("NGQ").Page("Home").WebButton("Search").Click
+End Sub
+ 
  '==================================================
  ' Opens the hyperlink Quote number
  '==================================================
@@ -4655,4 +4654,45 @@ Sub CheckNameSearchReslut(strNameValue)
 			Exit for
 		End If
 	Next
+End Sub
+
+Sub InputSearchCriterias(strQuoteNumber,strMDCPOrgID,strProductNumber,strLoginUser,strOppID)
+	Browser("NGQ").Page("Home").WebEdit("QuoteNumber_2").Set strQuoteNumber
+	Browser("NGQ").Page("Home").WebEdit("MDCP Org ID").Set strMDCPOrgID
+	Browser("NGQ").Page("Home").WebEdit("Product Number").Set strProductNumber
+	Browser("NGQ").Page("Home").WebEdit("Created By Email").Set strLoginUser
+	Browser("NGQ").Page("Home").WebEdit("Opportunity ID").Set strOppID
+End Sub
+
+Sub CompareSearchCriterias(strLoginUser,strOppID,strMDCPOrgID,strProductNumber,strQuoteNumber)
+	Dim strQuote : strQuote = Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number").GetROProperty("innertext")
+	If strQuote = strQuoteNumber Then
+		logger.report micPass,"Quote Number shows in advanced page","Shows correctly"
+	else
+		logger.report micFail,"Quote Number not equal","Fail to compare"
+	End If
+	Dim strUser : strUser = Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Create By(Email)").GetROProperty("innertext")
+	If strUser = strLoginUser Then
+		logger.report micPass,"User shows in advanced page","Shows correctly"
+	else
+		logger.report micFail,"User not equal","Fail to compare"
+	End If
+	Dim strOpportunityID : strOpportunityID = Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Opportunity ID").GetROProperty("innertext")
+	If strOpportunityID = strOppID Then
+		logger.report micPass,"Opportunity ID shows in advanced page","Shows correctly"
+	else
+		logger.report micFail,"Opportunity ID not equal","Fail to compare"
+	End If
+	Dim strMDCPID : strMDCPID = Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("MDCP Id").GetROProperty("innertext")
+	If strMDCPID = strMDCPOrgID Then
+		logger.report micPass,"MDCP Org ID shows in advanced page","Shows correctly"
+	else
+		logger.report micFail,"MDCP Org ID not equal","Fail to compare"
+	End If
+	Dim strProduct : strProduct = Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Product Number").GetROProperty("innertext")
+	If strProduct = strProductNumber Then
+		logger.report micPass,"Product Number shows in advanced page","Shows correctly"
+	else
+		logger.report micFail,"Product Number not equal","Fail to compare"
+	End If
 End Sub
