@@ -1,16 +1,16 @@
 ﻿'==============================================================================
 'Project Number: 205713
-'User Story: HPFS_02
-'Description: Validates that auto allocation can be used to adjust quote total to HPFS quote price.
-'Tags:Quote, Allocation, HPFS
+'User Story: HPEFS_02
+'Description: Validates that auto allocation can be used to adjust quote total to HPEFS quote price.
+'Tags:Quote, Allocation, HPEFS
+'Last Modified: yu.li9@hpe.com
 '==============================================================================
-
 Option Explicit
 Dim al : Set al = NewActionLifetime
+SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 'Initialize test
 InitializeTest "Action1"
-SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
@@ -20,7 +20,6 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 DataTable.Import "..\..\data\HPFS_02.xlsx"
 
 ' Set opportunity id and 3rd party product number
-'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "a")
 Dim strOpportunityId : strOpportunityId = DataTable.Value("oppID", "Global")
 Dim obsoleteNumber : obsoleteNumber = DataTable.Value("ObsoleteNumber", "Global")
 Dim validNumber : validNumber = DataTable.Value("ValidNumber", "Global")
@@ -35,30 +34,29 @@ Dim quotationName : quotationName = DataTable.Value("quotationName", "Global")
 Dim numberOfRows : numberOfRows = DataTable.Value("NumberOfValidProducts","Global")
 Dim pdfPath
 
-'NOTE: automation API calls only here. No raw UFT calls!
-
 'For Jenkins Reporting
 dumpJenkinsOutput Environment.Value("TestName"), "74468", "CPQEncoreRetirement_HPFS_02_QuoteAutoAllocation"
 
-' Open the NGQ website
+'Open the NGQ
 OpenNgq objUser
 
 'Navigate to "New quote tab" and click "New Quote" and validate it is an empty quote
 Navbar_CreateNewQuote
 NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Need Pricing Call"
 
+'Check HPEFS checkbox
+CheckHPEFS
+
 'Enter an Opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
-' Enter quote name and save it
+'Enter quote name and save it
 Quote_EditQuoteName quoteName
 quote_editCutomerSpecQouteID quoteName
-
 click_save_button()
 
 'Upload the product
 uploadProduct 
-
 importProductExcelSheet dirPath + "\data\depends\" + excelName
 
 'Input nessary data
@@ -67,28 +65,20 @@ PreValidate_FixDataCheckErrors
 'Refresh Pricing
 click_refresh_pricing()
 
-' Add auto allocation target requested net price
+'Add auto allocation target requested net price
 Quote_SetTargReqPrice2 targPrice
-
 verifyGrandTotal
 
+'Generate PDF and validate data
 Quote_OutputTab
-
 EditExternalComment comment
-
 Quote_CaptureQuoteNumber
-
 pdfPath = dirPath + "\data\depends\" + DataTable.Value("QuoteNumber_Output", "Global") + ".pdf"
 Quote_SelectOutputType outputType, pdfPath
-
 Dim pdfObj : Set pdfObj = NewPdfParser(pdfPath)
-
 verifyHeaderInPDF quotationName, pdfObj
-
 verifyCommentInPDF comment, pdfObj
-
 verifyGrandTotalInPDF DataTable.Value("GrandTotal", "Global"), pdfObj
-
 verifyProductInPDF pdfObj, numberOfRows
 
 Navbar_Logout
