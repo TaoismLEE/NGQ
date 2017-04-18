@@ -4587,3 +4587,7 @@ Sub CheckDealGenerateInfoDisplay()
 		Logger.report micFail, "Fails to generate Deal","Fails"
 	End If
 End Sub
+
+Sub CheckHPEFS()
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("HPEFS").Click
+End Sub
