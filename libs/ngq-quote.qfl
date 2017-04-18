@@ -3828,10 +3828,8 @@ Function getAdvSearchColumn(strColumnName)
 	dim findCol : findCol = Browser("NGQ").Page("AdvancedSearch").WebElement(strColumnName).GetROProperty("class")
 	dim matches : set matches = RegexGetMatches(findCol, "(coluiGrid-\w{4})", false)
 	if matches.Count = 0 then
-	    'we failed poi~
 	    print "failed"
 	end if
-	'reporter.ReportEvent micDone, "regex match", Trim(matches(0).value)
 	getAdvSearchColumn = Trim(matches(0).Value)
 End Function
 
@@ -4273,6 +4271,10 @@ Sub ChangeToAdvancedSearch()
 	Browser("NGQ").Page("Navbar - AdvancedSearch").Link("Advanced Search").Click
 End Sub
 
+Sub ChangeToHomePage()
+	Browser("NGQ").Page("Navbar").Link("Home").Click
+End Sub
+
 Sub CheckDefaultPageOfAdvancedSearch()
 	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Quote Number").Exist(1) Then
 		Logger.report MicPass, "The quote number search form is displayed","The quote number search form appears correctly"
@@ -4590,4 +4592,67 @@ End Sub
 
 Sub CheckHPEFS()
 	Browser("NGQ").Page("Quote - Line Item Details").WebElement("HPEFS").Click
+End Sub
+
+Sub SearchWithQuoteNumber(strQuoteNumber)
+	Dim strReplayType : strReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Home").WebEdit("SimpleSearchForm").Set strQuoteNumber
+	UFT.ReplayType = strReplayType
+	Dim strXpath : strXpath = "xpath:=//ul/li[.='" & strQuoteNumber & "  IN QUOTE#']"
+	Browser("NGQ").Page("Home").WebElement(strXpath).Click
+End Sub
+
+Sub SearchWithOppID(strOppID)
+	Dim strReplayType : strReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Home").WebEdit("SimpleSearchForm").Set strOppID
+	UFT.ReplayType = strReplayType
+	Dim strXpath : strXpath = "xpath:=//ul/li[.='" & strOppID & "  IN OPPORTUNITY ID']"
+	Browser("NGQ").Page("Home").WebElement(strXpath).Click
+End Sub
+
+Sub SearchWithCompanyName(strCompanyName)
+	Dim strReplayType : strReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Home").WebEdit("SimpleSearchForm").Set strCompanyName
+	UFT.ReplayType = strReplayType
+	Dim strXpath : strXpath = "xpath:=//ul/li[.='" & strCompanyName &"  IN COMPANY NAME']"
+	Browser("NGQ").Page("Home").WebElement(strXpath).Click
+End Sub
+
+Sub CheckOppSearchReslut(strOppValue)
+	Dim dynCol : dynCol = getAdvSearchColumn("Opportunity ID Header")
+	Dim intIndex
+	For intIndex = 3 To 8 Step 1
+		Dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')]//span)[" & intIndex & "]"
+		If Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Exist(1) Then
+			Dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+			If actual = strOppValue Then
+				Reporter.ReportEvent micPass, "Verify Opportunity ID", "Verified matching Opportunity ID"
+			else
+				Reporter.ReportEvent micFail, "Verify Opportunity ID", "Incorrect Opportunity ID found"
+			End If
+		else
+			Exit for
+		End If
+	Next
+End Sub
+
+Sub CheckNameSearchReslut(strNameValue)
+	Dim dynCol : dynCol = getAdvSearchColumn("Company Name Header")
+	Dim intIndex
+	For intIndex = 7 To 12 Step 1
+		Dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')]//div)[" & intIndex & "]"
+		If Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).Exist(1) Then
+			Dim actual : actual = Browser("NGQ").Page("AdvancedSearch").WebElement(xpath).GetROProperty("innertext")
+			If actual = strNameValue Then
+				Reporter.ReportEvent micPass, "Verify Company Name", "Verified matching Company Name"
+			else
+				Reporter.ReportEvent micFail, "Verify Company Name", "Incorrect Company Name found"
+			End If
+		else
+			Exit for
+		End If
+	Next
 End Sub
