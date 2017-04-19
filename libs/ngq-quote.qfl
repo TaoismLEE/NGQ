@@ -233,6 +233,14 @@ sub CustomerData_SoldToTab()
 	Browser("NGQ").Page("Quote - Customer Data").WebElement("Sold To Tab").Click
 	Wait 1
 end sub
+Sub CustomerData_ResellerTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("Reseller").Click
+	wait 1
+End Sub
+Sub CustomerData_EndCustomerTab()
+	Browser("NGQ").Page("Quote - Customer Data").WebElement("End Customer").Click
+	wait 1
+End Sub
 '==================================================
 ' END Quote - Customer Data
 '==================================================
@@ -4694,5 +4702,122 @@ Sub CompareSearchCriterias(strLoginUser,strOppID,strMDCPOrgID,strProductNumber,s
 		logger.report micPass,"Product Number shows in advanced page","Shows correctly"
 	else
 		logger.report micFail,"Product Number not equal","Fail to compare"
+	End If
+End Sub
+
+Sub PopUpCustomerSearch()
+	Browser("NGQ").Page("Quote - Customer Data").WebButton("Customer Search").Click
+End Sub
+
+Sub ClickSearchButton()
+	Browser("NGQ").Page("Customer Search").WebButton("Search").Click
+End Sub
+
+Sub EnterCustomerSearchCriterias(strMDCDOrgID,strCompanyName,strStreet1,strCity,strZipCode,strCountry)
+	Browser("NGQ").Page("Customer Search").WebEdit("MDCP Org ID").Set strMDCDOrgID
+	Browser("NGQ").Page("Customer Search").WebEdit("Company Name").Set strCompanyName
+	Browser("NGQ").Page("Customer Search").WebEdit("Street 1").Set strStreet1
+	Browser("NGQ").Page("Customer Search").WebEdit("City").Set strCity
+	Browser("NGQ").Page("Customer Search").WebEdit("Zip Code").Set strZipCode
+	Browser("NGQ").Page("Customer Search").WebList("Country").Select strCountry
+End Sub
+
+Sub CheckSoldTo()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("Sold To").CheckBox
+End Sub
+Sub CheckBillTo()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("Bill To").CheckBox
+End Sub
+Sub CheckShipTo()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("Ship To").CheckBox
+End Sub
+Sub CheckReseller()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("Reseller").CheckBox
+End Sub
+Sub CheckEndCustomer()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("End Customer").CheckBox
+End Sub
+
+Sub ValidateDataPopulated(strMDCDOrgID)
+	Dim strSoldMDCP : strSoldMDCP = Browser("NGQ").Page("Customer Search").WebElement("SoldTo MDCP Org ID").GetROProperty("innertext")
+	If strSoldMDCP = strMDCDOrgID Then
+		logger.report micPass,"Sold to data populated","Generated"
+	else
+		logger.report micFail,"Sold to data NOT populated","Not generated"
+	End If
+	Dim strBillMDCP : strBillMDCP = Browser("NGQ").Page("Customer Search").WebElement("BillTo MDCP Org ID").GetROProperty("innertext")
+	If strBillMDCP = strMDCDOrgID Then
+		logger.report micPass,"Bill to data populated","Generated"
+	else
+		logger.report micFail,"Bill to data NOT populated","Not generated"
+	End If
+	Dim strShipMDCP : strShipMDCP = Browser("NGQ").Page("Customer Search").WebElement("ShipTo MDCP Org ID").GetROProperty("innertext")
+	If strShipMDCP = strMDCDOrgID Then
+		logger.report micPass,"Ship to data populated","Generated"
+	else
+		logger.report micFail,"Ship to data NOT populated","Not generated"
+	End If
+	Dim strResellerMDCP : strResellerMDCP = Browser("NGQ").Page("Customer Search").WebElement("Reseller MDCP Org ID").GetROProperty("innertext")
+	If strResellerMDCP = strMDCDOrgID Then
+		logger.report micPass,"Reseller data populated","Generated"
+	else
+		logger.report micFail,"Reseller data NOT populated","Not generated"
+	End If
+	Dim strEndCustomerMDCP : strEndCustomerMDCP = Browser("NGQ").Page("Customer Search").WebElement("EndCustomer MDCP Org ID").GetROProperty("innertext")
+	If strEndCustomerMDCP = strMDCDOrgID Then
+		logger.report micPass,"End customer data populated","Generated"
+	else
+		logger.report micFail,"End customer data NOT populated","Not generated"
+	End If
+End Sub
+
+Sub UnCheckReseller()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("Reseller").UncheckBox
+End Sub
+Sub UnCheckEndCustomer()
+	Browser("NGQ").Page("Customer Search").WebCheckBox("End Customer").UncheckBox
+End Sub
+Sub SubmitCustomerData()
+	Browser("NGQ").Page("Customer Search").WebButton("Submit").Click
+End Sub
+
+Sub ValidateSoldToData(strMDCDOrgID)
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Customer Data - Sold To").WebElement("MDCP Org ID").GetROProperty("innertext")
+	If strValue = strMDCDOrgID Then
+		logger.report micPass,"Sold to data generated","Pass"
+	else
+		logger.report micFail,"Sold to data not generated","Fail"
+	End If
+End Sub
+Sub ValidateShipToData(strMDCDOrgID)
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Customer Data - Ship To").WebElement("MDCP Org ID").GetROProperty("innertext")
+	If strValue = strMDCDOrgID Then
+		logger.report micPass,"Ship to data generated","Pass"
+	else
+		logger.report micFail,"Ship to data not generated","Fail"
+	End If
+End Sub
+Sub ValidateBillToData(strMDCDOrgID)
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Customer Data - Bill To").WebElement("MDCP Org ID").GetROProperty("innertext")
+	If strValue = strMDCDOrgID Then
+		logger.report micPass,"Bill to data generated","Pass"
+	else
+		logger.report micFail,"Bill to data not generated","Fail"
+	End If
+End Sub
+Sub ValidateResellerData(strMDCDOrgID)
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Customer Data").WebElement("Reseller MDCP Org ID").GetROProperty("innertext")
+	If strValue <> strMDCDOrgID and strValue="" Then
+		logger.report micPass,"Reseller data generated","Pass"
+	else
+		logger.report micFail,"Reseller data not generated","Fail"
+	End If
+End Sub
+Sub ValidateEndCustomerData(strMDCDOrgID)
+	Dim strValue : strValue = Browser("NGQ").Page("Quote - Customer Data").WebElement("End Customer MDCP Org ID").GetROProperty("innertext")
+	If strValue <> strMDCDOrgID and strValue="" Then
+		logger.report micPass,"End Customer data generated","Pass"
+	else
+		logger.report micFail,"End Customer data not generated","Fail"
 	End If
 End Sub
