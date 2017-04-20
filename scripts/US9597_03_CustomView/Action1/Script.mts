@@ -4,11 +4,14 @@
 'Description: This case is to validate:
 '				1. Sales op is able to create,edit,delete custom view and set custom view as default.
 '				2. NGQ is able to  display the default custom view configured by Sales op.
-'Tags: Create, Edit, Delete, Custom, View
+'Tags: Create, Edit, Delete, CustomView
+'Last Modified: 4/20/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
+InitializeTest "Action1"
 
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
@@ -19,16 +22,15 @@ Dim strChooseViewName : strChooseViewName = DataTable("strChooseViewName",1)
 Dim strQuoteName : strQuoteName = DataTable("strQuoteName",1)
 Dim strOportunityId : strOportunityId = DataTable("strOportunityId",1)
 
-Dim strColumnLabel
-	strColumnLabel = ExellToArray()
+Dim arrColumnLabel
+	arrColumnLabel = ExellToArray()
 	
 'array with Values in the assign column
-Dim LabelsAssignedColumn
+Dim arrLabelsAssignedColumn
 
 ' For Jenkins Reporting
-dumpJenkinsOutput Environment.Value("TestName"), "74269", "CPQ_Encore Retirement_US9597_Sales Op Create Edit and Delete Custom View_03"
+dumpJenkinsOutput Environment.Value("TestName"), "74269", "CPQ_Encore Retirement_US9597_03: Sales Op Create, Edit and Delete Custom View"
 
-InitializeTest "Action1"
 'Open browser and go to NGQ
 OpenNgq(objUser)
 
@@ -39,47 +41,29 @@ ClickMyPreferenceUnderAdminTools
 EditChooseView(strChooseViewName)
 
 'Select a item from Available column and send to assigned column
-AvailableColumn(strColumnLabel(5))
-AvailableColumn(strColumnLabel(9))
+AvailableColumn(arrColumnLabel(5))
+AvailableColumn(arrColumnLabel(9))
 
 'Select a item from Assigned Column and send to Available column
-AssignedColumn(strColumnLabel(5))
+AssignedColumn(arrColumnLabel(5))
 
 'Move a item in the assigned column up
-MoveUpAssignedLabel(strColumnLabel(9))
+MoveUpAssignedLabel(arrColumnLabel(9))
 
 'Move a item in the assigned column down
-MoveDownAssigendLAbel(strColumnLabel(9))
+MoveDownAssigendLAbel(arrColumnLabel(9))
 
 'Click the "Set as Default" checkbox
 CheckSetAsDefault()
 
 'Save all the items in the array "LabelsAssignedColumn" to compare later 
-LabelsAssignedColumn = NoteDownAssignedColumn()
+arrLabelsAssignedColumn = NoteDownAssignedColumn()
 
 'save the new choose view
 ClickSaveBtnMyPrecerences()
 
 'go to new Quote navbar
 Navbar_CreateNewQuote()
-
-'Validate information in New Quote 
-NewQuote_ValidateEmptyQuote null,null,null,null
-
-'set opportunity ID
-OpportunityAndQuoteInfo_SetOpportunityId(strOportunityId)
-
-'Click Import button
-OpportunityAndQuoteInfo_Import()
-
-'Save Import
-Quote_save()
-
-'Set Quote Name
-Quote_EditQuoteName(strQuoteName)
-
-'Save Import
-Quote_save()
 
 'Scroll down
 pageDownNewQuotePage()
@@ -88,7 +72,7 @@ pageDownNewQuotePage()
 ValidateChooseView(strChooseViewName)
 
 'Validate assigned column in new quote
-ValidateAssignedList_NewQuote LabelsAssignedColumn
+ValidateAssignedList_NewQuote arrLabelsAssignedColumn
 
 'go to My Preferences in Admin Tools navbar
 ClickMyPreferenceUnderAdminTools
@@ -121,7 +105,6 @@ EditChooseView(strChooseViewName)
 ClickDeleteBtnChooseView()
 
 'logout and close the browser
-Navbar_Logout()
-Browser("NGQ").Close()
-
+Navbar_Logout
+Close_Browser
 FinalizeTest
