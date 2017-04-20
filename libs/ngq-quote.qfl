@@ -1698,14 +1698,12 @@ End Sub
 Function NoteDownAssignedColumn()
 	Dim ListSize : ListSize = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").GetROProperty("items count")
 
-'	Dim ListSize : ListSize = AssignedColumnItems()
 	Dim count
 	Dim LabelsArray()
 	ReDim LabelsArray(ListSize)
 	
 		For count = 1 To ListSize Step 1
 			LabelsArray(count) = Browser("NGQ").Page("Navbar-AdminTools/My preferences").WebList("Assigned Column List").GetItem(count)
-			'MsgBox LabelsArray(count)
 		Next
 		
 	NoteDownAssignedColumn = LabelsArray
