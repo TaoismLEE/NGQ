@@ -340,29 +340,15 @@ End Sub
 '==================================================
 function QuoteServices_SelectOption (strQuotaSelection_Selector)
 	SELECT CASE (strQuotaSelection_Selector)
-	'   CASE ("Export")
-	'      PropertyValue = "Export"
-	'   CASE ("New Version")
-	'      PropertyValue = "New Version"
-	'   CASE ("Clone")
-	'      PropertyValue = "Clone"
 	    CASE ("Refresh Pricing")
 	    	Browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
 			Wait 3			
 		CASE ("Claim")
-		Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[4]").Click	
-	'   CASE ("Request Special Pricing")
-	'      PropertyValue = "Request Special Pricing"
-	'   CASE ("Transfer ownership")
-	'      PropertyValue = "Transfer ownership"
-	'   CASE ("Pre-Validate")
-	'      PropertyValue = "Pre-Validate"
+			Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[4]").Click
 		CASE ("Custom Group")
 			Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:="&strQuotaSelection_Selector,"xpath:=//DIV[@id=""extramenu""]/DIV[11]/SPAN[1]").Click
-	'   CASE ("CLIC Call")
-	'      PropertyValue = "CLIC Call"
 		CASE ("Save")
-	      Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
+	     	Browser("NGQ").Page("Quote").WebElement("SaveButton").Click
 	      Wait 3
 	END SELECT
 end function
