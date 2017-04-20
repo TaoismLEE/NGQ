@@ -471,74 +471,7 @@ sub SelectResult_Search(strQuoteNumber)
 	Browser("NGQ").Page("AdvancedSearch").Link("SelectResult","innertext:="&strQuoteNumber).Click
 	wait 4
 end sub
-'==================================================
-' END Quote - Search
-'==================================================
-' BEGIN QuoteServices - Options
-'==================================================
-' BEGIN QuoteServices - Options - Claim
-'==================================================
-' DEPRECATED FUNCTIONS BELOW
-'function QuoteServices_Claim()
-'	'Use this function if you'll work with QuoteNumber = NI00147520
-'	Browser("NGQ").Page("").WebElement("innertext:=Ok","xpath:=//DIV[@id=""Claim_meg""]/DIV[2]/A[1]").Click
-'	wait 3
-'end function
-'==================================================
-' END QuoteServices - Options - Claim	
-'==================================================	
-' BEGIN QuoteServices - Options - CustomGroup
-'==================================================
-'function QuoteServices_AddCustomGroup(strGroupLabel, strGroupSummary)
-'	'Add Custom Group
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Add Custom Group","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[1]/DIV[1]/A[1]").Click
-'	'Complete form to add
-'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""groupLabel""]","index:=0").Set strGroupLabel
-'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""groupSummary""]","index:=0").Set strGroupSummary
-'	'Save Custom Group
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Save","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[1]/DIV[1]/DIV[3]/A[1]").Click
-'	'Validation
-'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is inserted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-'		Reporter.ReportEvent micPass, "Add Custom Group","Custom Group was added correctly"
-'	Else
-'		Reporter.ReportEvent micFail, "Add Custom Group","Custom Group was NOT added correctly"
-'	End If		
-'end function
-'	
-'sub QuoteServices_EditCustomGroup(strGroupLabelEdited, strGroupSummaryEdited)
-'	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Edit","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[1]/IMG[1]").Click 
-'	'Edit Custom Group Information
-'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupLabel","xpath:=//INPUT[@id=""grouplabeledit""]","index:=0").Set strGroupLabelEdited
-'	Browser("name:=Home.*").Page("title:=Home.*").WebEdit("name:=groupSummary","xpath:=//TEXTAREA[@id=""gropsummaryedit""]","index:=0").Set strGroupSummaryEdited
-'	'Update Custom Group
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Update","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/DIV[2]/DIV[3]/A[1]").Click
-'	'Validation
-'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is updated successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-'		Reporter.ReportEvent micPass, "Edit Custom Group","Custom Group was edited correctly"
-'	Else
-'		Reporter.ReportEvent micFail, "Edit Custom Group","Custom Group was NOT edited correctly"
-'	End If
-'end sub
-'	
-'sub QuoteServices_RemoveCustomGroup()
-'	Browser("name:=Home.*").Page("title:=Home.*").Image("title:=Del","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[2]/FORM[1]/TABLE[1]/TBODY[1]/TR[9]/TD[1]/A[2]/IMG[1]").Click
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Yes","xpath:=//DIV[@id=""UsrPrfnceCustom_group""]/DIV[2]/A[1]").Click
-'	'Validation
-'	If Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Record is deleted successfully.","xpath:=//DIV[2]/DIV[8]/DIV[1]").Exist then
-'		Reporter.ReportEvent micPass, "Remove Custom Group","Custom Group was removed correctly"
-'	Else
-'		Reporter.ReportEvent micFail, "Remove Custom Group","Custom Group was NOT removed correctly"
-'	End If 		
-'	'Close Custom Group
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("innertext:=Close","xpath:=//DIV[@id=""customer_group""]/CUSTOM-GROUP[1]/DIV[1]/DIV[3]/A[1]").Click
-'end sub	
-'==================================================	
-' END QuoteServices - Options - CustomGroup
-'==================================================
-'
-'==================================================
-' ANA API SECTION START
-'==================================================
+
 ''==================================================
 ' BEGIN Quote - LineItemDetails - Validation Product that doesn’t exist in Corona
 '==================================================
@@ -557,12 +490,17 @@ end Sub
 'Validate font color to product that doesn’t exist in Corona
 Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
 	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	Dim strDynCol : strDynCol = getProductTableColumn("ProductDescriptionHeader")
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	If actual = "rgb(0, 0, 255)" Then
-		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Font color is Blue"	
+	print actual
+	Dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
+	print actualDesc
+	If actual = "rgb(255, 0, 0)" and actualDesc = "rgb(255, 0, 0)" Then
+		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Entire line is Red"	
 	Else
-		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Font color is not Blue"
+		Reporter.ReportEvent micFail, "Validate font color to product that doesn’t exist in Corona","Entire line is not Red"
 	End If	
 End Sub
 '==================================================
@@ -582,29 +520,51 @@ end Sub
 'Validate font color to obsolete product
 Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
 	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
-	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
+	Dim strDynCol : strDynCol = getProductTableColumn("ProductDescriptionHeader")
 	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
+	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	'dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Object.currentStyle.color
-	If actual = "rgb(255, 0, 0)" Then
-		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Font color is Red"
+	print actual
+	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
+	print actualDesc
+	If actual = "rgb(255, 0, 0)" and actualDesc = "rgb(0, 0, 255)" Then
+		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Product number color is Red and Description font is Blue"
 	Else
-		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not blue"
+		Reporter.ReportEvent micFail, "Validate font color to obsolete product","Font color is not right"
 	End If	
 End Sub
-''validate the obsoleteColor class was appended to the obsoleted product
-'Sub LineItemDetails_ValidateProductObsoleteClassValue(intIndex, strvalue) '*** Edited September 26 Karina***
-'	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
-'	'dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
-'	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
-'	'dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Object.currentStyle.color
-'	print actual
-'	If actual = "" Then
-'		Reporter.ReportEvent micPass, "Validate the class value to obsolete product","ObsoleteColor is appended"
-'	Else
-'		Reporter.ReportEvent micFail, "Validate the class value to obsolete product","ObsoleteColor is not appended"
-'	End If	
-'End Sub
+'Validate valid product font color
+Sub LineItemDetails_ValidateValidProductFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	Dim strDynCol : strDynCol = getProductTableColumn("ProductDescriptionHeader")
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
+	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
+	print actual
+	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
+	print actualDesc
+	If actual = "rgb(0, 0, 255)" and actualDesc = "rgb(0, 0, 255)" Then
+		Reporter.ReportEvent micPass, "Validate font color to valid product","Entire line is blue"
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to valid product","Entire line is not blue"
+	End If	
+End Sub
+'Validate font color of product in bundle
+Sub LineItemDetails_ValidateBundleProductFontColor(intIndex, strvalue) '*** Edited September 26 Karina***
+	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
+	Dim strDynCol : strDynCol = getProductTableColumn("ProductDescriptionHeader")
+	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])//span"
+	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
+	print actual
+	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
+	print actualDesc
+	If actual = "rgb(0, 0, 0)" and actualDesc = "rgb(0, 0, 0)" Then
+		Reporter.ReportEvent micPass, "Validate font color to product in bunle","Entire line is black"
+	Else
+		Reporter.ReportEvent micFail, "Validate font color to product in bunle","Entire line is not black"
+	End If	
+End Sub
 
 Sub Quote_SearchProductNoQualifiedDataValidation()
 		Dim actual : actual = Browser("NGQ").Page("Quote - Search Product").WebElement("NoQualifiedData").GetROProperty("innertext")
@@ -1909,11 +1869,22 @@ end sub
 sub LineItemDetails_AddBundleProduct(strProductNumber, strQuantity)
 	Quote_AddBundle
 	Quote_PopulateBundle strProductNumber, strQuantity
-end sub 
+end sub
+
+Sub Quote_ManualAddBundle(strBundle,intQuantity)
+	Quote_AddBundleOption
+	Quote_PopulateBundle strBundle,intQuantity
+End Sub
+
+Sub Quote_PopulateBundle(strBundleNumber,intQuantity)
+	LineItemDetails_SetQuantity intQuantity
+	LineItemDetails_SetProductNumber strBundleNumber
+End Sub
  
 sub LineItemDetails_SetProductNumber(strValue) 
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").Set strValue
 	Browser("NGQ").Page("Quote - Line Item Details").WebEdit("EnterProductNumber").SendKeys "~"
+	wait 1
 end sub  
  
  sub LineItemDetails_SetQuantity(intQuantity) 
@@ -1932,26 +1903,31 @@ Sub Quote_SearchProduct()
 	UFT.ReplayType = intOriginalReplayType	
 End Sub
 
-' Selects bundle to be searched
+'Selects bundle to be searched
 Sub Quote_SelectBundle()
 	Browser("NGQ").Page("Quote").WebElement("Search Product(s)").Click
 	Browser("NGQ").Page("Quote - Search Product").WebRadioGroup("ProductSearchType").Select "Bundle"
 End Sub
 
 
-' Adds a product or option the line item details table
+'Adds a product or option the line item details table
 sub Quote_AddProductOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
 End sub
 
-' Save the deal id
+'Adds a product or option the line item details table
+sub Quote_AddBundleOption()
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	Browser("NGQ").Page("Quote").WebElement("Add Bundle").Click
+End sub
+
+'Save the deal id
 Sub Quote_CaptureDealId()
-	Dim strDealId 
-	
+	Dim strDealId
 	If Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").Exist Then
-	
 	    strDealId = Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealId").GetROProperty("innertext")
 		Datatable.GetSheet ("Global").AddParameter "DealId_Output", strDealId
 	else
@@ -1960,7 +1936,7 @@ Sub Quote_CaptureDealId()
 End Sub
 
 
-' Add bundle using search
+'Add bundle using search
 Sub Quote_AddBundleToQuote( strBundleId )
   Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Click
   Browser("NGQ").Page("Quote - Search Product").WebEdit("FindByBundleID").Set strBundleId
@@ -3878,10 +3854,8 @@ Function getProductTableColumn(strColumnName)
 	dim findCol : findCol = Browser("NGQ").Page("Quote - Line Item Details").WebElement(strColumnName).GetROProperty("class")
 	dim matches : set matches = RegexGetMatches(findCol, "(uiGrid-\w{4})", false)
 	if matches.Count = 0 then
-	    'we failed poi~
-	    print "failed"
+	    print "failed to get the column"
 	end if
-	'reporter.ReportEvent micDone, "regex match", Trim(matches(0).value)
 	getProductTableColumn = Trim(matches(0).Value)
 End Function
 
