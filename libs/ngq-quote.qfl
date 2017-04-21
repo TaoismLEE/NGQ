@@ -588,6 +588,7 @@ Sub Quote_SearchProductRemoveItem(intIndex) '*** Edited September 23 Karina***
 	Dim xpath : xpath = "xpath:=(//table[@id='product-search-basket-table']/tbody/tr)[" & intIndex & "]/td/span[contains(@class,'icon-trash')]"
 	Browser("NGQ").Page("Quote - Search Product").WebElement(xpath).Click
 End Sub
+
 Sub CheckItemRemoved(strProductNumber)
 	Dim xpath : xpath = "xpath:=//table[@id='product-search-basket-table']//td[.='" & strProductNumber & "']"
 	if Not Browser("NGQ").Page("Quote - Search Product").WebElement(xpath).Exist(1) then
