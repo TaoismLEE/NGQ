@@ -1,5 +1,57 @@
 ﻿Option Explicit
 
+Function IsRegMatch(patrn,stringA)
+	Dim regEx
+	Set regEx = new RegExp
+	regEx.Pattern = patrn
+	regEx.IgnoreCase = False
+ 	IsRegMatch = regEx.Test(stringA)
+	Set regEx = Nothing
+End Function
+
+Function GetInvalidproducts()
+	Dim intRowCount : intRowCount = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").RowCount
+	Dim strProductNum, blnMark, iter, xpath
+	Dim arrProduct()
+	Dim i : i =1
+	For iter = 3 To intRowCount Step 1
+		strProductNum = GetUploadProduct(iter)
+		xpath = "xpath:=((//DIV[contains(@class, 'product-upload-grid')]/table//tr)[" & iter & "]/td[@ng-class='sortedTD_isValid']//span)[2]"
+		Dim strClass : strClass = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").WebElement(xpath).GetROProperty("class")
+		Dim blnExist : blnExist = IsRegMatch(".*sprite_icon_warning_red",strClass)
+		If blnExist Then
+			ReDim preserve arrProduct(i)
+			arrProduct(i-1) = strProductNum
+			i = i + 1
+		End If
+	Next
+	GetInvalidproducts = arrProduct
+End Function
+
+Function GetUploadProduct(intRowIndex)
+	Dim xpath : xpath = "xpath:=((//DIV[contains(@class, 'product-upload-grid')]/table//tr)[" & intRowIndex & "]/td[@ng-class='sortedTD_productNumber']//span)[1]"
+	Dim strProduct : strProduct = Browser("NGQ").Page("Upload Product File").WebTable("Uploaded Products Table").WebElement(xpath).GetROProperty("innertext")
+	GetUploadProduct = strProduct
+End Function
+
+Sub ValidateInvalidProducts(arrProducts)
+	Dim i
+	For i = 0 To Ubound(arrProducts) - 1 Step 1
+		CheckProductWhetherInLineItemDetailPage(arrProducts(i))
+	Next
+End Sub
+
+Sub CheckProductWhetherInLineItemDetailPage(strProduct)
+	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
+	Dim xpath : xpath = "xpath:=//div[contains(@class,'" & dynColProduct & "')]//span[.='" & strProduct & "']"
+	If Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Exist(1) Then
+		logger.report micFail,"Invalid product " & strProduct & " is added to quote","Add invalid product to quote"
+	else
+		logger.report micPass,"Invalid product " & strProduct & " is NOT added to quote","Test pass"
+	End If
+	
+End Sub
+
 '==================================================
 ' BEGIN Quote
 '==================================================

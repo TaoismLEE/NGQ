@@ -5,20 +5,12 @@
 	'The case is to validate:
 	'1. Sales op is able to upload a product file to WNGQ.
 	'2. There are small icons to identify whether a product is valid in Add to Quote section:
-		'1) The valid products will be displayed with a green tick icon.
-		'2) The Invalid product will be displayed with a red cross icon.
-		'3. Both valid and invalid products are added to the quote.
-		'4. The supported file type is .xls or xlsx.
+		'1) The valid products will be displayed with a green tick icon
+		'2) The Invalid product will be displayed with a red exclamation mark icon
+		'3. Only valid products are added to the quote
+		'4. The supported file type is .xls or xlsx
 'Tags:  Upload file, Add Valid and Invalid Products to quote
-
-'Preconditions:
-' 2. No customer information is entered.
-'
-'Author: Guillermo Soria
-'
-'Notes:
-'Syncing is a real problem when the app is not responding quickly.
-'Spinners/loading dialogs don't appear immediately on section transitions.
+'Last Modified: 4/21/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -26,12 +18,14 @@ SystemUtil.CloseProcessByName "IEXPLORE.EXE"
 
 InitializeTest "Action1"
 
-'Load test data
+'Load user info data
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
+
+'Load test data
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_UploadProducts_03.xlsx"
 
-' Variable Decalration
+'Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = ""
 Dim strQuoteVersion : strQuoteVersion = ""
 Dim strQuoteStatus : strQuoteStatus = ""
@@ -54,44 +48,25 @@ OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 strQuotaSelection_Selector = "Save"
 QuoteServices_SelectOption strQuotaSelection_Selector
 
-
 'Upload product
 uploadProduct
 setUploadProductPath strUploadFileName
 UploadProducts_changeDataColumns "B", "C", "D", "1"
 UploadProducts_ProceedWithImport
 UploadProducts_VerifyAddToQuoteTabDisplayed
+
+'Store invalid products to array
+Dim arrInvalidProducts
+arrInvalidProducts = GetInvalidproducts
+
+'Add valid products to quote
 UploadProducts_AddValidProducts
 UploadProducts_ProductsAddedMsg 
 
-'Refreshing price
-strQuotaSelection_Selector = "Refresh Pricing"
-QuoteServices_SelectOption strQuotaSelection_Selector
+'Validate all the invalid products are not added to quote
+ValidateInvalidProducts(arrInvalidProducts)
 
-'Fill neccessary data
-Quote_CustomerDatatab
-CustomerData_ShipToTab
-CustomerDataShipTo_SelectSameAsSoldToAddress
-Quote_ShippingDataTab
-ShippingData_SetDeliverySpeed DataTable.Value("DeliverySpeed", "Global")
-ShippingData_SetTermsOfDelivery DataTable.Value("DeliveryTerms", "Global")
-Quote_AdditionalDataTab
-AdditionalData_SetReceiptDateNow
-SetValueForPaymentTerm
-
-'Refreshing price and save quote
-Quote_refreshPricing
-Quote_save
-
-'PreValidate Quote
-SelectPreValidate
-PreValidate_DataCheckNoErrors
-'PreValidate_ProductCheckNoErrors
-PreValidate_ClicNoErrors
-PreValidate_PriceNoErrors
-PreValidate_BundleNoErrors
-PreValidate_ClickCompleteQuote
-
+'Exit test
 Navbar_Logout
 Close_Browser
 FinalizeTest
