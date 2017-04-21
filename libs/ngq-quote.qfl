@@ -8,7 +8,6 @@ sub Quote_Add()
 end sub
 
 sub Quote_AddProductOrOption()
-	'Browser("NGQ").Page("Quote").WebElement("Add").ScrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
@@ -16,6 +15,15 @@ sub Quote_AddProductOrOption()
 	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
 	UFT.ReplayType = intOriginalReplayType
 end sub
+sub Quote_QuickAdd()
+	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("Quick Add").Click
+	UFT.ReplayType = intOriginalReplayType
+end sub
+
 
 
 Sub uploadConfigFile(strPath)
@@ -4792,4 +4800,59 @@ Sub ValidateEndCustomerData(strMDCDOrgID)
 	else
 		logger.report micFail,"End Customer data not generated","Fail"
 	End If
+End Sub
+
+Sub ValidateAddedProduct(strProductNumber,intQty,intIndex)
+	Dim dynCol : dynCol = getProductTableColumn("QuantityHeader")
+	Dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]//span)[1]"
+	Dim intQuantity : intQuantity = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("innertext")
+	intQuantity = Cint(intQuantity)
+	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
+	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & dynColProduct & "')])[" & intIndex & "]//span"
+	Dim strProduct : strProduct = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("innertext")
+	If strProduct = strProductNumber and intQuantity = intQty Then
+		logger.report micPass,"Product has been added","Add succesfully"
+	else
+		logger.report micFail,"Fail to add product","Fail"
+	End If
+End Sub
+
+Sub SelectFirstLineProduct(intIndex)
+	Dim intOriginType : intOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
+	Dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynColProduct & "')])[" & intIndex & "]//span"
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Click
+	UFT.ReplayType = intOriginType
+End Sub
+
+Sub SelectOption()
+	Browser("NGQ").Page("Quote - Line Item Details").WebList("ProductOption").Select "Option"
+End Sub
+
+Sub SetOptionValue(strOptionValue,intIndex)
+	Dim dynColOption : dynColOption = getProductTableColumn("ProductOptionHeader")
+	Dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynColOption & "')])[" & intIndex & "]//input"
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).Set strOptionValue
+	Browser("NGQ").Page("Quote - Line Item Details").WebEdit(xpath).SendKeys "~"
+End Sub
+
+Sub EnterString(strValue)
+	Dim objWsh : Set objWsh = CreateObject("WScript.Shell")
+	objWsh.SendKeys strValue
+	Set objWsh = Nothing
+End Sub
+
+Sub QuickAddProducts(strProduct1,strProduct2)
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column1").Click
+	EnterString strProduct1
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column2").Click
+	EnterString "0D1"
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column4").Click
+	EnterString 5
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row2Column1").Click
+	EnterString strProduct2
+	EnterKey
+	wait 1
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Submit").Click
 End Sub
