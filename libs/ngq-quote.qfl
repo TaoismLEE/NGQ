@@ -49,7 +49,23 @@ Sub CheckProductWhetherInLineItemDetailPage(strProduct)
 	else
 		logger.report micPass,"Invalid product " & strProduct & " is NOT added to quote","Test pass"
 	End If
-	
+End Sub
+
+Sub ValidateValidProducts(arrProducts)
+	Dim i
+	For i = 0 To Ubound(arrProducts) - 1 Step 1
+		CheckProductWhetherInLineItemDetailPage2(arrProducts(i))
+	Next
+End Sub
+
+Sub CheckProductWhetherInLineItemDetailPage2(strProduct)
+	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
+	Dim xpath : xpath = "xpath:=//div[contains(@class,'" & dynColProduct & "')]//span[.='" & strProduct & "']"
+	If Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).Exist(1) Then
+		logger.report micPass,"Product " & strProduct & " is added to quote","Add product from bundle to quote"
+	else
+		logger.report miFail,"Product " & strProduct & " is NOT added to quote","Test Fail"
+	End If
 End Sub
 
 '==================================================
