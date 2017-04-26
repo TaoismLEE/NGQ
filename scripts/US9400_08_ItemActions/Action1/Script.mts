@@ -3,19 +3,23 @@
 'User Story: US9400_08_Item Actions
 'Description:
 	'The case is to validate:
-		'1. Sales op is able to add an item between Page break and Comment.
-		'2. Sales op is able to remove the selected item only if Sub-total has not been applied to the lines being removed.
-		'3. There is a message popup indicating remove the sub-total and try again when Sales op is trying to remove a part of subtotal.
+		'1. Sales op is able to add an Page break and Comment item.
+		'2. Sales op is able to remove the selected item only when Sub-total has not been applied to the line being removed.
+		'3. There is a message popup indicating removing the sub-total when Sales op is trying to remove a part of subtotal.
 		'4. Sales op is able to replace an item.
 		'5. Sales op is able to promote an item.
 		'6. Sales op is able to demote an item.
+		'7. Sales op is able to add config from OCS.
 'Tags: Remove item, Replace item, Promote item, Demote item
 'Author: Reese Childers
+'Last Modified: 4/21/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+
 InitializeTest "Action1"
+
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
@@ -28,9 +32,11 @@ Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Globa
 Dim strQuoteVersion : strQuoteVersion = DataTable.Value("QuoteVersion","Global")
 Dim strQuoteStatus : strQuoteStatus = DataTable.Value("QuoteStatus","Global")
 Dim strQuoteEndDate : strQuoteEndDate = DataTable.Value("QuoteEndDate","Global")
+Dim strQuoteName : strQuoteName = DataTable.Value("QuoteName","Global")
+
 Dim strOpportunityId : strOpportunityId = DataTable.Value("OpportunityID","Global")
 Dim strProductNumber : strProductNumber = DataTable.Value("ProductNumber","Global")
-Dim strQuoteName : strQuoteName = DataTable.Value("QuoteName","Global") 
+Dim strBaseProduct : strBaseProduct = DataTable.Value("BaseProduct","Global")
 Dim strQuotaSelection_Selector : strQuotaSelection_Selector = DataTable.Value("QuotaSelection_Selector","Global") 
 Dim strDeliverySpeed : strDeliverySpeed = DataTable.Value("DeliverySpeed","Global") 
 Dim strDeliveryTerms : strDeliveryTerms = DataTable.Value("DeliveryTerms","Global") 
@@ -51,26 +57,8 @@ click_save_button()
 ' Build ocs configuration
 build_ocs_bom @@ hightlight id_;_Browser("Home").Page("Home 2").Link("NI00155377")_;_script infofile_;_ZIP::ssf2.xml_;_
 
-'Add nessesary data
+'Add neccessary data
 PreValidate_FixDataCheckErrors
-
-'CustomerData_ShipTo
-'
-'CustomerDataShipTo_SelectSameAsSoldToAddress
-'
-'' Click shipping data tab
-'Quote_ShippingDataTab
-'
-'' Set speed
-'ShippingData_SetDeliverySpeed strDeliverySpeed
-'
-'' Set Delivery terms
-'ShippingData_SetTermsOfDelivery strDeliveryTerms
-'
-'' Set receipt date
-'Quote_AdditionalDataTab
-'
-'AdditionalData_SetReceiptDateNow
 
 'Refresh Pricing
 click_refresh_pricing()
@@ -97,8 +85,8 @@ rightClickPromoteItem
 
 rightClickDemoteItem
 
-' Logout and close browser
-Navbar_Logout()
-browser("NGQ").Close
 
+'Logout and close browser
+Navbar_Logout
+Close_Browser
 FinalizeTest

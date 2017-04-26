@@ -3934,6 +3934,18 @@ Function getProductTableColumn(strColumnName)
 	getProductTableColumn = Trim(matches(0).Value)
 End Function
 
+Sub verify_prodTable_GroupName(strGroupName,intIndex)
+	Dim dynCol : dynCol = getProductTableColumn("Group Name Header")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')]//select)[" & intIndex & "]"
+	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebList(xpath).GetROProperty("Selection")
+	If actual = strGroupName Then
+		Reporter.ReportEvent micPass, "Group Name has been set successfully", "Verified matching group name"
+	else
+		Reporter.ReportEvent micFail, "Group Name has been set successfully", "Incorrect group name found"
+	End If
+End Sub
+
+
 Sub verify_prodTable_prodNum(productNum, intIndex)
 	Dim dynCol : dynCol = getProductTableColumn("ProductNumberHeader")
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
@@ -3975,6 +3987,23 @@ Sub DisplayDealId()
 	    	For each objItem in objItems
                 'print objItem.lastChild.nodeValue
                 If objItem.lastChild.nodeValue = " " & "Deal Id" Then
+                    objItem.click
+                    Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+                    Exit sub
+                End If
+            Next
+	    End If
+End Sub
+
+Sub DisplayGroupName()
+	    If not Browser("NGQ").Page("Quote - Line Item Details").WebElement("Group Name Header").Exist(1) Then
+	    	Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+	    	Dim objItem
+	    	Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
+	    	Dim objItems : set objItems = objElement.getElementsByTagName("button")
+	    	For each objItem in objItems
+                'print objItem.lastChild.nodeValue
+                If objItem.lastChild.nodeValue = " " & "Group Name" Then
                     objItem.click
                     Browser("NGQ").Page("Quote").WebElement("AddCols").Click
                     Exit sub
@@ -4924,4 +4953,25 @@ Sub QuickAddProducts(strProduct1,strProduct2)
 	EnterKey
 	wait 1
 	Browser("NGQ").Page("Product_QuickAdd").WebElement("Submit").Click
+End Sub
+
+Sub PopUpGroupNameDialog(intIndex)
+	Dim intOriginType : intOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
+	Dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynColProduct & "')])[" & intIndex & "]//span"
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).RightClick
+	UFT.ReplayType = intOriginType
+	Browser("NGQ").Page("Quote - Line Item Details").RunScript "document.getElementById('menu_1').getElementsByTagName('a')[1].click()"
+End Sub
+
+Sub SetGroupName(strName)
+	Browser("NGQ").Page("Assign Group Name").WebList("Group Name").Select strName
+	Browser("NGQ").Page("Assign Group Name").WebElement("Save").Click
+End Sub
+
+Sub ManualSelectGroupName(strGroupName,intIndex)
+	Dim dynCol : dynCol = getProductTableColumn("Group Name Header")
+	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')]//select)[" & intIndex & "]"
+	Browser("NGQ").Page("Quote - Line Item Details").WebList(xpath).select strGroupName
 End Sub
