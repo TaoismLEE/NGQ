@@ -3,9 +3,9 @@
 'User Story: CPQEncoreRetirement_HPFS_01_QuoteMCC
 'Description:	1. Sales op is able to create an HPEFS quote in NGQ.
 '				2. MCC code 72 can be used to adjust quote total to HPFS quote price.
-'				3. NGQ is able to generate the budgetary quote output for this HPEFS quote.
-'Tags: Quote, MCC, Output
-'Last Modified: yu.li9@hpe.com
+'				3. NGQ is able to generate the quote output for this HPEFS quote.
+'Tags: HPEFS Quote, MCC, Output
+'Last Modified: 5/2/2017 by yu.li9@hpe.com
 '==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -45,7 +45,7 @@ CheckHPEFS
 'Enter an opportunity ID in the "Import Opportunity ID/Request ID" section. Click import
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 
-' Enter quote name and save it
+'Enter quote name and save it
 Quote_EditQuoteName strQuotename
 Quote_save
 
@@ -98,6 +98,7 @@ OutputQuote_SaveQuotePdf strQuoteNumber
 PdfVerification DataTable("OutputFilePath"), DataTable("PdfCheckSoldTo"), DataTable("PdfCheckShipTo"), DataTable("PdfCheckSalesContact"), _
                 DataTable("PdfCheckLineItems"), DataTable("PdfCheckGrandTotal"), DataTable("PdfCheckExtComment"), DataTable("PdfCheckHeader")
 
+'Exit test
 Navbar_Logout
 Close_Browser
 FinalizeTest
