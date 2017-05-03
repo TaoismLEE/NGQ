@@ -3460,8 +3460,8 @@ End Sub
 'Clicks on Pricing and terms tab
 '*******************************************************************************************
 Sub Quote_PricinadAndTermsTab()
-	Browser("NGQ").Page("Quote").WebElement("Pricing and Terms").Click
-
+	Browser("NGQ").Page("Quote").WebElement("PricingTermsTab").Click
+	wait 1
 End Sub
 
 '*******************************************************************************************
@@ -4006,7 +4006,6 @@ Sub DisplayDealId()
 	    	Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
 	    	Dim objItems : set objItems = objElement.getElementsByTagName("button")
 	    	For each objItem in objItems
-                'print objItem.lastChild.nodeValue
                 If objItem.lastChild.nodeValue = " " & "Deal Id" Then
                     objItem.click
                     Browser("NGQ").Page("Quote").WebElement("AddCols").Click
@@ -4023,8 +4022,23 @@ Sub DisplayGroupName()
 	    	Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
 	    	Dim objItems : set objItems = objElement.getElementsByTagName("button")
 	    	For each objItem in objItems
-                'print objItem.lastChild.nodeValue
                 If objItem.lastChild.nodeValue = " " & "Group Name" Then
+                    objItem.click
+                    Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+                    Exit sub
+                End If
+            Next
+	    End If
+End Sub
+
+Sub DisplayMCC()
+	If not Browser("NGQ").Page("Quote - Line Item Details").WebElement("MCC Header").Exist(1) Then
+	    	Browser("NGQ").Page("Quote").WebElement("AddCols").Click
+	    	Dim objItem
+	    	Dim objElement : set objElement = Browser("NGQ").Page("Quote").WebElement("NewMenu").Object
+	    	Dim objItems : set objItems = objElement.getElementsByTagName("button")
+	    	For each objItem in objItems
+                If objItem.lastChild.nodeValue = " " & "MCC" Then
                     objItem.click
                     Browser("NGQ").Page("Quote").WebElement("AddCols").Click
                     Exit sub
@@ -4978,13 +4992,31 @@ Sub QuickAddProducts(strProduct1,strProduct2)
 End Sub
 
 Sub PopUpGroupNameDialog(intIndex)
+	RightClickLineItem intIndex
+	Browser("NGQ").Page("Quote - Line Item Details").RunScript "document.getElementById('menu_1').getElementsByTagName('a')[1].click()"
+End Sub
+
+Sub RightClickLineItem(intIndex)
 	Dim intOriginType : intOriginType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Dim dynColProduct : dynColProduct = getProductTableColumn("ProductNumberHeader")
 	Dim xpath : xpath = "xpath:=(//div[contains(@class,'" & dynColProduct & "')])[" & intIndex & "]//span"
 	Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).RightClick
 	UFT.ReplayType = intOriginType
-	Browser("NGQ").Page("Quote - Line Item Details").RunScript "document.getElementById('menu_1').getElementsByTagName('a')[1].click()"
+End Sub
+
+Sub PopUpLineItemMCCDialog(intIndex)
+	RightClickLineItem intIndex
+	MouseOverMCC
+	Browser("NGQ").Page("Quote - Line Item Details").RunScript "document.getElementById('item_9').getElementsByTagName('a')[0].click()"
+End Sub
+
+Sub MouseOverMCC()
+	Dim intOriginType : intOriginType = UFT.ReplayType
+	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote - Line Item Details").WebElement("SubMenu MCC").MouseOver
+	wait 1
+	UFT.ReplayType = intOriginType
 End Sub
 
 Sub SetGroupName(strName)
@@ -5064,4 +5096,48 @@ Sub DisplayPANumberColumn()
                 End If
             Next
 	    End If
+End Sub
+
+Sub ValidateLineItemMCC(intIndex,strLineItemValue)
+	Dim strValue, item
+	Dim strAddedMCC : strAddedMCC = LineItemDetails_CaptureMCCDiscount(intIndex)
+	Dim arrResults : Set arrResults = FetchNumber("\d*%",strAddedMCC)
+	For Each item in arrResults
+		If item.value = "" Then
+			logger.report micFail, "No MCC shows","No MCC is added successfully"
+		Else 
+			strValue = item.value
+			Exit for
+		End If
+	Next
+	strValue = Replace(strValue, "%", "")
+	If cint(strValue) = cint(strLineItemValue) Then
+		logger.report micPass, "The MCC is added successfully","MCC Added"
+	else
+		logger.report micFail,"Wrong MCC shows","Wrong data"
+	End If
+End Sub
+
+Function FetchNumber(patrn,stringValue)
+	Dim regEx
+	Set regEx = new RegExp
+	regEx.Pattern = patrn
+	regEx.IgnoreCase = True
+	Set FetchNumber =regEx.Execute(stringValue)
+	Set regEx = Nothing
+End Function
+
+Function LineItemDetails_CaptureMCCDiscount(intIndex)
+	Dim dynColProduct : dynColProduct = getProductTableColumn("MCC Header")
+	Dim strXpath : strXpath = "xpath:=(//div[contains(@class,'" & dynColProduct & "')])[" & intIndex & "]//a/div"
+	LineItemDetails_CaptureMCCDiscount = Browser("NGQ").Page("Quote - Line Item Details").WebElement(strXpath).GetROProperty("innertext")
+End Function
+
+Sub ApplyLineItemMCC(strMCC ,strDiscountType,strPercent,intDiscount)
+	Browser("NGQ").Page("MCC Line Details").WebList("MCC").Select strMCC
+	Browser("NGQ").Page("MCC Line Details").WebList("Discount Type").Select strDiscountType
+	Browser("NGQ").Page("MCC Line Details").WebList("Percent").Select strPercent
+	Browser("NGQ").Page("MCC Line Details").WebEdit("Value").Set intDiscount
+	Browser("NGQ").Page("MCC Line Details").WebElement("Enter Arrow").Click
+	Browser("NGQ").Page("MCC Line Details").WebButton("Close").Click
 End Sub
