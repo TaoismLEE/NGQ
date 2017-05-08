@@ -2,7 +2,7 @@
 'Summary: Check the UI of Advanced Search Page
 'Description: Check all the elements which should be displayed are displayed in the advanced search page and the options of list
 'Creator: yu.li9@hpe.com
-'Last Modified Time: 4/17/2017
+'Last Modified Time: 5/8/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime

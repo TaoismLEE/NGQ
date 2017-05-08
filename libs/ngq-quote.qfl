@@ -4161,7 +4161,7 @@ Sub CheckHeaderOfHomePage(strSystemName, strLoginUser)
 	else
 		logger.report micFail, "The navigation menus are NOT displayed", "Navigation menus not load"
 	End If
-	If Browser("NGQ").Page("Home").link("Displayed Language").Exist(1) Then
+	If Browser("NGQ").Page("Home").WebList("LanguageSelect").Exist(1) Then
 		Logger.report MicPass, "The languange selection is displayed","The languange selection appears correctly"
 	else
 		logger.report micFail, "The languange selection is NOT displayed", "Language selection not load"
@@ -4212,13 +4212,13 @@ Sub CheckQuickSearchOfHomePage()
 		logger.report micFail, "The Opportunity ID search form is NOT displayed", "The Opportunity ID search form not load"
 	End If
 	Dim strStatusDefault : strStatusDefault = DataTable.GetSheet("Global").GetParameter("Status").ValueByRow(1)
-	If Browser("NGQ").Page("Home").WebList("Status").Exist(1) and strStatusDefault = "Please Select" Then
+	If Browser("NGQ").Page("Home").WebList("Status").Exist(1) and strStatusDefault = "Please Select One" Then
 		Logger.report MicPass, "The Status search list is displayed","The Status search list appears correctly"
 	else
 		logger.report micFail, "The Status search list is NOT displayed", "The Status search list not load"
 	End If
 	Dim strCountryDefault : strCountryDefault = DataTable.GetSheet("Global").GetParameter("Country").ValueByRow(1)
-	If Browser("NGQ").Page("Home").WebList("Country").Exist(1) and strCountryDefault = "Please Select" Then
+	If Browser("NGQ").Page("Home").WebList("Country").Exist(1) and strCountryDefault = "Please Select One" Then
 		Logger.report MicPass, "The Country search list is displayed","The Country search list appears correctly"
 	else
 		logger.report micFail, "The Country search list is NOT displayed", "he Country search list not load"
@@ -4260,9 +4260,31 @@ Sub CompareListOptionsOfHomePage()
 End Sub
 
 'To compare the listed options of languages in the header of home page
+'Sub CompareLanguageList()
+'	Dim intRows : intRows = 1
+'	Browser("NGQ").Page("Home").Link("Displayed Language").Click
+'	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Language Select").WebList("LanguageSelect").ItemsCount
+'	While DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(intRows) <> ""
+'		intRows = intRows + 1
+'	Wend
+'	intRows = intRows - 1
+'	If intRows = intNumberOfLanguages Then
+'		Dim i
+'		For i = 1 To intRows Step 1
+'			If Browser("NGQ").Page("Language Select").WebList("LanguageSelect").HasItem(DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i)) Then
+'				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i) & " shows in the list", "The language shows"
+'			Else
+'				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(i) & " does NOT show in the list", "Fail to show the language"
+'			End If
+'		Next
+'	Else
+'		Logger.report MicFail, "The number of required options does NOT equal to the listed options","They are not equal"
+'	End If
+'End Sub
+
 Sub CompareLanguageList()
 	Dim intRows : intRows = 1
-	Browser("NGQ").Page("Home").Link("Displayed Language").Click
+	'Browser("NGQ").Page("Home").Link("Displayed Language").Click
 	Dim intNumberOfLanguages : intNumberOfLanguages = Browser("NGQ").Page("Language Select").WebList("LanguageSelect").ItemsCount
 	While DataTable.GetSheet("Global").GetParameter("Language").ValueByRow(intRows) <> ""
 		intRows = intRows + 1
@@ -4459,7 +4481,7 @@ Sub CheckDefaultPageOfAdvancedSearch()
 	Else 
 		logger.report micFail,"The MDCP Org ID search form is NOT displayed", "Not load"
 	End If
-	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").GetROProperty("selection") = "Select Quote Status" then
+	If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").Exist(1) and Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").GetROProperty("selection") = "Please Select One" then
 		Logger.report MicPass, "The Quote status list is displayed","shows rightly"
 	Else 
 		logger.report micFail,"The Quote status list is NOT displayed", "Not load"
@@ -4499,9 +4521,9 @@ Sub CompareQuoteStatusList()
 		Dim i
 		For i = 1 To intRows Step 1
 			If Browser("NGQ").Page("Navbar - AdvancedSearch").WebList("Quote Status").HasItem(DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i)) Then
-				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " shows in the list", "The language shows"
+				Logger.report MicPass, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " shows in the list", "The status shows"
 			Else
-				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " does NOT show in the list", "Fail to show the language"
+				Logger.report MicFail, DataTable.GetSheet("Global").GetParameter("QuoteStatus").ValueByRow(i) & " does NOT show in the list", "Fail to show the status"
 			End If
 		Next
 	Else
