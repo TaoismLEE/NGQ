@@ -2,7 +2,7 @@
 'Summary: Check the UI of My Preference page
 'Description: Check all the elements which should be displayed are displayed in My Preference page
 'Creator: yu.li9@hpe.com
-'Last Modified Time: 4/17/2017
+'Last Modified Time: 5/8/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
