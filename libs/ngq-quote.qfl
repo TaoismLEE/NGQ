@@ -4186,7 +4186,7 @@ Sub CheckHeaderOfHomePage(strSystemName, strLoginUser)
 End Sub
 
 Sub CheckQuickSearchOfHomePage()
-	If Browser("NGQ").Page("Home").WebEdit("QuoteNumber_2").Exist(1) Then
+	If Browser("NGQ").Page("Home").WebEdit("QuoteNumber").Exist(1) Then
 		Logger.report MicPass, "The quote number search form is displayed","The quote number search form appears correctly"
 	Else 
 		logger.report micFail, "The quote number search form is NOT displayed", "The quote number search form not load"
