@@ -2,7 +2,7 @@
 'Summary: Simple search
 'Description: Test the functionality of simple search with Quote ID, Company Name, and Opportunity ID
 'Creator: yu.li9@hpe.com
-'Last Modified: 4/18/2017
+'Last Modified: 5/8/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
