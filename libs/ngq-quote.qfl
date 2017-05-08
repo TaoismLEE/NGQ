@@ -4800,7 +4800,7 @@ Sub CheckNameSearchReslut(strNameValue)
 End Sub
 
 Sub InputSearchCriterias(strQuoteNumber,strMDCPOrgID,strProductNumber,strLoginUser,strOppID)
-	Browser("NGQ").Page("Home").WebEdit("QuoteNumber_2").Set strQuoteNumber
+	Browser("NGQ").Page("Home").WebEdit("QuoteNumber").Set strQuoteNumber
 	Browser("NGQ").Page("Home").WebEdit("MDCP Org ID").Set strMDCPOrgID
 	Browser("NGQ").Page("Home").WebEdit("Product Number").Set strProductNumber
 	Browser("NGQ").Page("Home").WebEdit("Created By Email").Set strLoginUser

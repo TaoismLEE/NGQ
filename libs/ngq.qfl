@@ -304,9 +304,9 @@ end function
 sub Navbar_CreateNewQuote()
 	If (Browser("NGQ").Page("Navbar").Link("New Quote").Exist(5)) Then
 		Navbar_ShowNewQuoteList()
-		Browser("NGQ").Page("Navbar - New Quote").Link("Create New Quote").Click
+		Browser("NGQ").Page("Navbar - New Quote").WebElement("Create New Quote").Click
 	else
-		Browser("NGQ").Page("Navbar").Link("CreateNewQuote").Click
+		Browser("NGQ").Page("Navbar").Link("New Quote").Click
 	End If
 	
 end sub
