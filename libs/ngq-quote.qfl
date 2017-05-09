@@ -101,8 +101,8 @@ sub Quote_AddProductOrOption()
 	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
 	wait 2
-	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
 	UFT.ReplayType = intOriginalReplayType
+	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
 end sub
 sub Quote_QuickAdd()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
