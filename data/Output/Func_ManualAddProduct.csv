@@ -1,0 +1,2 @@
+ProductNum1,ProductNum2,ProductNum3,URL,UserStory,Test_Case_ID,Test_Case_Desc
+745713-B21,BW904A,HA841A1,https://c4t25900.itcs.hpecorp.net/q2cwngq/ngq#/home,Func_ManualAddProduct,000008,Validate adding product, adding option,and quick add manually

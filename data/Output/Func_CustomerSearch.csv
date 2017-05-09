@@ -1,0 +1,2 @@
+MDCPOrgID,CompanyName,Street1,Street2,City,ZipCode,Country,URL,UserStory,Test_Case_ID,Test_Case_Desc
+145152418,FACEBOOK india,43915 Devin Shafron Dr,,Ashburn,20147-7348,U.S.A.,https://c4t25900.itcs.hpecorp.net/q2cwngq/ngq#/home,Func_CustomerSearch,000007,Validate populating customer info by customer searching
