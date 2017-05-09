@@ -2,7 +2,7 @@
 'Summary: Manipulate MCC
 'Description: Validate user can add line item MCC, Header MCC
 'Creator: yu.li9@hpe.com
-'Last Modified: 5/03/2017
+'Last Modified: 5/09/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
