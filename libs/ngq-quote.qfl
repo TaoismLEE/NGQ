@@ -98,6 +98,7 @@ end sub
 sub Quote_AddProductOrOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	wait 1
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
@@ -2255,12 +2256,6 @@ End Sub
 ' Clicks the refresh pricing button
 Sub click_refresh_pricing()
 	browser("NGQ").Page("Quote").WebElement("RefreshPricing").Click
-	
-	'if browser("NGQ").Page("Quote").WebElement("InfoMessage").GetROProperty("innertext") = "Refresh Pricing completed More" then
-    '    Reporter.ReportEvent micPass, "Refresh Pricing Pass","Pricing Successfully Refreshed"
-    'else
-    '    Reporter.ReportEvent micFail, "Refresh Pricing Fail","Pricing Refresh Failed"
-    'End if
 End Sub
 
 
@@ -4997,23 +4992,20 @@ Sub EnterString(strValue)
 	Dim objWsh : Set objWsh = CreateObject("WScript.Shell")
 	objWsh.SendKeys strValue
 	Set objWsh = Nothing
-	wait 1
 End Sub
 
 Sub QuickAddProducts(strProduct1,strProduct2)
-	Dim intOriginType : intOriginType = UFT.ReplayType
-	UFT.ReplayType = 2
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column1").FireEvent "ondblclick"
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column1").Click
 	EnterString strProduct1
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column2").FireEvent "ondblclick"
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column2").Click
 	EnterString "0D1"
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column4").FireEvent "ondblclick"
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column4").Click
 	EnterString 5
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row2Column1").FireEvent "ondblclick"
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row2Column1").Click
 	EnterString strProduct2
 	EnterKey
+	wait 1
 	Browser("NGQ").Page("Product_QuickAdd").WebElement("Submit").Click
-	UFT.ReplayType = intOriginType
 End Sub
 
 Sub PopUpGroupNameDialog(intIndex)

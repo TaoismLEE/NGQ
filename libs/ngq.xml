@@ -5098,7 +5098,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="RefreshPricing">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@pid='QD_REFRESH_PRICE_BTN']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//button[@id='refreshbtn']]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5174,7 +5174,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="QuoteOutputTab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='QT_OP']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[./text[.='Quote Output']]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="siebelobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="repositoryname" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
@@ -5442,7 +5442,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="PricingTermsTab">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//span[@id='PRCNG_TERMS']]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[./text[.='Pricing and Terms']]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -5461,7 +5461,7 @@
 </qtpRep:Object>
 <qtpRep:Object Class="WebElement" Name="Pricing and Terms">
 <qtpRep:Properties>
-<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//SPAN[@id="PRCNG_TERMS"]]]></qtpRep:Value>	</qtpRep:Property>
+<qtpRep:Property Name="xpath" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[//a[./text[.='Pricing and Terms']]]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="micclass" Hidden="1" ReadOnly="1" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[WebElement]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="innertext" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="html tag" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[]]></qtpRep:Value>	</qtpRep:Property>
@@ -13454,58 +13454,6 @@
 <qtpRep:Object Class="WinButton" Name="Save">
 <qtpRep:Properties>
 <qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[&Save]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="nativeclass" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Button]]></qtpRep:Value>	</qtpRep:Property>
-</qtpRep:Properties>
-<qtpRep:BasicIdentification>
-<qtpRep:PropertyRef>text</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>nativeclass</qtpRep:PropertyRef>
-</qtpRep:BasicIdentification>
-<qtpRep:CustomReplay>
-<qtpRep:Behavior Name="simclass" Type="STRING">Button</qtpRep:Behavior>
-</qtpRep:CustomReplay>
-<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
-<qtpRep:ChildObjects>
-</qtpRep:ChildObjects>
-</qtpRep:Object>
-</qtpRep:ChildObjects>
-</qtpRep:Object>
-<qtpRep:Object Class="Dialog" Name="Choose File to Upload_2">
-<qtpRep:Properties>
-<qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Choose File to Upload]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="nativeclass" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[#32770]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="is owned window" Hidden="0" ReadOnly="0" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[-1]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="is child window" Hidden="0" ReadOnly="0" Type="BOOL">	<qtpRep:Value RegularExpression="0"><![CDATA[0]]></qtpRep:Value>	</qtpRep:Property>
-</qtpRep:Properties>
-<qtpRep:BasicIdentification>
-<qtpRep:PropertyRef>text</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>nativeclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>is owned window</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>is child window</qtpRep:PropertyRef>
-</qtpRep:BasicIdentification>
-<qtpRep:CustomReplay>
-<qtpRep:Behavior Name="simclass" Type="STRING">#32770</qtpRep:Behavior>
-</qtpRep:CustomReplay>
-<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
-<qtpRep:ChildObjects>
-<qtpRep:Object Class="WinEdit" Name="File name:">
-<qtpRep:Properties>
-<qtpRep:Property Name="nativeclass" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Edit]]></qtpRep:Value>	</qtpRep:Property>
-<qtpRep:Property Name="attached text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[File &name:]]></qtpRep:Value>	</qtpRep:Property>
-</qtpRep:Properties>
-<qtpRep:BasicIdentification>
-<qtpRep:PropertyRef>nativeclass</qtpRep:PropertyRef>
-<qtpRep:PropertyRef>attached text</qtpRep:PropertyRef>
-</qtpRep:BasicIdentification>
-<qtpRep:CustomReplay>
-<qtpRep:Behavior Name="simclass" Type="STRING">Edit</qtpRep:Behavior>
-</qtpRep:CustomReplay>
-<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
-<qtpRep:ChildObjects>
-</qtpRep:ChildObjects>
-</qtpRep:Object>
-<qtpRep:Object Class="WinButton" Name="Open">
-<qtpRep:Properties>
-<qtpRep:Property Name="text" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[&Open]]></qtpRep:Value>	</qtpRep:Property>
 <qtpRep:Property Name="nativeclass" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Button]]></qtpRep:Value>	</qtpRep:Property>
 </qtpRep:Properties>
 <qtpRep:BasicIdentification>
