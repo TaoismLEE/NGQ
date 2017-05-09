@@ -97,10 +97,10 @@ end sub
 
 sub Quote_AddProductOrOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
-	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
-	wait 1
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
+	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	wait 2
 	Browser("NGQ").Page("Quote").WebElement("Add Product Or Option").Click
 	UFT.ReplayType = intOriginalReplayType
 end sub
