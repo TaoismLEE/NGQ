@@ -107,6 +107,7 @@ end sub
 sub Quote_QuickAdd()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	wait 1
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Quick Add").Click
@@ -4995,13 +4996,13 @@ Sub EnterString(strValue)
 End Sub
 
 Sub QuickAddProducts(strProduct1,strProduct2)
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column1").Click
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column1").FireEvent "ondblclick"
 	EnterString strProduct1
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column2").Click
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column2").FireEvent "ondblclick"
 	EnterString "0D1"
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column4").Click
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row1Column4").FireEvent "ondblclick"
 	EnterString 5
-	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row2Column1").Click
+	Browser("NGQ").Page("Product_QuickAdd").WebElement("Row2Column1").FireEvent "ondblclick"
 	EnterString strProduct2
 	EnterKey
 	wait 1
