@@ -2,7 +2,7 @@
 'Summary: Manually add products
 'Description: Validate adding product, adding option,and quick add manually
 'Creator: yu.li9@hpe.com
-'Last Modified: 4/21/2017
+'Last Modified: 5/9/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime

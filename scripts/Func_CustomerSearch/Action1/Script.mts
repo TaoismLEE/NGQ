@@ -2,7 +2,7 @@
 'Summary: Customer Search
 'Description: Validate populating customer info by customer searching
 'Creator: yu.li9@hpe.com
-'Last Modified: 4/19/2017
+'Last Modified: 5/9/2017
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
