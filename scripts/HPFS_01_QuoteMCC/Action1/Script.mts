@@ -5,7 +5,7 @@
 '				2. MCC code 72 can be used to adjust quote total to HPFS quote price.
 '				3. NGQ is able to generate the quote output for this HPEFS quote.
 'Tags: HPEFS Quote, MCC, Output
-'Last Modified: 5/2/2017 by yu.li9@hpe.com
+'Last Modified: 5/10/2017 by yu.li9@hpe.com
 '==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime

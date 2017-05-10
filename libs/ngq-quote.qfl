@@ -3694,8 +3694,9 @@ Sub uploadProduct()
 	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Upload").Object.scrollIntoView
 	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
-    Browser("NGQ").Page("Upload Product File").WebElement("UploadProductBrowse").Click
-    UFT.ReplayType = strOriginType
+	UFT.ReplayType = strOriginType
+	wait 1
+    Browser("NGQ").Page("Quote").WebElement("UploadProduct").Click
     Browser("NGQ").Page("Upload Product File").WebElement("Choose File").Click
 End Sub
 
