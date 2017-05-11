@@ -12,12 +12,11 @@
 		'7. Sales op is able to add config from OCS.
 'Tags: Remove item, Replace item, Promote item, Demote item
 'Author: Reese Childers
-'Last Modified: 4/21/2017 by yu.li9@hpe.com
+'Last Modified: 5/11/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
-
 InitializeTest "Action1"
 
 'Load the xls file for the user information
@@ -27,7 +26,7 @@ Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataT
 'Load test data
 DataTable.Import "..\..\data\TD_NGQ_CPQ_EncoreRetirement_US9400_ItemActions_08.xlsx"
 
-' Variable Decalration
+'Variable Decalration
 Dim strQuoteNumberID : strQuoteNumberID = DataTable.Value("QuoteNumberID","Global")
 Dim strQuoteVersion : strQuoteVersion = DataTable.Value("QuoteVersion","Global")
 Dim strQuoteStatus : strQuoteStatus = DataTable.Value("QuoteStatus","Global")
@@ -52,20 +51,20 @@ NewQuote_ValidateEmptyQuote "New Quote", "1", "Quote/Configuration Created", "Ne
 
 OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 Quote_EditQuoteName strQuoteName
-click_save_button()
+click_save_button
 
-' Build ocs configuration
+'Build ocs configuration
 build_ocs_bom @@ hightlight id_;_Browser("Home").Page("Home 2").Link("NI00155377")_;_script infofile_;_ZIP::ssf2.xml_;_
 
 'Add neccessary data
 PreValidate_FixDataCheckErrors
 
 'Refresh Pricing
-click_refresh_pricing()
+click_refresh_pricing
 
-rightClickAddPageBreak()
+rightClickAddPageBreak
 
-rightClickAddComment()
+rightClickAddComment
 
 selectMultipleLines
 
@@ -77,7 +76,7 @@ deleteSubTotalLine
 
 removeItem
 
-click_refresh_pricing()
+click_refresh_pricing
 
 editProductNum strProductNumber
 

@@ -4,7 +4,7 @@
 'Author: Joshua Hunter
 'Description: This test deals with testing adding a specific bundle id to a quote
 'Tags: Quote, Bundles
-'Last Modified: 4/21/2017 by yu.li9@hpe.com
+'Last Modified: 5/11/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
