@@ -473,9 +473,9 @@ function Quote_ValidateAddButtonOptions()
 	End If	
 	' Search Product(s)
 	If Browser("NGQ").Page("Quote").WebElement("Search Product(s)").Exist(1) Then
-		Reporter.ReportEvent micPass, "Validate - Search Product(s)","Search Product(s) option is displayed"	
+		Reporter.ReportEvent micPass, "Validate - Search Product","Search Product(s) option is displayed"	
 	Else
-		Reporter.ReportEvent micFail, "Validate - Search Product(s)","Search Product(s) option is not displayed"
+		Reporter.ReportEvent micFail, "Validate - Search Product","Search Product(s) option is not displayed"
 	End If	
 	' Quick Add
 	If Browser("NGQ").Page("Quote").WebElement("Quick Add").Exist(1) Then
@@ -2338,10 +2338,9 @@ Sub click_lineitem_add_ocs()
 	UFT.ReplayType = 2
 	browser("NGQ").page("Quote").webelement("Add").Object.scrollIntoView
 	browser("NGQ").Page("Quote").WebElement("Add").MouseOver
-'	browser("NGQ").Page("Quote").Link("Add OCS Config").highlight
-'	browser("NGQ").Page("Quote").Link("Add OCS Config").Click
-	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 	UFT.ReplayType = strOriginType
+	wait 1
+	browser("NGQ").Page("Quote - Line Item Details").WebElement("OCSConfig").Click
 End Sub
 
 'Right click items
