@@ -6,7 +6,7 @@
 '				3. When adding an valid product, the font color of entire line is blue
 '				4. The font color of entire line is black when the product belongs to a configurationg or a bundle
 'Tags: Quote, Validate, Color, Text
-'Last modified: 4/20/2017 by yu.li9@hpe.com
+'Last modified: 5/11/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime

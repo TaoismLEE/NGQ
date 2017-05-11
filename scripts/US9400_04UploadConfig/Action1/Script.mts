@@ -8,12 +8,7 @@
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
-
-'InitializeTest "CH"
 InitializeTest "Action1"
-
-'Hard-coded data.
-'Dim objUser : Set objUser = NewRealUser("<username>", "<encrypted password>", "<encrypted digitalbadge>")
 
 'DataImport
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
@@ -32,6 +27,7 @@ Dim opportunityID : opportunityID = DataTable.Value("Opportunity_ID", "Global")
 Dim quoteName : quoteName = DataTable.Value("quoteName", "Global")
 Dim uploadConfigPath : uploadConfigPath = Environment.Value("TestDir") & "\..\..\data\" & DataTable.Value("uploadConfigPath", "Global")
 dumpJenkinsOutput Environment.Value("TestName"), "74224", "CPQ_Encore Retirement_US9400_Upload Config_04"
+
 'Open browser.
 OpenNgq objUser
 
@@ -52,12 +48,12 @@ Quote_save
 UFT.BrowserNavigationTimeout = 180000
 Quote_UploadConfig uploadConfigPath
 UFT.BrowserNavigationTimeout = 60000
-'Dim quoteID : quoteID = Quote_get_quoteNumber
 
 verify_product_table
 
+'Exit test
 Navbar_Logout
-browser("NGQ").Close
+Close_Browser
 FinalizeTest
 'file to uploado: C:\Users\rosaljah\OneDrive - Hewlett Packard Enterprise\TAO\ngq-demo-develop\ngq-demo-develop - Rosales\NGQ\data\
 'file name: US9400-04-Configuration.xlsx
