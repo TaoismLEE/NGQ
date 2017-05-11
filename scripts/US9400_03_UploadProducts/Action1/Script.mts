@@ -10,7 +10,7 @@
 		'3. Only valid products are added to the quote
 		'4. The supported file type is .xls or xlsx
 'Tags:  Upload file, Add Valid and Invalid Products to quote
-'Last Modified: 4/21/2017 by yu.li9@hpe.com
+'Last Modified: 5/11/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime

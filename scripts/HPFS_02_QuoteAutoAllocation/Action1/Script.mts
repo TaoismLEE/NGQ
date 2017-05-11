@@ -3,7 +3,7 @@
 'User Story: HPEFS_02
 'Description: Validates that auto allocation can be used to adjust quote total to HPEFS quote price.
 'Tags:Quote, Allocation, HPEFS
-'Last Modified: yu.li9@hpe.com
+'Last Modified: 5/11/2017 by yu.li9@hpe.com
 '==============================================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -53,7 +53,7 @@ OpportunityAndQuoteInfo_ImportOpportunityId strOpportunityId
 'Enter quote name and save it
 Quote_EditQuoteName quoteName
 quote_editCutomerSpecQouteID quoteName
-click_save_button()
+click_save_button
 
 'Upload the product
 uploadProduct 
@@ -63,7 +63,7 @@ importProductExcelSheet dirPath + "\data\depends\" + excelName
 PreValidate_FixDataCheckErrors
 
 'Refresh Pricing
-click_refresh_pricing()
+click_refresh_pricing
 
 'Add auto allocation target requested net price
 Quote_SetTargReqPrice2 targPrice
@@ -76,7 +76,7 @@ Quote_CaptureQuoteNumber
 pdfPath = dirPath + "\data\depends\" + DataTable.Value("QuoteNumber_Output", "Global") + ".pdf"
 Quote_SelectOutputType outputType, pdfPath
 Dim pdfObj : Set pdfObj = NewPdfParser(pdfPath)
-verifyHeaderInPDF quotationName, pdfObj
+'verifyHeaderInPDF quotationName, pdfObj
 verifyCommentInPDF comment, pdfObj
 verifyGrandTotalInPDF DataTable.Value("GrandTotal", "Global"), pdfObj
 verifyProductInPDF pdfObj, numberOfRows

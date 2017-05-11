@@ -2534,7 +2534,7 @@ End Sub
 
 ' clicks on the quote output tab
 Sub Quote_OutputTab()
-	Browser("NGQ").Page("Quote - Output Quote").WebElement("ClickTab").Click
+	Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
 End Sub
 
 ' Sets the type of pdf to create and then saves the pdf to the specified path
