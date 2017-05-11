@@ -5,7 +5,7 @@
 '				2. Sales op is able to search product by product number
 '				3. Sales op is able to delete a previously added product via clicking delete icon in Add to Quote section
 'Tags: Add, Search, Product
-'Last Modified: 4/21/2017 by yu.li9@hpe.com
+'Last Modified: 5/11/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
