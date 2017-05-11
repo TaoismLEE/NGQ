@@ -119,7 +119,7 @@ end sub
 Sub uploadConfigFile(strPath)
 	Browser("NGQ").Page("Upload Config").Frame("ConfigFrame").WebElement("UploadConfigBrowse").Click
 	Browser("NGQ").Dialog("Choose File to Upload").WinEdit("File name:").Set strPath
-	Browser("NGQ").Dialog("Choose File to Upload_2").WinButton("Open").Click
+	Browser("NGQ").Dialog("Choose File to Upload").WinButton("Open").Click
 	Browser("NGQ").Page("Upload Config").Frame("ConfigFrame").WebElement("UploadConfigUpload").Click
 End Sub
 
@@ -128,8 +128,9 @@ Sub Quote_UploadConfig(strPath)
 	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
 	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Upload").MouseOver
-	Browser("NGQ").Page("Quote").WebElement("UploadConfig").Click
 	UFT.ReplayType = intOriginalReplayType
+	wait 1
+	Browser("NGQ").Page("Quote").WebElement("UploadConfig").Click
 	uploadConfigFile strPath
 	Browser("NGQ").Page("Upload Config").Frame("ConfigFrame").WebElement("ProceedImport").Click
 	Browser("NGQ").Page("Upload Config").Frame("ConfigFrame").WebElement("ConfigSave").Click
@@ -592,9 +593,7 @@ Sub LineItemDetails_ValidateProductNonExistFontColor(intIndex, strvalue) '*** Ed
 	dim xpath : xpath = "xpath:=(//div[contains(@class, '" & dynCol & "')])[" & intIndex & "]"
 	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	print actual
 	Dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
-	print actualDesc
 	If actual = "rgb(255, 0, 0)" and actualDesc = "rgb(255, 0, 0)" Then
 		Reporter.ReportEvent micPass, "Validate font color to product that doesn’t exist in Corona","Entire line is Red"	
 	Else
@@ -622,9 +621,7 @@ Sub LineItemDetails_ValidateProductObsoleteFontColor(intIndex, strvalue) '*** Ed
 	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
 	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	print actual
 	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
-	print actualDesc
 	If actual = "rgb(255, 0, 0)" and actualDesc = "rgb(0, 0, 255)" Then
 		Reporter.ReportEvent micPass, "Validate font color to obsolete product","Product number color is Red and Description font is Blue"
 	Else
@@ -638,9 +635,7 @@ Sub LineItemDetails_ValidateValidProductFontColor(intIndex, strvalue) '*** Edite
 	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])/descendant::span[.='" & strvalue & "' and starts-with(@class,'ng-binding')]"
 	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	print actual
 	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
-	print actualDesc
 	If actual = "rgb(0, 0, 255)" and actualDesc = "rgb(0, 0, 255)" Then
 		Reporter.ReportEvent micPass, "Validate font color to valid product","Entire line is blue"
 	Else
@@ -654,9 +649,7 @@ Sub LineItemDetails_ValidateBundleProductFontColor(intIndex, strvalue) '*** Edit
 	dim xpath : xpath = "xpath:=((//div[contains(@class, '" & dynCol & "')])[" & intIndex & "])//span"
 	Dim xpath2 : xpath2 = "xpath:=(//div[contains(@class,'" & strDynCol & "')])[" & intIndex & "]/span"
 	dim actual : actual = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath).GetROProperty("style/color")
-	print actual
 	dim actualDesc : actualDesc = Browser("NGQ").Page("Quote - Line Item Details").WebElement(xpath2).GetROProperty("style/color")
-	print actualDesc
 	If actual = "rgb(0, 0, 0)" and actualDesc = "rgb(0, 0, 0)" Then
 		Reporter.ReportEvent micPass, "Validate font color to product in bunle","Entire line is black"
 	Else
@@ -2011,14 +2004,22 @@ End Sub
 'Adds a product or option the line item details table
 sub Quote_AddProductOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	wait 1
+	intOriginalReplayType
 	Browser("NGQ").Page("Quote").Link("Add Product or Option").Click
 End sub
 
 'Adds a product or option the line item details table
 sub Quote_AddBundleOption()
 	Browser("NGQ").Page("Quote").WebElement("Add").Object.scrollIntoView
+	dim intOriginalReplayType : intOriginalReplayType = UFT.ReplayType
+	UFT.ReplayType = 2
 	Browser("NGQ").Page("Quote").WebElement("Add").MouseOver
+	wait 1
+	UFT.ReplayType = intOriginalReplayType
 	Browser("NGQ").Page("Quote").WebElement("Add Bundle").Click
 End sub
 
@@ -2057,7 +2058,6 @@ End Sub
 Sub Quote_OutputTab()
 	Browser("NGQ").Page("Quote").WebElement("QuoteOutputTab").Click
     Browser("NGQ").Page("Quote - Output Quote").WebList("Pdf Output Type").Select "Extended Net Price by item with estimated delivery"
-    
 End Sub
 
 ' Clicks the preview button
@@ -3995,6 +3995,7 @@ Sub verify_prodTable_prodOpt(productOpt, intIndex)
 		Reporter.ReportEvent micFail, "Verify Option", "Incorrect Product Option"
 	End If
 End Sub
+
 Sub DisplayDealId()
 	    If not Browser("NGQ").Page("Quote - Line Item Details").WebElement("DealIdHeader").Exist(1) Then
 	    	Browser("NGQ").Page("Quote").WebElement("AddCols").Click
