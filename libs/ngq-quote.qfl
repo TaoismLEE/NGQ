@@ -1903,11 +1903,6 @@ Sub Quote_ClickFooter()
 End Sub
 
 
-'Sub Quote_PricingTerms()
-'	Browser("name:=Home.*").Page("title:=Home.*").WebElement("xpath:=//SPAN[@id=""PRCNG_TERMS""]").Click
-'End Sub
-
-
 Sub Quote_PricingBand()
 	
 	If Browser("NGQ").Page("Pricing and Terms").WebElement("PriceQualityBandsTable").Exist Then
