@@ -1819,7 +1819,12 @@ Sub ValidateAssignedList_NewQuote(listArray())
 	Dim intListSize : intListSize = UBound(listArray)
 	Dim iterator 
 	For Iterator = 1 To intListSize Step 1
-		Dim xpath : xpath = "//div[contains(@class,'sortable') and .//span[.='" + listArray(Iterator) + "']]/parent::div"
+		Dim xpath
+		If listArray(Iterator) = "Quantity" Then
+			xpath = "//div[contains(@class,'sortable') and .//span[.='QTY']]/parent::div"
+		else
+			xpath = "//div[contains(@class,'sortable') and .//span[.='" + listArray(Iterator) + "']]/parent::div"
+		End If
 		Browser("NGQ").Page("Navbar - New Quote").WebElement("ColumnName{xpath}").SetTOProperty "xpath", xpath
 		If Browser("NGQ").Page("Navbar - New Quote").WebElement("ColumnName{xpath}").Exist(1) Then
 	    	Reporter.ReportEvent micPass, "Templete Table", listArray(Iterator)+" Value Exist"
