@@ -1,6 +1,6 @@
 ﻿'================================================
 'Project Number:205713
-'User Story: CPQ_Encore Retirement_US9430_Search Quote by multiple search criteria_01
+'User Story: CPQ_Encore Retirement_US9430_01: Search Quote by multiple search criterias
 'Description: This case is to validate:
 '			1. Sales Op is able to search quote database using Opp ID. '
 '			2. Sales Op is able to search quote database using Quote ID. 
@@ -9,6 +9,7 @@
 '			5. Sales Op is able to search quote database using User Name.
 '			6. Sales Op is able to search quote database using Date Range(start date ~ end date).
 'Tags: Search, Filter, Quote
+'Last Modified: 4/21/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
@@ -39,55 +40,53 @@ OpenNgq(objUser)
 
 'search opportunity ID, this will trigger the advanced searchd /valdiat OpportuityID in advanced search
 SetOpportunityId(strOpportunityId)
-QuickSearch_Search()
+QuickSearch_Search
 Validate_OpportunityId_AdvancedSearch(strOpportunityId)
 
 'reset the search
-ClickResetButton_advancedSearch()
-ClickNavbarAdvancedSearch()
+ClickResetButton_advancedSearch
+ClickNavbarAdvancedSearch
 
 'search for MDCP ID in advanced Search
 MDCPIdAdvancedSearch(strMCDPId)
-ClickSearchButton_advancedSearch()
+ClickSearchButton_advancedSearch
 ValidateMDCPIAdvancedSearch(strMCDPId)
 
 ''reset the search
-ClickResetButton_advancedSearch()
+ClickResetButton_advancedSearch
 
 'search for quoteNumber in advanced Search
 QuoteNumber_AdvancedSearch(strQuoterNumber)
-ClickSearchButton_advancedSearch()
+ClickSearchButton_advancedSearch
 Validate_QuoteNumer_AdvancedSearch(strQuoterNumber)
 
 'reset the search
-ClickResetButton_advancedSearch()
+ClickResetButton_advancedSearch
 
 'Search and validate email
 LastModifedEmail(strEmail)
-ClickSearchButton_advancedSearch()
+ClickSearchButton_advancedSearch
 ValidateLasModifedEmail(strEmail)
 
 'reset the search
-ClickResetButton_advancedSearch()
+ClickResetButton_advancedSearch
 
 'search and validate Accoun Name/Company Name
 CompanyNameAccountName(strAccountName)
-ClickSearchButton_advancedSearch()
+ClickSearchButton_advancedSearch
 ValidateCompanyName(strAccountName)
 
 'reset the search
-ClickResetButton_advancedSearch()
+ClickResetButton_advancedSearch
 
 'Search by date
 SetStartDate(strStartDate)
 SetEndDate(strEndDate)
-ClickSearchButton_advancedSearch()
+ClickSearchButton_advancedSearch
 ClickQuoteNumberResult(2)
 ValidateDateRange strStartDate,strEndDate
 
 'logout and close the browser
-Navbar_Logout()
-Browser("NGQ").Close()
-
-FinalizeTest()
-
+Navbar_Logout
+Close_Browser
+FinalizeTest

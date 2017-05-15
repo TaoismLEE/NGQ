@@ -1344,7 +1344,7 @@ End sub
 
 'funtion that fill company name / account name 
 sub CompanyNameAccountName(CompanyName)
-	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Account Name").Set CompanyName
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("Company Name").Set CompanyName
 End sub
 
 'Function that verify the company name  / accont name
@@ -1382,15 +1382,15 @@ End sub
 
 'function to set  the start date
 sub SetStartDate(strStartDate)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("StartDate").FireEvent "ondblclick"
 	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("StartDate").Set strStartDate
-	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("StartDate").Click
 	EnterKey
 End sub
 
 'funtion to set the end date
 sub SetEndDate(strEndDate)
+	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("EndDate").FireEvent "ondblclick"
 	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("EndDate").Set strEndDate
-	Browser("NGQ").Page("Navbar - AdvancedSearch").WebEdit("EndDate").Click
 	EnterKey
 End sub
 
@@ -3646,7 +3646,6 @@ Function FillFilterQuoteNumber(quoteNumber)
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Click 
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").Set quoteNumber
     Browser("NGQ").Page("Navbar - My Dashboard").WebEdit("Filter Quote Number").SendKeys "~"
-    'EnterKeys
 End Function
 
 Function ClickAutoFilter()
