@@ -4,20 +4,20 @@
 'Description:	This case is to validate:
 '				1. Sales op is able to view Price Quality Band (PQB).
 '				2. The Current Band color at the header level and the traffic lights of all products are changed according to the PQB when changing the discount percentage.
-'Tags: PQB, BOM, Product, Pricing 
+'Tags: PQB, BOM, Product, Pricing
+'Last Modified: 5/15/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+InitializeTest "Action1"
 
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
 Dim objUser : Set objUser = NewRealUser(DataTable.Value("user", "Global"), DataTable.Value("pass", "Global"), "<Encrypted DigitalBadge>")
 
 DataTable.Import "..\..\data\US9547_06.xlsx"
-
 Dim strOportunityId, strQuoteName, strMCCDisc, strAmount, strMCCNum, strTargReqDiscPercentage
-
 strOportunityId = DataTable.Value("strOportunityId",1)
 strQuoteName = DataTable.Value("strQuoteName",1)
 strMCCDisc = DataTable.Value("strMCCDisc",1)
@@ -27,8 +27,6 @@ strTargReqDiscPercentage = DataTable.Value("strTargReqDiscPercentage",1)
 
 ' For Jenkins Reporting
 dumpJenkinsOutput Environment.Value("TestName"), "74273", "CPQ_Encore Retirement_US9597_ show Price Quality Band_06"
-
-InitializeTest "Action1"
 
 'Open browser
 OpenNgq(objUser)
@@ -49,42 +47,33 @@ OpportunityAndQuoteInfo_Import()
 Quote_EditQuoteName(strQuoteName)
 
 'Save Import
-Quote_save()
+Quote_save
 
 'Scroll down
 pageDownNewQuotePage()
 
-'Click add btn and add config from ocs
-'ClickAddConfigOcs() - DOESNT WORK
-'click_lineitem_add_ocs
-
-'Process inside OCS
-'Ocs_SelectAndConfigureProduct()
-'Ocs_SaveBom()
-'Ocs_SaveBomValid()
-'Ocs_ClickConvertToQuote()
+'Add config from ocs
 build_ocs_bom
+
 'Click refresh pricing
 ClickRefreshPricing()
 
 'Click in pricing and term tab
 ClickPricingTermsTab()
 
+'Add a MCC disacount
 requestOPDisc_MCC(strMCCDisc)
- 
 RequestOPDisc_amount(strAmount)
-
-'submint discount
 RequestOPDisc_Submit()
 
 'validate the discount
 MCC_success_message(strMCCNum)
 
 'Click refresh pricing
-ClickRefreshPricing()
+ClickRefreshPricing
 
 'Save Import
-Quote_save()
+Quote_save
 
 'Auto Allocation total disc and apply
 SetAutoAllocTargReqDiscPercentage(strTargReqDiscPercentage)
@@ -93,6 +82,6 @@ SetAutoAllocTargReqDiscPercentage(strTargReqDiscPercentage)
 ClickRefreshPricing()
 
 'logout and close the browser
-Navbar_Logout()
-Browser("NGQ").Close()
+Navbar_Logout
+Close_Browser
 FinalizeTest

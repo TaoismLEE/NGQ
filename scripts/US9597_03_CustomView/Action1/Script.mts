@@ -5,12 +5,11 @@
 '				1. Sales op is able to create,edit,delete custom view and set custom view as default.
 '				2. NGQ is able to  display the default custom view configured by Sales op.
 'Tags: Create, Edit, Delete, CustomView
-'Last Modified: 4/20/2017 by yu.li9@hpe.com
+'Last Modified: 5/15/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
-
 InitializeTest "Action1"
 
 'Load the xls file for the user information
@@ -54,19 +53,19 @@ MoveUpAssignedLabel(arrColumnLabel(9))
 MoveDownAssigendLAbel(arrColumnLabel(9))
 
 'Click the "Set as Default" checkbox
-CheckSetAsDefault()
+CheckSetAsDefault
 
 'Save all the items in the array "LabelsAssignedColumn" to compare later 
-arrLabelsAssignedColumn = NoteDownAssignedColumn()
+arrLabelsAssignedColumn = NoteDownAssignedColumn
 
 'save the new choose view
-ClickSaveBtnMyPrecerences()
+ClickSaveBtnMyPrecerences
 
 'go to new Quote navbar
-Navbar_CreateNewQuote()
+Navbar_CreateNewQuote
 
 'Scroll down
-pageDownNewQuotePage()
+pageDownNewQuotePage
 
 'Validate Choose view match with the new one
 ValidateChooseView(strChooseViewName)
@@ -81,16 +80,16 @@ ClickMyPreferenceUnderAdminTools
 EditChooseView(strChooseViewName)
 
 'Click the check box to uncheck the default setting
-CheckSetAsDefault()
+CheckSetAsDefault
 
 'Save
-ClickSaveBtnMyPrecerences()
+ClickSaveBtnMyPrecerences
 
 'go to new Quote navbar
-Navbar_CreateNewQuote()
+Navbar_CreateNewQuote
 
 'Scroll down
-pageDownNewQuotePage()
+pageDownNewQuotePage
 
 'Validate Choose view match with the default
 ValidateChooseView("DEFAULT_VIEW")
@@ -102,7 +101,7 @@ ClickMyPreferenceUnderAdminTools
 EditChooseView(strChooseViewName)
 
 'Click to Delete Choose view
-ClickDeleteBtnChooseView()
+ClickDeleteBtnChooseView
 
 'logout and close the browser
 Navbar_Logout
