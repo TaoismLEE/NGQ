@@ -4,11 +4,12 @@
 'Description: This case is to validate:
 '			1.Sales Op is able to transfer a quote to another NGQ user in the same group.
 'Tags: Quote, Transfer, Group
-'Author: yu.li9@hpe.com
+'Last Modified: 5/15/2017 by yu.li9@hpe.com
 '================================================
 Option Explicit
 Dim al : Set al = NewActionLifetime
 SystemUtil.CloseProcessByName "IEXPLORE.EXE"
+InitializeTest "Action1"
 
 'Load the xls file for the user information
 DataTable.Import "..\..\data\NGQ_empty_quote_data.xlsx"
@@ -20,9 +21,7 @@ Dim strTargetUser : strTargetUser = DataTable.Value("TargetUser",1)
 Dim strTransferReason : strTransferReason = DataTable.Value("TransferReason",1)
 Dim strUserGroup : strUserGroup = DataTable.Value("UserGroup",1)
 
-InitializeTest "Action1"
-
-' For Jenkins Reporting
+'For Jenkins Reporting
 dumpJenkinsOutput Environment.Value("TestName"), "74249", "CPQ_Encore Retirement_US9430_Transfer a quote to another NGQ user in the same group_04"
 
 'open web browser and go to NGQ/My Dashboard
@@ -31,6 +30,7 @@ ClickMyDashboard
 
 'validate if QuoteTab is selected
 ValidateQuoteTab
+
 'To get the first quote
 Dim strQuote: strQuote = GetFirstQuoteNumberofMyQuote(2)
 
@@ -76,8 +76,7 @@ Dim strQuoteNumber : strQuoteNumber = GetFirstQuoteNumberofMyGroupQuote(2)
 CompareTwoQuote strQuoteNumber, strQuote
 
 'logout and close the browser
-Navbar_Logout()
-Browser("NGQ").Close()
-
+Navbar_Logout
+Close_Browser
 FinalizeTest
 
