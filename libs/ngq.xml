@@ -13071,6 +13071,20 @@
 <qtpRep:ChildObjects>
 </qtpRep:ChildObjects>
 </qtpRep:Object>
+<qtpRep:Object Class="WinMenu" Name="Edit address">
+<qtpRep:Properties>
+<qtpRep:Property Name="menuobjtype" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[3]]></qtpRep:Value>	</qtpRep:Property>
+</qtpRep:Properties>
+<qtpRep:BasicIdentification>
+<qtpRep:PropertyRef>menuobjtype</qtpRep:PropertyRef>
+</qtpRep:BasicIdentification>
+<qtpRep:Comments>
+<qtpRep:Comment Name="miccommentproperty"></qtpRep:Comment>
+</qtpRep:Comments>
+<qtpRep:LastUpdateTime>Friday, August 19, 2016 9:07:09 AM</qtpRep:LastUpdateTime>
+<qtpRep:ChildObjects>
+</qtpRep:ChildObjects>
+</qtpRep:Object>
 <qtpRep:Object Class="WinEdit" Name="File name:">
 <qtpRep:Properties>
 <qtpRep:Property Name="nativeclass" Hidden="0" ReadOnly="0" Type="STRING">	<qtpRep:Value RegularExpression="0"><![CDATA[Edit]]></qtpRep:Value>	</qtpRep:Property>

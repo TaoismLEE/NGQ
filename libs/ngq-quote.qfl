@@ -3568,22 +3568,16 @@ End Sub
 '*******************************************************************************************
 Sub SavePdfAs(strPath)
 	Browser("NGQ").WinObject("Save Bar").WinButton("Save Drop Down Menu").Click
+	Dim strDefaultType : strDefaultType = UFT.ReplayType
 	UFT.ReplayType = 2
 
 	Browser("NGQ").WinObject("Save Bar").WinMenu("Save Drop Down Menu").Select "Save as"
-	'UFT.ReplayType = 1
-	'Browser("NGQ").Dialog("Save As").WinEdit("File name:").Set strPath
-	Browser("NGQ").Dialog("Save As").WinToolbar("FolderPath").Click
+	Browser("NGQ").Dialog("Save As").WinToolbar("FolderPath").Click ,,micRightBtn
+	Browser("NGQ").Dialog("Save As").WinMenu("Edit address").Select "Edit address"
 	Browser("NGQ").Dialog("Save As").WinEdit("edit").Set strPath
 	Browser("NGQ").Dialog("Save As").WinEdit("edit").Type  micReturn
-
-'	Browser("NGQ").Dialog("Save As").WinEdit("File name:").Click
-'	Dim wshshell
-'	Set wshshell = CreateObject("WScript.Shell")
-'	wshshell.Sendkeys "{ENTER}"
-	'print "have saved file to path: " & strPath
 	Browser("NGQ").Dialog("Save As").WinButton("Save").Click
-	UFT.ReplayType = 1
+	UFT.ReplayType = strDefaultType
 End Sub 
 
 '*******************************************************************************************
